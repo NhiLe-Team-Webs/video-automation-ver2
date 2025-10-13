@@ -18,6 +18,32 @@ JSON_BLOCK_RE = re.compile(r"```(?:json)?\s*(\{.*?\})\s*```", re.DOTALL)
 
 SFX_EXTENSIONS = {".mp3", ".wav", ".ogg"}
 
+MAX_SCENE_CONTEXT_ITEMS = 32
+MAX_BROLL_SUMMARY_ITEMS = 20
+MAX_SFX_ITEMS_PER_CATEGORY = 5
+
+
+def load_json_if_exists(path: Path | None) -> Dict[str, Any]:
+    if not path:
+        return {}
+    if not path.exists():
+        return {}
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except json.JSONDecodeError:
+        print(f"[WARN] Could not parse JSON file: {path}", file=sys.stderr)
+    except OSError:
+        print(f"[WARN] Could not read JSON file: {path}", file=sys.stderr)
+    return {}
+
+
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
 
 def _humanize_sfx_description(relative_path: Path) -> str:
     category = relative_path.parent.name if relative_path.parent != Path(".") else "mix"
@@ -134,11 +160,160 @@ def _format_available(values: Iterable[str]) -> str:
     return ", ".join(values)
 
 
-def build_prompt(entries: Iterable[SrtEntry], *, extra_instructions: str | None = None) -> str:
-    timeline_lines = []
-    for entry in entries:
-        snippet = entry.text_one_line
-        timeline_lines.append(f"{entry.index}. [{entry.start} -> {entry.end}] {snippet}")
+def summarize_scene_map(scene_map: Dict[str, Any], limit: int = MAX_SCENE_CONTEXT_ITEMS) -> str:
+    segments = scene_map.get("segments") or []
+    if not segments:
+        return ""
+
+    lines: List[str] = []
+    summary = scene_map.get("summary") or {}
+    summary_parts: List[str] = []
+
+    total_segments = summary.get("totalSegments")
+    if total_segments is not None:
+        summary_parts.append(f"segments={total_segments}")
+    duration = summary.get("estimatedDurationSeconds")
+    if duration is not None:
+        summary_parts.append(f"duration~{_safe_float(duration):.1f}s")
+    highlight_segments = summary.get("highlightSegments")
+    if highlight_segments is not None:
+        summary_parts.append(f"highlight>=threshold={highlight_segments}")
+    cta_segments = summary.get("ctaSegments")
+    if cta_segments is not None:
+        summary_parts.append(f"cta={cta_segments}")
+    motion_freq = summary.get("motionFrequencyConfig")
+    if motion_freq is not None:
+        summary_parts.append(f"motion_frequency={_safe_float(motion_freq):.2f}")
+    highlight_rate = summary.get("highlightRateConfig")
+    if highlight_rate is not None:
+        summary_parts.append(f"highlight_rate={_safe_float(highlight_rate):.2f}")
+
+    top_topics = summary.get("topTopics") or []
+    if top_topics:
+        topic_summary = ", ".join(
+            f"{topic_entry.get('topic','?')}({topic_entry.get('count',0)})"
+            for topic_entry in top_topics[:6]
+        )
+        summary_parts.append(f"top_topics={topic_summary}")
+
+    if summary_parts:
+        lines.append("Summary: " + " | ".join(summary_parts))
+
+    for idx, segment in enumerate(segments[:limit], start=1):
+        seg_id = segment.get("id", idx)
+        start = _safe_float(segment.get("start"))
+        end = _safe_float(segment.get("end"))
+        topics = ", ".join(segment.get("topics", [])[:3]) or "-"
+        emotion = segment.get("emotion", "neutral")
+        highlight_score = _safe_float(segment.get("highlightScore"))
+        motion_candidates = ", ".join(segment.get("motionCandidates", [])[:3]) or "-"
+        sfx_hints = ", ".join(segment.get("sfxHints", [])[:3]) or "-"
+        flags: List[str] = []
+        if segment.get("cta"):
+            flags.append("cta")
+        if segment.get("parallaxEligible"):
+            flags.append("parallax")
+        flag_suffix = f" | flags={','.join(flags)}" if flags else ""
+        lines.append(
+            f"{seg_id}: {start:.2f}-{end:.2f}s | topics={topics} | emotion={emotion} "
+            f"| highlight={highlight_score:.2f} | motion={motion_candidates} | sfx={sfx_hints}{flag_suffix}"
+        )
+
+    remaining = len(segments) - limit
+    if remaining > 0:
+        lines.append(f"... {remaining} additional segments omitted")
+
+    return "\n".join(lines)
+
+
+def summarize_broll_catalog(catalog: Dict[str, Any], limit: int = MAX_BROLL_SUMMARY_ITEMS) -> str:
+    items = catalog.get("items") or []
+    if not items:
+        return ""
+
+    lines: List[str] = []
+    for item in items[:limit]:
+        item_id = item.get("id", "?")
+        media_type = item.get("mediaType", "video")
+        orientation = item.get("orientation", "landscape")
+        topics = ", ".join(item.get("topics", [])[:3]) or "-"
+        mood = ", ".join(item.get("mood", [])[:2]) or "-"
+        usage = ", ".join(item.get("recommendedUsage", [])[:2]) or "-"
+        lines.append(
+            f"{item_id}: {media_type}/{orientation} | topics={topics} | mood={mood} | usage={usage}"
+        )
+
+    remaining = len(items) - limit
+    if remaining > 0:
+        lines.append(f"... {remaining} additional B-roll items available")
+
+    return "\n".join(lines)
+
+
+def summarize_sfx_catalog(catalog: Dict[str, Any], max_items: int = MAX_SFX_ITEMS_PER_CATEGORY) -> str:
+    categories = catalog.get("categories") or []
+    if not categories:
+        return ""
+
+    lines: List[str] = []
+    for category in categories:
+        label = category.get("label") or category.get("id") or "misc"
+        items = category.get("items") or []
+        if not items:
+            continue
+
+        entries: List[str] = []
+        for item in items[:max_items]:
+            item_id = item.get("id", "?")
+            usage = item.get("usage") or []
+            usage_text = "/".join(usage[:2]) if usage else ""
+            if usage_text:
+                entries.append(f"{item_id} ({usage_text})")
+            else:
+                entries.append(item_id)
+
+        remaining = len(items) - max_items
+        if remaining > 0:
+            entries.append(f"+{remaining} more")
+
+        lines.append(f"{label}: {', '.join(entries)}")
+
+    return "\n".join(lines)
+
+
+def summarize_motion_rules(motion_rules: Dict[str, Any]) -> str:
+    if not motion_rules:
+        return ""
+
+    lines: List[str] = []
+    motion_freq = motion_rules.get("motion_frequency")
+    highlight_rate = motion_rules.get("highlight_rate")
+    if motion_freq is not None:
+        lines.append(f"Target motion frequency <= {motion_freq}")
+    if highlight_rate is not None:
+        lines.append(f"Highlight threshold >= {highlight_rate}")
+
+    for key, value in motion_rules.items():
+        if key.endswith("_keywords") and isinstance(value, list):
+            cue = key.replace("_keywords", "").replace("_", " ")
+            lines.append(f"{cue}: {', '.join(value)}")
+
+    return "\n".join(lines)
+
+
+def build_prompt(
+    entries: Iterable[SrtEntry],
+    *,
+    extra_instructions: str | None = None,
+    scene_map: Dict[str, Any] | None = None,
+    broll_catalog: Dict[str, Any] | None = None,
+    sfx_catalog: Dict[str, Any] | None = None,
+    motion_rules: Dict[str, Any] | None = None,
+) -> str:
+    timeline_lines = [
+        f"{entry.index}. [{entry.start} -> {entry.end}] {entry.text_one_line}"
+        for entry in entries
+    ]
     transcript_section = "\n".join(timeline_lines)
 
     schema_hint = {
@@ -171,53 +346,80 @@ def build_prompt(entries: Iterable[SrtEntry], *, extra_instructions: str | None 
         ],
     }
 
-    sfx_names = _format_available(AVAILABLE_SFX.keys())
+    schema_hint_json = json.dumps(schema_hint, indent=2)
+
+    sfx_names = _format_available(sorted(AVAILABLE_SFX.keys()))
     sfx_notes = "; ".join(f"{name}: {desc}" for name, desc in AVAILABLE_SFX.items())
     transition_types = _format_available(TRANSITION_TYPES)
     transition_directions = _format_available(TRANSITION_DIRECTIONS)
     highlight_positions = _format_available(HIGHLIGHT_POSITIONS)
     highlight_animations = _format_available(HIGHLIGHT_ANIMATIONS)
 
-    instructions = (
-        "Bạn là editor phụ trợ. Tạo JSON plan cho Remotion với các segment cắt gọn, transition mượt, highlight text và SFX hợp lý. "
-        "Giữ tổng thể cinematic, tránh spam hiệu ứng."
+    instruction_text = (
+        "You are a detail-oriented video editor. Build a Remotion JSON plan with concise segments, smooth transitions, and purposeful highlights/SFX. "
+        "Maintain a cinematic rhythm and avoid overusing effects."
     )
     if extra_instructions:
-        instructions += f" Extra guidance from user: {extra_instructions.strip()}"
+        instruction_text += f" Extra guidance from user: {extra_instructions.strip()}"
 
-    prompt = (
-        f"{instructions}\n\n"
-        "Xuất JSON hợp lệ đúng schema (ví dụ dưới chỉ minh họa, hãy cập nhật giá trị thực tế):\n"
-        f"{json.dumps(schema_hint, indent=2)}\n\n"
-        "Rules:\n"
-        "- `segments` chứa các đoạn theo timeline với `sourceStart` (giây trong video gốc) và `duration`. Có thể thêm `label` mô tả ngắn.\n"
-        "- `transitionIn`/`transitionOut` dùng `type` thuộc: "
-        + transition_types
-        + "; nếu `type` là `slide` có thể thêm `direction`: "
-        + transition_directions
-        + "; với `zoom`/`scale`/`rotate`/`blur` có thể set `intensity` trong khoảng 0.1-0.35 để kiểm soát độ mạnh.\n"
-        "- Trim/merge câu khi khoảng lặng > ~0.7s trừ khi cần giữ nhịp cảm xúc.\n"
-        f"- Chỉ tạo tối đa {MAX_HIGHLIGHTS} highlight mạnh nhất. Duy trì mỗi highlight 2-4s.\n"
-        "- `highlights` mô tả khoảnh khắc cần nhấn mạnh. Với highlight chữ, cung cấp `type` (noteBox/typewriter/sectionTitle), `text`, `start`, `duration`, `position` ("
-        + highlight_positions
-        + "), `animation` ("
-        + highlight_animations
-        + "), `variant` (blurred/brand/cutaway/typewriter) và `sfx` nếu cần.\n"
-        "- Để tạo highlight icon, dùng `type: \"icon\"` với `name` (tiêu đề ngắn), `icon` (ví dụ: `launch`, `fa:robot`), tùy chọn `accentColor`, `backgroundColor`, `iconColor`, `animation` ("
-        + highlight_animations
-        + ") cùng `sfx`/`volume` nếu phù hợp.\n"
-        "- Luon chen it nhat mot highlight `type: \"icon\"` neu transcript co diem gioi thieu san pham, thanh tuu hoac closing cam xuc; chon icon phu hop va giu animation gon gang (float/pulse/pop).\n"
-        "- SFX phải chọn từ thư viện assets/sfx với path tương đối (vd: assets/sfx/ui/pop.mp3 hoặc ui/pop.mp3). Danh sách: "
-        + sfx_names
-        + ". Gợi ý: "
-        + sfx_notes
-        + "\n"
-        "- Nếu highlight có SFX, đặt `start` khớp moment cần nhấn và cân nhắc `volume` (0-1).\n"
-        "- Đảm bảo các segment nối tiếp nhau không bị gap thời gian.\n"
-        "- Chỉ trả về JSON trong một code block.\n\n"
-        "Transcript segments (ordered):\n"
-        f"{transcript_section}\n"
-    )
+    rules_lines = [
+        "- `segments` describe consecutive portions of the trimmed video with `sourceStart` (seconds) and `duration`. Use `label` for short context if helpful.",
+        f"- `transitionIn`/`transitionOut` types may be: {transition_types}; slides can add `direction` ({transition_directions}); zoom/scale/rotate/blur may include `intensity` between 0.1 and 0.35.",
+        "- Trim or merge sentences when silence exceeds ~0.7s unless a pause is intentionally required.",
+        f"- Emit at most {MAX_HIGHLIGHTS} standout highlights; keep each roughly 2-4 seconds.",
+        f"- Populate `highlights` with `type` (noteBox/typewriter/sectionTitle/icon/etc.), `text`, `start`, `duration`, plus `position` ({highlight_positions}) and `animation` ({highlight_animations}).",
+        "- For `type: \"icon\"` include `name` (short label) and optional icon/colors/animation; attach SFX when it enhances energy.",
+        f"- Always pick SFX from `assets/sfx` with relative paths (for example assets/sfx/ui/pop.mp3). Available options: {sfx_names}. Key notes: {sfx_notes}.",
+        "- When highlights include SFX, align `start` with the moment and set `volume` between 0-1 if needed.",
+        "- Segments must touch end-to-start with no gaps in the source timeline.",
+        "- Respond with JSON inside a single fenced code block.",
+    ]
+
+    highlight_rate_value = None
+    if motion_rules:
+        highlight_rate_value = motion_rules.get("highlight_rate")
+        rules_lines.append("- Motion cues must follow the keywords and frequency found in the motion rules context.")
+    if highlight_rate_value is not None:
+        rules_lines.append(
+            f"- Treat segments with `highlightScore` >= {highlight_rate_value} as prime candidates for visual emphasis, B-roll, and SFX."
+        )
+    if scene_map:
+        rules_lines.append("- Use the scene map insights below to align B-roll, CTA moments, motion cues, and SFX hints per segment.")
+    if broll_catalog:
+        rules_lines.append("- Choose B-roll IDs from the catalog context, matching topics/mood and keeping framing consistent.")
+
+    context_sections: List[str] = []
+    if scene_map:
+        scene_summary = summarize_scene_map(scene_map)
+        if scene_summary:
+            context_sections.append("Scene map insights:\n" + scene_summary)
+    if broll_catalog:
+        broll_summary = summarize_broll_catalog(broll_catalog)
+        if broll_summary:
+            context_sections.append("B-roll catalog (id / media / topics):\n" + broll_summary)
+    if motion_rules:
+        motion_summary = summarize_motion_rules(motion_rules)
+        if motion_summary:
+            context_sections.append("Motion cue rules:\n" + motion_summary)
+    if sfx_catalog:
+        sfx_summary = summarize_sfx_catalog(sfx_catalog)
+        if sfx_summary:
+            context_sections.append("SFX catalog overview:\n" + sfx_summary)
+
+    context_block = "\n\n".join(context_sections)
+
+    prompt_parts = [
+        instruction_text,
+        "Use this schema template (update with real values):",
+        schema_hint_json,
+        "Rules:",
+        "\n".join(rules_lines),
+    ]
+    if context_block:
+        prompt_parts.append("Supplemental context:\n" + context_block)
+    prompt_parts.append("Transcript segments (ordered):\n" + transcript_section)
+
+    prompt = "\n\n".join(part for part in prompt_parts if part) + "\n"
     return prompt
 
 
@@ -751,6 +953,12 @@ def main(argv: List[str] | None = None) -> int:
         action="store_true",
         help="Print the prompt without calling Gemini",
     )
+    parser.add_argument(
+        "--scene-map",
+        dest="scene_map_path",
+        type=Path,
+        help="Optional scene_map.json to enrich the prompt with precomputed metadata",
+    )
 
     args = parser.parse_args(argv)
 
@@ -761,7 +969,28 @@ def main(argv: List[str] | None = None) -> int:
     if not entries:
         parser.error("No valid entries found in SRT")
 
-    prompt = build_prompt(entries, extra_instructions=args.extra_instructions)
+    scene_map_data: Dict[str, Any] | None = None
+    if args.scene_map_path:
+        if not args.scene_map_path.exists():
+            parser.error(f"Scene map not found: {args.scene_map_path}")
+        scene_map_data = load_json_if_exists(args.scene_map_path)
+        if not scene_map_data:
+            print(f"[WARN] Scene map is empty or invalid: {args.scene_map_path}", file=sys.stderr)
+            scene_map_data = None
+
+    repo_root = Path(__file__).resolve().parents[2]
+    broll_catalog = load_json_if_exists(repo_root / "assets" / "broll_catalog.json") or None
+    sfx_catalog = load_json_if_exists(repo_root / "assets" / "sfx_catalog.json") or None
+    motion_rules = load_json_if_exists(repo_root / "assets" / "motion_rules.json") or None
+
+    prompt = build_prompt(
+        entries,
+        extra_instructions=args.extra_instructions,
+        scene_map=scene_map_data,
+        broll_catalog=broll_catalog,
+        sfx_catalog=sfx_catalog,
+        motion_rules=motion_rules,
+    )
 
     if args.dry_run:
         print(prompt)
@@ -801,6 +1030,3 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
-

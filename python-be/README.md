@@ -158,6 +158,7 @@ The generated plan conforms to the Remotion schema (`remotion-app/src/data/planS
 - `scripts/make_plan_gemini.py` submits the transcript to Gemini and normalizes the response to the schema above.
 - Requires the `GEMINI_API_KEY` environment variable (and optional `GEMINI_MODEL`).
 - If Gemini fails, the pipeline automatically falls back to `scripts/make_plan_from_srt.py`, which uses `plan/mapping.json`.
+- Khi đã có `outputs/scene_map.json`, chạy `python scripts/make_plan_gemini.py outputs/stage1_cut.srt outputs/plan.json --scene-map outputs/scene_map.json` để Gemini tận dụng metadata scene, thư viện B-roll/SFX và rules chuyển động.
 
 ### Customize the fallback mapping
 
