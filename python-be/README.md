@@ -56,6 +56,16 @@ The scripts inside `python-be/` normalize your source footage, generate transcri
    npm run render                   # produces out/final.mp4
    ```
 
+## Scene map generator
+
+- `scripts/generate_scene_map.py` phân tích SRT và sinh `scene_map.json` với nhãn chủ đề, highlight score, CTA flag, gợi ý motion/SFX.
+- Ví dụ chạy: 
+  ```bash
+  python scripts/generate_scene_map.py outputs/stage1_cut.srt -o outputs/scene_map.json --fps 30
+  ```
+- Script tự động đọc `assets/broll_catalog.json` và `assets/motion_rules.json` (nếu có) để map chủ đề và motion cue.
+- Kết quả dùng làm đầu vào cho bước lập kế hoạch (AI hoặc rule engine) trước khi tạo `plan.json`.
+
 ## 📄 `plan.json` structure
 
 The generated plan conforms to the Remotion schema (`remotion-app/src/data/planSchema.ts`):
