@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "generatedAt": "2025-10-13T00:00:00Z",
+  "defaults": {
+    "fadeInMs": 40,
+    "fadeOutMs": 120
+  },
+  "categories": [
+    {
+      "id": "cartoon",
+      "label": "Cartoon & Fun",
+      "description": "Playful accents for light-hearted beats or motion cues.",
+      "items": [
+        {
+          "id": "cartoon_boing",
+          "title": "Cartoon Boing",
+          "file": "assets/sfx/cartoon/boing.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["punchline accent", "motion pop"],
+          "mood": ["playful"],
+          "notes": ""
+        },
+        {
+          "id": "cartoon_slip",
+          "title": "Cartoon Slip",
+          "file": "assets/sfx/cartoon/cartoon-slip.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "low",
+          "usage": ["comic relief", "scene transitions"],
+          "mood": ["whimsical"],
+          "notes": ""
+        },
+        {
+          "id": "cartoon_throw",
+          "title": "Cartoon Throw",
+          "file": "assets/sfx/cartoon/throw.mp3",
+          "format": "mp3",
+          "length": "medium",
+          "intensity": "medium",
+          "usage": ["object motion", "animated emphasis"],
+          "mood": ["energetic"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "emotion",
+      "label": "Emotional Reactions",
+      "description": "Crowd and vocal cues to underline audience reactions.",
+      "items": [
+        {
+          "id": "emotion_applause",
+          "title": "Applause Crowd",
+          "file": "assets/sfx/emotion/applause.mp3",
+          "format": "mp3",
+          "length": "long",
+          "intensity": "high",
+          "usage": ["cta payoff", "big wins"],
+          "mood": ["celebratory"],
+          "notes": ""
+        },
+        {
+          "id": "emotion_disappointed",
+          "title": "Disappointed Sigh",
+          "file": "assets/sfx/emotion/disapointed.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "low",
+          "usage": ["contrast setup", "before solution reveal"],
+          "mood": ["somber"],
+          "notes": ""
+        },
+        {
+          "id": "emotion_shock",
+          "title": "Shock Gasp",
+          "file": "assets/sfx/emotion/shock.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["surprise reveal", "plot twist"],
+          "mood": ["surprised"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "label": "Emphasis Hits",
+      "description": "Clean accent hits to underline highlights and key points.",
+      "items": [
+        {
+          "id": "emphasis_ding",
+          "title": "Bright Ding",
+          "file": "assets/sfx/emphasis/ding.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["highlight text", "metric callout"],
+          "mood": ["positive"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "label": "Tech Accents",
+      "description": "Digital cues for futuristic or product-led storytelling.",
+      "items": [
+        {
+          "id": "tech_camera_click",
+          "title": "Camera Click",
+          "file": "assets/sfx/tech/camera-click.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["screenshot moment", "feature reveal"],
+          "mood": ["crisp"],
+          "notes": ""
+        },
+        {
+          "id": "tech_notification",
+          "title": "Tech Notification Ping",
+          "file": "assets/sfx/tech/notification.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["status update", "ui interaction"],
+          "mood": ["alert"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "label": "UI Interactions",
+      "description": "Interface feedback sounds for micro-interactions.",
+      "items": [
+        {
+          "id": "ui_bubble_pop",
+          "title": "Bubble Pop",
+          "file": "assets/sfx/ui/bubble-pop.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "low",
+          "usage": ["button tap", "fun overlay"],
+          "mood": ["playful"],
+          "notes": ""
+        },
+        {
+          "id": "ui_keyboard_typing",
+          "title": "Keyboard Typing Loop",
+          "file": "assets/sfx/ui/keyboard-typing.mp3",
+          "format": "mp3",
+          "length": "loop",
+          "intensity": "low",
+          "usage": ["background bed", "typing montage"],
+          "mood": ["focused"],
+          "loopable": true,
+          "notes": ""
+        },
+        {
+          "id": "ui_mouse_click",
+          "title": "Mouse Click",
+          "file": "assets/sfx/ui/mouse-click.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["button press", "ui confirmation"],
+          "mood": ["precise"],
+          "notes": ""
+        },
+        {
+          "id": "ui_notification",
+          "title": "UI Notification",
+          "file": "assets/sfx/ui/notification.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["alert pop", "status update"],
+          "mood": ["bright"],
+          "notes": ""
+        },
+        {
+          "id": "ui_pop",
+          "title": "UI Pop",
+          "file": "assets/sfx/ui/pop.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "medium",
+          "usage": ["icon reveal", "text highlight"],
+          "mood": ["snappy"],
+          "notes": ""
+        },
+        {
+          "id": "ui_swipe",
+          "title": "UI Swipe",
+          "file": "assets/sfx/ui/swipe.mp3",
+          "format": "mp3",
+          "length": "short",
+          "intensity": "low",
+          "usage": ["gesture motion", "screen transition"],
+          "mood": ["smooth"],
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "whoosh",
+      "label": "Whoosh & Transitions",
+      "description": "Directional swishes to sell camera moves and scene changes.",
+      "items": [
+        {
+          "id": "whoosh_standard",
+          "title": "Classic Whoosh",
+          "file": "assets/sfx/whoosh/woosh.mp3",
+          "format": "mp3",
+          "length": "medium",
+          "intensity": "medium",
+          "usage": ["cuts", "motion cues"],
+          "mood": ["energetic"],
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}

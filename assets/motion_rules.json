@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "generatedAt": "2025-10-13T00:00:00Z",
+  "zoom_in_keywords": ["important", "key", "main", "remember", "focus"],
+  "zoom_out_keywords": ["summary", "overall", "wrap", "finally"],
+  "pan_keywords": ["however", "but", "meanwhile", "transition", "next"],
+  "shake_keywords": ["surprise", "unexpected", "shock", "boom"],
+  "parallax": true,
+  "motion_frequency": 0.45,
+  "highlight_rate": 0.6,
+  "sfx_on_highlight": true
+}
