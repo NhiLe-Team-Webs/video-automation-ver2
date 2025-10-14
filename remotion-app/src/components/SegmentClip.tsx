@@ -318,17 +318,15 @@ const renderBrollAsset = (
   const source = staticFile(normalized);
 
   if (mediaType === 'image') {
-    return <Img src={source} style={style} />;
+    return <Img src={source} style={style} placeholder="" />;
   }
 
   return (
     <Video
       src={source}
-      muted
       loop
       playbackRate={1}
       style={style}
-      volume={0}
       startFrom={0}
     />
   );
@@ -426,7 +424,6 @@ const buildBrollLayer = ({
     return (
       <div style={overlayBase}>
         {brollContent}
-        {title ? <div style={labelStyle}>{title}</div> : null}
       </div>
     );
   }
