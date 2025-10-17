@@ -125,8 +125,7 @@ export const buildTimeline = (
 
     // For subsequent segments, calculate placement based on previous segment and transitions
     const previous = timeline[index - 1];
-    const overlap = Math.max(previous.transitionOutFrames, transitionInFrames);
-    const from = previous.from + previous.duration - overlap;
+    const from = previous.from + previous.duration;
 
     timeline.push({
       segment: segmentForTimeline,

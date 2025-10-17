@@ -43,6 +43,26 @@ export type CameraMovement = 'static' | 'zoomIn' | 'zoomOut';
 /**
  * Represents a plan for a single video segment.
  */
+export type MotionCue =
+  | 'pan'
+  | 'zoomIn'
+  | 'zoomOut'
+  | 'shake'
+  | 'tiltUp'
+  | 'tiltDown';
+
+export type BrollMode = 'overlay' | 'full' | 'pictureInPicture';
+
+export interface SegmentBrollPlan {
+  id?: string;
+  file?: string;
+  mode?: BrollMode;
+  confidence?: number;
+  reasons?: string[];
+  startAt?: number;
+  playbackRate?: number;
+}
+
 export interface SegmentPlan {
   /** A unique identifier for the segment. */
   id: string;
@@ -65,9 +85,11 @@ export interface SegmentPlan {
   /** Optional camera movement to apply to the segment. */
   cameraMovement?: CameraMovement;
   /** Optional flag indicating if there should be silence after this segment. */
+  motionCue?: MotionCue;
   silenceAfter?: boolean;
   /** Optional arbitrary metadata associated with the segment. */
   metadata?: Record<string, unknown>;
+  broll?: SegmentBrollPlan | null;
 }
 
 /**

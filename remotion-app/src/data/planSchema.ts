@@ -1,11 +1,14 @@
 import {z} from 'zod';
 import type {
+  BrollMode,
   CameraMovement,
   HighlightPlan,
   HighlightPosition,
   HighlightType,
   IconAnimation,
+  MotionCue,
   Plan,
+  SegmentBrollPlan,
   SegmentPlan,
   TransitionDirection,
   TransitionPlan,
@@ -108,6 +111,98 @@ const segmentPlanSchema: z.ZodType<SegmentPlan, z.ZodTypeDef, z.input<typeof seg
   silenceAfter?: unknown;
   metadata?: unknown;
 }> = z
+const normalizeBrollModeToken = (value: unknown): unknown => {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  const trimmed = value.trim().toLowerCase();
+  if (!trimmed.length) {
+    return value;
+  }
+
+  if (['full', 'fullscreen', 'replace', 'cover', 'wide'].includes(trimmed)) {
+    return 'full';
+  }
+
+  if (['pip', 'pictureinpicture', 'picture-in-picture', 'picture'].includes(trimmed)) {
+    return 'pictureInPicture';
+  }
+
+  return 'overlay';
+};
+
+const brollModeSchema: z.ZodType<BrollMode> = z
+  .preprocess(normalizeBrollModeToken, z.enum(['overlay', 'full', 'pictureInPicture']))
+  .transform((value) => {
+    switch (value) {
+      case 'overlay':
+        return 'overlay';
+      case 'pictureInPicture':
+        return 'pictureInPicture';
+      default:
+        return 'full';
+    }
+  });
+
+const brollPlanSchema: z.ZodType<SegmentBrollPlan> = z
+  .object({
+    id: z.string().optional(),
+    file: z.string().optional(),
+    mode: brollModeSchema.optional(),
+    confidence: z.number().optional(),
+    reasons: z.array(z.string()).optional(),
+    startAt: z.number().min(0).optional(),
+    playbackRate: z.number().positive().optional(),
+  })
+  .passthrough()
+  .transform((broll) => ({
+    ...broll,
+    mode: broll.mode ?? 'overlay',
+  }));
+
+const motionCueSchema: z.ZodType<MotionCue | undefined> = z
+  .string()
+  .optional()
+  .transform((value) => {
+    if (!value) {
+      return undefined;
+    }
+
+    const normalized = value.trim().toLowerCase();
+    switch (normalized) {
+      case 'pan':
+      case 'slide':
+      case 'push':
+        return 'pan';
+      case 'zoomin':
+      case 'zoom-in':
+      case 'pushin':
+      case 'zoom':
+        return 'zoomIn';
+      case 'zoomout':
+      case 'zoom-out':
+      case 'pullback':
+      case 'pull':
+        return 'zoomOut';
+      case 'shake':
+      case 'rumble':
+      case 'impact':
+        return 'shake';
+      case 'tiltup':
+      case 'tilt-up':
+      case 'panup':
+        return 'tiltUp';
+      case 'tiltdown':
+      case 'tilt-down':
+      case 'pandown':
+        return 'tiltDown';
+      default:
+        return undefined;
+    }
+  });
+
+const segmentPlanSchema: z.ZodType<SegmentPlan> = z
   .object({
     id: z.string(),
     kind: segmentKindSchema.optional(),
@@ -120,8 +215,10 @@ const segmentPlanSchema: z.ZodType<SegmentPlan, z.ZodTypeDef, z.input<typeof seg
     title: z.string().optional(),
     playbackRate: z.number().positive().optional(),
     cameraMovement: cameraMovementSchema.optional(),
+    motionCue: motionCueSchema,
     silenceAfter: z.boolean().optional(),
     metadata: z.record(z.unknown()).optional(),
+    broll: brollPlanSchema.optional(),
   })
   .transform((segment) => {
     const {transition, ...rest} = segment;
