@@ -13,6 +13,26 @@ export type SegmentKind = 'normal' | 'broll';
 
 export type CameraMovement = 'static' | 'zoomIn' | 'zoomOut';
 
+export type MotionCue =
+  | 'pan'
+  | 'zoomIn'
+  | 'zoomOut'
+  | 'shake'
+  | 'tiltUp'
+  | 'tiltDown';
+
+export type BrollMode = 'overlay' | 'full' | 'pictureInPicture';
+
+export interface SegmentBrollPlan {
+  id?: string;
+  file?: string;
+  mode?: BrollMode;
+  confidence?: number;
+  reasons?: string[];
+  startAt?: number;
+  playbackRate?: number;
+}
+
 export interface SegmentPlan {
   id: string;
   kind?: SegmentKind;
@@ -24,8 +44,10 @@ export interface SegmentPlan {
   title?: string;
   playbackRate?: number;
   cameraMovement?: CameraMovement;
+  motionCue?: MotionCue;
   silenceAfter?: boolean;
   metadata?: Record<string, unknown>;
+  broll?: SegmentBrollPlan | null;
 }
 
 export type HighlightType = 'typewriter' | 'noteBox' | 'sectionTitle' | 'icon';

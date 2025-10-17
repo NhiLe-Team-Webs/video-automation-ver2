@@ -56,6 +56,16 @@ The scripts inside `python-be/` normalize your source footage, generate transcri
    npm run render                   # produces out/final.mp4
    ```
 
+## Scene map generator
+
+- `scripts/generate_scene_map.py` phân tích SRT và sinh `scene_map.json` với nhãn chủ đề, highlight score, CTA flag, gợi ý motion/SFX.
+- Ví dụ chạy: 
+  ```bash
+  python scripts/generate_scene_map.py outputs/stage1_cut.srt -o outputs/scene_map.json --fps 30
+  ```
+- Script tự động đọc `assets/broll_catalog.json` và `assets/motion_rules.json` (nếu có) để map chủ đề và motion cue.
+- Kết quả dùng làm đầu vào cho bước lập kế hoạch (AI hoặc rule engine) trước khi tạo `plan.json`.
+
 ## 📄 `plan.json` structure
 
 The generated plan conforms to the Remotion schema (`remotion-app/src/data/planSchema.ts`):
@@ -148,6 +158,8 @@ The generated plan conforms to the Remotion schema (`remotion-app/src/data/planS
 - `scripts/make_plan_gemini.py` submits the transcript to Gemini and normalizes the response to the schema above.
 - Requires the `GEMINI_API_KEY` environment variable (and optional `GEMINI_MODEL`).
 - If Gemini fails, the pipeline automatically falls back to `scripts/make_plan_from_srt.py`, which uses `plan/mapping.json`.
+- Khi đã có `outputs/scene_map.json`, chạy `python scripts/make_plan_gemini.py outputs/stage1_cut.srt outputs/plan.json --scene-map outputs/scene_map.json` để Gemini tận dụng metadata scene, thư viện B-roll/SFX và rules chuyển động.
+- Để gắn B-roll, motion cue và highlight CTA tự động sau khi Gemini sinh plan, chạy `python scripts/enrich_plan.py outputs/plan.json outputs/plan_enriched.json --scene-map outputs/scene_map.json`. Script sẽ thêm trường `broll`/`motionCue`, propagate `sfxHints`, bổ sung CTA highlight (nếu thiếu) và ghi chú cảnh báo gap timeline trong `meta.warnings`.
 
 ### Customize the fallback mapping
 

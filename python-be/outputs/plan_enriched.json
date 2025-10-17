@@ -1,0 +1,653 @@
+{
+  "segments": [
+    {
+      "id": "intro_teaser",
+      "sourceStart": 0.0,
+      "duration": 2.66,
+      "label": "Here's a teaser.",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "immune_system_hook",
+      "sourceStart": 2.68,
+      "duration": 6.7,
+      "label": "Cures in immune systems?",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "ms_example_intro",
+      "sourceStart": 10.38,
+      "duration": 6.6,
+      "label": "MS as example",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ms_description",
+      "sourceStart": 17.0,
+      "duration": 6.48,
+      "label": "MS: autoimmune disease",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "digital_brain",
+        "file": "assets/broll/digital_brain.mp4",
+        "mode": "overlay",
+        "confidence": 7.9,
+        "reasons": [
+          "topics match ['ai', 'digital', 'innovation']"
+        ]
+      },
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "B-roll assigned: digital_brain (topics match ['ai', 'digital', 'innovation'])",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "cause_unknown_challenge",
+      "sourceStart": 24.6,
+      "duration": 5.18,
+      "label": "Cause unknown, difficult to treat",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "creative_brainstorm",
+        "file": "assets/broll/creative_brainstorm.mp4",
+        "mode": "overlay",
+        "confidence": 7.9,
+        "reasons": [
+          "topics match ['creativity', 'ideas', 'teamwork']"
+        ]
+      },
+      "notes": [
+        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])"
+      ]
+    },
+    {
+      "id": "study_10m_20yrs",
+      "sourceStart": 30.58,
+      "duration": 8.88,
+      "label": "Jan 2022 study: 10M people, 20 years",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ebv_ms_32x_risk",
+      "sourceStart": 39.48,
+      "duration": 8.98,
+      "label": "EBV increased MS risk by 32x",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "direct_link_found",
+      "sourceStart": 49.48,
+      "duration": 13.86,
+      "label": "Another study: direct link",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "creative_brainstorm",
+        "file": "assets/broll/creative_brainstorm.mp4",
+        "mode": "overlay",
+        "confidence": 7.9,
+        "reasons": [
+          "topics match ['creativity', 'ideas', 'teamwork']"
+        ]
+      },
+      "motionCue": "pan",
+      "notes": [
+        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "methodology_contrast",
+      "sourceStart": 63.96,
+      "duration": 12.34,
+      "label": "10M vs 12 people",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "forensic_immunology_intro",
+      "sourceStart": 77.3,
+      "duration": 18.5,
+      "label": "How did they do that? Forensic immunology",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "business_strategy",
+        "file": "assets/broll/business_strategy.jpg",
+        "mode": "overlay",
+        "confidence": 8.6,
+        "reasons": [
+          "topics match ['business', 'planning', 'strategy']",
+          "keywords hit ['team']"
+        ]
+      },
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "B-roll assigned: business_strategy (topics match ['business', 'planning', 'strategy'], keywords hit ['team'])",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "immune_system_archive",
+      "sourceStart": 97.16,
+      "duration": 19.68,
+      "label": "Memory immune system archive",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "web_browser_analogy",
+      "sourceStart": 117.94,
+      "duration": 12.7,
+      "label": "Immune system: web browser history",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "creative_brainstorm",
+        "file": "assets/broll/creative_brainstorm.mp4",
+        "mode": "overlay",
+        "confidence": 7.9,
+        "reasons": [
+          "topics match ['creativity', 'ideas', 'teamwork']"
+        ]
+      },
+      "notes": [
+        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])"
+      ]
+    },
+    {
+      "id": "decode_at_scale",
+      "sourceStart": 131.32,
+      "duration": 18.72,
+      "label": "Decoding immune archive at scale",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "creative_brainstorm",
+        "file": "assets/broll/creative_brainstorm.mp4",
+        "mode": "overlay",
+        "confidence": 7.9,
+        "reasons": [
+          "topics match ['creativity', 'ideas', 'teamwork']"
+        ]
+      },
+      "notes": [
+        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])"
+      ]
+    },
+    {
+      "id": "imprint_announcement",
+      "sourceStart": 151.08,
+      "duration": 22.56,
+      "label": "Imprint announcement & mission",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.7,
+        "intensity": 0.2
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "business_strategy",
+        "file": "assets/broll/business_strategy.jpg",
+        "mode": "overlay",
+        "confidence": 8.6,
+        "reasons": [
+          "topics match ['business', 'planning', 'strategy']",
+          "keywords hit ['team']"
+        ]
+      },
+      "motionCue": "zoomIn",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "B-roll assigned: business_strategy (topics match ['business', 'planning', 'strategy'], keywords hit ['team'])",
+        "Motion cue assigned: zoomIn",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "supporters_acknowledgment",
+      "sourceStart": 174.28,
+      "duration": 12.72,
+      "label": "Thanks to supporters",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.7,
+        "intensity": 0.2
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "modern_office",
+        "file": "assets/broll/modern_office.jpg",
+        "mode": "overlay",
+        "confidence": 7.6,
+        "reasons": [
+          "topics match ['culture', 'office', 'workspace']"
+        ]
+      },
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "B-roll assigned: modern_office (topics match ['culture', 'office', 'workspace'])",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "neuropsychiatric_focus",
+      "sourceStart": 188.06,
+      "duration": 7.38,
+      "label": "Applying tools to neurological/psychiatric disorders",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "cta"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: cta"
+      ]
+    },
+    {
+      "id": "why_neuropsych_immune_link",
+      "sourceStart": 196.48,
+      "duration": 12.02,
+      "label": "Why neuropsych? Immune diseases link",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "broll": {
+        "id": "remote_call",
+        "file": "assets/broll/remote_call.mp4",
+        "mode": "overlay",
+        "confidence": 2.9,
+        "reasons": [
+          "topics match ['remote work']"
+        ]
+      },
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "B-roll assigned: remote_call (topics match ['remote work'])",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "immune_stress_schizophrenia",
+      "sourceStart": 208.52,
+      "duration": 15.48,
+      "label": "Immune memory of stress, schizophrenia",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "shingles_covid_examples",
+      "sourceStart": 225.0,
+      "duration": 12.6,
+      "label": "Shingles vaccine, COVID impacts",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "immunotherapy_revolution_cancer",
+      "sourceStart": 238.84,
+      "duration": 12.6,
+      "label": "Immunotherapy revolution for cancer",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "extend_revolution_vision",
+      "sourceStart": 252.44,
+      "duration": 17.68,
+      "label": "Extend revolution, end chronic disease",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.8,
+        "direction": "down"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "thank_you_outro",
+      "sourceStart": 271.16,
+      "duration": 1.0,
+      "label": "Thank you",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.8,
+        "direction": "down"
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    }
+  ],
+  "highlights": [
+    {
+      "id": "hook_question",
+      "start": 3.98,
+      "duration": 4.0,
+      "position": "center",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "Cures in our Immune Systems?",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.7
+    },
+    {
+      "id": "ebv_ms_risk",
+      "start": 39.02,
+      "duration": 5.0,
+      "position": "bottom",
+      "animation": "pop",
+      "type": "sectionTitle",
+      "text": "EBV increased MS risk by 32x",
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "volume": 0.75
+    },
+    {
+      "id": "direct_link_emphasis",
+      "start": 54.86,
+      "duration": 3.0,
+      "position": "center",
+      "animation": "fade",
+      "type": "noteBox",
+      "text": "Direct Link Established",
+      "sfx": "assets/sfx/ui/notification.mp3",
+      "volume": 0.6
+    },
+    {
+      "id": "methodology_contrast_highlight",
+      "start": 65.38,
+      "duration": 5.0,
+      "position": "top",
+      "animation": "bounce",
+      "type": "typewriter",
+      "text": "10M People, 20 Years vs 12 People, 1 Day!",
+      "sfx": "assets/sfx/tech/notification.mp3",
+      "volume": 0.8
+    },
+    {
+      "id": "forensic_immunology_concept",
+      "start": 86.88,
+      "duration": 3.0,
+      "position": "center",
+      "animation": "slide",
+      "type": "sectionTitle",
+      "text": "Forensic Immunology: Decoding the Past",
+      "sfx": "assets/sfx/ui/bubble-pop.mp3",
+      "volume": 0.7
+    },
+    {
+      "id": "imprint_reveal",
+      "start": 149.2,
+      "duration": 5.0,
+      "position": "center",
+      "animation": "zoom",
+      "type": "sectionTitle",
+      "text": "Introducing Imprint: Cures for Chronic Disease",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.9
+    },
+    {
+      "id": "cta_subscribe",
+      "type": "sectionTitle",
+      "text": "Dang ky kenh de nhan video moi!",
+      "start": 192.44,
+      "duration": 5.0,
+      "position": "center",
+      "animation": "float",
+      "variant": "brand",
+      "sfx": "assets/sfx/emotion/applause.mp3",
+      "volume": 0.7
+    }
+  ],
+  "meta": {
+    "warnings": [
+      "Gap of 1.00s between immune_system_hook and ms_example_intro; consider extending previous duration.",
+      "Gap of 1.12s between ms_description and cause_unknown_challenge; consider extending previous duration.",
+      "Gap of 0.80s between cause_unknown_challenge and study_10m_20yrs; consider extending previous duration.",
+      "Gap of 1.02s between ebv_ms_32x_risk and direct_link_found; consider extending previous duration.",
+      "Gap of 0.62s between direct_link_found and methodology_contrast; consider extending previous duration.",
+      "Gap of 1.00s between methodology_contrast and forensic_immunology_intro; consider extending previous duration.",
+      "Gap of 1.36s between forensic_immunology_intro and immune_system_archive; consider extending previous duration.",
+      "Gap of 1.10s between immune_system_archive and web_browser_analogy; consider extending previous duration.",
+      "Gap of 0.68s between web_browser_analogy and decode_at_scale; consider extending previous duration.",
+      "Gap of 1.04s between decode_at_scale and imprint_announcement; consider extending previous duration.",
+      "Gap of 0.64s between imprint_announcement and supporters_acknowledgment; consider extending previous duration.",
+      "Gap of 1.06s between supporters_acknowledgment and neuropsychiatric_focus; consider extending previous duration.",
+      "Gap of 1.04s between neuropsychiatric_focus and why_neuropsych_immune_link; consider extending previous duration.",
+      "Gap of 1.00s between immune_stress_schizophrenia and shingles_covid_examples; consider extending previous duration.",
+      "Gap of 1.24s between shingles_covid_examples and immunotherapy_revolution_cancer; consider extending previous duration.",
+      "Gap of 1.00s between immunotherapy_revolution_cancer and extend_revolution_vision; consider extending previous duration.",
+      "Gap of 1.04s between extend_revolution_vision and thank_you_outro; consider extending previous duration."
+    ]
+  }
+}
