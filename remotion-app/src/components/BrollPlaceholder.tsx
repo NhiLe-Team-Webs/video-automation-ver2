@@ -4,16 +4,35 @@ import {Clapperboard, Image as ImageIcon, Sparkles} from 'lucide-react';
 import {PiMusicNotesBold} from 'react-icons/pi';
 import {BRAND} from '../config';
 
+/**
+ * Defines the possible visual variants for the B-roll placeholder.
+ * - 'fullwidth': The placeholder takes full width with a subtle background.
+ * - 'roundedFrame': The placeholder is a rounded frame with a more prominent background.
+ */
 export type BrollPlaceholderVariant = 'fullwidth' | 'roundedFrame';
 
+/**
+ * Props for the `BrollPlaceholder` component.
+ */
 interface BrollPlaceholderProps {
+  /** The main title text to display. */
   title: string;
+  /** Optional subtitle text. */
   subtitle?: string;
+  /** The visual variant of the placeholder. Defaults to 'fullwidth'. */
   variant?: BrollPlaceholderVariant;
+  /** Optional keyword to display, often derived from the content. */
   keyword?: string;
+  /** The type of media expected ('image' or 'video'). Defaults to 'video'. */
   mediaType?: 'image' | 'video';
 }
 
+/**
+ * Renders a placeholder for B-roll footage.
+ * This component is displayed when actual B-roll media is not available or not yet loaded.
+ * It includes animated elements and descriptive text.
+ * @param props - The component props.
+ */
 export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
   title,
   subtitle,
@@ -24,13 +43,15 @@ export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const safeFps = Math.max(fps, 1);
+  // Calculate animation progress for looping effects
   const loopProgress = (frame / safeFps) % 1;
-  const floatOffset = Math.sin(loopProgress * Math.PI * 2) * 10;
-  const pulseScale = 1 + Math.sin(loopProgress * Math.PI * 2) * 0.045;
-  const sparkleOpacity = 0.45 + Math.sin(loopProgress * Math.PI * 2) * 0.25;
+  const floatOffset = Math.sin(loopProgress * Math.PI * 2) * 10; // Vertical floating effect
+  const pulseScale = 1 + Math.sin(loopProgress * Math.PI * 2) * 0.045; // Subtle pulsing scale
+  const sparkleOpacity = 0.45 + Math.sin(loopProgress * Math.PI * 2) * 0.25; // Sparkle opacity animation
 
   const isRounded = variant === 'roundedFrame';
 
+  // Determine background based on variant
   const background =
     variant === 'fullwidth'
       ? `radial-gradient(circle at 10% 10%, rgba(255,255,255,0.08), transparent 55%), ${BRAND.black}`
@@ -66,6 +87,7 @@ export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
     position: 'relative',
   };
 
+  // Resolve keyword text for descriptor
   const keywordText = (keyword ?? title ?? 'keyword').toString().trim() || 'keyword';
   const descriptor = `Broll - ${mediaType.toLowerCase()} - ${keywordText}`;
 
@@ -107,6 +129,7 @@ export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
     letterSpacing: 0.4,
   };
 
+  // Choose media icon based on mediaType
   const mediaIcon =
     mediaType === 'image' ? (
       <ImageIcon size={96} color={BRAND.white} strokeWidth={1.8} />
@@ -139,8 +162,8 @@ export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
                   ? 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 100%)'
                   : 'linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 100%)',
               boxShadow: '0 24px 64px rgba(0,0,0,0.45)',
-              transform: `translateY(${floatOffset}px) scale(${pulseScale})`,
-              transition: 'transform 0.3s ease-out',
+              transform: `translateY(${floatOffset}px) scale(${pulseScale})`, // Apply floating and pulsing animation
+              transition: 'transform 0.3s ease-out', // Smooth transition for animation
             }}
           >
             {mediaIcon}
@@ -152,7 +175,7 @@ export const BrollPlaceholder: React.FC<BrollPlaceholderProps> = ({
                 position: 'absolute',
                 top: 16,
                 right: 12,
-                opacity: sparkleOpacity,
+                opacity: sparkleOpacity, // Animated sparkle opacity
                 transform: 'rotate(-8deg)',
               }}
             />

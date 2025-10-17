@@ -1,22 +1,39 @@
 import type {CompositionConfigOverrides} from './types';
 
+/** The width of the video in pixels. */
 export const VIDEO_WIDTH = 1920;
+/** The height of the video in pixels. */
 export const VIDEO_HEIGHT = 1080;
+/** The frame rate of the video in frames per second. */
 export const VIDEO_FPS = 30;
 
 const fallbackDurationSeconds = 15 * 60; // 15 minutes default cap
+/** The default duration of the composition in frames. */
 export const DEFAULT_DURATION_IN_FRAMES = VIDEO_FPS * fallbackDurationSeconds;
 
+/**
+ * Default audio configuration settings.
+ */
 export const AUDIO = {
+  /** Decibels to duck voice audio when other sounds play. */
   voiceDuckDb: -4,
+  /** Base gain in decibels for sound effects. */
   sfxBaseGainDb: -10,
 };
 
+/**
+ * Default transition configuration settings.
+ */
 export const TRANSITIONS = {
+  /** Minimum silence duration in milliseconds required before a transition is inserted. */
   minPauseMs: 700,
+  /** Default fade duration in seconds. */
   defaultFade: 0.8,
 };
 
+/**
+ * Brand-related configuration, including colors, gradients, and fonts.
+ */
 export const BRAND = {
   primary: '#C8102E',
   red: '#C8102E',
@@ -39,15 +56,32 @@ export const BRAND = {
   },
 };
 
+/**
+ * Represents the resolved runtime configuration for the composition.
+ */
 export interface RuntimeConfig {
   audio: typeof AUDIO;
   transitions: typeof TRANSITIONS;
   brand: typeof BRAND;
 }
 
+/**
+ * Clamps a number between a minimum and maximum value.
+ * @param value The number to clamp.
+ * @param min The minimum allowed value.
+ * @param max The maximum allowed value.
+ * @returns The clamped number.
+ */
 const clampNumber = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
+/**
+ * Normalizes an input value to a number, applying a fallback and optional min/max clamping.
+ * @param input The input value to normalize.
+ * @param fallback The default value to use if the input is not a valid number.
+ * @param options Optional object with min and max properties for clamping.
+ * @returns The normalized and clamped number.
+ */
 const normalizeNumber = (input: unknown, fallback: number, {min, max}: {min?: number; max?: number} = {}) => {
   const numeric = Number(input);
   if (Number.isNaN(numeric)) {
@@ -56,16 +90,23 @@ const normalizeNumber = (input: unknown, fallback: number, {min, max}: {min?: nu
   if (typeof min === 'number' || typeof max === 'number') {
     return clampNumber(
       numeric,
-      typeof min === 'number' ? min : numeric,
-      typeof max === 'number' ? max : numeric
+      typeof min === 'number' ? min : numeric, // If min is not defined, use numeric itself
+      typeof max === 'number' ? max : numeric  // If max is not defined, use numeric itself
     );
   }
   return numeric;
 };
 
+/**
+ * Resolves the final runtime configuration by merging default settings with provided overrides.
+ * Applies normalization and clamping to ensure valid numeric values.
+ * @param overrides Optional configuration overrides.
+ * @returns The resolved RuntimeConfig object.
+ */
 export const resolveRuntimeConfig = (
   overrides: CompositionConfigOverrides | undefined | null
 ): RuntimeConfig => {
+  // Merge audio settings and normalize numeric values
   const audio = {
     ...AUDIO,
     ...(overrides?.audio ?? {}),
@@ -74,11 +115,13 @@ export const resolveRuntimeConfig = (
   audio.voiceDuckDb = normalizeNumber(audio.voiceDuckDb, AUDIO.voiceDuckDb, {min: -24, max: 0});
   audio.sfxBaseGainDb = normalizeNumber(audio.sfxBaseGainDb, AUDIO.sfxBaseGainDb, {min: -36, max: -1});
 
+  // Merge transition settings and normalize numeric values
   const transitions = {
     ...TRANSITIONS,
     ...(overrides?.transitions ?? {}),
   } as typeof TRANSITIONS;
 
+  // Handle explicit minPauseMs override separately for clamping
   const explicitMinPause = overrides?.minPauseMs;
   if (typeof explicitMinPause === 'number' && !Number.isNaN(explicitMinPause)) {
     transitions.minPauseMs = clampNumber(explicitMinPause, 0, 4000);
@@ -94,6 +137,7 @@ export const resolveRuntimeConfig = (
     max: 2.4,
   });
 
+  // Merge brand settings
   const brand = {
     ...BRAND,
     ...(overrides?.brand ?? {}),

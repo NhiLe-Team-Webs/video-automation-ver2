@@ -6,8 +6,18 @@ import type {CameraMovement} from '../types';
 import {useSegmentTransition} from './Transitions';
 // import {BrollPlaceholder} from './BrollPlaceholder';
 
+/**
+ * Clamps a number between 0 and 1.
+ * @param value The number to clamp.
+ * @returns The clamped number.
+ */
 const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 
+/**
+ * Normalizes a raw camera movement input to a valid `CameraMovement` type.
+ * @param movement The raw movement value.
+ * @returns A normalized `CameraMovement` ('zoomIn', 'zoomOut', or 'static').
+ */
 const normalizeCameraMovement = (movement: unknown): CameraMovement => {
   if (movement === 'zoomIn' || movement === 'zoomOut') {
     return movement;
@@ -24,6 +34,12 @@ const normalizeCameraMovement = (movement: unknown): CameraMovement => {
   return 'static';
 };
 
+/**
+ * Resolves the camera movement for a given segment, prioritizing explicit `cameraMovement`
+ * in the segment plan, then checking metadata.
+ * @param segment The segment plan object.
+ * @returns The resolved `CameraMovement`.
+ */
 const resolveCameraMovement = (segment: TimelineSegment['segment']): CameraMovement => {
   if (segment.cameraMovement && segment.cameraMovement !== 'static') {
     return segment.cameraMovement;
@@ -31,6 +47,9 @@ const resolveCameraMovement = (segment: TimelineSegment['segment']): CameraMovem
   const metadataValue = segment.metadata?.['cameraMovement'];
   return normalizeCameraMovement(metadataValue);
 };
+
+// The following B-roll related functions are commented out as B-roll placeholder functionality
+// is currently bypassed. They are kept for potential future re-introduction.
 
 // const resolveBrollSubtitle = (segment: TimelineSegment['segment']): string | undefined => {
 //   const meta = segment.metadata ?? {};
@@ -126,8 +145,16 @@ const resolveCameraMovement = (segment: TimelineSegment['segment']): CameraMovem
 //   return 'video';
 // };
 
+/** Easing function for smooth animations. */
 const easeInOut = Easing.bezier(0.4, 0, 0.2, 1);
 
+/**
+ * Computes the CSS transform style for camera movement (zoom in/out).
+ * @param movement The type of camera movement.
+ * @param frame The current frame of the segment.
+ * @param duration The total duration of the segment in frames.
+ * @returns A `CSSProperties` object with the computed transform.
+ */
 const computeCameraTransform = (
   movement: CameraMovement,
   frame: number,
@@ -141,11 +168,16 @@ const computeCameraTransform = (
     };
   }
 
+  // Calculate animation progress and eased value
   const progress = duration <= 1 ? 1 : clamp01(frame / Math.max(1, duration - 1));
   const eased = easeInOut(progress);
+  
+  // Determine start and end scale for zoom effect
   const startScale = movement === 'zoomIn' ? 1 : 1.08;
   const endScale = movement === 'zoomIn' ? 1.08 : 1;
   const scale = startScale + (endScale - startScale) * eased;
+  
+  // Add a subtle vertical drift for a more dynamic feel
   const driftDirection = movement === 'zoomIn' ? -1 : 1;
   const drift = Math.sin(eased * Math.PI) * 12 * driftDirection;
 
@@ -161,14 +193,26 @@ const computeCameraTransform = (
   };
 };
 
+/**
+ * Props for the `SegmentClip` component.
+ */
 export interface SegmentClipProps {
+  /** The timeline segment data. */
   timelineSegment: TimelineSegment;
+  /** The source video URL. */
   source: string;
+  /** The video's frames per second. */
   fps: number;
+  /** Whether audio crossfade should be applied. */
   audioCrossfade: boolean;
+  /** The default duration for transitions. */
   defaultTransitionDuration: number;
 }
 
+/**
+ * Renders a single video segment, applying camera movements and transitions.
+ * @param props - The component props.
+ */
 export const SegmentClip: React.FC<SegmentClipProps> = ({
   timelineSegment,
   source,
@@ -180,8 +224,10 @@ export const SegmentClip: React.FC<SegmentClipProps> = ({
   const {width, height} = useVideoConfig();
   const {segment, duration, transitionInFrames, transitionOutFrames} = timelineSegment;
 
+  // Cap the current frame within the segment's duration
   const cappedFrame = Math.max(0, Math.min(frame, duration));
 
+  // Apply segment transitions (visual style and audio volume)
   const {style: transitionStyle, volume} = useSegmentTransition({
     transitionIn: segment.transitionIn,
     transitionOut: segment.transitionOut,
@@ -196,18 +242,21 @@ export const SegmentClip: React.FC<SegmentClipProps> = ({
     defaultTransitionDuration,
   });
 
+  // Calculate video start/end frames and playback rate
   const startFrom = Math.round((segment.sourceStart ?? 0) * fps);
   const endAt = startFrom + duration;
   const playbackRate = segment.playbackRate ?? 1;
 
-  // const isBroll = (segment.kind ?? 'normal') === 'broll';
+  // const isBroll = (segment.kind ?? 'normal') === 'broll'; // B-roll check (currently unused)
 
+  // Resolve and compute camera movement style
   const cameraMovement = resolveCameraMovement(segment);
   const cameraStyle = useMemo(
     () => computeCameraTransform(cameraMovement, cappedFrame, duration),
     [cameraMovement, cappedFrame, duration]
   );
 
+  // Define base container styles
   const containerStyle: CSSProperties = {
     width: '100%',
     height: '100%',
@@ -217,12 +266,14 @@ export const SegmentClip: React.FC<SegmentClipProps> = ({
     overflow: 'hidden',
   };
 
+  // Define transition container styles
   const transitionContainerStyle: CSSProperties = {
     width: '100%',
     height: '100%',
     ...transitionStyle,
   };
 
+  // Define video styles, including camera movement
   const videoStyle: CSSProperties = {
     width: '100%',
     height: '100%',

@@ -12,6 +12,11 @@ import type {
   TransitionType,
 } from '../types';
 
+/**
+ * Normalizes a transition type token by trimming, removing spaces/underscores/hyphens, and converting to lowercase.
+ * @param value The raw transition type token.
+ * @returns The normalized token or the original value if not a string.
+ */
 const normalizeTransitionToken = (value: unknown) => {
   if (typeof value !== 'string') {
     return value;
@@ -20,7 +25,11 @@ const normalizeTransitionToken = (value: unknown) => {
   return value.trim().replace(/[\s_-]+/g, '').toLowerCase();
 };
 
-const transitionTypeSchema: z.ZodType<TransitionType> = z
+/**
+ * Zod schema for `TransitionType`.
+ * It preprocesses the input token and transforms common aliases to canonical types.
+ */
+const transitionTypeSchema: z.ZodType<TransitionType, z.ZodTypeDef, unknown> = z
   .preprocess(normalizeTransitionToken, z.enum([
     'cut',
     'fadecamera',
@@ -37,13 +46,16 @@ const transitionTypeSchema: z.ZodType<TransitionType> = z
       case 'cut':
         return 'cut';
       case 'slidewhoosh':
-      case 'slide':
+      case 'slide': // Map 'slide' to 'slideWhoosh'
         return 'slideWhoosh';
-      default:
+      default: // Default to 'fadeCamera' for unrecognized types
         return 'fadeCamera';
     }
   });
 
+/**
+ * Zod schema for `TransitionDirection`.
+ */
 const transitionDirectionSchema: z.ZodType<TransitionDirection> = z.enum([
   'left',
   'right',
@@ -51,7 +63,11 @@ const transitionDirectionSchema: z.ZodType<TransitionDirection> = z.enum([
   'down',
 ]);
 
-const transitionPlanSchema: z.ZodType<TransitionPlan> = z
+/**
+ * Zod schema for `TransitionPlan`.
+ * It ensures that `direction` is only present for 'slideWhoosh' transitions.
+ */
+const transitionPlanSchema: z.ZodType<TransitionPlan, z.ZodTypeDef, unknown> = z
   .object({
     type: transitionTypeSchema,
     duration: z.number().positive().optional(),
@@ -59,6 +75,7 @@ const transitionPlanSchema: z.ZodType<TransitionPlan> = z
     sfx: z.string().optional(),
   })
   .transform((transition) => {
+    // Remove 'direction' if the transition type is not 'slideWhoosh'
     if (transition.type !== 'slideWhoosh') {
       const {direction, ...rest} = transition;
       return rest;
@@ -66,11 +83,31 @@ const transitionPlanSchema: z.ZodType<TransitionPlan> = z
     return transition;
   });
 
+/**
+ * Zod schema for `CameraMovement`.
+ */
 const cameraMovementSchema: z.ZodType<CameraMovement> = z.enum(['static', 'zoomIn', 'zoomOut']);
 
-const segmentKindSchema: z.ZodType<SegmentPlan['kind']> = z.enum(['normal', 'broll']).catch('normal');
+/**
+ * Zod schema for `SegmentKind`, defaulting to 'normal'.
+ */
+const segmentKindSchema: z.ZodType<SegmentPlan['kind'], z.ZodTypeDef, unknown> = z.enum(['normal', 'broll']).catch('normal');
 
-const segmentPlanSchema: z.ZodType<SegmentPlan> = z
+/**
+ * Zod schema for `SegmentPlan`.
+ * It handles an optional 'transition' alias for 'transitionOut' and ensures 'kind' defaults to 'normal'.
+ */
+const segmentPlanSchema: z.ZodType<SegmentPlan, z.ZodTypeDef, z.input<typeof segmentKindSchema> & z.input<typeof transitionPlanSchema> & z.input<typeof cameraMovementSchema> & {
+  id: unknown;
+  sourceStart?: unknown;
+  duration: unknown;
+  transition?: unknown;
+  label?: unknown;
+  title?: unknown;
+  playbackRate?: unknown;
+  silenceAfter?: unknown;
+  metadata?: unknown;
+}> = z
   .object({
     id: z.string(),
     kind: segmentKindSchema.optional(),
@@ -78,7 +115,7 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
     duration: z.number().positive(),
     transitionIn: transitionPlanSchema.optional(),
     transitionOut: transitionPlanSchema.optional(),
-    transition: transitionPlanSchema.optional(),
+    transition: transitionPlanSchema.optional(), // Alias for transitionOut
     label: z.string().optional(),
     title: z.string().optional(),
     playbackRate: z.number().positive().optional(),
@@ -88,22 +125,28 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
   })
   .transform((segment) => {
     const {transition, ...rest} = segment;
+    // Resolve transitionOut, prioritizing explicit transitionOut, then 'transition' alias
     const resolvedTransitionOut = rest.transitionOut ?? transition;
 
     return {
       ...rest,
       transitionOut: resolvedTransitionOut ?? undefined,
-      kind: rest.kind ?? 'normal',
+      kind: rest.kind ?? 'normal', // Ensure kind has a default
     } as SegmentPlan;
   });
 
+/**
+ * Normalizes a highlight type token, mapping common aliases to canonical types.
+ * @param value The raw highlight type token.
+ * @returns The normalized token or the original value if not a string or no mapping found.
+ */
 const normalizeHighlightTypeToken = (value: unknown) => {
   if (typeof value !== 'string') {
     return value;
   }
 
   const trimmed = value.trim().toLowerCase();
-  const collapsed = trimmed.replace(/[\s_-]+/g, '');
+  const collapsed = trimmed.replace(/[\s_-]+/g, ''); // Remove all spaces, underscores, hyphens
 
   switch (collapsed) {
     case 'icon':
@@ -120,18 +163,27 @@ const normalizeHighlightTypeToken = (value: unknown) => {
   }
 };
 
-const highlightTypeSchema: z.ZodType<HighlightType> = z
+/**
+ * Zod schema for `HighlightType`, defaulting to 'noteBox'.
+ */
+const highlightTypeSchema: z.ZodType<HighlightType, z.ZodTypeDef, unknown> = z
   .preprocess(
     normalizeHighlightTypeToken,
     z.enum(['typewriter', 'noteBox', 'sectionTitle', 'icon']),
   )
   .catch('noteBox');
 
-const highlightPositionSchema: z.ZodType<HighlightPosition> = z
+/**
+ * Zod schema for `HighlightPosition`, defaulting to 'center'.
+ */
+const highlightPositionSchema: z.ZodType<HighlightPosition, z.ZodTypeDef, unknown> = z
   .enum(['top', 'center', 'bottom'])
   .catch('center');
 
-const iconAnimationSchema: z.ZodType<IconAnimation | undefined> = z
+/**
+ * Zod schema for `IconAnimation`, transforming raw string inputs to canonical animation types or undefined.
+ */
+const iconAnimationSchema: z.ZodType<IconAnimation | undefined, z.ZodTypeDef, unknown> = z
   .string()
   .optional()
   .transform((value) => {
@@ -146,11 +198,37 @@ const iconAnimationSchema: z.ZodType<IconAnimation | undefined> = z
       case 'pop':
         return normalized as IconAnimation;
       default:
-        return undefined;
+        return undefined; // Return undefined for unrecognized animations
     }
   });
 
-const highlightPlanSchema: z.ZodType<HighlightPlan> = z
+/**
+ * Zod schema for `HighlightPlan`.
+ * It ensures `type` defaults to 'noteBox' if not explicitly set.
+ */
+const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof highlightTypeSchema> & z.input<typeof highlightPositionSchema> & z.input<typeof iconAnimationSchema> & {
+  id: unknown;
+  text?: unknown;
+  title?: unknown;
+  subtitle?: unknown;
+  badge?: unknown;
+  name?: unknown;
+  icon?: unknown;
+  asset?: unknown;
+  start: unknown;
+  duration: unknown;
+  side?: unknown;
+  bg?: unknown;
+  radius?: unknown;
+  sfx?: unknown;
+  gain?: unknown;
+  ducking?: unknown;
+  variant?: unknown;
+  accentColor?: unknown;
+  backgroundColor?: unknown;
+  iconColor?: unknown;
+  volume?: unknown;
+}> = z
   .object({
     id: z.string(),
     type: highlightTypeSchema.optional(),
@@ -179,9 +257,13 @@ const highlightPlanSchema: z.ZodType<HighlightPlan> = z
   })
   .transform((highlight) => ({
     ...highlight,
-    type: highlight.type ?? 'noteBox',
+    type: highlight.type ?? 'noteBox', // Default highlight type
   }));
 
+/**
+ * Zod schema for the main `Plan` object.
+ * It ensures `highlights` defaults to an empty array if not provided.
+ */
 const planSchema: z.ZodType<Plan> = z
   .object({
     segments: z.array(segmentPlanSchema),
@@ -190,13 +272,25 @@ const planSchema: z.ZodType<Plan> = z
   })
   .transform((plan) => ({
     ...plan,
-    highlights: plan.highlights ?? [],
+    highlights: plan.highlights ?? [], // Ensure highlights is always an array
   }));
 
+/**
+ * Type definition for the `planSchema` itself.
+ */
 export type PlanSchema = typeof planSchema;
 
+/**
+ * Parses raw data into a `Plan` object using the defined schema.
+ * @param data The raw data to parse.
+ * @returns The parsed `Plan` object.
+ * @throws ZodError if the data does not conform to the schema.
+ */
 export const parsePlan = (data: unknown): Plan => planSchema.parse(data);
 
+/**
+ * An example `Plan` object, useful for testing or as a template.
+ */
 export const planExample: Plan = {
   segments: [
     {

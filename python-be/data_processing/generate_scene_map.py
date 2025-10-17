@@ -29,6 +29,15 @@ TOKEN_RE = re.compile(r"[A-Za-zÀ-ỹ0-9]+" , re.UNICODE)
 
 @dataclass
 class SrtEntry:
+    """
+    Represents a single entry in an SRT (SubRip) transcript file.
+
+    Attributes:
+        index: The sequential index of the SRT entry.
+        start: The start timecode of the subtitle (HH:MM:SS,mmm).
+        end: The end timecode of the subtitle (HH:MM:SS,mmm).
+        text: The raw text content of the subtitle, potentially multi-line.
+    """
     index: int
     start: str
     end: str
@@ -36,6 +45,7 @@ class SrtEntry:
 
     @property
     def text_one_line(self) -> str:
+        """Returns the subtitle text as a single line, stripping extra whitespace."""
         return " ".join(line.strip() for line in self.text.splitlines() if line.strip())
 
 
@@ -45,6 +55,15 @@ class SrtEntry:
 
 
 def parse_timecode(value: str) -> float:
+    """
+    Parses an SRT timecode string (HH:MM:SS,mmm) into total seconds (float).
+
+    Args:
+        value: The timecode string.
+
+    Returns:
+        The total time in seconds as a float.
+    """
     hours, minutes, remainder = value.split(":")
     seconds, millis = remainder.split(",")
     return (
@@ -56,23 +75,39 @@ def parse_timecode(value: str) -> float:
 
 
 def parse_srt(path: Path) -> List[SrtEntry]:
+    """
+    Parses an SRT file and extracts subtitle entries.
+
+    Args:
+        path: The path to the SRT file.
+
+    Returns:
+        A list of SrtEntry objects.
+    """
     content = path.read_text(encoding="utf-8")
+    # Split the content into blocks based on double newlines
     blocks = re.split(r"\n\s*\n", content.strip())
     entries: List[SrtEntry] = []
 
     for block in blocks:
+        # Filter out empty lines from the block
         lines = [line for line in block.splitlines() if line.strip()]
         if len(lines) < 2:
+            # A valid SRT block needs at least an index and a timecode line
             continue
         try:
+            # The first line is usually the index
             idx = int(lines[0])
         except ValueError:
+            # Fallback to sequential index if parsing fails
             idx = len(entries) + 1
 
+        # The second line is the timecode
         time_match = TIMECODE_RE.match(lines[1])
         if not time_match:
             continue
 
+        # The rest of the lines form the text
         text = "\n".join(lines[2:]) if len(lines) > 2 else ""
         entries.append(
             SrtEntry(
@@ -87,6 +122,16 @@ def parse_srt(path: Path) -> List[SrtEntry]:
 
 
 def load_json(path: Path) -> Dict[str, Any]:
+    """
+    Loads a JSON file from the given path. Returns an empty dict if file not found.
+
+    Args:
+        path: The path to the JSON file.
+
+    Returns:
+        A dictionary containing the JSON data, or an empty dictionary if the file
+        does not exist.
+    """
     if not path.exists():
         return {}
     with path.open("r", encoding="utf-8") as handle:
@@ -94,6 +139,17 @@ def load_json(path: Path) -> Dict[str, Any]:
 
 
 def build_topic_index(broll_catalog: Dict[str, Any]) -> Dict[str, Iterable[str]]:
+    """
+    Builds an index of topics and their associated keywords from the B-roll catalog.
+    This index is used to detect topics within SRT entries.
+
+    Args:
+        broll_catalog: The dictionary representing the B-roll catalog.
+
+    Returns:
+        A dictionary where keys are normalized topics and values are sets of keywords
+        associated with that topic.
+    """
     topic_map: Dict[str, set[str]] = defaultdict(set)
 
     for item in broll_catalog.get("items", []):
@@ -102,12 +158,16 @@ def build_topic_index(broll_catalog: Dict[str, Any]) -> Dict[str, Iterable[str]]
         title = item.get("title", "")
         for topic in topics:
             topic_lower = topic.lower()
+            # Add the topic itself as a keyword
             topic_map[topic_lower].add(topic_lower)
+            # Add individual words from the topic as keywords
             for word in TOKEN_RE.findall(topic_lower):
                 topic_map[topic_lower].add(word)
+            # Add keywords from the item
             for keyword in keywords:
                 for word in TOKEN_RE.findall(keyword.lower()):
                     topic_map[topic_lower].add(word)
+            # Add words from the item's title
             for word in TOKEN_RE.findall(title.lower()):
                 topic_map[topic_lower].add(word)
 
@@ -115,27 +175,70 @@ def build_topic_index(broll_catalog: Dict[str, Any]) -> Dict[str, Iterable[str]]
 
 
 def normalize_text(text: str) -> str:
+    """
+    Normalizes text by converting it to lowercase.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        The lowercase version of the string.
+    """
     return text.lower()
 
 
 def tokenize(text: str) -> List[str]:
+    """
+    Tokenizes a given text into a list of lowercase words/tokens.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        A list of lowercase tokens.
+    """
     return [token.lower() for token in TOKEN_RE.findall(text)]
 
 
 def detect_topics(text_tokens: List[str], topic_index: Dict[str, Iterable[str]]) -> Tuple[List[str], Dict[str, int]]:
+    """
+    Detects relevant topics in a list of text tokens using a pre-built topic index.
+
+    Args:
+        text_tokens: A list of lowercase tokens from the text.
+        topic_index: A dictionary mapping topics to their associated keywords.
+
+    Returns:
+        A tuple containing:
+        - A list of the top 5 detected topics (strings).
+        - A dictionary mapping all detected topics to their scores.
+    """
     counter: Dict[str, int] = {}
-    text_token_set = Counter(text_tokens)
+    text_token_set = Counter(text_tokens) # Count occurrences of each token in the text
 
     for topic, keywords in topic_index.items():
+        # Score a topic based on how many of its keywords appear in the text
         score = sum(text_token_set.get(keyword, 0) for keyword in keywords)
         if score:
             counter[topic] = score
 
+    # Sort topics by score in descending order
     sorted_topics = sorted(counter.items(), key=lambda item: item[1], reverse=True)
     return [topic for topic, _ in sorted_topics[:5]], counter
 
 
 def detect_emotion(text: str) -> Tuple[str, List[str]]:
+    """
+    Detects the dominant emotion in a given text based on predefined keywords.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        A tuple containing:
+        - The detected dominant emotion ("hype", "confidence", "urgent", "serious", "informative", "surprise", or "neutral").
+        - A list of keywords that triggered the emotion detection.
+    """
     emotion_keywords = {
         "hype": ["amazing", "incredible", "thành công", "bứt phá", "đột phá", "celebrate", "thành tựu"],
         "confidence": ["tin tưởng", "chắc chắn", "đảm bảo", "guarantee", "bảo chứng"],
@@ -155,57 +258,58 @@ def detect_emotion(text: str) -> Tuple[str, List[str]]:
     if not hits:
         return "neutral", []
 
+    # Determine the best emotion by the one with the most keyword hits
     best_emotion = max(hits.items(), key=lambda item: len(item[1]))[0]
-    return best_emotion, [kw for kws in hits.values() for kw in kws]
+    # Collect all triggered keywords
+    all_hits = [kw for kws in hits.values() for kw in kws]
+    return best_emotion, all_hits
 
 
 def compute_highlight_score(text: str) -> Tuple[float, List[str]]:
+    """
+    Computes a highlight score for a given text based on keywords, numbers, and exclamations.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        A tuple containing:
+        - The calculated highlight score (float, clamped between 0.0 and 1.0).
+        - A list of triggers (keywords, numbers) that contributed to the score.
+    """
     highlight_keywords = [
-        "quan trọng",
-        "key",
-        "điểm chính",
-        "đặc biệt",
-        "chìa khóa",
-        "kết quả",
-        "giải pháp",
-        "lợi ích",
-        "đột phá",
-        "chiến lược",
-        "số liệu",
-        "target",
-        "goal",
-        "kêu gọi",
-        "nhớ",
-        "focus",
-        "highlight",
+        "quan trọng", "key", "điểm chính", "đặc biệt", "chìa khóa", "kết quả",
+        "giải pháp", "lợi ích", "đột phá", "chiến lược", "số liệu", "target",
+        "goal", "kêu gọi", "nhớ", "focus", "highlight",
     ]
     lowered = text.lower()
     hits = [kw for kw in highlight_keywords if kw in lowered]
-    numbers = re.findall(r"\b\d+(?:[\.,]\d+)?%?\b", text)
-    exclamations = lowered.count("!") + lowered.count("!!!")
+    numbers = re.findall(r"\b\d+(?:[\.,]\d+)?%?\b", text) # Detect numbers (e.g., 10, 1.5, 20%)
+    exclamations = lowered.count("!") + lowered.count("!!!") # Count exclamation marks
 
     score = 0.0
-    score += min(len(hits) * 0.18, 0.6)
-    score += min(len(numbers) * 0.15, 0.3)
-    score += min(exclamations * 0.1, 0.2)
+    score += min(len(hits) * 0.18, 0.6) # Max 0.6 from keywords
+    score += min(len(numbers) * 0.15, 0.3) # Max 0.3 from numbers
+    score += min(exclamations * 0.1, 0.2) # Max 0.2 from exclamations
 
     return min(score, 1.0), hits + numbers
 
 
 def detect_cta(text: str) -> Tuple[bool, List[str]]:
+    """
+    Detects if a given text contains Call-to-Action (CTA) keywords.
+
+    Args:
+        text: The input string.
+
+    Returns:
+        A tuple containing:
+        - A boolean indicating whether a CTA was detected.
+        - A list of CTA keywords that were found.
+    """
     cta_keywords = [
-        "đăng ký",
-        "subscribe",
-        "theo dõi",
-        "liên hệ",
-        "đăng nhập",
-        "đăng ký kênh",
-        "call to action",
-        "cta",
-        "kêu gọi",
-        "sign up",
-        "subscribe now",
-        "hành động ngay",
+        "đăng ký", "subscribe", "theo dõi", "liên hệ", "đăng nhập", "đăng ký kênh",
+        "call to action", "cta", "kêu gọi", "sign up", "subscribe now", "hành động ngay",
     ]
     lowered = text.lower()
     triggers = [kw for kw in cta_keywords if kw in lowered]
@@ -213,6 +317,16 @@ def detect_cta(text: str) -> Tuple[bool, List[str]]:
 
 
 def load_motion_rules(root: Path) -> Dict[str, Any]:
+    """
+    Loads motion rules from 'assets/motion_rules.json' and preprocesses motion keywords.
+
+    Args:
+        root: The root path of the repository.
+
+    Returns:
+        A dictionary containing motion rules, with an added '_motion_keywords' entry
+        for quick lookup.
+    """
     motion_path = root / "assets" / "motion_rules.json"
     motion_rules = load_json(motion_path)
     motion_keywords: Dict[str, List[str]] = {}
@@ -227,6 +341,16 @@ def load_motion_rules(root: Path) -> Dict[str, Any]:
 
 
 def detect_motion_cues(text: str, motion_rules: Dict[str, Any]) -> List[str]:
+    """
+    Detects potential motion cues in a given text based on predefined motion rules.
+
+    Args:
+        text: The input string.
+        motion_rules: Dictionary containing motion cue rules, including preprocessed keywords.
+
+    Returns:
+        A list of detected motion cue names.
+    """
     lowered = text.lower()
     candidates: List[str] = []
     motion_keywords: Dict[str, List[str]] = motion_rules.get("_motion_keywords", {})
@@ -237,6 +361,18 @@ def detect_motion_cues(text: str, motion_rules: Dict[str, Any]) -> List[str]:
 
 
 def detect_sfx_hints(text: str, highlight_score: float, cta_flag: bool) -> List[str]:
+    """
+    Detects potential SFX (sound effect) hints in a given text based on keywords,
+    highlight score, and CTA flag.
+
+    Args:
+        text: The input string.
+        highlight_score: The highlight score of the text.
+        cta_flag: A boolean indicating if the text contains a CTA.
+
+    Returns:
+        A sorted list of unique SFX hint categories.
+    """
     lowered = text.lower()
     hints: List[str] = []
     if highlight_score >= 0.55:
@@ -268,6 +404,20 @@ def generate_scene_map(
     motion_rules: Dict[str, Any],
     fps: float,
 ) -> Dict[str, Any]:
+    """
+    Generates a structured scene map from a list of SRT entries.
+    Each scene in the map includes timing, topics, emotion, highlight scores,
+    CTA flags, motion candidates, and SFX hints.
+
+    Args:
+        entries: A list of SrtEntry objects.
+        topic_index: A pre-built index of topics and their keywords.
+        motion_rules: Dictionary containing motion cue rules.
+        fps: The frame rate of the video, used to calculate frame counts.
+
+    Returns:
+        A dictionary representing the complete scene map.
+    """
     scenes: List[Dict[str, Any]] = []
     topic_totals: Counter[str] = Counter()
     highlight_count = 0
@@ -280,6 +430,8 @@ def generate_scene_map(
     for entry in entries:
         text_one_line = entry.text_one_line
         text_tokens = tokenize(text_one_line)
+        
+        # Detect various metadata for the scene
         topics, topic_scores = detect_topics(text_tokens, topic_index)
         emotion, emotion_hits = detect_emotion(text_one_line)
         highlight_score, highlight_hits = compute_highlight_score(text_one_line)
@@ -287,6 +439,7 @@ def generate_scene_map(
         motion_candidates = detect_motion_cues(text_one_line, motion_rules)
         sfx_hints = detect_sfx_hints(text_one_line, highlight_score, cta_flag)
 
+        # Calculate timing in seconds and frames
         start_seconds = parse_timecode(entry.start)
         end_seconds = parse_timecode(entry.end)
         duration = max(end_seconds - start_seconds, 0.0)
@@ -294,12 +447,14 @@ def generate_scene_map(
         start_frame = int(round(start_seconds * fps))
         end_frame = int(round(end_seconds * fps))
 
+        # Update overall summary counts
         topic_totals.update(topics)
         if highlight_score >= highlight_rate:
             highlight_count += 1
         if cta_flag:
             cta_count += 1
 
+        # Append the structured scene data
         scenes.append(
             {
                 "id": entry.index,
@@ -326,6 +481,7 @@ def generate_scene_map(
             }
         )
 
+    # Calculate total duration and build summary statistics
     total_duration = entries[-1].end if entries else "00:00:00,000"
     summary = {
         "totalSegments": len(scenes),
@@ -340,6 +496,7 @@ def generate_scene_map(
         ],
     }
 
+    # Return the complete scene map structure
     return {
         "version": 1,
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -353,13 +510,25 @@ def generate_scene_map(
         "summary": summary,
     }
 
-
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
 
 def resolve_output_path(input_path: Path, output_arg: Path | None) -> Path:
+    """
+    Resolves the output path for the scene map JSON file.
+    If an output argument is provided, it uses that; otherwise, it derives a path
+    from the input SRT file (e.g., 'input.srt.scene_map.json').
+    Ensures the parent directory for the output path exists.
+
+    Args:
+        input_path: The path to the input SRT file.
+        output_arg: Optional. The user-specified output path.
+
+    Returns:
+        The resolved Path object for the output JSON file.
+    """
     if output_arg:
         target = output_arg
     else:
@@ -369,6 +538,16 @@ def resolve_output_path(input_path: Path, output_arg: Path | None) -> Path:
 
 
 def main(argv: List[str] | None = None) -> int:
+    """
+    Main entry point for the script. Parses arguments, loads SRT,
+    generates the scene map, and writes it to a JSON file.
+
+    Args:
+        argv: Optional. A list of command-line arguments. Defaults to sys.argv.
+
+    Returns:
+        An exit code (0 for success, 1 for failure).
+    """
     parser = argparse.ArgumentParser(description="Generate scene_map.json from SRT transcript.")
     parser.add_argument("srt_path", type=Path, help="Input SRT file")
     parser.add_argument(
@@ -386,19 +565,24 @@ def main(argv: List[str] | None = None) -> int:
     )
 
     args = parser.parse_args(argv)
+    
+    # Validate SRT input path
     if not args.srt_path.exists():
         parser.error(f"SRT file not found: {args.srt_path}")
 
+    # Parse SRT and validate entries
     entries = parse_srt(args.srt_path)
     if not entries:
         parser.error("No valid entries found in SRT")
 
-    repo_root = Path(__file__).resolve().parents[2]
+    # Resolve repository root and load catalogs/rules
+    repo_root = Path(__file__).resolve().parents[3]
     broll_catalog = load_json(repo_root / "assets" / "broll_catalog.json")
     topic_index = build_topic_index(broll_catalog)
 
     motion_rules = load_motion_rules(repo_root)
 
+    # Generate the scene map
     scene_map = generate_scene_map(
         entries,
         topic_index=topic_index,
@@ -406,12 +590,14 @@ def main(argv: List[str] | None = None) -> int:
         fps=args.fps,
     )
 
+    # Add source and catalog information to the scene map
     scene_map["source"] = str(args.srt_path)
     scene_map["catalogs"] = {
         "broll": bool(broll_catalog),
         "motionRules": bool(motion_rules),
     }
 
+    # Resolve and write the output scene map
     output_path = resolve_output_path(args.srt_path, args.output_path)
     with output_path.open("w", encoding="utf-8") as handle:
         json.dump(scene_map, handle, ensure_ascii=False, indent=2)

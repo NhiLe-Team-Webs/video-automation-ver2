@@ -34,6 +34,18 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 
 def load_json(path: Path) -> Dict[str, Any]:
+    """
+    Loads a JSON file from the given path.
+
+    Args:
+        path: The path to the JSON file.
+
+    Returns:
+        A dictionary containing the JSON data.
+
+    Raises:
+        FileNotFoundError: If the JSON file does not exist.
+    """
     if not path.exists():
         raise FileNotFoundError(f"JSON file not found: {path}")
     with path.open("r", encoding="utf-8") as handle:
@@ -41,6 +53,14 @@ def load_json(path: Path) -> Dict[str, Any]:
 
 
 def write_json(data: Dict[str, Any], path: Path) -> None:
+    """
+    Writes a dictionary to a JSON file with pretty-printing.
+    Ensures the parent directory exists.
+
+    Args:
+        data: The dictionary to write.
+        path: The path to the output JSON file.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=False, indent=2)
@@ -48,6 +68,16 @@ def write_json(data: Dict[str, Any], path: Path) -> None:
 
 
 def camel_case_motion(name: str) -> str:
+    """
+    Converts a string to camelCase, typically used for motion cue names.
+    E.g., "zoom-in" -> "zoomIn", "slide up" -> "slideUp".
+
+    Args:
+        name: The input string.
+
+    Returns:
+        The camelCase version of the string.
+    """
     normalized = name.strip().replace("-", "_").replace(" ", "_").lower()
     parts = [part for part in normalized.split("_") if part]
     if not parts:
@@ -57,6 +87,18 @@ def camel_case_motion(name: str) -> str:
 
 
 def overlap_seconds(a_start: float, a_end: float, b_start: float, b_end: float) -> float:
+    """
+    Calculates the overlap duration in seconds between two time intervals.
+
+    Args:
+        a_start: Start time of interval A.
+        a_end: End time of interval A.
+        b_start: Start time of interval B.
+        b_end: End time of interval B.
+
+    Returns:
+        The duration of the overlap in seconds. Returns 0.0 if there is no overlap.
+    """
     return max(0.0, min(a_end, b_end) - max(a_start, b_start))
 
 
@@ -67,6 +109,20 @@ def overlap_seconds(a_start: float, a_end: float, b_start: float, b_end: float) 
 
 @dataclass
 class SceneSummary:
+    """
+    Represents a summary of a scene, aggregating various metadata from scene map segments.
+
+    Attributes:
+        start: The start time of the scene segment in seconds.
+        end: The end time of the scene segment in seconds.
+        topics: A list of dominant topics in the scene.
+        highlight_score: A numerical score indicating the highlight potential of the scene.
+        motion_candidates: A list of potential motion cues for the scene.
+        tokens: A list of important tokens/keywords from the scene's transcript.
+        text: The combined transcript text for the scene.
+        cta: A boolean flag indicating if the scene contains a Call-to-Action.
+        sfx_hints: A list of suggested SFX categories for the scene.
+    """
     start: float
     end: float
     topics: List[str]
@@ -79,6 +135,7 @@ class SceneSummary:
 
     @property
     def duration(self) -> float:
+        """Calculates the duration of the scene summary."""
         return max(0.0, self.end - self.start)
 
 
@@ -398,6 +455,16 @@ def enrich_plan(
 
 
 def main(argv: List[str] | None = None) -> int:
+    """
+    Main entry point for the script. Parses arguments, loads data,
+    enriches the plan, and writes the output.
+
+    Args:
+        argv: Optional. A list of command-line arguments. Defaults to sys.argv.
+
+    Returns:
+        An exit code (0 for success, 1 for failure).
+    """
     parser = argparse.ArgumentParser(description="Enrich plan.json with B-roll and motion cues.")
     parser.add_argument("plan_path", type=Path, help="Input plan.json from Gemini")
     parser.add_argument("output_path", type=Path, help="Output path for enriched plan")
@@ -439,19 +506,24 @@ def main(argv: List[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
 
+    # Load input plan and scene map
     plan = load_json(args.plan_path)
     scene_map = load_json(args.scene_map_path)
 
+    # Resolve repository root for loading catalogs
     script_dir = Path(__file__).resolve().parent
-    repo_root = script_dir.parent.parent
+    repo_root = script_dir.parent.parent.parent
 
     def resolve(path: Path) -> Path:
+        """Helper to resolve absolute or relative paths against the repository root."""
         return path if path.is_absolute() else (repo_root / path)
 
+    # Load optional catalogs and rules
     broll_catalog = load_json(resolve(args.broll_catalog_path)) if args.broll_catalog_path else None
     sfx_catalog = load_json(resolve(args.sfx_catalog_path)) if args.sfx_catalog_path else None
     motion_rules = load_json(resolve(args.motion_rules_path)) if args.motion_rules_path else None
 
+    # Enrich the plan
     enriched_plan, warnings = enrich_plan(
         plan,
         scene_map,
@@ -461,8 +533,10 @@ def main(argv: List[str] | None = None) -> int:
         broll_threshold=args.broll_threshold,
     )
 
+    # Write the enriched plan to output
     write_json(enriched_plan, args.output_path)
 
+    # Report any warnings
     if warnings:
         print("[WARN] Issues detected:")
         for warning in warnings:
