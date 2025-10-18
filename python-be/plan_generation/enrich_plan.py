@@ -512,7 +512,7 @@ def main(argv: List[str] | None = None) -> int:
 
     # Resolve repository root for loading catalogs
     script_dir = Path(__file__).resolve().parent
-    repo_root = script_dir.parent.parent.parent
+    repo_root = script_dir.parent.parent
 
     def resolve(path: Path) -> Path:
         """Helper to resolve absolute or relative paths against the repository root."""
