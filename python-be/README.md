@@ -46,7 +46,7 @@ The scripts inside `python-be/` normalize your source footage, generate transcri
    The script performs the following:
    - Auto-Editor removes silence → `outputs/stage1_cut.mp4`.
    - Whisper generates an SRT transcript → `outputs/stage1_cut.srt`.
-   - A planning step produces `plan.json` (Gemini first, static mapping fallback).
+   - A planning step produces `plan.json` using Gemini.
    - Copies `stage1_cut.mp4` and `plan.json` into `public/input/` as `input.mp4` and `plan.json`.
 
 4. **Render with Remotion**
@@ -157,15 +157,9 @@ The generated plan conforms to the Remotion schema (`remotion-app/src/data/planS
 
 - `scripts/make_plan_gemini.py` submits the transcript to Gemini and normalizes the response to the schema above.
 - Requires the `GEMINI_API_KEY` environment variable (and optional `GEMINI_MODEL`).
-- If Gemini fails, the pipeline automatically falls back to `scripts/make_plan_from_srt.py`, which uses `plan/mapping.json`.
 - Khi đã có `outputs/scene_map.json`, chạy `python scripts/make_plan_gemini.py outputs/stage1_cut.srt outputs/plan.json --scene-map outputs/scene_map.json` để Gemini tận dụng metadata scene, thư viện B-roll/SFX và rules chuyển động.
 - Để gắn B-roll, motion cue và highlight CTA tự động sau khi Gemini sinh plan, chạy `python scripts/enrich_plan.py outputs/plan.json outputs/plan_enriched.json --scene-map outputs/scene_map.json`. Script sẽ thêm trường `broll`/`motionCue`, propagate `sfxHints`, bổ sung CTA highlight (nếu thiếu) và ghi chú cảnh báo gap timeline trong `meta.warnings`.
 
-### Customize the fallback mapping
-
-- `plan/mapping.json` lets you describe rules for segments, transitions, and SFX.
-- Adjust or add rules to influence the fallback output.
-- Fallback highlights pull notable transcript sentences and attach SFX according to the matching `sfx` rule.
 
 ## 🧪 Intermediate artifacts
 
