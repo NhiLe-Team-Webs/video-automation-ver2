@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "description": "Contextual rules for B-roll, SFX, and motion cues based on content analysis.",
+  "rules": [
+    {
+      "id": "ai_future_broll_sfx",
+      "conditions": {
+        "topics": ["ai", "innovation", "futuristic"],
+        "keywords": ["tương lai", "công nghệ", "AI"]
+      },
+      "actions": {
+        "brollId": "ai_robot_hand",
+        "sfxId": "tech_notification"
+      },
+      "priority": 100,
+      "notes": "Rule for AI and future-related content, using specific broll and SFX."
+    }
+  ]
+}

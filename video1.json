@@ -1,0 +1,1772 @@
+{
+  "video_timeline": [
+    {
+      "timestamp": "0:00",
+      "script": "14 years ago, I started my career in digital marketing",
+      "elements": [
+        {
+          "type": "speaker_intro",
+          "layer": "main"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:02",
+      "script": "built and sold online businesses, consulted for small shops to celebrities to Fortune 500",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "business montage",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:03",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:04",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "công nghệ, gõ máy tính",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:06",
+      "script": "consulted for small shops",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "selling flowers",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:08",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "playing guitar",
+          "context": "illustrating variety of work",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:10",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "meeting offline",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:11",
+      "script": "recognized in business magazines like Forbes and Inc as an 'SEO expert'",
+      "elements": [
+        {
+          "type": "visual",
+          "description": "magazine references",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:14",
+      "script": "United States government considers me to be in the top 1% of my field",
+      "elements": [
+        {
+          "type": "achievement_highlight",
+          "layer": "main"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:16",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "UK flag",
+          "layer": "video"
+        },
+        {
+          "type": "text_animation",
+          "content": "Top 1%",
+          "emphasis": true,
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:19",
+      "script": "despite any success, I've also made a ton of mistakes",
+      "elements": [
+        {
+          "type": "transition",
+          "layer": "main"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:22",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "vứt rác vào thùng rác",
+          "context": "mistakes metaphor",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:24",
+      "script": "cost me valuable time and money",
+      "elements": [
+        {
+          "type": "emphasis",
+          "layer": "main"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:25",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "đồng hồ cát",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:27",
+      "script": "how I would learn digital marketing if I could start over",
+      "elements": [
+        {
+          "type": "icon",
+          "content": "đồng hồ và money",
+          "context": "time and money visual",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:32",
+      "script": "share some of my biggest failures",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "về sự thất bại",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:35",
+      "script": "Part 1: choose just one area of digital marketing to focus on",
+      "elements": [
+        {
+          "type": "section_header",
+          "section": "part_1",
+          "layer": "main"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:38",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Part 1: Choose One Area",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:41",
+      "script": "this is the opposite of what I did",
+      "elements": []
+    },
+    {
+      "timestamp": "0:42",
+      "elements": [
+        {
+          "type": "sound_effect",
+          "sound": "transition_rewind",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:43",
+      "script": "in 2009, I started my first website",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "2009 - first website",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "pop",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:45",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "spammed forums",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "pop",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:47",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "paid ads",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "pop",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:49",
+      "script": "tried paid advertising",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "social media",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "pop",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:50",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "coupon codes",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "pop",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:52",
+      "script": "I wasted my money because I had no idea what I was doing",
+      "elements": []
+    },
+    {
+      "timestamp": "0:55",
+      "script": "social media was blowing up",
+      "elements": []
+    },
+    {
+      "timestamp": "1:00",
+      "script": "Boy was that embarrassing!",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "shame/embarrassment",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:02",
+      "script": "making like a solid $2,000 a month",
+      "elements": []
+    },
+    {
+      "timestamp": "1:05",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "$2,000/month",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "money",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:06",
+      "script": "I was officially a business man",
+      "elements": []
+    },
+    {
+      "timestamp": "1:07",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "successful people imagery",
+          "layer": "video"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "success",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:08",
+      "script": "decided to hire a search engine optimization company",
+      "elements": []
+    },
+    {
+      "timestamp": "1:10",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Hire SEO Company",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:14",
+      "script": "that was the turning point for me when my fire for SEO was ignited",
+      "elements": []
+    },
+    {
+      "timestamp": "1:15",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "successful person",
+          "layer": "video"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "fire",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:18",
+      "script": "They scammed me for everything I had",
+      "elements": []
+    },
+    {
+      "timestamp": "1:20",
+      "script": "it fueled me with rage",
+      "elements": []
+    },
+    {
+      "timestamp": "1:25",
+      "script": "committed to focus on learning just SEO",
+      "elements": []
+    },
+    {
+      "timestamp": "1:28",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:31",
+      "script": "so I wouldn't have to hire another company",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:32",
+      "script": "by around 2011, my company was worth over 7 figures",
+      "elements": []
+    },
+    {
+      "timestamp": "1:34",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "2011",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:37",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "7-figure company",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "achievement",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:39",
+      "script": "digital marketing is just marketing that happens over the internet",
+      "elements": []
+    },
+    {
+      "timestamp": "1:43",
+      "script": "email marketing, pay-per-click advertising, SEO, social media marketing",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": {
+            "title": "Digital Marketing",
+            "items": [
+              "Email marketing",
+              "Pay per click advertising",
+              "Search engine optimization",
+              "Social media marketing"
+            ]
+          },
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:51",
+      "script": "digital marketing is just so vast",
+      "elements": []
+    },
+    {
+      "timestamp": "1:52",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "marketing, social media montage",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:57",
+      "script": "focus on just one area and get really good at it",
+      "elements": []
+    },
+    {
+      "timestamp": "2:02",
+      "script": "Part 2: Commit to learning as much as possible",
+      "elements": []
+    },
+    {
+      "timestamp": "2:03",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "2. Commit to learning as much as possible",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:10",
+      "script": "there isn't a single 'right' way to learn",
+      "elements": []
+    },
+    {
+      "timestamp": "2:15",
+      "script": "learn in 3 stages",
+      "elements": []
+    },
+    {
+      "timestamp": "2:17",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "3 stages: 1, 2, 3",
+          "animation": "count_up",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:22",
+      "script": "Stage 1: focus on understanding the fundamentals",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Learn SEO\n1. Understand the fundamentals",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:25",
+      "script": "why and how SEO is important, how search engines work, main ways SEO is done",
+      "elements": []
+    },
+    {
+      "timestamp": "2:30",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": {
+            "items": [
+              "Why and how SEO is important",
+              "How search engines work",
+              "How SEO is done:",
+              "  • Keyword research",
+              "  • Link building",
+              "  • Technical SEO",
+              "  • On-page SEO"
+            ]
+          },
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:41",
+      "script": "Fundamentals may not be exciting, but they're critical",
+      "elements": []
+    },
+    {
+      "timestamp": "2:46",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "playing guitar",
+          "context": "learning instrument analogy",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:48",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "cooking",
+          "context": "learning recipe analogy",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:49",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "working at home",
+          "context": "learning digital marketing",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:51",
+      "script": "Stage 2: making connections in how fundamentals work together",
+      "elements": []
+    },
+    {
+      "timestamp": "2:52",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "2. Connect fundamentals",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:55",
+      "script": "content creation is reliant on keyword research",
+      "elements": []
+    },
+    {
+      "timestamp": "2:56",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": {
+            "connections": [
+              "SEO",
+              "↓",
+              "On-page SEO",
+              "↓",
+              "Keyword Research",
+              "↓",
+              "Content"
+            ]
+          },
+          "style": "highlighted_background",
+          "animation": "flow_chart",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:08",
+      "script": "Stage 3: learning how these techniques are executed",
+      "elements": []
+    },
+    {
+      "timestamp": "3:12",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "3. Learn how to execute SEO techniques",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:14",
+      "script": "workflows and tools that you'll need to do your job",
+      "elements": []
+    },
+    {
+      "timestamp": "3:19",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "typing on computer",
+          "context": "using tools",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:22",
+      "script": "keyword research is done with a tool like Keywords Explorer",
+      "elements": []
+    },
+    {
+      "timestamp": "3:39",
+      "script": "These three stages are typically how courses are taught",
+      "elements": []
+    },
+    {
+      "timestamp": "3:42",
+      "script": "worth taking a reputable beginner's course",
+      "elements": []
+    },
+    {
+      "timestamp": "3:51",
+      "script": "I was too young and arrogant to do this when I was getting started",
+      "elements": []
+    },
+    {
+      "timestamp": "3:57",
+      "script": "anytime someone said 'advanced', I was like Pavlov's dog",
+      "elements": []
+    },
+    {
+      "timestamp": "4:00",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Advanced SEO",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:02",
+      "script": "I'd give them all my attention",
+      "elements": []
+    },
+    {
+      "timestamp": "4:05",
+      "script": "I wasted tons of time and money",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "writing on board",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:10",
+      "script": "thought it would be more rewarding to figure it out on my own",
+      "elements": []
+    },
+    {
+      "timestamp": "4:13",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "thinking and learning, being happy",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:16",
+      "script": "there's going to be a time when you feel like 'yeah, this all makes sense!'",
+      "elements": []
+    },
+    {
+      "timestamp": "4:20",
+      "script": "but when you actually get to doing it, it's not going to feel straightforward",
+      "elements": []
+    },
+    {
+      "timestamp": "4:24",
+      "script": "Part 3: Commit to practicing",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        },
+        {
+          "type": "text_overlay",
+          "content": "3. Commit to practicing",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:32",
+      "script": "no better way to learn digital marketing than to get first-hand experience",
+      "elements": []
+    },
+    {
+      "timestamp": "4:37",
+      "script": "create your own site",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "working with computer",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:39",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Practice what you have learned\n1. Cut yourself off from new content",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:40",
+      "script": "safe place to practice whatever and however you want",
+      "elements": []
+    },
+    {
+      "timestamp": "4:45",
+      "script": "I highly recommend doing two things",
+      "elements": []
+    },
+    {
+      "timestamp": "4:49",
+      "script": "#1. Cut yourself off from all new content",
+      "elements": []
+    },
+    {
+      "timestamp": "5:04",
+      "script": "stay laser-focused on actually practicing the fundamentals",
+      "elements": []
+    },
+    {
+      "timestamp": "5:14",
+      "script": "#2 don't obsess over things that aren't moving your progress forward",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Practice what you have learned\n1. Cut yourself off from new content\n2. Prioritize things that advance your progress",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:23",
+      "script": "don't spend hours trying to fine-tune your logo, fonts or blog layout",
+      "elements": []
+    },
+    {
+      "timestamp": "5:28",
+      "script": "focus on driving organic traffic through high rankings",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "editing logo",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:31",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "seeing traffic increase",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:46",
+      "script": "fastest way to accelerate your growth: get a job or internship at an agency",
+      "elements": []
+    },
+    {
+      "timestamp": "5:53",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Practice what you have learned\n1. Cut yourself off from new content\n2. Prioritize things that advance your progress\n3. Work at a marketing agency",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:57",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "teamwork, discussion",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:02",
+      "script": "work on a diverse group of projects",
+      "elements": []
+    },
+    {
+      "timestamp": "6:03",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "training person",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:05",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "writing notes",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:11",
+      "script": "biggest advantage: be in the trenches with people who are ahead of you",
+      "elements": []
+    },
+    {
+      "timestamp": "6:20",
+      "script": "ask them questions, watch them solve problems",
+      "elements": []
+    },
+    {
+      "timestamp": "6:27",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "working with data",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:35",
+      "script": "don't make the mistake of taking shortcuts to get there",
+      "elements": []
+    },
+    {
+      "timestamp": "6:40",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Practice what you have learned\n1. Cut yourself off from new content\n2. Prioritize things that advance your progress\n3. Work at a marketing agency\n4. Avoid shortcuts",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:42",
+      "script": "I'm talking from experience here",
+      "elements": []
+    },
+    {
+      "timestamp": "6:44",
+      "script": "I took an SEO shortcut that cost me seven-figures",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "regret/crying",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:48",
+      "script": "my first company was an ecommerce store",
+      "elements": []
+    },
+    {
+      "timestamp": "6:53",
+      "script": "one of the hardest parts of SEO is getting backlinks",
+      "elements": []
+    },
+    {
+      "timestamp": "6:59",
+      "script": "backlinks were pretty much all you needed to rank",
+      "elements": []
+    },
+    {
+      "timestamp": "7:00",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "illustration of backlinks strategy",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:05",
+      "script": "I came across a private blog network called Build My Rank",
+      "elements": []
+    },
+    {
+      "timestamp": "7:06",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "showing the service",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:10",
+      "script": "could buy virtually an infinite number of backlinks",
+      "elements": []
+    },
+    {
+      "timestamp": "7:12",
+      "script": "would boost it to the top of Google",
+      "elements": []
+    },
+    {
+      "timestamp": "7:15",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "ranking visualization",
+          "style": "highlighted_background",
+          "animation": "rising_chart",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:18",
+      "script": "converting into tens of thousands of dollars every month",
+      "elements": []
+    },
+    {
+      "timestamp": "7:23",
+      "script": "buying backlinks was and still is against Google's guidelines",
+      "elements": []
+    },
+    {
+      "timestamp": "7:25",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "warning signs",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:29",
+      "script": "I was making a healthy living, getting ready to cash out",
+      "elements": []
+    },
+    {
+      "timestamp": "7:32",
+      "script": "without warning, I lost like 85% of my traffic",
+      "elements": []
+    },
+    {
+      "timestamp": "7:35",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "explosion/crash visualization",
+          "layer": "video"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "crash",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:38",
+      "script": "instead of getting a low seven-figure buyout, I ended up getting much less",
+      "elements": []
+    },
+    {
+      "timestamp": "7:41",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "money loss visualization",
+          "style": "highlighted_background",
+          "animation": "falling_money",
+          "layer": "overlay"
+        },
+        {
+          "type": "icon",
+          "content": "money_loss",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "money_loss",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:46",
+      "script": "had I focused on learning link building properly",
+      "elements": []
+    },
+    {
+      "timestamp": "7:51",
+      "script": "would have had a much nicer exit",
+      "elements": []
+    },
+    {
+      "timestamp": "8:00",
+      "script": "Bottomline: avoid shortcuts because they can be costly",
+      "elements": []
+    },
+    {
+      "timestamp": "8:01",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:06",
+      "script": "another thing I would do differently: build relationships with people",
+      "elements": []
+    },
+    {
+      "timestamp": "8:08",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Practice what you have learned\n1. Cut yourself off from new content\n2. Prioritize things that advance your progress\n3. Work at a marketing agency\n4. Avoid shortcuts\n5. Build relationships",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:10",
+      "script": "for like the first 8 years of doing SEO, I literally didn't talk to anyone",
+      "elements": []
+    },
+    {
+      "timestamp": "8:15",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "thinking alone in dark",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:19",
+      "script": "it was lonely and I was stunting my professional growth",
+      "elements": []
+    },
+    {
+      "timestamp": "8:23",
+      "script": "network with two different groups of people",
+      "elements": [
+        {
+          "type": "effect",
+          "action": "zoom_in",
+          "duration": 1,
+          "layer": "transition"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:29",
+      "script": "Group 1: like-minded people trying to learn the same area",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Group 1:\nLike-minded people to learn together",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:36",
+      "script": "safe place where you can share ideas, experiences without fear of judgment",
+      "elements": []
+    },
+    {
+      "timestamp": "8:37",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "talking to a friend",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:42",
+      "script": "learn from each other and find motivation",
+      "elements": []
+    },
+    {
+      "timestamp": "8:48",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "collaboration",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:49",
+      "script": "this is what Mr. Beast did with a group of friends",
+      "elements": []
+    },
+    {
+      "timestamp": "9:00",
+      "script": "Group 2: people you respect in your niche",
+      "elements": []
+    },
+    {
+      "timestamp": "9:01",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Group 2:\nPeople you respect in your niche",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:05",
+      "script": "All it takes is an email or DM",
+      "elements": []
+    },
+    {
+      "timestamp": "9:08",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Hey, just wanted to let you know that I really admire your work. Thanks for all that you do!",
+          "style": "highlighted_background",
+          "animation": "typing_effect",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "typing",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:17",
+      "script": "in 2017, I reached out to Tim Soulo, CMO at Ahrefs",
+      "elements": []
+    },
+    {
+      "timestamp": "9:28",
+      "script": "he replied: 'You've made my day!'",
+      "elements": []
+    },
+    {
+      "timestamp": "9:29",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "Reply: 'You've made my day!'",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:30",
+      "script": "Fast forward one year, and I ended up working at Ahrefs",
+      "elements": []
+    },
+    {
+      "timestamp": "9:34",
+      "script": "Relationships in digital marketing are important",
+      "elements": []
+    },
+    {
+      "timestamp": "9:35",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "celebration/cheer",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:37",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "showing success",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:40",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "showing achievement",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:44",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "professional context",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:46",
+      "script": "you're going to come to a crossroad where you need to decide what's next",
+      "elements": []
+    },
+    {
+      "timestamp": "9:53",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "confused about which direction to choose",
+          "animation": "crossroad_visual",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "confusion",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:58",
+      "script": "I see three ways this can work - none are wrong or right",
+      "elements": []
+    },
+    {
+      "timestamp": "10:02",
+      "script": "Option 1: continue to stay a generalist in your focus area",
+      "elements": []
+    },
+    {
+      "timestamp": "10:03",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "1. Stay a generalist in your focus area",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:06",
+      "script": "build knowledge and experience in most areas of your specific field",
+      "elements": []
+    },
+    {
+      "timestamp": "10:14",
+      "script": "pros: generalists often become managers and leaders",
+      "elements": []
+    },
+    {
+      "timestamp": "10:15",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "important meeting/leadership",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:23",
+      "script": "con: you never really become an expert in anything",
+      "elements": []
+    },
+    {
+      "timestamp": "10:31",
+      "script": "Option 2: niche down further in your focus area",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "2. Niche down in your focus area",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:39",
+      "script": "there's too much information to become a true expert",
+      "elements": []
+    },
+    {
+      "timestamp": "10:50",
+      "script": "each digital marketing strategy breaks down quite a lot",
+      "elements": []
+    },
+    {
+      "timestamp": "10:53",
+      "script": "focus on Facebook marketing, or Facebook group marketing for software companies",
+      "elements": []
+    },
+    {
+      "timestamp": "10:55",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "Facebook marketing → Facebook groups → for software companies",
+          "animation": "progression_arrow",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "transition",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:05",
+      "script": "pro: easier to become recognized as a niche authority",
+      "elements": []
+    },
+    {
+      "timestamp": "11:17",
+      "script": "you can typically demand higher wages",
+      "elements": []
+    },
+    {
+      "timestamp": "11:20",
+      "script": "con: there's usually less demand",
+      "elements": []
+    },
+    {
+      "timestamp": "11:23",
+      "script": "Option 3: expand into other areas of digital marketing",
+      "elements": []
+    },
+    {
+      "timestamp": "11:25",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "content": "3. Expand into other areas of digital marketing",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:27",
+      "script": "this is kind of the route that I've gone",
+      "elements": []
+    },
+    {
+      "timestamp": "11:29",
+      "script": "expand into areas where your skills are complementary and transferable",
+      "elements": []
+    },
+    {
+      "timestamp": "11:35",
+      "script": "starting from SEO and expanding to content marketing, or SEO to search ads",
+      "elements": [
+        {
+          "type": "text_animation",
+          "content": "SEO → content marketing → search ads",
+          "animation": "expansion_flow",
+          "style": "highlighted_background",
+          "layer": "overlay"
+        },
+        {
+          "type": "sound_effect",
+          "sound": "expansion",
+          "layer": "audio"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:51",
+      "script": "being 14 years into my digital marketing career, I'm still learning all the time",
+      "elements": []
+    },
+    {
+      "timestamp": "11:59",
+      "script": "that's largely because I'm practicing things I just shared with you",
+      "elements": []
+    },
+    {
+      "timestamp": "12:03",
+      "script": "I work with a ton of smart people at Ahrefs",
+      "elements": []
+    },
+    {
+      "timestamp": "12:08",
+      "script": "I've had the opportunity to meet really smart people at conferences, through social media",
+      "elements": []
+    },
+    {
+      "timestamp": "12:10",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "meeting people at conferences",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:15",
+      "script": "I go through seasons of intentional learning, followed by intentional doing",
+      "elements": []
+    },
+    {
+      "timestamp": "12:20",
+      "script": "while I've screwed up in many ways, I don't look at anything as a waste of time",
+      "elements": []
+    },
+    {
+      "timestamp": "12:27",
+      "script": "I'm definitely not the smartest, richest, most recognized digital marketer",
+      "elements": []
+    },
+    {
+      "timestamp": "12:29",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "looking smart/professional",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:30",
+      "elements": [
+        {
+          "type": "broll",
+          "description": "successful/rich people",
+          "layer": "video"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:34",
+      "script": "but this is a long journey that I've embraced",
+      "elements": []
+    },
+    {
+      "timestamp": "12:39",
+      "script": "I hope it's one that you'll enjoy or are currently enjoying too",
+      "elements": []
+    },
+    {
+      "timestamp": "12:41",
+      "script": "if you want to start your digital marketing career in SEO, I highly recommend watching our SEO course",
+      "elements": []
+    },
+    {
+      "timestamp": "12:53",
+      "script": "I'll see you there",
+      "elements": []
+    }
+  ],
+  "video_metadata": {
+    "title": "How I Would Learn Digital Marketing (If I Could Start Over)",
+    "total_duration": "12:53",
+    "speaker": "Ahrefs representative",
+    "element_types_glossary": {
+      "broll": {
+        "description": "B-roll footage - supplementary footage that illustrates the narrative",
+        "layer": "video",
+        "properties": ["description", "context"]
+      },
+      "text_overlay": {
+        "description": "Text displayed on screen with background styling",
+        "layer": "overlay",
+        "properties": ["content", "style", "animation"],
+        "common_styles": [
+          "highlighted_background",
+          "clean_minimal",
+          "bold_emphasis"
+        ]
+      },
+      "text_animation": {
+        "description": "Animated text elements with motion",
+        "layer": "overlay",
+        "properties": ["content", "animation", "emphasis"],
+        "common_animations": [
+          "count_up",
+          "typing_effect",
+          "flow_chart",
+          "progression_arrow",
+          "expansion_flow"
+        ]
+      },
+      "sound_effect": {
+        "description": "Audio effects to emphasize moments",
+        "layer": "audio",
+        "properties": ["sound"],
+        "common_sounds": [
+          "transition_rewind",
+          "pop",
+          "money",
+          "success",
+          "fire",
+          "achievement",
+          "crash",
+          "money_loss",
+          "typing",
+          "confusion",
+          "transition",
+          "expansion"
+        ]
+      },
+      "effect": {
+        "description": "Visual transitions or effects",
+        "layer": "transition",
+        "properties": ["action", "duration"],
+        "common_actions": [
+          "zoom_in",
+          "zoom_out",
+          "fade",
+          "slide"
+        ]
+      },
+      "icon": {
+        "description": "Icon or graphic element",
+        "layer": "overlay",
+        "properties": ["content", "context"]
+      }
+    },
+    "layers_explained": {
+      "main": "Primary speaker video layer",
+      "video": "B-roll video layer (replaces or overlays main)",
+      "overlay": "Graphics, text, icons layer (on top of video)",
+      "audio": "Sound effects layer (mixed with main audio)",
+      "transition": "Visual effects between clips"
+    },
+    "main_sections": [
+      {
+        "section": "Introduction",
+        "timestamp": "0:00-0:35",
+        "topic": "Background and credibility establishment"
+      },
+      {
+        "section": "Part 1: Choose One Area",
+        "timestamp": "0:35-2:02",
+        "topic": "Focus on single area of digital marketing",
+        "key_story": "Personal journey from scattered approach to SEO focus"
+      },
+      {
+        "section": "Part 2: Commit to Learning",
+        "timestamp": "2:02-4:24",
+        "topic": "Three stages of learning framework",
+        "substages": [
+          "Stage 1: Understand fundamentals",
+          "Stage 2: Connect fundamentals",
+          "Stage 3: Learn execution"
+        ]
+      },
+      {
+        "section": "Part 3: Commit to Practicing",
+        "timestamp": "4:24-10:02",
+        "topic": "Practical implementation and learning",
+        "key_points": [
+          "Cut off new content",
+          "Prioritize progress",
+          "Work at agency",
+          "Avoid shortcuts (7-figure loss story)",
+          "Build relationships"
+        ]
+      },
+      {
+        "section": "Career Paths",
+        "timestamp": "10:02-11:51",
+        "topic": "Three options for career progression",
+        "options": [
+          "Stay generalist",
+          "Niche down",
+          "Expand into complementary areas"
+        ]
+      },
+      {
+        "section": "Conclusion",
+        "timestamp": "11:51-12:53",
+        "topic": "Final reflections and call to action"
+      }
+    ],
+    "editing_patterns": {
+      "text_overlays_with_sfx": {
+        "description": "Text overlays often paired with sound effects for emphasis",
+        "examples": [
+          "timestamp: 0:43 - text with 'pop' sound",
+          "timestamp: 1:05 - '$2,000/month' with 'money' sound",
+          "timestamp: 9:08 - typing text with 'typing' sound"
+        ]
+      },
+      "zoom_transitions": {
+        "description": "Zoom in effects used at key turning points",
+        "examples": [
+          "timestamp: 0:03, 1:28, 1:31, 4:24, 8:01, 8:23"
+        ]
+      },
+      "broll_metaphors": {
+        "description": "B-roll used to visualize abstract concepts",
+        "examples": [
+          "timestamp: 0:22 - throwing trash for 'mistakes'",
+          "timestamp: 2:46-2:49 - guitar, cooking, home work for 'learning analogies'"
+        ]
+      },
+      "progressive_text_lists": {
+        "description": "Building lists that expand as points are added",
+        "examples": [
+          "timestamp: 4:39, 5:14, 5:53, 6:40, 8:08 - practice checklist"
+        ]
+      }
+    },
+    "ai_training_notes": {
+      "timestamp_format": "M:SS format, represents exact moment element should appear",
+      "script_timing": "Script may span multiple timestamps if elements change while speaking",
+      "element_synchronization": "Multiple elements at same timestamp play simultaneously",
+      "layer_priority": "Layers stack in order: main (base) -> video (if present) -> overlay -> transition (temporary)",
+      "duration_defaults": {
+        "broll": "Until next video element or return to main",
+        "text_overlay": "Until next text_overlay or context changes",
+        "sound_effect": "One-time play, duration based on sound file",
+        "effect": "Specified in 'duration' property, usually 0.5-2 seconds"
+      },
+      "style_consistency": "Use 'highlighted_background' style for most important on-screen text throughout video"
+    }
+  }
+}
+          
