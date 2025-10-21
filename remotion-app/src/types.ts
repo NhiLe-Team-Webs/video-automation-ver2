@@ -90,6 +90,10 @@ export interface SegmentPlan {
   /** Optional arbitrary metadata associated with the segment. */
   metadata?: Record<string, unknown>;
   broll?: SegmentBrollPlan | null;
+  /** Optional array of suggested sound effect categories. */
+  sfxHints?: string[];
+  /** Optional explanatory notes about automatic decisions. */
+  notes?: string[];
 }
 
 /**
