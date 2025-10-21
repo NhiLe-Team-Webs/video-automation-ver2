@@ -8,10 +8,15 @@ import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, Iterable, List, Optional
 
 import google.generativeai as genai
 from dotenv import load_dotenv
+
+try:
+    from .knowledge import KnowledgeService
+except Exception:  # pragma: no cover - optional dependency at runtime
+    KnowledgeService = None  # type: ignore[assignment]
 
 TIMECODE_RE = re.compile(r"^(?P<start>\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(?P<end>\d{2}:\d{2}:\d{2},\d{3})$")
 JSON_BLOCK_RE = re.compile(r"```(?:json)?\s*(\{.*?\})\s*```", re.DOTALL)
@@ -456,6 +461,7 @@ def build_prompt(
     broll_catalog: Dict[str, Any] | None = None,
     sfx_catalog: Dict[str, Any] | None = None,
     motion_rules: Dict[str, Any] | None = None,
+    knowledge_service: Optional["KnowledgeService"] = None,
 ) -> str:
     """
     Constructs the full prompt for the Gemini LLM, including transcript segments,
@@ -575,8 +581,6 @@ def build_prompt(
         if sfx_summary:
             context_sections.append("SFX catalog overview:\n" + sfx_summary)
 
-    context_block = "\n\n".join(context_sections)
-
     # Assemble all parts of the prompt
     prompt_parts = [
         instruction_text,
@@ -585,6 +589,19 @@ def build_prompt(
         "Rules:",
         "\n".join(rules_lines),
     ]
+    knowledge_snippets: List[str] = []
+    if knowledge_service is not None:
+        transcript_excerpt = " ".join(entry.text_one_line for entry in entries)[:1500]
+        knowledge_snippets = knowledge_service.guideline_summaries(
+            transcript_excerpt, top_k=5
+        )
+    if knowledge_snippets:
+        context_sections.append(
+            "Knowledge base guidelines:\n" + "\n".join(f"- {snippet}" for snippet in knowledge_snippets)
+        )
+
+    context_block = "\n\n".join(context_sections)
+
     if context_block:
         prompt_parts.append("Supplemental context:\n" + context_block)
     prompt_parts.append("Transcript segments (ordered):\n" + transcript_section)
@@ -1313,6 +1330,14 @@ def main(argv: List[str] | None = None) -> int:
     sfx_catalog = load_json_if_exists(repo_root / "assets" / "sfx_catalog.json") or None
     motion_rules = load_json_if_exists(repo_root / "assets" / "motion_rules.json") or None
 
+    # Initialize KnowledgeService
+    knowledge_service: Optional[KnowledgeService] = None
+    if KnowledgeService is not None:
+        try:
+            knowledge_service = KnowledgeService()
+        except Exception as exc:
+            print(f"[WARN] Could not initialize KnowledgeService: {exc}", file=sys.stderr)
+
     # Build the prompt for the LLM
     prompt = build_prompt(
         entries,
@@ -1321,6 +1346,7 @@ def main(argv: List[str] | None = None) -> int:
         broll_catalog=broll_catalog,
         sfx_catalog=sfx_catalog,
         motion_rules=motion_rules,
+        knowledge_service=knowledge_service, # Pass the initialized service
     )
 
     # If dry-run, print prompt and exit
