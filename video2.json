@@ -1,0 +1,1933 @@
+{
+  "video_timeline": [
+    {
+      "timestamp": "0:03",
+      "script": "going to help you become a better digital marketer by showing you some of the most important things you need to know about digital marketing right now",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "title": "introduction",
+            "items": [
+              "Digital marketing 101",
+              "a beginner's guide"
+            ]
+          },
+          "context": "video title and subtitle"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:09",
+      "script": "you see digital marketing has been made to seem way more complicated than it actually is that's a shame really",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing complexity of digital marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:30",
+      "script": "marketer at the end so let's get to it",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "BETTER DIGITAL MARKETER",
+          "context": "key takeaway/goal of the video"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:39",
+      "script": "share with you are the differences between digital marketing and traditional marketing brace yourself for",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Digital marketing VS Traditional Marketing",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:50",
+      "script": "you see digital marketing is really just marketing done through the use of",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "Digital Marketing",
+          "context": "defining digital marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "0:52",
+      "script": "digital channels",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "MARKETING",
+            "top_right": "DIGITAL CHANNELS"
+          },
+          "context": "highlighting key components of digital marketing definition"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:02",
+      "script": "channels like seo or search engine optimization social media pay-per-click",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "S.E.O",
+            "top_right": "SEARCH ENGINE OPTIMIZATION"
+          },
+          "context": "example of digital marketing channel"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing new term"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:04",
+      "script": "ads or online facebook ads instagram ads",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "SOCIAL MEDIA",
+            "top_right": "PAY PER CLICK ADS"
+          },
+          "context": "example of digital marketing channel"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing new term"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:05",
+      "script": "or anything like that not to mention",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "FACEBOOK ADS",
+            "top_right": "INSTAGRAM ADS"
+          },
+          "context": "specific examples of paid social media"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing new term"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:10",
+      "script": "email marketing or website optimization or anything that really takes place",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "EMAIL MARKETING",
+            "top_right": "WEBSITE OPTIMIZATION"
+          },
+          "context": "further examples of digital marketing channels"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing new term"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:15",
+      "script": "online or through the use of digital media you can contrast this with",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "DIGITAL MEDIA",
+          "context": "summarizing digital channels"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:18",
+      "script": "traditional marketing using traditional",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "TRADITIONAL MARKETIN",
+          "context": "introducing traditional marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new concept"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:23",
+      "script": "newspapers or magazines or billboards",
+      "elements": [
+        {
+          "type": "text_animation",
+          "layer": "overlay",
+          "animation": "pop",
+          "content": {
+            "items": [
+              "TV",
+              "RADIO",
+              "NEWSPAPERS",
+              "MAGAZINES",
+              "BILLBOARDS"
+            ]
+          },
+          "context": "examples of traditional media"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing each item"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:41",
+      "script": "digital marketing tends to give you a",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing advantages of digital marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:44",
+      "script": "much larger audience size really you can",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "AUDIENCE SIZE",
+          "context": "key advantage: broad reach"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "1:51",
+      "script": "next is audience targeting because not",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "AUDIENCE TARGETING",
+          "context": "key advantage: precise targeting"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:00",
+      "script": "ideal and perfect people that you want to target digital marketing also tends",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "LASER FOCUSED",
+            "top_right": "SELECTIVE"
+          },
+          "context": "describing precise targeting"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:08",
+      "script": "to be significantly more cost effective than running say an ad in the new york",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "COST EFFECTIVE",
+          "context": "key advantage: cost efficiency"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:13",
+      "script": "commercial again these are designed to",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing cost-effectiveness"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:21",
+      "script": "focused and selective with your marketing and reach again only those",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "LASER FOCUSED",
+            "top_right": "SELECTIVE"
+          },
+          "context": "reiterating precise targeting for cost-effectiveness"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:27",
+      "script": "marketing also allows you to get",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning from detailed point"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:28",
+      "script": "immediate feedback and this is probably one of my favorite benefits of the",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "IMMEDIATE FEEDBACK",
+          "context": "key advantage: quick results"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:50",
+      "script": "write an ad and have it online in a",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing speed of digital marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "2:56",
+      "script": "immediate correction immediate results",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "summarizing quick feedback loop"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:02",
+      "script": "whole lot easier to measure and to track",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "MEASURE",
+            "top_right": "TRACK"
+          },
+          "context": "key advantage: data measurability"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:10",
+      "script": "measure costs and results and everything",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_right": "COSTS",
+            "top_left": "RESULTS"
+          },
+          "context": "specific metrics for measurability"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:16",
+      "script": "and tweaks and optimizations on the fly",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing real-time optimization"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:21",
+      "script": "you can't measure clicks on a magazine",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "contrasting with traditional marketing limitations"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:31",
+      "script": "anyway there's obviously some serious advantages here",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "summarizing advantages of digital marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:35",
+      "script": "to choosing digital channels going with digital marketing but again that's not",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_right": "DIGITAL CHANNELS",
+            "top_left": "DIGITAL MARKETING"
+          },
+          "context": "reiterating focus on digital channels"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "3:58",
+      "script": "mastering and learning that then you can apply that to digital channels or",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing adaptability of core principles"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:03",
+      "script": "traditional channels or any other",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "showing broader applicability"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:08",
+      "script": "you become a better digital marketer is to understand the differences between strategy and tactics and when to use",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Strategy VS Tactics",
+          "context": "introducing new comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:25",
+      "script": "get this part wrong and nothing else",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing importance of strategy"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:28",
+      "script": "matters because nothing else will work",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on strategy importance"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:51",
+      "script": "marketing the core four are made up of model market message and media so let's",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "items": [
+              "MODEL",
+              "MARKET",
+              "MESSAGE",
+              "MEDIA"
+            ]
+          },
+          "context": "introducing the 'Core Four' principles"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key framework"
+        }
+      ]
+    },
+    {
+      "timestamp": "4:56",
+      "script": "unpack those now the model is essentially your business your offer",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "MODEL",
+          "context": "defining 'Model' in Core Four"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:17",
+      "script": "hate next is the market these are the people that you're going to serve and",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "MARKET",
+          "context": "defining 'Market' in Core Four"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:23",
+      "script": "you don't want to say everyone or anyone with money you want to be focused",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "FOCUS",
+            "top_right": "LASER FOCUSED"
+          },
+          "context": "describing market targeting"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:34",
+      "script": "in marketing we call this an ideal customer avatar or an ideal client avatar and",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "IDEAL CUSTOMER AVATAR",
+            "top_right": "IDEAL CLIENT AVATAR"
+          },
+          "context": "introducing customer avatar concept"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "5:51",
+      "script": "lifestyles next is your message and here's where you're going to clarify and",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "MESSAGE",
+          "context": "defining 'Message' in Core Four"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:05",
+      "script": "telling stories about previous",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing storytelling for message"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:18",
+      "script": "you're talking about and have done what you say",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on message effectiveness"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:20",
+      "script": "truly effective messages well you've got to understand who your market is and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing market understanding for message"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:32",
+      "script": "chats with your customers never hurts and the fourth part of the core four and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to next Core Four element"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:38",
+      "script": "model of marketing is all about media and this is where you're going to go",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "MEDIA",
+          "context": "defining 'Media' in Core Four"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "6:45",
+      "script": "completely backwards they start with the",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing common mistake in marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:03",
+      "script": "foundation this is why if you go through",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on proper marketing order"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:07",
+      "script": "with the model moving on to the market identifying the message by the time you",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "MODEL MESSAGE",
+            "top_right": "MARKET MEDIA"
+          },
+          "context": "visualizing the correct order of Core Four"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "illustrating flow/progression"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:17",
+      "script": "target market is present and active online and this is going to enable you",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "IDEAL TARGET MARKET ACTIVE ONLINE",
+            "top_right": "PRESENT"
+          },
+          "context": "identifying where target market is active"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:22",
+      "script": "to go there and ignore everything else the reality is you don't need to do",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing focus on relevant channels"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:30",
+      "script": "save you a ton of time and money and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "summarizing benefits of focused approach"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:38",
+      "script": "simply aren't going to deliver results all right so that was the strategy the",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "transitioning from strategy to tactics"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:46",
+      "script": "about the tactics are the details and",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "TACTICS",
+          "context": "defining tactics"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "7:50",
+      "script": "the actionable steps or executable",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on tactics"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:17",
+      "script": "schedule or level of consistency or how many memes are you gonna throw in a",
+      "elements": [
+        {
+          "type": "broll",
+          "layer": "video",
+          "description": "A CAT (meme)",
+          "context": "illustrating 'memes' in content strategy"
+        },
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "crossfade",
+          "duration": 0.5,
+          "context": "visual transition with broll"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "cartoon_boing",
+          "context": "playful sound for meme broll"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:27",
+      "script": "the difference all right the next thing",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "transitioning to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:28",
+      "script": "that you need to know about digital",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding previous topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:32",
+      "script": "organic and paid so let's start with organic organic content and organic",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Organic VS Paid",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:41",
+      "script": "for free so anytime that you make a post",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "FREE",
+          "context": "key characteristic of organic marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "8:52",
+      "script": "promoted you're creating organic content now this doesn't mean that it's free",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "ORGANIC CONTENT",
+          "context": "defining organic content"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:06",
+      "script": "organic content so if organic marketing",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing organic content"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:11",
+      "script": "marketing is the opposite of that putting out content and then paying the",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "PAID MARKETING",
+          "context": "defining paid marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:19",
+      "script": "to even more people basically with paid media or paid marketing paid ads you're",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on paid marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:31",
+      "script": "kingpins like facebook ads instagram ads and youtube ads linkedin ads and google",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "items": [
+              "FACEBOOK ADS",
+              "INSTAGRAM ADS",
+              "YOUTUBE ADS",
+              "LINKEDIN ADS",
+              "GOOGLE ADS"
+            ]
+          },
+          "context": "examples of major paid ad platforms"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing each item"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:40",
+      "script": "ads essentially the major networks with ads added to the back of their name",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing prevalence of paid ads"
+        }
+      ]
+    },
+    {
+      "timestamp": "9:52",
+      "script": "through targeting now of course like all marketing strategies",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to pros and cons"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:19",
+      "script": "experience results all right now let's talk about",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:22",
+      "script": "marketing direct response versus brand awareness direct response marketing is",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Direct Response VS Brand Awareness",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:34",
+      "script": "direct response marketing you're creating an ad or you're creating a",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "DIRECT RESPONSE MARKETING",
+          "context": "defining direct response marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "10:59",
+      "script": "are direct response because you're expecting something ideally immediately",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing immediate results"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:07",
+      "script": "what doesn't now contrast all of that with brand",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to brand awareness"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:09",
+      "script": "awareness marketing which is essentially more focused on longer term and building",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "BRAND AWARENESS MARKETING",
+          "context": "defining brand awareness marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:32",
+      "script": "intangible the reality is long term to build a",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing need for both strategies"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:40",
+      "script": "marketing and brand awareness marketing",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "DIRECT RESPONSE MARKETING",
+            "top_right": "BRAND AWARENESS MARKETING"
+          },
+          "context": "visualizing the mix of strategies"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "11:54",
+      "script": "results this is a recipe for failure and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing mistake of mixing expectations"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:00",
+      "script": "working it's because they're using the",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding thought on using right tools"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:08",
+      "script": "cake this is why it's incredibly",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing importance of strategy"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:09",
+      "script": "important that you use the right recipe",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "reiterating importance of strategy"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:10",
+      "script": "your strategy for the job all right",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to next topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:12",
+      "script": "another incredibly important thing you need to know about digital marketing is",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "RECIPE",
+            "top_right": "STRATEGY"
+          },
+          "context": "summarizing strategy importance"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:18",
+      "script": "the difference between search and discovery marketing when it comes to",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Search VS Discovery",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:28",
+      "script": "biggest and most important or keyword if you will is intent basically what's the",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "INTENT",
+          "context": "key differentiator: user intent"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:36",
+      "script": "at night so let's start with search and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "introducing search marketing"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:38",
+      "script": "here we're talking about platforms like",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding introduction to search"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:39",
+      "script": "google and youtube basically any other",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "SEARCH",
+          "context": "defining search marketing"
+        },
+        {
+          "type": "icon",
+          "layer": "overlay",
+          "content": "google_logo",
+          "context": "visualizing Google as search platform"
+        },
+        {
+          "type": "icon",
+          "layer": "overlay",
+          "content": "youtube_logo",
+          "context": "visualizing YouTube as search platform"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms/icons"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:48",
+      "script": "intent they're there to find an answer or a",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "INTENT",
+          "context": "reiterating user intent in search"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "12:57",
+      "script": "looking for this is where you as a marketer want to",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing marketer's role in search"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:05",
+      "script": "looking for some strategies here are",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to search strategies"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:07",
+      "script": "using seo or search engine optimization",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "S.E.O",
+            "top_right": "SEARCH ENGINE OPTIMIZATION"
+          },
+          "context": "search marketing strategy: SEO"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:10",
+      "script": "as well as google ads which is pay-per-click advertising discovery",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "GOOGLE ADS",
+          "context": "search marketing strategy: Google Ads"
+        },
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "DISCOVERY",
+          "context": "introducing discovery marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:19",
+      "script": "marketing on the other hand well this encompasses brands like facebook and",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing discovery platforms"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:29",
+      "script": "with a credit card in hand looking to buy something this is why if you're",
+      "elements": [
+        {
+          "type": "broll",
+          "layer": "video",
+          "description": "CREDIT CARD (online shopping)",
+          "context": "illustrating casual browsing vs buying intent"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_mouse_click",
+          "context": "illustrating online interaction"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:38",
+      "script": "you can just give it to them with discovery marketing on the other hand you've got",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to discovery marketing approach"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:41",
+      "script": "to be a little more creative and a little more entertaining you've got to",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "CREATIVE",
+            "top_right": "ENTERTAINING"
+          },
+          "context": "key characteristics of discovery marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "13:50",
+      "script": "it is that you're selling or promoting now both search marketing and discovery",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "SEARCH MARKETING",
+            "top_right": "DISCOVERY MARKETING"
+          },
+          "context": "summarizing both marketing types"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:13",
+      "script": "advice and that is the difference between marketing products and marketing",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "Products VS Services",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:26",
+      "script": "the marketing of products a product",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "MARKETING OF PRODUCTS",
+          "context": "defining product marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:33",
+      "script": "and that you can taste a service on the other hand is intangible you can't hold",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing tangibility of products"
+        },
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "SERVICE",
+          "context": "defining service marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing term"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:41",
+      "script": "taste it plus with services you often need to pay in advance which requires a",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to service characteristics"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:44",
+      "script": "whole new level of trust this is why if",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "TRUST",
+          "context": "key factor in service marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "14:52",
+      "script": "to marketing products you have the opportunity and the advantage of being",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing product marketing advantages"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:01",
+      "script": "show the features show the benefits that",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to product features/benefits"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:15",
+      "script": "getting ink all over myself that's a benefit but you can take it further and",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "FEATURE",
+            "top_right": "BENEFIT"
+          },
+          "context": "distinguishing features and benefits"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:21",
+      "script": "you probably should for example this pen",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "introducing pen example"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:22",
+      "script": "lid also has a clip which means that i",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "concluding pen example"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:44",
+      "script": "after all chewing on pen lids is an age-old albeit highly unsanitary",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing pen lid safety feature"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:49",
+      "script": "practice sometimes you just get hungry services on the other hand well they",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning back to services"
+        }
+      ]
+    },
+    {
+      "timestamp": "15:57",
+      "script": "marketing services is you want to sell the end essentially the end state or the",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": "SELL THE \"END\"",
+          "context": "key principle of service marketing"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "emphasis_ding",
+          "context": "highlighting key point"
+        }
+      ]
+    },
+    {
+      "timestamp": "16:05",
+      "script": "working with you in fact when it comes to marketing services i'd go so far as",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_in",
+          "duration": 1,
+          "context": "emphasizing outcome-focused approach"
+        }
+      ]
+    },
+    {
+      "timestamp": "16:14",
+      "script": "experience the key here is to highlight the current pain or dissatisfaction or",
+      "elements": [
+        {
+          "type": "effect",
+          "layer": "transition",
+          "action": "zoom_out",
+          "duration": 1,
+          "context": "transitioning to problem/solution framing"
+        }
+      ]
+    },
+    {
+      "timestamp": "16:30",
+      "script": "marketing is to understand the differences between b2b and b2c",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "animation": "fade_in_list",
+          "content": "B2B VS B2C",
+          "context": "introducing comparison topic"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "whoosh_standard",
+          "context": "transition to new topic"
+        }
+      ]
+    },
+    {
+      "timestamp": "16:49",
+      "script": "b2b stands for business to business and this is where your main",
+      "elements": [
+        {
+          "type": "text_overlay",
+          "layer": "overlay",
+          "style": "highlighted_background",
+          "content": {
+            "top_left": "BUSINESS 2 BUSINESS",
+            "top_right": "BUSINESS TO CUSTMER"
+          },
+          "context": "defining B2B and B2C"
+        },
+        {
+          "type": "sound_effect",
+          "layer": "audio",
+          "sound": "ui_pop",
+          "context": "emphasizing terms"
+        }
+      ]
+    }
+  ]
+}
