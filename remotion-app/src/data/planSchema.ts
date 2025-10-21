@@ -96,21 +96,6 @@ const cameraMovementSchema: z.ZodType<CameraMovement> = z.enum(['static', 'zoomI
  */
 const segmentKindSchema: z.ZodType<SegmentPlan['kind'], z.ZodTypeDef, unknown> = z.enum(['normal', 'broll']).catch('normal');
 
-/**
- * Zod schema for `SegmentPlan`.
- * It handles an optional 'transition' alias for 'transitionOut' and ensures 'kind' defaults to 'normal'.
- */
-const segmentPlanSchema: z.ZodType<SegmentPlan, z.ZodTypeDef, z.input<typeof segmentKindSchema> & z.input<typeof transitionPlanSchema> & z.input<typeof cameraMovementSchema> & {
-  id: unknown;
-  sourceStart?: unknown;
-  duration: unknown;
-  transition?: unknown;
-  label?: unknown;
-  title?: unknown;
-  playbackRate?: unknown;
-  silenceAfter?: unknown;
-  metadata?: unknown;
-}> = z
 const normalizeBrollModeToken = (value: unknown): unknown => {
   if (typeof value !== 'string') {
     return value;
@@ -202,6 +187,10 @@ const motionCueSchema: z.ZodType<MotionCue | undefined> = z
     }
   });
 
+/**
+ * Zod schema for `SegmentPlan`.
+ * Handles alias fields and default values.
+ */
 const segmentPlanSchema: z.ZodType<SegmentPlan> = z
   .object({
     id: z.string(),
@@ -218,10 +207,12 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
     motionCue: motionCueSchema,
     silenceAfter: z.boolean().optional(),
     metadata: z.record(z.unknown()).optional(),
+    sfxHints: z.array(z.string()).optional(),
+    notes: z.array(z.string()).optional(),
     broll: brollPlanSchema.optional(),
   })
   .transform((segment) => {
-    const {transition, ...rest} = segment;
+    const {transition, sfxHints, notes, ...rest} = segment;
     // Resolve transitionOut, prioritizing explicit transitionOut, then 'transition' alias
     const resolvedTransitionOut = rest.transitionOut ?? transition;
 
@@ -229,6 +220,8 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
       ...rest,
       transitionOut: resolvedTransitionOut ?? undefined,
       kind: rest.kind ?? 'normal', // Ensure kind has a default
+      sfxHints: sfxHints ?? [],
+      notes: notes ?? [],
     } as SegmentPlan;
   });
 

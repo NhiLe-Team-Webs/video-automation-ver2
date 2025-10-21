@@ -1,14 +1,14 @@
 {
   "segments": [
     {
-      "id": "intro_hook",
+      "id": "intro-hook",
       "sourceStart": 0.0,
-      "duration": 16.92,
-      "label": "Intro Hook & Challenge",
+      "duration": 13.52,
+      "label": "Hook: Immune System Cures",
       "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "sfxHints": [
@@ -20,10 +20,113 @@
       ]
     },
     {
-      "id": "ms_intro",
+      "id": "challenge-read-info",
+      "sourceStart": 13.52,
+      "duration": 3.4,
+      "label": "Challenge: Read information out",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ms-example-intro",
       "sourceStart": 16.92,
       "duration": 3.28,
-      "label": "Introduce Multiple Sclerosis",
+      "label": "Multiple Sclerosis example",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "ms-explanation",
+      "sourceStart": 20.2,
+      "duration": 7.36,
+      "label": "MS: Debilitating Autoimmune",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "ms-cause-unknown",
+      "sourceStart": 27.56,
+      "duration": 5.92,
+      "label": "Cause unknown, difficult to treat",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ebv-study-1",
+      "sourceStart": 33.48,
+      "duration": 8.68,
+      "label": "Jan 2022 Study: 10M people",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ebv-ms-risk",
+      "sourceStart": 42.16,
+      "duration": 8.72,
+      "label": "EBV increased MS risk by 32x",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -38,218 +141,268 @@
       ]
     },
     {
-      "id": "ms_problem",
-      "sourceStart": 20.2,
-      "duration": 13.28,
-      "label": "MS Definition & Difficulty",
+      "id": "big-deal-news",
+      "sourceStart": 50.88,
+      "duration": 4.6,
+      "label": "It's a big deal, in the news",
       "silenceAfter": false,
-      "transitionOut": {
+      "transitionIn": {
         "type": "cut"
       },
-      "kind": "normal",
-      "broll": {
-        "id": "creative_brainstorm",
-        "file": "assets/broll/creative_brainstorm.mp4",
-        "mode": "overlay",
-        "confidence": 7.9,
-        "reasons": [
-          "topics match ['creativity', 'ideas', 'teamwork']"
-        ]
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
       },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "ebv-study-2",
+      "sourceStart": 55.48,
+      "duration": 16.4,
+      "label": "Nature study: Direct link with 12 people",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.7,
+        "direction": "right"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "contrast-question",
+      "sourceStart": 71.88,
+      "duration": 10.32,
+      "label": "10M vs 12 people: How?",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.7,
+        "direction": "right"
+      },
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.2
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "forensic-immunology-expl",
+      "sourceStart": 82.2,
+      "duration": 12.8,
+      "label": "Forensic Immunology Explanation",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.2
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "immune-archive-details",
+      "sourceStart": 95.0,
+      "duration": 19.68,
+      "label": "Immune System as massive archive",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "browser-history-analogy",
+      "sourceStart": 114.68,
+      "duration": 19.32,
+      "label": "Immune System = Web Browser History",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "up"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "decode-archive-goal",
+      "sourceStart": 134.0,
+      "duration": 16.92,
+      "label": "Decode archive for unknown causes",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "up"
+      },
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.4,
+        "intensity": 0.15
+      },
+      "kind": "normal",
       "sfxHints": [
         "tech"
       ],
       "notes": [
-        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])",
+        "No B-roll match above threshold.",
         "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "first_study_ebv",
-      "sourceStart": 33.48,
-      "duration": 22.0,
-      "label": "First Study: EBV-MS Link (10M people)",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.6
-      },
-      "kind": "normal",
-      "broll": {
-        "id": "creative_brainstorm",
-        "file": "assets/broll/creative_brainstorm.mp4",
-        "mode": "overlay",
-        "confidence": 7.9,
-        "reasons": [
-          "topics match ['creativity', 'ideas', 'teamwork']"
-        ]
-      },
-      "notes": [
-        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])"
-      ]
-    },
-    {
-      "id": "second_study_direct_link",
-      "sourceStart": 55.48,
-      "duration": 16.4,
-      "label": "Second Study: Direct Link (12 people)",
+      "id": "team-aim",
+      "sourceStart": 150.92,
+      "duration": 3.64,
+      "label": "What my team aims to do",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.6
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "comparison_question",
-      "sourceStart": 111.88,
-      "duration": 10.32,
-      "label": "Study Comparison & Question",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "broll": {
-        "id": "creative_brainstorm",
-        "file": "assets/broll/creative_brainstorm.mp4",
-        "mode": "overlay",
-        "confidence": 7.9,
-        "reasons": [
-          "topics match ['creativity', 'ideas', 'teamwork']"
-        ]
-      },
-      "motionCue": "pan",
-      "notes": [
-        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "forensic_immunology_explained",
-      "sourceStart": 122.2,
-      "duration": 17.56,
-      "label": "Forensic Immunology Method",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "broll": {
-        "id": "creative_brainstorm",
-        "file": "assets/broll/creative_brainstorm.mp4",
-        "mode": "overlay",
-        "confidence": 7.9,
-        "reasons": [
-          "topics match ['creativity', 'ideas', 'teamwork']"
-        ]
-      },
-      "notes": [
-        "B-roll assigned: creative_brainstorm (topics match ['creativity', 'ideas', 'teamwork'])"
-      ]
-    },
-    {
-      "id": "immune_archive",
-      "sourceStart": 139.76,
-      "duration": 71.52,
-      "label": "Immune System as Archive",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "broll": {
-        "id": "business_strategy",
-        "file": "assets/broll/business_strategy.jpg",
-        "mode": "overlay",
-        "confidence": 7.6,
-        "reasons": [
-          "topics match ['business', 'planning', 'strategy']"
-        ]
-      },
-      "motionCue": "zoomIn",
-      "sfxHints": [
-        "question",
-        "tech",
-        "cta"
-      ],
-      "notes": [
-        "B-roll assigned: business_strategy (topics match ['business', 'planning', 'strategy'])",
-        "Motion cue assigned: zoomIn",
-        "SFX hints propagated: question, tech, cta"
-      ]
-    },
-    {
-      "id": "immune_system_knows",
-      "sourceStart": 211.28,
-      "duration": 19.64,
-      "label": "Immune System Knows the Cause",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "imprint_announcement",
-      "sourceStart": 230.92,
-      "duration": 23.12,
-      "label": "Imprint Org Announcement",
-      "silenceAfter": false,
-      "transitionOut": {
         "type": "zoom",
-        "duration": 0.3,
+        "duration": 0.4,
         "intensity": 0.15
       },
+      "transitionOut": {
+        "type": "cut"
+      },
       "kind": "normal",
       "sfxHints": [
-        "question"
+        "tech"
       ],
       "notes": [
         "No B-roll match above threshold.",
-        "SFX hints propagated: question"
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "announcing-imprint",
+      "sourceStart": 154.56,
+      "duration": 8.08,
+      "label": "Announcing Imprint",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "imprint-mission",
+      "sourceStart": 162.64,
+      "duration": 8.56,
+      "label": "Imprint: FRO for chronic disease",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
       ]
     },
     {
       "id": "supporters",
-      "sourceStart": 254.04,
-      "duration": 11.56,
-      "label": "Acknowledgements & Audience Reaction",
+      "sourceStart": 171.2,
+      "duration": 11.12,
+      "label": "Supported by...",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "zoom",
-        "duration": 0.3,
-        "intensity": 0.15
+        "type": "crossfade",
+        "duration": 0.5
       },
       "transitionOut": {
-        "type": "cut"
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "focus-neuropsych",
+      "sourceStart": 182.32,
+      "duration": 14.04,
+      "label": "Applying tools to Neuropsych disorders",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question",
+        "cta"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question, cta"
+      ]
+    },
+    {
+      "id": "neuropsych-immune-link",
+      "sourceStart": 196.36,
+      "duration": 17.6,
+      "label": "Psychiatric disorders are immune diseases",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
       },
       "kind": "normal",
       "sfxHints": [
@@ -261,25 +414,77 @@
       ]
     },
     {
-      "id": "neuropsych_focus",
-      "sourceStart": 307.8,
-      "duration": 10.52,
-      "label": "Application: Neuropsych Disorders",
+      "id": "examples-shingles-covid",
+      "sourceStart": 213.96,
+      "duration": 14.92,
+      "label": "Shingles, COVID examples",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
       "kind": "normal",
       "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
+        "No B-roll match above threshold."
       ]
     },
     {
-      "id": "psych_immune_link",
-      "sourceStart": 318.32,
-      "duration": 10.08,
-      "label": "Psychiatric Disorders = Immune Diseases",
+      "id": "cancer-immunotherapy-precedent",
+      "sourceStart": 228.88,
+      "duration": 12.4,
+      "label": "Immunotherapy revolution for cancer",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "down"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "future-vision-chronic",
+      "sourceStart": 241.28,
+      "duration": 14.2,
+      "label": "Extend revolution, take chronic out of disease",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "down"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "thank-you-outro",
+      "sourceStart": 255.48,
+      "duration": 2.52,
+      "label": "Outro & Thank You",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -289,131 +494,87 @@
         "type": "cut"
       },
       "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
       "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "neuropsych_examples",
-      "sourceStart": 328.4,
-      "duration": 30.44,
-      "label": "Neuropsych Examples",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "immunotherapy_analogy",
-      "sourceStart": 358.84,
-      "duration": 13.92,
-      "label": "Immunotherapy Revolution Analogy",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.6
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "vision_conclusion",
-      "sourceStart": 412.76,
-      "duration": 21.22,
-      "label": "Future Vision & Call to Action",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.6
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
       ]
     }
   ],
   "highlights": [
     {
-      "id": "hidden_cures",
-      "start": 2.0,
+      "id": "hook-question",
+      "start": 1.8,
       "duration": 4.0,
-      "position": "top",
-      "animation": "fade",
+      "position": "center",
+      "animation": "zoom",
       "type": "noteBox",
-      "text": "Cures in Our Immune System?",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "volume": 0.6
-    },
-    {
-      "id": "ebv_32x_risk",
-      "start": 47.7,
-      "duration": 3.0,
-      "position": "center",
-      "animation": "pop",
-      "type": "icon",
-      "text": "32x MS Risk!",
-      "name": "high-risk",
+      "text": "Cures hidden in our immune systems?",
       "sfx": "assets/sfx/ui/pop.mp3",
-      "volume": 0.7
+      "volume": 0.75
     },
     {
-      "id": "forensic_immunology_term",
-      "start": 135.0,
+      "id": "ebv-ms-risk",
+      "start": 47.0,
       "duration": 3.5,
+      "position": "top",
+      "animation": "bounce",
+      "type": "noteBox",
+      "text": "EBV: 32x increased MS risk!",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.8
+    },
+    {
+      "id": "contrast-how",
+      "start": 74.0,
+      "duration": 4.0,
       "position": "center",
+      "animation": "bounce",
+      "type": "sectionTitle",
+      "text": "10 Million vs. 12 People? HOW?",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "volume": 0.8
+    },
+    {
+      "id": "forensic-immunology-term",
+      "start": 91.0,
+      "duration": 3.0,
+      "position": "bottom",
       "animation": "typewriter",
       "type": "sectionTitle",
       "text": "Forensic Immunology",
       "sfx": "assets/sfx/ui/keyboard-typing.mp3",
-      "volume": 0.5
-    },
-    {
-      "id": "web_history_analogy",
-      "start": 208.5,
-      "duration": 2.5,
-      "position": "bottom",
-      "animation": "bounce",
-      "type": "noteBox",
-      "text": "Immune System: Your Web History",
-      "sfx": "assets/sfx/ui/bubble-pop.mp3",
       "volume": 0.6
     },
     {
-      "id": "imprint_reveal",
-      "start": 239.0,
-      "duration": 3.0,
+      "id": "imprint-announcement",
+      "start": 164.0,
+      "duration": 5.0,
       "position": "center",
       "animation": "zoom",
-      "type": "sectionTitle",
-      "text": "Introducing IMPRINT",
-      "sfx": "assets/sfx/tech/notification.mp3",
-      "volume": 0.7
+      "type": "noteBox",
+      "text": "Imprint: Finding causes & cures for chronic disease",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.8
     },
     {
-      "id": "end_chronic_disease",
-      "start": 428.0,
-      "duration": 3.0,
+      "id": "take-chronic-out",
+      "start": 251.0,
+      "duration": 4.0,
       "position": "center",
       "animation": "float",
-      "type": "noteBox",
-      "text": "End Chronic Disease",
-      "sfx": "assets/sfx/emotion/applause.mp3",
-      "volume": 0.4
+      "type": "sectionTitle",
+      "text": "Take the chronic out of chronic disease.",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "volume": 0.8
     },
     {
       "id": "cta_subscribe",
       "type": "sectionTitle",
       "text": "Dang ky kenh de nhan video moi!",
-      "start": 208.28,
+      "start": 193.36,
       "duration": 5.0,
       "position": "center",
       "animation": "float",
@@ -421,12 +582,5 @@
       "sfx": "assets/sfx/emotion/applause.mp3",
       "volume": 0.7
     }
-  ],
-  "meta": {
-    "warnings": [
-      "Gap of 40.00s between second_study_direct_link and comparison_question; consider extending previous duration.",
-      "Gap of 42.20s between supporters and neuropsych_focus; consider extending previous duration.",
-      "Gap of 40.00s between immunotherapy_analogy and vision_conclusion; consider extending previous duration."
-    ]
-  }
+  ]
 }

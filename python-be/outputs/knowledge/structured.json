@@ -1,0 +1,440 @@
+{
+  "markdown": [
+    {
+      "identifier": "asset_catalogs.md",
+      "title": "Asset Catalogs",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\asset_catalogs.md",
+      "headings": [
+        [
+          "Asset Catalog Integration",
+          1
+        ],
+        [
+          "Catalog Overview",
+          2
+        ],
+        [
+          "Usage Guidelines",
+          2
+        ],
+        [
+          "Integration Touchpoints",
+          2
+        ]
+      ],
+      "sections": [
+        "Connect model outputs with available production assets to guarantee actionable plans.",
+        "File\nPurpose\nKey Fields\n`assets/broll_catalog.json`\nInventory of stills and footage for b-roll replacement shots.\n`id`, `title`, `file`, `mediaType`, `orientation`, `tags`, `mood`, `usageExamples`.\n`assets/sfx_catalog.json`\nLibrary of sound effects indexed by mood and cue type.\n`id`, `file`, `length`, `intensity`, `tags`, `recommendedContexts`.\n`assets/motion_rules.json`\nAllowed transitions and motion presets with usage rules.\n`id`, `action`, `layer`, `minSpacing`, `pairings`.\n`assets/context_rules.json`\nMapping from narrative contexts to preferred asset tags.\n`context`, `recommendedBrollTags`, `recommendedSfxTags`, `notes`.",
+        "**Match by Context Tags** - ensure each generated element includes `context` (see `element_schema.json`). Use it to query `context_rules.json` and retrieve permitted `broll` or `sfx` tags.\n**Validate Asset Availability** - before finalising a plan, confirm `description` or `sound` values map to existing `id`s in the relevant catalog; log fallback suggestions when no exact match is found.\n**Respect Motion Constraints** - defer to `motion_rules.json` for allowable sequences (for example, minimum 0.5 s spacing between identical zooms).\n**Enrich Training Examples** - augment training data with catalog metadata (for example, embed `mood` vectors) so the model learns to pick assets aligned with emotional tone.\n**Keep Catalogs Synced** - update version numbers and regeneration timestamps when assets change; propagate updates to downstream caches.",
+        "**Feature Engineering** - include catalog tags as additional inputs when predicting `description` or `sound`.\n**Inference** - post-process model outputs by selecting the closest matching `id` using cosine similarity between description embeddings and catalog tags.\n**Evaluation** - add assertions in `quality_criteria.md` to confirm selected assets exist and comply with `motion_rules.json`.\nRefer back to `knowledge-base/data_sources.md` for provenance and to `planning_guidelines.md` for contextual placement rules."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "CHANGELOG.md",
+      "title": "Changelog",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\CHANGELOG.md",
+      "headings": [
+        [
+          "Changelog",
+          1
+        ],
+        [
+          "2025-10-21",
+          2
+        ]
+      ],
+      "sections": [
+        "All notable changes to the AI planning knowledge base will be documented in this file.",
+        "Added `element_schema.json` to formalise element structure, allowed values, and validation rules.\nExpanded `examples/` with qualitative (`patterns.md`) and structured (`patterns.json`) cases, including edge and negative scenarios.\nIntroduced `asset_catalogs.md` and documented catalog usage in `data_sources.md`.\nRefined `planning_guidelines.md` with cross-references, rationales, and motion spacing rules.\nUpgraded video outlines to narrative blueprints with summaries, audiences, and emotional tone guidance.\nExpanded `glossary.md` to cover modelling terminology (Sentence-BERT, MAE, F1, etc.).\nUpdated `README.md` with new directory map and versioning instructions."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "data_sources.md",
+      "title": "Data Sources",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\data_sources.md",
+      "headings": [
+        [
+          "Data Sources",
+          1
+        ],
+        [
+          "Extraction Reminders",
+          3
+        ]
+      ],
+      "sections": [
+        "Source\nRole in pipeline\nNotable details\n`AI_Training_Plan.md`\nMaster plan for curating datasets, extracting features, training and evaluating models.\nWritten in Vietnamese; covers nine stages from data auditing to deployment and includes risk mitigation notes.\n`transcript_video_1.txt`\nFull transcript with timestamps for *How I Would Learn Digital Marketing (If I Could Start Over)*.\nHighlights speaker journey, three-part learning framework, practice principles, and career path discussion.\n`video1.json`\nAnnotated timeline aligned to `transcript_video_1.txt`.\n188 timestamp entries plus `video_metadata` with element glossaries, layering rules, editing patterns, and AI-specific notes.\n`transcript_video_2.txt`\nTranscript and timing for *Digital Marketing 101 (A Beginner's Guide to Marketing)*.\nExplains foundational marketing concepts, channel definitions, and comparison frameworks (digital vs. traditional, B2B vs. B2C, products vs. services).\n`video2.json`\nTimeline annotations for `transcript_video_2.txt`.\nEmphasis on text overlays with highlighted backgrounds, frequent zoom transitions, and context fields describing intent of each element.\nAsset catalogs (`assets/*.json`)\nAuthoritative source for available b-roll, motion, and SFX assets.\nDocumented in detail inside [asset_catalogs.md](asset_catalogs.md); include tags, moods, and usage constraints used during inference.",
+        "Keep transcript timestamps in `M:SS` and convert to seconds during preprocessing.\nPreserve `context`, `style`, `animation`, and `sound` attributes; they contain supervision signals even when absent from transcripts.\nWhen augmenting data, cross-link transcript spans to timeline entries via timestamp proximity (+/- 1 second window works for both videos).\nTrack narrative sections (e.g., `Part 1`, `B2B vs B2C`) to help the model learn context-aware element placement.\nSynchronise with asset catalogs so generated descriptions map to real `id`s and comply with motion spacing rules."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "element_definitions.md",
+      "title": "Element Definitions",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\element_definitions.md",
+      "headings": [
+        [
+          "Element Definitions & Layering Rules",
+          1
+        ],
+        [
+          "`broll`",
+          3
+        ],
+        [
+          "`text_overlay`",
+          3
+        ],
+        [
+          "`text_animation`",
+          3
+        ],
+        [
+          "`sound_effect`",
+          3
+        ],
+        [
+          "`effect`",
+          3
+        ],
+        [
+          "`icon`",
+          3
+        ],
+        [
+          "`speaker_intro`, `achievement_highlight`, `section_header`, `emphasis`",
+          3
+        ],
+        [
+          "Layer Stack",
+          2
+        ],
+        [
+          "Synchronisation Notes",
+          2
+        ]
+      ],
+      "sections": [
+        "Compiled from `video1.json`, `video2.json`, and production metadata. See [element_schema.json](element_schema.json) for machine-readable constraints.",
+        "**Purpose** - supplemental footage reinforcing the spoken idea.\n**Layer** - `video` (replaces or overlays the main speaker feed).\n**Key fields** - `description`, `context`, optional `tags`.\n**Defaults** - plays until another `video` layer element appears or the timeline returns to `main`.",
+        "**Purpose** - on-screen text with branded styling.\n**Layer** - `overlay`.\n**Key fields** - `content`, `style`, `animation`.\n**Common styles** - `highlighted_background`, `clean_minimal`, `bold_emphasis`, `split_column`, `callout_box`.\n**Defaults** - stays visible until the next overlay or contextual change.",
+        "**Purpose** - animated typography for counts, progressions, or emphasis.\n**Layer** - `overlay`.\n**Key fields** - `content`, `animation`, `emphasis`.\n**Common animations** - `count_up`, `typing_effect`, `flow_chart`, `progression_arrow`, `expansion_flow`, `fade_in_list`, `pulse`.",
+        "**Purpose** - accentuate moments with short audio cues.\n**Layer** - `audio`.\n**Key field** - `sound` (see `sfx_catalog.json`).\n**Common sounds** - `transition_rewind`, `whoosh_standard`, `ui_pop`, `money`, `success`, `fire`, `achievement`, `crash`, `money_loss`, `typing`, `confusion`, `expansion`, `emphasis_ding`, `heartbeat_soft`.\n**Defaults** - one-shot playback with duration driven by source asset.",
+        "**Purpose** - visual motion or transitions.\n**Layer** - `transition`.\n**Key fields** - `action`, `duration`.\n**Common actions** - `zoom_in`, `zoom_out`, `fade`, `slide_left`, `slide_right`, `push_in`, `camera_shake`.\n**Defaults** - duration 0.5-2.0 seconds unless overridden by `duration`.",
+        "**Purpose** - static or minimal-motion graphics.\n**Layer** - `overlay`.\n**Key fields** - `content`, `context`.",
+        "Specialised high-level cues that appear on the `main` or `overlay` layers to introduce the speaker, emphasise milestones, mark sections, or spotlight keywords. Use sparingly and tie to beats in `videos/*.md`.",
+        "`main` - primary camera feed (baseline footage).\n`video` - b-roll replacing or augmenting the main layer.\n`overlay` - text, icons, and animated graphics.\n`audio` - sound effects mixed with narration.\n`transition` - temporary visual effects used between clips.\nRespect layer priority to avoid stacking conflicts; only one dominant element per layer at a time.",
+        "Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`)."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "examples\\patterns.md",
+      "title": "Patterns",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\examples\\patterns.md",
+      "headings": [
+        [
+          "Editing Patterns & Examples",
+          1
+        ],
+        [
+          "Video 1 - How I Would Learn Digital Marketing",
+          2
+        ],
+        [
+          "Video 2 - Digital Marketing 101",
+          2
+        ],
+        [
+          "Edge Cases & Stress Tests",
+          2
+        ]
+      ],
+      "sections": [
+        "This catalogue complements the structured examples in `patterns.json`. Use it for qualitative insight before inspecting the machine-readable set.",
+        "**Overlay + SFX Emphasis (positive)** - 0:43 (`highlighted_background` text paired with `ui_pop`) spotlights \"Choose One Area\" advice. 1:05 combines monetary figure `$2,000/month` with `money` SFX; 9:08 pairs typing checklist with `typing` SFX. Mirrors guidance in [planning_guidelines.md](../planning_guidelines.md#text--animated-overlays).\n**Zoom Transitions for Turning Points (positive)** - 0:03 introduces the career story; 1:28 and 1:31 highlight the pivot to SEO; 4:24 marks the shift into practice principles; 8:23 underscores networking advice. Aligns with motion cues in [planning_guidelines.md](../planning_guidelines.md#motion--transitions).\n**Metaphor B-Roll (positive)** - 0:22 \"throwing trash\" visualises past mistakes; 2:46-2:49 uses guitar, cooking, and homework shots to communicate learning analogies. Demonstrates contextual asset matching (see [asset_catalogs.md](../asset_catalogs.md)).\n**Progressive Checklists (positive)** - 4:39, 5:14, 5:53, 6:40, and 8:08 expand a practice list; each overlay adds to previous items rather than resetting.\n**Achievement Highlights (positive)** - 0:14 uses `achievement_highlight` to cement credibility (\"Top 1%\") with supporting overlay text and b-roll of accolades.\n**Stacking Conflict (negative)** - 5:27 draft plan attempted concurrent `highlighted_background` overlays on the `main` layer, obscuring the speaker. Fix by staggering overlays by at least 0.3 s (see [planning_guidelines.md](../planning_guidelines.md#layer--timing-hygiene)).",
+        "**Definition Callouts (positive)** - 0:50-1:05 overlays define \"Digital Marketing\" and \"SEO\" while `ui_pop` SFX punctuate each term.\n**Topic Transitions (positive)** - 0:39 introduces \"Digital marketing vs Traditional marketing\" with `whoosh_standard` while a `highlighted_background` overlay frames the comparison.\n**Framework Lists (positive)** - 3:18-3:30 (marketing funnel) and 10:12-10:35 (content pillars) build multi-point overlays with `fade_in_list` animation.\n**Product vs Service Contrast (positive)** - 15:15 overlay splits \"FEATURE\" vs \"BENEFIT\" and triggers `ui_pop`; 15:57 \"SELL THE END\" overlay plus `emphasis_ding` reinforces service marketing guidance.\n**B2B / B2C Distinction (positive)** - 16:30 overlay introduces the comparison, followed by 16:49 text listing both sides with supporting SFX.\n**Overuse of Zoom (negative)** - Early experiments layered `zoom_in` at 14:12, 14:32, and 14:52 with no narrative escalation, causing viewer fatigue. Apply minimum 0.5 s spacing and reserve for genuine emphasis.",
+        "**Rapid-fire Comparisons** - 8:31-9:20 (Video 2) alternates organic vs paid points every few seconds; keep overlays concise and pre-load the next item via `fade_in_list`.\n**Long Static Segments** - 11:51-12:53 (Video 1) features call-to-action without new visuals; maintain interest with subtle b-roll and a single sustaining overlay rather than stacking.\n**Emotion Swings** - 7:45-8:15 (Video 1) transitions from cautionary tale to motivational advice; pair darker-toned b-roll with caution SFX, then release into upbeat visuals.\n**Negative Example - Missing Context Tag** - Plans lacking `context` for b-roll (for example, \"conference room\") lead to mismatched assets; always populate `context` per [element_schema.json](../element_schema.json)."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "glossary.md",
+      "title": "Glossary",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\glossary.md",
+      "headings": [
+        [
+          "Glossary",
+          1
+        ]
+      ],
+      "sections": [
+        "Short definitions grounded in the reference transcripts and training documentation.\n**Digital marketing** - marketing activities executed through digital channels (SEO, social media, PPC, email, websites). *Related:* Traditional marketing.\n**Traditional marketing** - offline channels such as print, radio, direct mail; contrasted with digital to highlight reach and measurability differences. *See also:* [planning_guidelines.md](planning_guidelines.md#narrative-alignment).\n**SEO (Search Engine Optimization)** - practice of improving organic visibility; central focus of the speaker's career pivot in Video 1. *Related:* Search marketing.\n**B-roll** - supplemental footage used to visualise or emphasise narration. *See also:* [asset_catalogs.md](asset_catalogs.md#catalog-overview).\n**Callout / Highlight** - on-screen emphasis for key phrases, statistics, or warnings, typically rendered as `text_overlay`.\n**Framework** - structured list or set of stages (for example, three-part learning model, four practice principles); often represented with progressive overlays.\n**Stage 1 / 2 / 3 (Learning)** - understand fundamentals -> connect fundamentals -> practise execution (Video 1).\n**Product marketing** - showcasing features and tangible benefits of a physical good.\n**Service marketing** - selling the outcome or end state (experience, trust, transformation) rather than the service mechanics.\n**B2B (Business to Business)** - companies selling to other businesses; longer cycles, committee decisions.\n**B2C (Business to Consumer)** - companies selling directly to consumers; faster decisions, emotion-driven.\n**Feature vs Benefit** - feature describes what something is; benefit explains the value it delivers (Video 2 pen example).\n**Trust signals** - elements that reinforce credibility (awards, experience, social proof).\n**Motion cue** - visual effect (zoom, slide) signalling a narrative shift or emphasis. *See also:* Motion rules in `motion_rules.json`.\n**Embedding** - numeric vector representing semantic meaning of text or assets, used for similarity search and modelling (for example, Sentence-BERT). *Related:* Feature engineering.\n**Word2Vec / GloVe / Sentence-BERT** - families of embedding models; Sentence-BERT produces sentence-level vectors well suited for transcript windows.\n**One-hot encoding** - representation where each category maps to a unique vector with a single 1 and the rest 0; used for element types and styles.\n**Regression head** - model component predicting continuous values (for example, `timestamp`, `duration`). *See:* `training_pipeline.md`.\n**Multi-label classification** - predicting multiple boolean outcomes simultaneously (for example, presence of several element families in a window).\n**MAE (Mean Absolute Error)** - evaluation metric for regression measuring average absolute difference between predicted and true values.\n**F1 score** - harmonic mean of precision and recall; used to assess classification performance.\n**BLEU / ROUGE** - text generation metrics comparing model output to reference wording; apply to overlay copy evaluation.\n**Early stopping** - training technique that halts optimisation when validation performance stops improving to avoid overfitting.\n**Curriculum learning** - training strategy that teaches simpler tasks before harder ones (for example, predict type before content).\n**Confidence score** - probability estimate output by the model indicating reliability of a prediction; captured in `element_schema.json`.\n**Layer stack** - render order from `main` -> `video` -> `overlay` -> `audio` -> `transition`; detailed in [element_definitions.md](element_definitions.md#layer-stack).\n**Context tag** - short descriptive string indicating narrative intent (for example, \"mistake warning\"); used to query asset catalogs and maintain coherence."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "planning_guidelines.md",
+      "title": "Planning Guidelines",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\planning_guidelines.md",
+      "headings": [
+        [
+          "Planning Guidelines",
+          1
+        ],
+        [
+          "Narrative Alignment",
+          2
+        ],
+        [
+          "B-Roll Selection",
+          2
+        ],
+        [
+          "Text & Animated Overlays",
+          2
+        ],
+        [
+          "Sound Effects",
+          2
+        ],
+        [
+          "Motion & Transitions",
+          2
+        ],
+        [
+          "Layer & Timing Hygiene",
+          2
+        ],
+        [
+          "Content Consistency",
+          2
+        ]
+      ],
+      "sections": [
+        "Operational rules for proposing timeline elements that align with the reference videos. Cross-reference [element_definitions.md](element_definitions.md) for layer behaviour and [quality_criteria.md](quality_criteria.md) for validation thresholds.",
+        "Anchor every element to a transcript clause; avoid floating overlays with no spoken support. *Rationale:* Maintains coherence with dialogue and prevents disjointed visuals.\nTrack signal phrases (\"Part 1\", \"Stage 2\", \"Option 3\", \"Here's why\") to justify section headers or text overlays. *Rationale:* Reinforces structural beats described in [videos/video1_outline.md](videos/video1_outline.md) and [videos/video2_outline.md](videos/video2_outline.md).\nAlign stories and analogies with metaphorical b-roll using `context` hints or tag matches from [asset_catalogs.md](asset_catalogs.md). *Rationale:* Visualises abstract concepts for faster comprehension.",
+        "Pick b-roll that literalises or metaphorically echoes the spoken idea (for example, trash bin for \"mistakes\", instruments for \"learning analogies\", skyline for \"market scale\"). *Rationale:* Supports narrative cues in transcripts.\nMatch tone and pacing: fast cuts for energetic lists, steadier shots for reflective segments. *Rationale:* Mood tags in `broll_catalog.json` help maintain emotional alignment.\nLet each clip play until another `video` layer element arrives; smooth abrupt switches with `effect` actions defined in [element_schema.json](element_schema.json). *Rationale:* Avoids jarring cuts while respecting defaults in [element_definitions.md](element_definitions.md#element-families).",
+        "Use `highlighted_background` as the default for key facts, comparisons, and definitions. *Rationale:* Brand-consistent and legible (see `style` enum in `element_schema.json`).\nBuild progressive lists for frameworks; each new point appends to the previous overlay. *Rationale:* Mirrors positive examples in [examples/patterns.md](examples/patterns.md#video-1---how-i-would-learn-digital-marketing).\nApply `text_animation` presets when narration references numbers climbing (`count_up`) or typing/flow (`typing_effect`, `flow_chart`). *Rationale:* Motion choices should support narrative metaphors; guardrails defined in `motion_rules.json`.\nKeep copy concise and faithful to the transcript; default to title case for readability. *Rationale:* Preserves voice and aligns with guidance in [glossary.md](glossary.md).",
+        "Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
+        "Trigger `zoom_in` on turning points or emphasised statements (\"this is the key\", \"here's the mistake\"). *Rationale:* Heightens focus; validated by examples in [examples/patterns.json](examples/patterns.json).\nDeploy `zoom_out` to release tension or provide wider context after a focal point. *Rationale:* Restores viewer orientation.\nSpace identical effects by at least 0.5 s unless narrative urgency demands otherwise. *Rationale:* Enforced by `motion_rules.json`; avoids viewer fatigue (see negative cases in `patterns.json`).",
+        "Do not overlap full-screen overlays at the same timestamp; offset by at least 0.3 s or merge copy. *Rationale:* Respects the stack hierarchy defined in [element_definitions.md](element_definitions.md#layer-stack).\nWhen the `video` layer is active (b-roll), overlays may occupy full width; otherwise keep margins to protect speaker visibility. *Rationale:* Preserves essential facial expressions.\nEnd SFX before the next major beat and cap overlay visibility at 6-8 s unless the segment is static. *Rationale:* Aligns with [quality_criteria.md](quality_criteria.md#timing) to prevent lingering elements.",
+        "Use canonical terminology (\"digital marketing\", \"traditional marketing\", \"B2B/B2C\", \"feature vs benefit\"). *Rationale:* Vocabulary centralised in [glossary.md](glossary.md) ensures consistent messaging.\nKeep tone authoritative, instructional, and encouraging as reflected in both transcripts. *Rationale:* Matches target audience described in video outlines.\nMaintain chronological order in lists (for example, \"Stage 1 -> Stage 2 -> Stage 3\"). *Rationale:* Prevents cognitive dissonance and supports pedagogy."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "quality_criteria.md",
+      "title": "Quality Criteria",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\quality_criteria.md",
+      "headings": [
+        [
+          "Quality Criteria",
+          1
+        ],
+        [
+          "Timing",
+          2
+        ],
+        [
+          "Coverage",
+          2
+        ],
+        [
+          "Layer Integrity",
+          2
+        ],
+        [
+          "Content Accuracy",
+          2
+        ],
+        [
+          "Style Consistency",
+          2
+        ],
+        [
+          "Review Workflow",
+          2
+        ]
+      ],
+      "sections": [
+        "Benchmarks for reviewing model outputs and human-labelled plans.",
+        "**Timestamp error** <= 0.5 s for overlays and SFX, <= 1.0 s for b-roll and transitions.\n**Duration consistency** - no element persists past the next conflicting cue; default to metadata rules in `element_definitions.md`.",
+        "Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
+        "Only one element per layer at any instant (exceptions: audio layer can stack ambience plus SFX if mix-tested).\nTransitions do not collide with overlays unless intentionally coordinated.",
+        "On-screen text mirrors transcript wording or summarises it accurately without introducing new facts.\nB-roll descriptions are actionable for editors (clear subject, action, mood).\nSound choices reinforce the message rather than distract.",
+        "`highlighted_background` used for high-importance text across videos unless brand guidelines dictate otherwise.\nAnimation choices match narrative intent (for example, `typing_effect` only when typing is implied).\nColour, tone, and energy remain aligned with the source videos' instructional style.",
+        "Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "README.md",
+      "title": "Readme",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\README.md",
+      "headings": [
+        [
+          "AI Planning Knowledge Base",
+          1
+        ],
+        [
+          "Scope",
+          2
+        ],
+        [
+          "Directory Map",
+          2
+        ],
+        [
+          "Usage Guidance",
+          2
+        ]
+      ],
+      "sections": [
+        "Central repository of reference materials that support training, inference, and evaluation of the video plan-generation pipeline.",
+        "Consolidates rules, definitions, workflows, criteria, examples, and asset references derived from:\n`AI_Training_Plan.md`\n`transcript_video_1.txt` / `video1.json`\n`transcript_video_2.txt` / `video2.json`\nAsset catalogs under `assets/`\nGoal: guide the model to place highlights, b-roll, sound effects, overlays, and motion cues with high accuracy and narrative relevance.",
+        "`data_sources.md` - provenance and key takeaways from transcripts, timelines, and catalogs.\n`training_pipeline.md` - end-to-end preparation and modelling process.\n`element_definitions.md` - glossary for element types, layers, and default behaviours.\n`element_schema.json` - machine-readable schema describing required fields, enumerations, and validation constraints.\n`planning_guidelines.md` - actionable rules for proposing timeline elements with cross-references.\n`quality_criteria.md` - success metrics and acceptance checkpoints.\n`glossary.md` - domain terminology used across the knowledge base.\n`asset_catalogs.md` - how to incorporate `broll`, `sfx`, `motion`, and context catalogs into modelling.\n`examples/` - qualitative (`patterns.md`) and structured (`patterns.json`) editing exemplars.\n`videos/` - narrative blueprints for each reference video (summary, audience, themes, cue suggestions).\n`CHANGELOG.md` - tracked updates to maintain version history.",
+        "Review `data_sources.md` to understand raw inputs and supporting catalogs.\nAlign feature engineering and targets using `training_pipeline.md`, `element_definitions.md`, and `element_schema.json`.\nDuring plan generation, enforce `planning_guidelines.md` and validate against `quality_criteria.md`.\nLeverage `asset_catalogs.md` alongside the JSON catalogs to ensure selected assets exist and honour motion rules.\nConsult `videos/` and `examples/` for grounded samples (positive and negative) before crafting prompts, labels, or rule-based validators.\nLog any documentation changes in `CHANGELOG.md` so training runs can reference the correct knowledge base version."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "training_pipeline.md",
+      "title": "Training Pipeline",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\training_pipeline.md",
+      "headings": [
+        [
+          "Training Pipeline Blueprint",
+          1
+        ],
+        [
+          "1. Audit Existing Data & Targets",
+          2
+        ],
+        [
+          "2. Preprocess & Align",
+          2
+        ],
+        [
+          "3. Feature Engineering",
+          2
+        ],
+        [
+          "4. Model Strategy",
+          2
+        ],
+        [
+          "5. Training Routine",
+          2
+        ],
+        [
+          "6. Evaluation",
+          2
+        ],
+        [
+          "7. Deployment Checklist",
+          2
+        ],
+        [
+          "8. Maintenance Cadence",
+          2
+        ],
+        [
+          "9. Risk Controls",
+          2
+        ]
+      ],
+      "sections": [
+        "Derived from `AI_Training_Plan.md` (Vietnamese source). Use this as the authoritative workflow when preparing datasets or evolving the model stack.",
+        "Understand transcript structure, narration pace, and how timeline annotations map to speech.\nCatalogue every element attribute that must be predicted: `timestamp`, `duration`, `type`, `layer`, `content/description`, `style`, `animation`, `sound`, `action`, optional `context` and `confidence` (see [element_schema.json](element_schema.json)).\nConfirm ingestion coverage for both transcripts and JSON timelines; flag missing sections or inconsistent timestamps.",
+        "Merge transcript text with timeline entries by timestamp, producing windows (5-10 seconds) that give sufficient context.\nNormalize timestamps to seconds for easier maths and modelling.\nSegment transcripts into sentences or clauses; tokenise and build embeddings (Sentence-BERT or equivalent).\nEncode video elements: one-hot for categorical fields, embeddings for text-heavy attributes (`description`, `content`); ensure categorical vocab matches [element_schema.json](element_schema.json).",
+        "Transcript features: semantic vectors, sentence length, relative position within the video, keyword flags (for example, \"Part 1\", \"mistake\", \"option\").\nAudio/tempo proxies: estimate speaking rate via word counts per window.\nTimeline context: distance to previous/next elements, element type history, context tags (aligned to `context_rules.json`).\nStyle cues: reuse `context` labels to signal metaphors, comparisons, or emphasis needs.\nAsset compatibility: embed catalog metadata (for example, `tags`, `mood`, `intensity`) from `broll_catalog.json` and `sfx_catalog.json` for recommendation scoring.",
+        "Treat timestamp and duration predictions as regression; element presence and type as multi-label or multi-class classification.\nConsider hierarchical modelling: first detect whether an element occurs, then specialise by element family.\nExplore sequence-to-sequence or encoder-decoder approaches for generating ordered element lists.\nReserve capacity for generative text (for example, overlay copy) via template libraries or conditional generation models.",
+        "Split data by video to avoid leakage (train on one video, validate on another, rotate as more data arrives).\nUse curriculum: start with type/layer predictions, then add auxiliary heads (content, style).\nApply class balancing (oversampling rare elements like `achievement_highlight`).\nMonitor convergence per head; early-stop if accuracy plateaus but loss diverges.",
+        "Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
+        "Package preprocessing scripts, model weights, `element_schema.json`, and inference pipeline.\nProvide fallbacks when confidence is low (for example, default overlays or prompts for manual review).\nLog predictions with timestamps and context for downstream auditing.",
+        "Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
+        "Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "videos\\video1_outline.md",
+      "title": "Video1 Outline",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\videos\\video1_outline.md",
+      "headings": [
+        [
+          "Video 1 Narrative Blueprint",
+          1
+        ],
+        [
+          "Recurring Cues",
+          3
+        ]
+      ],
+      "sections": [
+        "**Title:** *How I Would Learn Digital Marketing (If I Could Start Over)*\n**Summary:** Speaker recounts a 14-year marketing journey, distilling mistakes, learning frameworks, and practice principles into a repeatable roadmap.\n**Target audience:** Early-career marketers who need a structured plan to specialise and grow credibility.\n**Tone and pacing:** Authoritative yet conversational; alternates between reflective storytelling and energetic calls to action.\n**Primary themes:** Focus, structured learning, disciplined practice, career path selection, credibility building.\nSection\nTimestamp\nNarrative focus\nElement opportunities\nEmotional tone\nIntroduction\n0:00-0:35\nEstablishes career credibility and achievements.\n`speaker_intro`, business montage b-roll, magazine overlays, `achievement_highlight` for \"Top 1%\".\nConfident, aspirational\nPart 1: Choose One Area\n0:35-2:02\nShares early missteps and lesson on focus.\nOverlay \"Choose One Area\", b-roll metaphors for distractions, `money_loss` SFX on wasted spend moments.\nCautionary, reflective\nPart 2: Commit to Learning\n2:02-4:24\nIntroduces three-stage learning framework.\nProgressive list overlays, `flow_chart` or `typing_effect` animations, instrument/cooking b-roll metaphors.\nInstructive, structured\nPart 3: Commit to Practicing\n4:24-10:02\nPractical execution guide: cut content, prioritise, agency work, avoid shortcuts, network.\nExpanding checklist overlays, `typing` SFX, agency/workspace b-roll, `zoom_in` on cautionary story beats.\nMotivational, urgent\nCareer Paths\n10:02-11:51\nPresents options: stay generalist, niche down, expand skills.\nComparison table overlay, workplace b-roll varieties, gentle transition effects between options.\nStrategic, optimistic\nConclusion and CTA\n11:51-12:53\nSummarises journey, invites viewers to SEO course.\nClosing overlay \"Start Your SEO Journey\", upbeat b-roll, `success` or `achievement` SFX.\nEncouraging, forward-looking",
+        "Lists expand rather than reset, so design overlays that append items sequentially.\nCredibility signals (\"Forbes\", \"Inc\", \"Top 1%\") deserve combined overlay plus b-roll emphasis.\nFailure stories lean on darker-toned visuals and restrained SFX; resolve with lighter shots as tone lifts.\nRelationship-building advice pairs well with collaborative or networking imagery."
+      ],
+      "metadata": {}
+    },
+    {
+      "identifier": "videos\\video2_outline.md",
+      "title": "Video2 Outline",
+      "doc_type": "markdown",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\videos\\video2_outline.md",
+      "headings": [
+        [
+          "Video 2 Narrative Blueprint",
+          1
+        ],
+        [
+          "Recurring Cues",
+          3
+        ]
+      ],
+      "sections": [
+        "**Title:** *Digital Marketing 101 (A Beginner's Guide to Marketing)*\n**Summary:** Breaks down foundational marketing concepts, contrasting strategies, channels, and audience types to equip beginners with a holistic view.\n**Target audience:** New or transitioning marketers seeking clarity on terminology, strategy-versus-tactics differentiation, and channel selection.\n**Tone and pacing:** Energetic and instructive; balances conceptual explanation with actionable tips.\n**Primary themes:** Fundamentals first, strategy vs tactics, channel comparisons, intent-driven marketing, audience segmentation.\nSection\nTimestamp\nNarrative focus\nElement opportunities\nEmotional tone\nIntroduction\n0:00-0:30\nSets promise: become a better digital marketer.\nTitle overlay \"Digital Marketing 101\", subtitle overlay with `highlighted_background`, upbeat intro sting.\nMotivational\nDigital vs Traditional\n0:37-1:40\nDefines digital marketing and contrasts with traditional media.\nComparison overlays, `whoosh_standard` SFX, split b-roll (online vs offline).\nExplanatory\nChannel Examples\n1:02-3:10\nLists core channels: SEO, social media, PPC, email, web optimisation.\nTerm overlays with `ui_pop`, iconography, quick cutaway b-roll.\nInformative\nFundamentals over Tactics\n3:33-4:05\nEmphasises understanding buyer behaviour beyond tools.\nOverlay \"Master Fundamentals Before Tools\", reflective b-roll, soft `zoom_in`.\nReflective\nStrategy vs Tactics and Core Four\n4:07-7:35\nDifferentiates strategy and tactics; introduces Model, Market, Message, Media.\nProgressive overlays, `flow_chart` animation, category-specific b-roll.\nStructured, didactic\nTactics and Scheduling\n7:36-8:20\nApplies ideas to posting cadence and content types.\nChecklist overlay, subtle `typing_effect`, workflow visuals.\nPractical\nOrganic vs Paid\n8:31-9:20\nContrasts organic content with paid promotion.\nSplit layout overlay, icons, `fade_in_list`, balanced SFX.\nComparative\nDirect Response vs Brand Awareness\n10:20-11:55\nClarifies short-term vs long-term marketing goals.\nDual-column overlay, `zoom_in` warning on \"wrong tool\", case-study b-roll.\nCautionary\nSearch vs Discovery\n12:15-14:05\nHighlights platform intent differences.\nOverlay \"Intent = Key\", platform icons, measured `zoom_in`.\nAnalytical\nProducts vs Services\n14:12-16:05\nExplains tangible vs intangible marketing focus.\nFeature vs Benefit overlay, `ui_pop`, pen demonstration b-roll, service outcome imagery.\nIllustrative\nB2B vs B2C\n16:26-17:11\nDifferentiates business vs consumer audiences.\nComparison overlay with `fade_in_list`, `whoosh_standard`, business/consumer visuals.\nClarifying\nOutro and CTA\n17:03-17:11\nDirects viewers to deeper B2B vs B2C content.\nCTA overlay \"Watch B2B vs B2C Breakdown\", `emphasis_ding`, end-card b-roll.\nEncouraging",
+        "`highlighted_background` remains the default text treatment throughout; maintain consistency unless context demands variation.\nComparisons thrive on side-by-side overlays (for example, \"Feature | Benefit\", \"Organic | Paid\"); ensure columns stay balanced.\nIntroduce new terminology with matching SFX and maintain momentum with responsive motion cues.\nReserve zoom chains for genuine emphasis; interleave with fades or slides to give viewers recovery time."
+      ],
+      "metadata": {}
+    }
+  ],
+  "json": [
+    {
+      "identifier": "element_schema.json",
+      "title": "Element Schema",
+      "doc_type": "json",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\element_schema.json",
+      "headings": [],
+      "sections": [],
+      "metadata": {
+        "hash": "df180600b2f02478394fc83ccecd41e830905b11330304d92d632ff70de2b947"
+      }
+    },
+    {
+      "identifier": "examples\\patterns.json",
+      "title": "Patterns",
+      "doc_type": "json",
+      "path": "D:\\Projects\\Crownmercado\\video-automation-305612bee70cbd82156f355f87250e7e2561c0ca\\knowledge-base\\examples\\patterns.json",
+      "headings": [],
+      "sections": [],
+      "metadata": {
+        "hash": "4eaa1898e934e26aa5b9fdddff580c001f6903055f5b0580cf68e3901e79ab6d"
+      }
+    }
+  ]
+}

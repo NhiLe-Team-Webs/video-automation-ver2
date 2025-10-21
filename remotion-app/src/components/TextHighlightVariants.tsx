@@ -113,6 +113,7 @@ const renderTypewriter: HighlightRenderer = ({highlight, appear, exit, theme}) =
   // Blinking caret opacity
   const caretOpacity = 0.35 + 0.65 * Math.abs(Math.sin(eased * Math.PI * 2.8));
   const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
+  const accentSoft = withAlpha(accent, 0.28, 'rgba(255, 255, 255, 0.25)');
   const fontSize =
     typeof highlight.fontSize === 'string' || typeof highlight.fontSize === 'number'
       ? (highlight.fontSize as string | number)
@@ -199,6 +200,9 @@ const renderNoteBox: HighlightRenderer = ({highlight, appear, exit, theme}) => {
   const scale = 0.88 + eased * 0.12;
   const translateY = (1 - eased) * 32;
 
+    const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
+  const accentSoft = withAlpha(accent, 0.24, 'rgba(255,255,255,0.22)');
+
   const textStyle: CSSProperties = {
     maxWidth,
     fontSize,
@@ -255,6 +259,9 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
   const exitEased = clamp01(exit);
   // Subtle scale animation for appearance/exit
   const scale = 1 + (1 - exitEased) * 0.015 + (1 - eased) * 0.015;
+
+  const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
+  const accentSoft = withAlpha(accent, 0.28, 'rgba(255, 255, 255, 0.25)');
 
   const container: CSSProperties = {
     position: 'absolute',
@@ -365,10 +372,8 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
           {highlight.subtitle}
         </div>
       ) : null}
-    </div>
+    </AbsoluteFill>
   );
-
-  return <AbsoluteFill>{container}</AbsoluteFill>;
 };
 
 /**

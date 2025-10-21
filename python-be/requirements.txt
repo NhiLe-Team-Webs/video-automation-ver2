@@ -3,3 +3,10 @@ openai-whisper
 pydub
 google-generativeai
 python-dotenv
+markdown-it-py
+mdit-py-plugins
+python-frontmatter
+jsonschema
+sentence-transformers
+numpy
+networkx
