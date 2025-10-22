@@ -1,5 +1,7 @@
 # Video 2 Narrative Blueprint
 
+This document provides a detailed narrative blueprint for "Video 2: Digital Marketing 101 (A Beginner's Guide to Marketing)". It outlines the video's core elements, including its title, summary, target audience, tone, pacing, and primary themes. This blueprint serves as a guide for AI model training and video plan generation, ensuring that the output aligns with the original video's intent and structure.
+
 - **Title:** *Digital Marketing 101 (A Beginner's Guide to Marketing)*
 - **Summary:** Breaks down foundational marketing concepts, contrasting strategies, channels, and audience types to equip beginners with a holistic view.
 - **Target audience:** New or transitioning marketers seeking clarity on terminology, strategy-versus-tactics differentiation, and channel selection.

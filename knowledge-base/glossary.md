@@ -1,5 +1,7 @@
 # Glossary
 
+This document provides a comprehensive glossary of key terms and concepts used throughout the AI video automation project. Definitions are grounded in the reference transcripts, training documentation, and general machine learning terminology. Understanding these terms is essential for navigating the project's codebase and documentation effectively.
+
 Short definitions grounded in the reference transcripts and training documentation.
 
 - **Digital marketing** - marketing activities executed through digital channels (SEO, social media, PPC, email, websites). *Related:* Traditional marketing.

@@ -1,5 +1,7 @@
 # Training Pipeline Blueprint
 
+This document serves as the authoritative blueprint for the AI video plan generation training pipeline. It details the end-to-end process, from data preparation and feature engineering to model strategy, training routines, evaluation, and deployment. This blueprint is derived from the `AI_Training_Plan.md` (Vietnamese source) and should be used as the primary reference when preparing datasets, developing new models, or evolving the existing model stack.
+
 Derived from `AI_Training_Plan.md` (Vietnamese source). Use this as the authoritative workflow when preparing datasets or evolving the model stack.
 
 ## 1. Audit Existing Data & Targets

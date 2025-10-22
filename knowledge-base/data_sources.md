@@ -1,5 +1,8 @@
 # Data Sources
 
+This document provides a comprehensive overview of all data sources utilized in the AI video automation pipeline. Understanding these sources is crucial for comprehending how the AI learns, generates, and validates video plans. Each source plays a distinct role in the overall process, from raw transcripts to structured asset catalogs.
+
+
 | Source | Role in pipeline | Notable details |
 | ------ | ---------------- | --------------- |
 | `AI_Training_Plan.md` | Master plan for curating datasets, extracting features, training and evaluating models. | Written in Vietnamese; covers nine stages from data auditing to deployment and includes risk mitigation notes. |

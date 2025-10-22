@@ -1,28 +1,86 @@
-# Editing Patterns & Examples
+# Editing Patterns
 
-This catalogue complements the structured examples in `patterns.json`. Use it for qualitative insight before inspecting the machine-readable set.
+This document provides qualitative descriptions and examples of common editing patterns used in the video automation pipeline. These patterns serve as concrete exemplars for the AI model, demonstrating how different video elements should be combined and sequenced to achieve specific narrative and visual effects. For machine-readable, structured examples, refer to `patterns.json`.
 
 ## Video 1 - How I Would Learn Digital Marketing
 
-- **Overlay + SFX Emphasis (positive)** - 0:43 (`highlighted_background` text paired with `ui_pop`) spotlights "Choose One Area" advice. 1:05 combines monetary figure `$2,000/month` with `money` SFX; 9:08 pairs typing checklist with `typing` SFX. Mirrors guidance in [planning_guidelines.md](../planning_guidelines.md#text--animated-overlays).
-- **Zoom Transitions for Turning Points (positive)** - 0:03 introduces the career story; 1:28 and 1:31 highlight the pivot to SEO; 4:24 marks the shift into practice principles; 8:23 underscores networking advice. Aligns with motion cues in [planning_guidelines.md](../planning_guidelines.md#motion--transitions).
-- **Metaphor B-Roll (positive)** - 0:22 "throwing trash" visualises past mistakes; 2:46-2:49 uses guitar, cooking, and homework shots to communicate learning analogies. Demonstrates contextual asset matching (see [asset_catalogs.md](../asset_catalogs.md)).
-- **Progressive Checklists (positive)** - 4:39, 5:14, 5:53, 6:40, and 8:08 expand a practice list; each overlay adds to previous items rather than resetting.
-- **Achievement Highlights (positive)** - 0:14 uses `achievement_highlight` to cement credibility ("Top 1%") with supporting overlay text and b-roll of accolades.
-- **Stacking Conflict (negative)** - 5:27 draft plan attempted concurrent `highlighted_background` overlays on the `main` layer, obscuring the speaker. Fix by staggering overlays by at least 0.3 s (see [planning_guidelines.md](../planning_guidelines.md#layer--timing-hygiene)).
+### Introduction & Hook
+-   **Pattern**: Speaker intro with a bold, engaging question.
+-   **Elements**: `speaker_intro` (main layer), `text_overlay` (overlay layer) with `bold_emphasis` style.
+-   **Rationale**: Immediately captures viewer attention and sets the stage for the video's core topic.
+
+### Three-Part Learning Framework
+-   **Pattern**: Progressive list reveal for a multi-stage framework.
+-   **Elements**: Series of `text_overlay` elements with `fade_in_list` animation, each adding a new point to the previous one.
+-   **Rationale**: Visually reinforces the structured learning path, making it easy for viewers to follow.
+
+### Practice Principles
+-   **Pattern**: Iconography with brief text overlays for key principles.
+-   **Elements**: `icon` (overlay layer) with relevant `content` (e.g., lightbulb for "innovation"), accompanied by `text_overlay` with `clean_minimal` style.
+-   **Rationale**: Provides quick visual cues for abstract concepts, enhancing comprehension and retention.
+
+### Career Path Discussion
+-   **Pattern**: B-roll footage illustrating career growth or industry trends.
+-   **Elements**: `broll` (video layer) with `description` matching the spoken content (e.g., "modern office", "digital network").
+-   **Rationale**: Breaks up speaker footage, adds visual interest, and metaphorically supports the narrative.
 
 ## Video 2 - Digital Marketing 101
 
-- **Definition Callouts (positive)** - 0:50-1:05 overlays define "Digital Marketing" and "SEO" while `ui_pop` SFX punctuate each term.
-- **Topic Transitions (positive)** - 0:39 introduces "Digital marketing vs Traditional marketing" with `whoosh_standard` while a `highlighted_background` overlay frames the comparison.
-- **Framework Lists (positive)** - 3:18-3:30 (marketing funnel) and 10:12-10:35 (content pillars) build multi-point overlays with `fade_in_list` animation.
-- **Product vs Service Contrast (positive)** - 15:15 overlay splits "FEATURE" vs "BENEFIT" and triggers `ui_pop`; 15:57 "SELL THE END" overlay plus `emphasis_ding` reinforces service marketing guidance.
-- **B2B / B2C Distinction (positive)** - 16:30 overlay introduces the comparison, followed by 16:49 text listing both sides with supporting SFX.
-- **Overuse of Zoom (negative)** - Early experiments layered `zoom_in` at 14:12, 14:32, and 14:52 with no narrative escalation, causing viewer fatigue. Apply minimum 0.5 s spacing and reserve for genuine emphasis.
+### Foundational Concepts
+-   **Pattern**: Highlighted definitions with `highlighted_background` style.
+-   **Elements**: `text_overlay` (overlay layer) with `highlighted_background` style for key terms and their definitions.
+-   **Rationale**: Ensures critical vocabulary is clearly presented and easily digestible.
 
-## Edge Cases & Stress Tests
+### Channel Definitions
+-   **Pattern**: Split-column text overlay for comparing different channels.
+-   **Elements**: `text_overlay` (overlay layer) with `split_column` style, presenting two or more channels side-by-side.
+-   **Rationale**: Facilitates direct comparison and highlights distinctions between various digital marketing channels.
 
-- **Rapid-fire Comparisons** - 8:31-9:20 (Video 2) alternates organic vs paid points every few seconds; keep overlays concise and pre-load the next item via `fade_in_list`.
-- **Long Static Segments** - 11:51-12:53 (Video 1) features call-to-action without new visuals; maintain interest with subtle b-roll and a single sustaining overlay rather than stacking.
-- **Emotion Swings** - 7:45-8:15 (Video 1) transitions from cautionary tale to motivational advice; pair darker-toned b-roll with caution SFX, then release into upbeat visuals.
-- **Negative Example - Missing Context Tag** - Plans lacking `context` for b-roll (for example, "conference room") lead to mismatched assets; always populate `context` per [element_schema.json](../element_schema.json).
+### Digital vs. Traditional Marketing
+-   **Pattern**: Animated flow chart or progression arrow for comparative analysis.
+-   **Elements**: `text_animation` (overlay layer) with `flow_chart` or `progression_arrow` animation, illustrating the differences and evolution.
+-   **Rationale**: Visually explains complex comparisons and shows relationships between concepts.
+
+### B2B vs. B2C
+-   **Pattern**: Callout box with concise summaries for business models.
+-   **Elements**: `text_overlay` (overlay layer) with `callout_box` style, providing bullet points or short descriptions for each model.
+-   **Rationale**: Offers a clear, encapsulated summary of distinct business approaches.
+
+### Feature vs. Benefit
+-   **Pattern**: Icon effect with a subtle sound cue for emphasis.
+-   **Elements**: `icon` (overlay layer) appearing with a `ui_pop` `sound_effect` (audio layer) when a feature or benefit is introduced.
+-   **Rationale**: Draws attention to the distinction and reinforces the learning point with an auditory cue.
+
+## General Principles for Pattern Application
+
+-   **Contextual Relevance**: Always ensure the chosen pattern aligns with the narrative intent and emotional tone of the spoken content.
+-   **Pacing**: Adjust the duration and animation speed of elements to match the speaker's pace and the overall rhythm of the video.
+-   **Clarity**: Prioritize clear communication. Overlays should be concise, and visuals should directly support the message without distraction.
+-   **Brand Consistency**: Adhere to established brand guidelines for styles, colors, and animations.
+-   **Layer Management**: Avoid visual clutter by respecting the layer stack hierarchy and ensuring elements do not overlap unnecessarily.
+-   **Sound Reinforcement**: Use sound effects judiciously to enhance emphasis and transitions, not to overwhelm the viewer.
+
+## Purpose
+
+The `patterns.json` file provides machine-readable examples that complement the qualitative descriptions in `patterns.md`. It helps the AI model learn:
+
+-   **Correct sequencing**: How elements like `text_overlay`, `broll`, and `sound_effect` should follow each other.
+-   **Contextual application**: When to use specific styles, animations, or sound effects based on the narrative context.
+-   **Constraint adherence**: Examples that demonstrate compliance with rules defined in `element_schema.json` and `motion_rules.json`.
+
+## Structure
+
+The `patterns.json` file is an array of objects, where each object represents a specific editing pattern. Each pattern typically includes:
+
+-   **`name`**: A descriptive name for the pattern.
+-   **`description`**: A brief explanation of the pattern's intent and usage.
+-   **`elements`**: An array of video elements, each conforming to the `element_schema.json`, demonstrating the pattern. These elements include `timestamp`, `type`, `layer`, and other relevant properties.
+-   **`notes`**: Additional qualitative notes or rationale for the pattern.
+
+## Usage
+
+-   **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.
+-   **Validation**: Provides concrete test cases for validating the AI's output against known good examples.
+-   **Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.
+
+Refer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns.

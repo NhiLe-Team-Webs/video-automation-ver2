@@ -1,5 +1,7 @@
 # Quality Criteria
 
+This document defines the benchmarks and standards used for reviewing both AI model outputs and human-labelled video plans. Adhering to these criteria ensures the consistency, accuracy, and overall quality of the generated video content, facilitating effective evaluation and continuous improvement of the AI system.
+
 Benchmarks for reviewing model outputs and human-labelled plans.
 
 ## Timing

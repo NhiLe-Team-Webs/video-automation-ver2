@@ -1,5 +1,7 @@
 # Knowledge Base Module
 
+This module (`python-be/knowledge_base/`) provides the core runtime utilities for interacting with the AI planning knowledge base. Its primary functions include parsing raw documentation assets (Markdown and JSON), validating their structure, and enabling efficient retrieval of knowledge for various AI pipeline stages. This module acts as an interface between the raw knowledge assets and the AI models that consume them.
+
 Runtime utilities for parsing, validating, and retrieving documentation from the `knowledge-base/` repository.
 
 ## Folder Layout

@@ -1,5 +1,7 @@
 # Asset Catalog Integration
 
+This document details how asset catalogs are integrated into the video automation pipeline. It ensures that the AI model's outputs can be directly mapped to available production assets, guaranteeing the generation of actionable and feasible video plans.
+
 Connect model outputs with available production assets to guarantee actionable plans.
 
 ## Catalog Overview

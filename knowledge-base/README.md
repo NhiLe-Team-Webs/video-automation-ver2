@@ -1,5 +1,7 @@
 # AI Planning Knowledge Base
 
+This repository serves as the central knowledge base for the AI-driven video plan generation pipeline. It contains all essential reference materials, including rules, definitions, workflows, quality criteria, examples, and asset references. This knowledge base is critical for supporting the training, inference, and evaluation phases of the AI model, ensuring that generated video plans are accurate, consistent, and aligned with production standards.
+
 Central repository of reference materials that support training, inference, and evaluation of the video plan-generation pipeline.
 
 ## Scope

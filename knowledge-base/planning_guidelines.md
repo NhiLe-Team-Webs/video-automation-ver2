@@ -1,6 +1,6 @@
 # Planning Guidelines
 
-Operational rules for proposing timeline elements that align with the reference videos. Cross-reference [element_definitions.md](element_definitions.md) for layer behaviour and [quality_criteria.md](quality_criteria.md) for validation thresholds.
+This document outlines the operational rules and best practices for proposing timeline elements that align with the reference videos. These guidelines are crucial for ensuring that AI-generated video plans are consistent, high-quality, and adhere to established production standards. Cross-reference [element_definitions.md](element_definitions.md) for detailed layer behavior and [quality_criteria.md](quality_criteria.md) for validation thresholds.
 
 ## Narrative Alignment
 - Anchor every element to a transcript clause; avoid floating overlays with no spoken support. *Rationale:* Maintains coherence with dialogue and prevents disjointed visuals.

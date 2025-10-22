@@ -1,5 +1,7 @@
 # Video 1 Narrative Blueprint
 
+This document provides a detailed narrative blueprint for "Video 1: How I Would Learn Digital Marketing (If I Could Start Over)". It outlines the video's core elements, including its title, summary, target audience, tone, pacing, and primary themes. This blueprint serves as a guide for AI model training and video plan generation, ensuring that the output aligns with the original video's intent and structure.
+
 - **Title:** *How I Would Learn Digital Marketing (If I Could Start Over)*
 - **Summary:** Speaker recounts a 14-year marketing journey, distilling mistakes, learning frameworks, and practice principles into a repeatable roadmap.
 - **Target audience:** Early-career marketers who need a structured plan to specialise and grow credibility.
