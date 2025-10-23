@@ -2,8 +2,10 @@ import {z} from 'zod';
 import type {
   BrollMode,
   CameraMovement,
+  HighlightOverlay,
   HighlightPlan,
   HighlightPosition,
+  HighlightSupportingTexts,
   HighlightType,
   IconAnimation,
   MotionCue,
@@ -96,21 +98,6 @@ const cameraMovementSchema: z.ZodType<CameraMovement> = z.enum(['static', 'zoomI
  */
 const segmentKindSchema: z.ZodType<SegmentPlan['kind'], z.ZodTypeDef, unknown> = z.enum(['normal', 'broll']).catch('normal');
 
-/**
- * Zod schema for `SegmentPlan`.
- * It handles an optional 'transition' alias for 'transitionOut' and ensures 'kind' defaults to 'normal'.
- */
-const segmentPlanSchema: z.ZodType<SegmentPlan, z.ZodTypeDef, z.input<typeof segmentKindSchema> & z.input<typeof transitionPlanSchema> & z.input<typeof cameraMovementSchema> & {
-  id: unknown;
-  sourceStart?: unknown;
-  duration: unknown;
-  transition?: unknown;
-  label?: unknown;
-  title?: unknown;
-  playbackRate?: unknown;
-  silenceAfter?: unknown;
-  metadata?: unknown;
-}> = z
 const normalizeBrollModeToken = (value: unknown): unknown => {
   if (typeof value !== 'string') {
     return value;
@@ -202,6 +189,10 @@ const motionCueSchema: z.ZodType<MotionCue | undefined> = z
     }
   });
 
+/**
+ * Zod schema for `SegmentPlan`.
+ * Handles alias fields and default values.
+ */
 const segmentPlanSchema: z.ZodType<SegmentPlan> = z
   .object({
     id: z.string(),
@@ -218,10 +209,12 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
     motionCue: motionCueSchema,
     silenceAfter: z.boolean().optional(),
     metadata: z.record(z.unknown()).optional(),
+    sfxHints: z.array(z.string()).optional(),
+    notes: z.array(z.string()).optional(),
     broll: brollPlanSchema.optional(),
   })
   .transform((segment) => {
-    const {transition, ...rest} = segment;
+    const {transition, sfxHints, notes, ...rest} = segment;
     // Resolve transitionOut, prioritizing explicit transitionOut, then 'transition' alias
     const resolvedTransitionOut = rest.transitionOut ?? transition;
 
@@ -229,6 +222,8 @@ const segmentPlanSchema: z.ZodType<SegmentPlan> = z
       ...rest,
       transitionOut: resolvedTransitionOut ?? undefined,
       kind: rest.kind ?? 'normal', // Ensure kind has a default
+      sfxHints: sfxHints ?? [],
+      notes: notes ?? [],
     } as SegmentPlan;
   });
 
@@ -259,6 +254,141 @@ const normalizeHighlightTypeToken = (value: unknown) => {
       return value;
   }
 };
+
+const sanitizeOptionalString = (value: unknown): string | undefined => {
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+  const trimmed = value.trim();
+  return trimmed.length ? trimmed : undefined;
+};
+
+const pickFromRecord = (record: Record<string, unknown>, keys: string[]): string | undefined => {
+  for (const key of keys) {
+    if (key in record) {
+      const candidate = sanitizeOptionalString(record[key]);
+      if (candidate) {
+        return candidate;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+const highlightSupportingTextsSchema: z.ZodType<
+  HighlightSupportingTexts,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .preprocess((input) => {
+    if (input == null) {
+      return {};
+    }
+    if (typeof input === 'string') {
+      return {topLeft: input};
+    }
+    if (Array.isArray(input)) {
+      const [first, second] = input;
+      return {
+        topLeft: sanitizeOptionalString(first),
+        topRight: sanitizeOptionalString(second),
+      };
+    }
+    return input;
+  }, z
+    .object({
+      topLeft: z.string().optional(),
+      topRight: z.string().optional(),
+      topCenter: z.string().optional(),
+      bottomLeft: z.string().optional(),
+      top_left: z.string().optional(),
+      top_right: z.string().optional(),
+      top_center: z.string().optional(),
+      bottom_left: z.string().optional(),
+      left: z.string().optional(),
+      right: z.string().optional(),
+      primary: z.string().optional(),
+      secondary: z.string().optional(),
+    })
+    .partial()
+    .transform((value) => {
+      const record = value as Record<string, unknown>;
+      const result: HighlightSupportingTexts = {};
+      result.topLeft = pickFromRecord(record, ['topLeft', 'top_left', 'left', 'primary']);
+      result.topRight = pickFromRecord(record, ['topRight', 'top_right', 'right', 'secondary']);
+      result.topCenter = pickFromRecord(record, ['topCenter', 'top_center']);
+      result.bottomLeft = pickFromRecord(record, ['bottomLeft', 'bottom_left']);
+
+      return Object.fromEntries(
+        Object.entries(result).filter(([, text]) => typeof text === 'string' && text.length)
+      ) as HighlightSupportingTexts;
+    }));
+
+const highlightOverlaySchema: z.ZodType<HighlightOverlay, z.ZodTypeDef, unknown> = z
+  .preprocess((input) => {
+    if (input == null) {
+      return {};
+    }
+    if (typeof input === 'string') {
+      return {image: input};
+    }
+    return input;
+  }, z
+    .object({
+      image: z.string().optional(),
+      tint: z.string().optional(),
+      opacity: z.number().optional(),
+      blendMode: z.string().optional(),
+      blur: z.number().optional(),
+      src: z.string().optional(),
+      url: z.string().optional(),
+      cover: z.string().optional(),
+      asset: z.string().optional(),
+      color: z.string().optional(),
+      overlay: z.string().optional(),
+      alpha: z.number().optional(),
+      blurRadius: z.number().optional(),
+      mode: z.string().optional(),
+    })
+    .partial()
+    .transform((value) => {
+      const record = value as Record<string, unknown>;
+      const image =
+        sanitizeOptionalString(
+          record.image ?? record.src ?? record.url ?? record.cover ?? record.asset
+        ) ?? undefined;
+      const tint =
+        sanitizeOptionalString(record.tint ?? record.color ?? record.overlay) ?? undefined;
+      let opacity = record.opacity;
+      if (typeof opacity !== 'number' || Number.isNaN(opacity)) {
+        opacity = record.alpha;
+      }
+      let blur = record.blur;
+      if (typeof blur !== 'number' || Number.isNaN(blur)) {
+        blur = record.blurRadius;
+      }
+
+      const result: HighlightOverlay = {};
+      if (image) {
+        result.image = image;
+      }
+      if (tint) {
+        result.tint = tint;
+      }
+      if (typeof opacity === 'number' && Number.isFinite(opacity)) {
+        result.opacity = Math.min(Math.max(opacity, 0), 1);
+      }
+      const blendMode = sanitizeOptionalString(record.blendMode ?? record.mode);
+      if (blendMode) {
+        result.blendMode = blendMode;
+      }
+      if (typeof blur === 'number' && Number.isFinite(blur) && blur >= 0) {
+        result.blur = blur;
+      }
+
+      return result;
+    }));
 
 /**
  * Zod schema for `HighlightType`, defaulting to 'noteBox'.
@@ -306,6 +436,7 @@ const iconAnimationSchema: z.ZodType<IconAnimation | undefined, z.ZodTypeDef, un
 const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof highlightTypeSchema> & z.input<typeof highlightPositionSchema> & z.input<typeof iconAnimationSchema> & {
   id: unknown;
   text?: unknown;
+  keyword?: unknown;
   title?: unknown;
   subtitle?: unknown;
   badge?: unknown;
@@ -325,11 +456,16 @@ const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof
   backgroundColor?: unknown;
   iconColor?: unknown;
   volume?: unknown;
+  supportingTexts?: unknown;
+  overlay?: unknown;
+  repeatEvery?: unknown;
+  frequencyMultiplier?: unknown;
 }> = z
   .object({
     id: z.string(),
     type: highlightTypeSchema.optional(),
     text: z.string().optional(),
+    keyword: z.string().optional(),
     title: z.string().optional(),
     subtitle: z.string().optional(),
     badge: z.string().optional(),
@@ -351,10 +487,21 @@ const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof
     backgroundColor: z.string().optional(),
     iconColor: z.string().optional(),
     volume: z.number().min(0).max(1).optional(),
+    supportingTexts: highlightSupportingTextsSchema.optional(),
+    overlay: highlightOverlaySchema.optional(),
+    repeatEvery: z.number().positive().optional(),
+    frequencyMultiplier: z.number().positive().optional(),
   })
   .transform((highlight) => ({
     ...highlight,
     type: highlight.type ?? 'noteBox', // Default highlight type
+    text: highlight.text ?? highlight.keyword ?? undefined,
+    supportingTexts:
+      highlight.supportingTexts && Object.keys(highlight.supportingTexts).length
+        ? highlight.supportingTexts
+        : undefined,
+    overlay:
+      highlight.overlay && Object.keys(highlight.overlay).length ? highlight.overlay : undefined,
   }));
 
 /**

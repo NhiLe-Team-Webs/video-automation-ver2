@@ -1,16 +1,7 @@
 import type {CSSProperties, ReactNode} from 'react';
 import {AbsoluteFill, Easing} from 'remotion';
 import {BRAND} from '../config';
-import type {HighlightPlan, HighlightTheme, HighlightType, HighlightPosition} from '../types';
-
-/**
- * Defines CSS properties for different highlight positions.
- */
-const POSITION_STYLES: Record<HighlightPosition, CSSProperties> = {
-  top: {justifyContent: 'flex-start', alignItems: 'center', paddingTop: 140},
-  center: {justifyContent: 'center', alignItems: 'center'},
-  bottom: {justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 140},
-};
+import type {HighlightPlan, HighlightTheme, HighlightType} from '../types';
 
 /** Easing function for smooth animations. */
 const ease = Easing.bezier(0.42, 0, 0.58, 1);
@@ -71,26 +62,166 @@ const withAlpha = (color: string | undefined, alpha: number, fallback: string) =
   return fallback;
 };
 
-const applyPositioning = (
-  highlight: HighlightPlan,
-  theme: HighlightTheme | undefined,
-  children: ReactNode
-) => {
+const coerceText = (value: unknown): string | undefined => {
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length ? trimmed : undefined;
+};
+
+const readStringFromRecord = (record: Record<string, unknown>, keys: string[]): string | undefined => {
+  for (const key of keys) {
+    if (key in record) {
+      const value = coerceText(record[key]);
+      if (value) {
+        return value;
+      }
+    }
+  }
+
+  return undefined;
+};
+
+const resolveCornerTexts = (highlight: HighlightPlan): {left?: string; right?: string} => {
+  const result: {left?: string; right?: string} = {};
+  const highlightRecord = highlight as Record<string, unknown>;
+
+  const rawContent = highlightRecord.content;
+  if (rawContent && typeof rawContent === 'object' && !Array.isArray(rawContent)) {
+    const record = rawContent as Record<string, unknown>;
+    result.left = readStringFromRecord(record, ['top_left', 'topLeft', 'left', 'primary']);
+    result.right = readStringFromRecord(record, ['top_right', 'topRight', 'right', 'secondary']);
+
+    if (!result.left && Array.isArray(record.items)) {
+      result.left = coerceText(record.items[0]);
+      result.right = result.right ?? coerceText(record.items[1]);
+    }
+  }
+
+  const supporting = highlight.supportingTexts as Record<string, unknown> | undefined;
+  if (supporting) {
+    result.left =
+      result.left ?? readStringFromRecord(supporting, ['topLeft', 'top_left', 'left', 'primary']);
+    result.right =
+      result.right ?? readStringFromRecord(supporting, ['topRight', 'top_right', 'right', 'secondary']);
+  }
+
+  result.left =
+    result.left ??
+    readStringFromRecord(highlightRecord, ['supportingLeft', 'supportLeft', 'supporting']);
+  result.right =
+    result.right ??
+    readStringFromRecord(highlightRecord, ['supportingRight', 'supportRight', 'secondary']);
+
+  const metadata = highlightRecord.metadata;
+  if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
+    const metadataRecord = metadata as Record<string, unknown>;
+    result.left =
+      result.left ?? readStringFromRecord(metadataRecord, ['top_left', 'topLeft', 'left']);
+    result.right =
+      result.right ?? readStringFromRecord(metadataRecord, ['top_right', 'topRight', 'right']);
+  }
+
+  if (!result.left && !result.right) {
+    const fallback =
+      coerceText(highlight.keyword) ??
+      coerceText(highlight.text) ??
+      coerceText(highlight.title) ??
+      coerceText(highlight.subtitle);
+
+    if (fallback) {
+      const side = (highlight.side ?? '').toLowerCase();
+      if (side === 'right') {
+        result.right = fallback;
+      } else if (side === 'left') {
+        result.left = fallback;
+      } else {
+        result.left = fallback;
+      }
+    }
+  }
+
+  return result;
+};
+
+const renderCornerHighlights: HighlightRenderer = ({highlight, appear, exit, theme}) => {
+  const corners = resolveCornerTexts(highlight);
+  const left = corners.left;
+  const right = corners.right;
+
+  if (!left && !right) {
+    return null;
+  }
+
+  const eased = ease(clamp01(appear));
+  const exitEased = clamp01(exit);
+  const fontSize = (typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
+    ? highlight.fontSize
+    : 60) as number | string;
+  const fontWeight = (typeof highlight.fontWeight === 'number' || typeof highlight.fontWeight === 'string'
+    ? highlight.fontWeight
+    : 900) as number | string;
+  const letterSpacing =
+    typeof (highlight as Record<string, unknown>).letterSpacing === 'number'
+      ? ((highlight as Record<string, unknown>).letterSpacing as number)
+      : 1.1;
+  const textTransform =
+    typeof (highlight as Record<string, unknown>).textTransform === 'string'
+      ? ((highlight as Record<string, unknown>).textTransform as CSSProperties['textTransform'])
+      : 'uppercase';
+
   const baseStyle: CSSProperties = {
-    position: 'absolute',
-    inset: 0,
-    display: 'flex',
-    padding: '0 6%',
+    fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
+    fontSize,
+    fontWeight,
+    letterSpacing,
+    lineHeight: 1.02,
+    textTransform,
     color: theme?.textColor ?? BRAND.white,
-    fontFamily: theme?.fontFamily ?? BRAND.fonts.body,
-    fontWeight: 500,
-    letterSpacing: 0.2,
-    textRendering: 'optimizeLegibility',
-    pointerEvents: 'none',
-    ...POSITION_STYLES[highlight.position ?? 'center'],
+    textRendering: 'geometricPrecision',
+    whiteSpace: 'pre-wrap',
+    opacity: exitEased,
+    transform: `translateY(${(1 - eased) * 8}px)`,
   };
 
-  return <div style={baseStyle}>{children}</div>;
+  return (
+    <AbsoluteFill
+      style={{
+        pointerEvents: 'none',
+      }}
+    >
+      {left ? (
+        <span
+          style={{
+            ...baseStyle,
+            position: 'absolute',
+            top: '6%',
+            left: '6%',
+            maxWidth: '32%',
+            textAlign: 'left',
+          }}
+        >
+          {left}
+        </span>
+      ) : null}
+      {right ? (
+        <span
+          style={{
+            ...baseStyle,
+            position: 'absolute',
+            top: '6%',
+            right: '6%',
+            maxWidth: '32%',
+            textAlign: 'right',
+          }}
+        >
+          {right}
+        </span>
+      ) : null}
+    </AbsoluteFill>
+  );
 };
 
 /**
@@ -99,62 +230,7 @@ const applyPositioning = (
  * @param context The highlight render context.
  * @returns A ReactNode representing the typewriter highlight.
  */
-const renderTypewriter: HighlightRenderer = ({highlight, appear, exit, theme}) => {
-  const text = highlight.text ?? '';
-  if (!text) {
-    return null;
-  }
-
-  const eased = ease(clamp01(appear)); // Eased progress for appearance
-  const exitEased = clamp01(exit); // Eased progress for exit
-  const totalChars = text.length;
-  const visibleChars = Math.max(0, Math.round(totalChars * eased));
-  const content = text.slice(0, visibleChars);
-  // Blinking caret opacity
-  const caretOpacity = 0.35 + 0.65 * Math.abs(Math.sin(eased * Math.PI * 2.8));
-  const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
-  const fontSize =
-    typeof highlight.fontSize === 'string' || typeof highlight.fontSize === 'number'
-      ? (highlight.fontSize as string | number)
-      : 60;
-  const fontWeight =
-    typeof highlight.fontWeight === 'string' || typeof highlight.fontWeight === 'number'
-      ? (highlight.fontWeight as string | number)
-      : 600;
-
-  const textWrapper: CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'baseline',
-    fontSize,
-    fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
-    fontWeight,
-    lineHeight: 1.28,
-    letterSpacing: 0.6,
-    color: theme?.textColor ?? BRAND.white,
-    textShadow: '0 16px 40px rgba(12,12,12,0.45)',
-    opacity: exitEased, // Fade out with exit animation
-    transform: `translateY(${(1 - eased) * 26}px)` as string, // Slight vertical slide in
-  };
-
-  const caret: CSSProperties = {
-    display: 'inline-block',
-    width: '0.6ch',
-    height: '1.05em',
-    marginLeft: '0.3ch',
-    background: accent,
-    opacity: caretOpacity * exitEased,
-    verticalAlign: 'baseline',
-  };
-
-  return applyPositioning(
-    highlight,
-    theme,
-    <div style={textWrapper}>
-      <span style={{whiteSpace: 'pre-wrap'}}>{content}</span>
-      <span style={caret} />
-    </div>
-  );
-};
+const renderTypewriter: HighlightRenderer = (context) => renderCornerHighlights(context);
 
 /**
  * Renders a 'noteBox' style highlight.
@@ -162,75 +238,7 @@ const renderTypewriter: HighlightRenderer = ({highlight, appear, exit, theme}) =
  * @param context The highlight render context.
  * @returns A ReactNode representing the note box highlight.
  */
-const renderNoteBox: HighlightRenderer = ({highlight, appear, exit, theme}) => {
-  const text = highlight.text ?? '';
-  if (!text) {
-    return null;
-  }
-
-  const eased = ease(clamp01(appear));
-  const exitEased = clamp01(exit);
-
-  const direction = highlight.side ?? 'bottom';
-  const distance = 120;
-  const translateValue = (1 - eased) * distance;
-  const translate =
-    direction === 'bottom'
-      ? `translateY(${translateValue}px)`
-      : `translateX(${direction === 'left' ? -translateValue : translateValue}px)`;
-
-  const typedChars = Math.max(0, Math.round(text.length * clamp01(appear)));
-  const content = text.slice(0, typedChars);
-
-  // Resolve dynamic font sizing and width from highlight plan or defaults
-  const maxWidth: string | number =
-    typeof highlight.maxWidth === 'string' || typeof highlight.maxWidth === 'number'
-      ? (highlight.maxWidth as string | number)
-      : '68%';
-  const fontSize: string | number =
-    typeof highlight.fontSize === 'string' || typeof highlight.fontSize === 'number'
-      ? (highlight.fontSize as string | number)
-      : 54;
-  const fontWeight: string | number =
-    typeof highlight.fontWeight === 'string' || typeof highlight.fontWeight === 'number'
-      ? (highlight.fontWeight as string | number)
-      : 700;
-
-  const scale = 0.88 + eased * 0.12;
-  const translateY = (1 - eased) * 32;
-
-  const textStyle: CSSProperties = {
-    maxWidth,
-    fontSize,
-    fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
-    fontWeight,
-    lineHeight: 1.24,
-    letterSpacing: 0.5,
-    whiteSpace: 'pre-wrap',
-    color: theme?.textColor ?? BRAND.white,
-    textShadow: '0 10px 28px rgba(12,12,12,0.38)',
-    transform: `translateY(${translateY}px) scale(${scale})`,
-    transformOrigin: 'left center',
-    opacity: exitEased,
-  };
-
-  const highlightedText: CSSProperties = {
-    backgroundImage: `linear-gradient(120deg, ${accentSoft} 0%, transparent 100%)`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: `${Math.min(100, Math.max(12, eased * 100))}% 0.55em`,
-    backgroundPosition: '0 100%',
-    paddingBottom: '0.18em',
-    whiteSpace: 'pre-wrap',
-  };
-
-  return applyPositioning(
-    highlight,
-    theme,
-    <div style={textStyle}>
-      <span style={highlightedText}>{text}</span>
-    </div>
-  );
-};
+const renderNoteBox: HighlightRenderer = (context) => renderCornerHighlights(context);
 
 /**
  * Renders a 'sectionTitle' style highlight.
@@ -255,6 +263,9 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
   const exitEased = clamp01(exit);
   // Subtle scale animation for appearance/exit
   const scale = 1 + (1 - exitEased) * 0.015 + (1 - eased) * 0.015;
+
+  const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
+  const accentSoft = withAlpha(accent, 0.28, 'rgba(255, 255, 255, 0.25)');
 
   const container: CSSProperties = {
     position: 'absolute',
@@ -365,10 +376,8 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
           {highlight.subtitle}
         </div>
       ) : null}
-    </div>
+    </AbsoluteFill>
   );
-
-  return <AbsoluteFill>{container}</AbsoluteFill>;
 };
 
 /**
@@ -391,3 +400,7 @@ export const renderHighlightByType = (context: HighlightRenderContext): ReactNod
   const renderer = RENDERERS[highlightType] ?? renderNoteBox; // Fallback to noteBox
   return renderer(context);
 };
+
+
+
+

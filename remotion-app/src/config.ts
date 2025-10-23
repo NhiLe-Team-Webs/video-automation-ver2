@@ -45,8 +45,9 @@ export const BRAND = {
   gradient: 'linear-gradient(135deg, rgba(200,16,46,0.95) 0%, rgba(28,28,28,0.98) 60%, rgba(12,12,12,1) 100%)',
   radialGlow: 'radial-gradient(circle at 20% 20%, rgba(200,16,46,0.25), transparent 65%)',
   fonts: {
-    heading: "'Montserrat', 'Helvetica Neue', 'Inter', sans-serif",
-    body: "'Open Sans', 'Helvetica Neue', 'Inter', sans-serif",
+    heading: "'Montserrat Black', 'Montserrat ExtraBold', 'Montserrat', 'Helvetica Neue', 'Inter', sans-serif",
+    heavy: "'Montserrat Black', 'Montserrat ExtraBold', 'Montserrat', sans-serif",
+    body: "'Montserrat', 'Open Sans', 'Helvetica Neue', 'Inter', sans-serif",
   },
   overlays: {
     glassBackground: 'rgba(200,16,46,0.48)',

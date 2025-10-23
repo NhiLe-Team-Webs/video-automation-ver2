@@ -19,7 +19,7 @@ const DEFAULT_COMPOSITION_PROPS: FinalCompositionProps = {
     backgroundColor: 'rgba(15, 23, 42, 0.78)',
     textColor: '#f8fafc',
     accentColor: '#38bdf8',
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: "'Montserrat Black', 'Montserrat ExtraBold', 'Montserrat', sans-serif",
   },
   config: {},
 };

@@ -25,8 +25,6 @@ const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
  * @param movement The raw movement value.
  * @returns A normalized `CameraMovement` ('zoomIn', 'zoomOut', or 'static').
  */
-
-const easeInOut = Easing.bezier(0.4, 0, 0.2, 1);
 const normalizeCameraMovement = (movement: unknown): CameraMovement => {
   if (movement === 'zoomIn' || movement === 'zoomOut') {
     return movement;
