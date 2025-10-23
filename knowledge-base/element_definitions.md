@@ -14,7 +14,7 @@ This document outlines the various video elements used in the automation pipelin
 - **Purpose** - Hiển thị văn bản trên màn hình với kiểu dáng thương hiệu, dùng để làm nổi bật thông tin quan trọng, tiêu đề, hoặc các điểm nhấn.
 - **Layer** - `overlay` (lớp phủ).
 - **Key fields** - `content` (nội dung văn bản), `style` (kiểu dáng hiển thị), `animation` (hiệu ứng động khi xuất hiện/biến mất).
-- **Common styles** - `highlighted_background` (nền được tô sáng), `clean_minimal` (tối giản, sạch sẽ), `bold_emphasis` (in đậm, nhấn mạnh), `split_column` (chia cột), `callout_box` (hộp chú thích).
+- **Common styles** - `simple_text` (chỉ văn bản, đơn giản), `section_box` (hộp chứa văn bản kèm hiệu ứng động cho các đoạn chia điểm).
 - **Defaults** - Duy trì hiển thị cho đến khi có lớp phủ tiếp theo hoặc thay đổi ngữ cảnh.
 
 ### `text_animation`

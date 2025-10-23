@@ -102,6 +102,197 @@ def overlap_seconds(a_start: float, a_end: float, b_start: float, b_end: float) 
     return max(0.0, min(a_end, b_end) - max(a_start, b_start))
 
 
+def parse_timestamp_to_seconds(value: Any) -> Optional[float]:
+    """
+    Converts a timestamp string (e.g. "12:34") or numeric value into seconds.
+    Supports "MM:SS" and "HH:MM:SS" formats.
+    """
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        numeric = float(value)
+        return numeric if numeric >= 0 else None
+
+    if not isinstance(value, str):
+        return None
+
+    token = value.strip()
+    if not token:
+        return None
+
+    parts = token.split(':')
+    try:
+        numeric_parts = [float(part) for part in parts]
+    except ValueError:
+        return None
+
+    if len(numeric_parts) == 1:
+        seconds = numeric_parts[0]
+    elif len(numeric_parts) == 2:
+        minutes, seconds = numeric_parts
+        seconds += minutes * 60
+    elif len(numeric_parts) == 3:
+        hours, minutes, seconds = numeric_parts
+        seconds += minutes * 60 + hours * 3600
+    else:
+        return None
+
+    return seconds if seconds >= 0 else None
+
+
+def sanitize_text(value: Any) -> Optional[str]:
+    """Returns a trimmed string if available, otherwise None."""
+    if not isinstance(value, str):
+        return None
+    text = value.strip()
+    return text or None
+
+
+def derive_duration_seconds(entry: Dict[str, Any], element: Dict[str, Any], fallback: float = 3.0) -> float:
+    """
+    Resolves a duration in seconds from element or entry metadata.
+    Accepts common keys like 'duration', 'length', or 'duration_seconds'.
+    """
+    for container in (element, entry):
+        for key in ('duration_seconds', 'duration', 'length'):
+            candidate = container.get(key)
+            if isinstance(candidate, (int, float)) and candidate > 0:
+                return float(candidate)
+    return fallback
+
+
+def build_highlight_from_overlay(
+    entry_index: int,
+    entry: Dict[str, Any],
+    element_index: int,
+    element: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """
+    Converts a single text overlay element into a HighlightPlan-compatible dictionary.
+    """
+    if element.get('type') != 'text_overlay':
+        return None
+
+    timestamp = parse_timestamp_to_seconds(entry.get('timestamp'))
+    if timestamp is None:
+        return None
+
+    content = element.get('content')
+    main_text: Optional[str] = None
+    supporting: Dict[str, str] = {}
+
+    if isinstance(content, str):
+        main_text = sanitize_text(content)
+    elif isinstance(content, dict):
+        main_text = (
+            sanitize_text(content.get('keyword'))
+            or sanitize_text(content.get('title'))
+            or sanitize_text(content.get('heading'))
+            or sanitize_text(content.get('label'))
+        )
+
+        items = content.get('items')
+        if isinstance(items, list) and items:
+            first = sanitize_text(items[0])
+            second = sanitize_text(items[1]) if len(items) > 1 else None
+            if first and not supporting.get('topLeft'):
+                supporting['topLeft'] = first
+            if second and not supporting.get('topRight'):
+                supporting['topRight'] = second
+            if not main_text:
+                main_text = sanitize_text(items[-1]) or first
+
+        for source_key, target_key in (
+            ('top_left', 'topLeft'),
+            ('topLeft', 'topLeft'),
+            ('left', 'topLeft'),
+            ('primary', 'topLeft'),
+            ('top_right', 'topRight'),
+            ('topRight', 'topRight'),
+            ('right', 'topRight'),
+            ('secondary', 'topRight'),
+            ('top_center', 'topCenter'),
+            ('topCenter', 'topCenter'),
+        ):
+            value = sanitize_text(content.get(source_key))
+            if value and target_key not in supporting:
+                supporting[target_key] = value
+    else:
+        main_text = sanitize_text(entry.get('script'))
+
+    if not main_text:
+        main_text = sanitize_text(entry.get('script'))
+    if not main_text:
+        return None
+
+    supporting = {key: value for key, value in supporting.items() if value}
+    duration = derive_duration_seconds(entry, element)
+
+    highlight = {
+        'id': f'kb-{entry_index:03d}-{element_index:02d}',
+        'type': 'noteBox',
+        'variant': 'keyword',
+        'text': main_text,
+        'keyword': main_text,
+        'start': round(timestamp, 2),
+        'duration': round(duration, 2),
+        'position': 'bottom',
+    }
+
+    if supporting:
+        highlight['supportingTexts'] = supporting
+
+    if context := sanitize_text(element.get('context') or entry.get('context')):
+        highlight['variant'] = f'keyword-{context.replace(" ", "-").lower()}'
+
+    return highlight
+
+
+def augment_highlights_from_catalog(
+    plan: Dict[str, Any],
+    catalog: Dict[str, Any],
+    min_gap: float = 0.6,
+) -> List[Dict[str, Any]]:
+    """
+    Generates additional highlight entries from a structured catalog (e.g., video2.json)
+    and appends them to the plan while avoiding duplicates.
+    """
+    timeline = catalog.get('video_timeline') or catalog.get('timeline') or []
+    if not isinstance(timeline, list) or not timeline:
+        return []
+
+    highlights = plan.setdefault('highlights', [])
+    existing_starts = [h.get('start') for h in highlights if isinstance(h.get('start'), (int, float))]
+
+    injected: List[Dict[str, Any]] = []
+    for entry_index, entry in enumerate(timeline):
+        elements = entry.get('elements') or []
+        if not isinstance(elements, list):
+            continue
+
+        for element_index, element in enumerate(elements):
+            highlight = build_highlight_from_overlay(entry_index, entry, element_index, element)
+            if not highlight:
+                continue
+
+            start_time = highlight.get('start')
+            if start_time is None:
+                continue
+
+            duplicate = any(abs(start_time - existing) <= min_gap for existing in existing_starts)
+            if duplicate:
+                continue
+
+            highlights.append(highlight)
+            injected.append(highlight)
+            existing_starts.append(start_time)
+
+    if injected:
+        highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
+
+    return injected
+
+
 # ---------------------------------------------------------------------------
 # Data models
 # ---------------------------------------------------------------------------
@@ -497,6 +688,12 @@ def main(argv: List[str] | None = None) -> int:
         help="Path to motion_rules.json (default: repo_root/assets/motion_rules.json)",
     )
     parser.add_argument(
+        "--highlight-catalog",
+        dest="highlight_catalog_path",
+        type=Path,
+        help="Optional path to a structured text highlight catalog (e.g., video2.json)",
+    )
+    parser.add_argument(
         "--broll-threshold",
         dest="broll_threshold",
         type=float,
@@ -522,6 +719,11 @@ def main(argv: List[str] | None = None) -> int:
     broll_catalog = load_json(resolve(args.broll_catalog_path)) if args.broll_catalog_path else None
     sfx_catalog = load_json(resolve(args.sfx_catalog_path)) if args.sfx_catalog_path else None
     motion_rules = load_json(resolve(args.motion_rules_path)) if args.motion_rules_path else None
+    highlight_catalog = (
+        load_json(resolve(args.highlight_catalog_path))
+        if args.highlight_catalog_path
+        else None
+    )
 
     # Enrich the plan
     enriched_plan, warnings = enrich_plan(
@@ -532,6 +734,17 @@ def main(argv: List[str] | None = None) -> int:
         motion_rules=motion_rules,
         broll_threshold=args.broll_threshold,
     )
+
+    if highlight_catalog:
+        injected = augment_highlights_from_catalog(enriched_plan, highlight_catalog)
+        if injected:
+            enriched_plan.setdefault("meta", {}).setdefault(
+                "highlightCatalog",
+                str(args.highlight_catalog_path),
+            )
+            print(
+                f"[INFO] Injected {len(injected)} highlight(s) from {args.highlight_catalog_path}"
+            )
 
     # Write the enriched plan to output
     write_json(enriched_plan, args.output_path)

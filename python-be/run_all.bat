@@ -16,6 +16,13 @@ if "%SOURCE_VIDEO%"=="" set "SOURCE_VIDEO=%SCRIPT_DIR%..\public\input\input.mp4"
 set "OUTPUT_DIR=%SCRIPT_DIR%outputs"
 set "PUBLIC_ROOT=%SCRIPT_DIR%..\public"
 set "PUBLIC_INPUT=%PUBLIC_ROOT%\input"
+set "DEFAULT_HIGHLIGHT_CATALOG=%SCRIPT_DIR%..\video2.json"
+if not defined HIGHLIGHT_CATALOG (
+  set "HIGHLIGHT_CATALOG=%DEFAULT_HIGHLIGHT_CATALOG%"
+)
+if not exist "%HIGHLIGHT_CATALOG%" (
+  set "HIGHLIGHT_CATALOG="
+)
 
 set "AUTO_EDITOR_OUTPUT=%OUTPUT_DIR%\stage1_cut.mp4"
 set "WHISPER_SRT=%OUTPUT_DIR%\stage1_cut.srt"
@@ -96,7 +103,11 @@ REM ---------------------------------------------------------------------------
 REM Enrich plan with assets + motion cues
 REM ---------------------------------------------------------------------------
 echo [STEP] Enrich plan => %PLAN_ENRICHED%
-%PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" --scene-map "%SCENE_MAP%"
+if "%HIGHLIGHT_CATALOG%"=="" (
+  %PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" --scene-map "%SCENE_MAP%"
+) else (
+  %PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" --scene-map "%SCENE_MAP%" --highlight-catalog "%HIGHLIGHT_CATALOG%"
+)
 if errorlevel 1 (
   echo [ERROR] Plan enrichment failed.
   exit /b 1
