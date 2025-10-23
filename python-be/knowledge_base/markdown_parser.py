@@ -83,6 +83,7 @@ def parse_markdown_document(raw_text: str) -> Tuple[Dict[str, str], List[Markdow
         Helper function to save the buffered content as a `MarkdownSection`
         and reset the buffer for the next section.
         """
+        nonlocal current_heading, current_level, buffer
         if current_heading or buffer:  # Only flush if there's content or a heading
             sections.append(
                 MarkdownSection(
@@ -96,20 +97,23 @@ def parse_markdown_document(raw_text: str) -> Tuple[Dict[str, str], List[Markdow
             current_level = 0
             buffer = []
 
-    for token in tokens:
+    for index, token in enumerate(tokens):
         if token.type == "heading_open":
             flush()  # A new heading means the previous section is complete
-            current_level = int(token.tag[1])  # Extract heading level (h1, h2, etc.)
+            if token.tag and len(token.tag) > 1 and token.tag[0].lower() == "h" and token.tag[1].isdigit():
+                current_level = int(token.tag[1])  # Extract heading level (h1, h2, etc.)
+            else:
+                current_level = 0
         elif token.type == "heading_close":
             continue  # Ignore closing heading tags
         elif token.type == "inline" and token.map:
             # Inline tokens often contain the actual text of headings or paragraphs
             # Check if the previous token was a heading_open to capture the heading text
-            if tokens[tokens.index(token) - 1].type == "heading_open":
+            if index > 0 and tokens[index - 1].type == "heading_open":
                 current_heading = token.content.strip()
-            else:
+            elif token.content:
                 buffer.append(token.content)  # Add other inline content to the buffer
-        elif token.children:
+        elif token.children and token.content:
             # For tokens that have children (e.g., lists, blockquotes), their content
             # is usually in the children. For simplicity, we append the token's content.
             # A more robust parser might recursively process children.

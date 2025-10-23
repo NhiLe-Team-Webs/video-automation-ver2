@@ -118,6 +118,21 @@ export type HighlightPosition = 'top' | 'center' | 'bottom';
 /**
  * Represents a plan for a single highlight element in the video.
  */
+export interface HighlightSupportingTexts {
+  topLeft?: string;
+  topRight?: string;
+  topCenter?: string;
+  bottomLeft?: string;
+}
+
+export interface HighlightOverlay {
+  image?: string;
+  tint?: string;
+  opacity?: number;
+  blendMode?: string;
+  blur?: number;
+}
+
 export interface HighlightPlan {
   /** A unique identifier for the highlight. */
   id: string;
@@ -125,6 +140,8 @@ export interface HighlightPlan {
   type?: HighlightType;
   /** Optional main text content for the highlight. */
   text?: string;
+  /** Optional canonical keyword text (maps to bottom callout). */
+  keyword?: string;
   /** Optional title for 'sectionTitle' or other types. */
   title?: string;
   /** Optional subtitle for 'sectionTitle'. */
@@ -165,6 +182,14 @@ export interface HighlightPlan {
   animation?: IconAnimation;
   /** Optional variant string for custom styling. */
   variant?: string;
+  /** Optional supporting texts mapped to screen positions. */
+  supportingTexts?: HighlightSupportingTexts;
+  /** Optional overlay configuration for section cards or advanced layouts. */
+  overlay?: HighlightOverlay;
+  /** Optional hint to repeat this highlight every N seconds. */
+  repeatEvery?: number;
+  /** Optional density multiplier for adaptive scheduling. */
+  frequencyMultiplier?: number;
   /** Allows for additional arbitrary properties. */
   [key: string]: unknown;
 }

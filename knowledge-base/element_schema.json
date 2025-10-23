@@ -78,7 +78,9 @@
         "clean_minimal",
         "bold_emphasis",
         "split_column",
-        "callout_box"
+        "callout_box",
+        "simple_text",
+        "section_box"
       ]
     },
     "animation": {
