@@ -3,37 +3,21 @@ import {AbsoluteFill, Easing} from 'remotion';
 import {BRAND} from '../config';
 import type {HighlightPlan, HighlightTheme, HighlightType} from '../types';
 
-/** Easing function for smooth animations. */
 const ease = Easing.bezier(0.42, 0, 0.58, 1);
 
-/**
- * Context interface for highlight rendering functions.
- */
 interface HighlightRenderContext {
-  /** The highlight plan data. */
   highlight: HighlightPlan;
-  /** Normalized progress (0-1) of the highlight's appearance animation. */
   appear: number;
-  /** Normalized progress (0-1) of the highlight's exit animation. */
   exit: number;
-  /** Optional theme overrides for the highlight. */
   theme?: HighlightTheme;
-  /** The width of the video composition. */
   width: number;
-  /** The height of the video composition. */
   height: number;
 }
 
-/**
- * Type definition for a function that renders a highlight.
- */
 type HighlightRenderer = (context: HighlightRenderContext) => ReactNode;
 
-/**
- * Clamps a number between 0 and 1.
- * @param value The number to clamp.
- * @returns The clamped number.
- */
+type CornerLayout = 'none' | 'left' | 'right' | 'dual' | 'bottom';
+
 const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 
 const withAlpha = (color: string | undefined, alpha: number, fallback: string) => {
@@ -66,33 +50,31 @@ const coerceText = (value: unknown): string | undefined => {
   if (typeof value !== 'string') {
     return undefined;
   }
-
   const trimmed = value.trim();
   return trimmed.length ? trimmed : undefined;
 };
 
-const readStringFromRecord = (record: Record<string, unknown>, keys: string[]): string | undefined => {
+const pickString = (record: Record<string, unknown>, keys: string[]): string | undefined => {
   for (const key of keys) {
     if (key in record) {
-      const value = coerceText(record[key]);
-      if (value) {
-        return value;
+      const candidate = coerceText(record[key]);
+      if (candidate) {
+        return candidate;
       }
     }
   }
-
   return undefined;
 };
 
-const resolveCornerTexts = (highlight: HighlightPlan): {left?: string; right?: string} => {
+const extractCornerTexts = (highlight: HighlightPlan) => {
   const result: {left?: string; right?: string} = {};
-  const highlightRecord = highlight as Record<string, unknown>;
+  const asRecord = highlight as Record<string, unknown>;
 
-  const rawContent = highlightRecord.content;
+  const rawContent = asRecord.content;
   if (rawContent && typeof rawContent === 'object' && !Array.isArray(rawContent)) {
     const record = rawContent as Record<string, unknown>;
-    result.left = readStringFromRecord(record, ['top_left', 'topLeft', 'left', 'primary']);
-    result.right = readStringFromRecord(record, ['top_right', 'topRight', 'right', 'secondary']);
+    result.left = pickString(record, ['top_left', 'topLeft', 'left', 'primary']);
+    result.right = pickString(record, ['top_right', 'topRight', 'right', 'secondary']);
 
     if (!result.left && Array.isArray(record.items)) {
       result.left = coerceText(record.items[0]);
@@ -103,66 +85,84 @@ const resolveCornerTexts = (highlight: HighlightPlan): {left?: string; right?: s
   const supporting = highlight.supportingTexts as Record<string, unknown> | undefined;
   if (supporting) {
     result.left =
-      result.left ?? readStringFromRecord(supporting, ['topLeft', 'top_left', 'left', 'primary']);
+      result.left ??
+      pickString(supporting, ['topLeft', 'top_left', 'left', 'primary', 'top_center', 'topCenter']);
     result.right =
-      result.right ?? readStringFromRecord(supporting, ['topRight', 'top_right', 'right', 'secondary']);
+      result.right ??
+      pickString(supporting, ['topRight', 'top_right', 'right', 'secondary', 'top_center', 'topCenter']);
   }
 
   result.left =
-    result.left ??
-    readStringFromRecord(highlightRecord, ['supportingLeft', 'supportLeft', 'supporting']);
+    result.left ?? pickString(asRecord, ['supportingLeft', 'supportLeft', 'supporting', 'keyword']);
   result.right =
-    result.right ??
-    readStringFromRecord(highlightRecord, ['supportingRight', 'supportRight', 'secondary']);
+    result.right ?? pickString(asRecord, ['supportingRight', 'supportRight', 'secondary']);
 
-  const metadata = highlightRecord.metadata;
+  const metadata = asRecord.metadata;
   if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
     const metadataRecord = metadata as Record<string, unknown>;
-    result.left =
-      result.left ?? readStringFromRecord(metadataRecord, ['top_left', 'topLeft', 'left']);
-    result.right =
-      result.right ?? readStringFromRecord(metadataRecord, ['top_right', 'topRight', 'right']);
-  }
-
-  if (!result.left && !result.right) {
-    const fallback =
-      coerceText(highlight.keyword) ??
-      coerceText(highlight.text) ??
-      coerceText(highlight.title) ??
-      coerceText(highlight.subtitle);
-
-    if (fallback) {
-      const side = (highlight.side ?? '').toLowerCase();
-      if (side === 'right') {
-        result.right = fallback;
-      } else if (side === 'left') {
-        result.left = fallback;
-      } else {
-        result.left = fallback;
-      }
-    }
+    result.left = result.left ?? pickString(metadataRecord, ['top_left', 'topLeft', 'left']);
+    result.right = result.right ?? pickString(metadataRecord, ['top_right', 'topRight', 'right']);
   }
 
   return result;
 };
 
-const renderCornerHighlights: HighlightRenderer = ({highlight, appear, exit, theme}) => {
-  const corners = resolveCornerTexts(highlight);
-  const left = corners.left;
-  const right = corners.right;
+const resolvePrimaryText = (highlight: HighlightPlan): string | undefined =>
+  coerceText(highlight.keyword) ??
+  coerceText(highlight.text) ??
+  coerceText(highlight.title) ??
+  coerceText(highlight.subtitle);
 
-  if (!left && !right) {
-    return null;
+const determineLayout = (
+  highlight: HighlightPlan,
+  corners: {left?: string; right?: string},
+  primaryText: string | undefined
+): CornerLayout => {
+  const explicit = coerceText((highlight as Record<string, unknown>).layout) as CornerLayout | undefined;
+  if (explicit && explicit !== 'auto') {
+    return explicit;
   }
 
+  const importance = coerceText((highlight as Record<string, unknown>).importance);
+  if (importance === 'primary' || (highlight.position ?? '').toLowerCase() === 'bottom') {
+    return primaryText ? 'bottom' : corners.left || corners.right ? 'dual' : 'none';
+  }
+
+  if (primaryText && (highlight.position ?? '').toLowerCase() === 'bottom') {
+    return 'bottom';
+  }
+
+  if (corners.left && corners.right) {
+    return 'dual';
+  }
+
+  if (corners.left) {
+    return 'left';
+  }
+
+  if (corners.right) {
+    return 'right';
+  }
+
+  return primaryText ? 'bottom' : 'none';
+};
+
+const renderCornerLayout = (
+  {highlight, appear, exit, theme}: HighlightRenderContext,
+  layout: CornerLayout,
+  corners: {left?: string; right?: string}
+) => {
   const eased = ease(clamp01(appear));
   const exitEased = clamp01(exit);
-  const fontSize = (typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
-    ? highlight.fontSize
-    : 60) as number | string;
-  const fontWeight = (typeof highlight.fontWeight === 'number' || typeof highlight.fontWeight === 'string'
-    ? highlight.fontWeight
-    : 900) as number | string;
+
+  const fontSize =
+    typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
+      ? highlight.fontSize
+      : 60;
+  const fontWeight =
+    typeof highlight.fontWeight === 'number' || typeof highlight.fontWeight === 'string'
+      ? highlight.fontWeight
+      : 900;
   const letterSpacing =
     typeof (highlight as Record<string, unknown>).letterSpacing === 'number'
       ? ((highlight as Record<string, unknown>).letterSpacing as number)
@@ -172,87 +172,119 @@ const renderCornerHighlights: HighlightRenderer = ({highlight, appear, exit, the
       ? ((highlight as Record<string, unknown>).textTransform as CSSProperties['textTransform'])
       : 'uppercase';
 
-  const baseStyle: CSSProperties = {
-    fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
-    fontSize,
-    fontWeight,
-    letterSpacing,
-    lineHeight: 1.02,
-    textTransform,
-    color: theme?.textColor ?? BRAND.white,
-    textRendering: 'geometricPrecision',
-    whiteSpace: 'pre-wrap',
-    opacity: exitEased,
-    transform: `translateY(${(1 - eased) * 8}px)`,
+  const buildSpanStyle = (side: 'left' | 'right'): CSSProperties => {
+    const horizontalShift = (1 - eased) * 24 * (side === 'left' ? -1 : 1);
+    return {
+      position: 'absolute',
+      top: '6%',
+      [side]: '6%',
+      maxWidth: '34%',
+      textAlign: side === 'left' ? 'left' : 'right',
+      fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
+      fontSize,
+      fontWeight,
+      letterSpacing,
+      lineHeight: 1.04,
+      textTransform,
+      color: theme?.textColor ?? BRAND.white,
+      whiteSpace: 'pre-wrap',
+      textRendering: 'geometricPrecision',
+      opacity: exitEased,
+      transform: `translate(${horizontalShift}px, ${(1 - eased) * 10}px)`,
+    };
   };
 
   return (
-    <AbsoluteFill
-      style={{
-        pointerEvents: 'none',
-      }}
-    >
-      {left ? (
-        <span
-          style={{
-            ...baseStyle,
-            position: 'absolute',
-            top: '6%',
-            left: '6%',
-            maxWidth: '32%',
-            textAlign: 'left',
-          }}
-        >
-          {left}
-        </span>
+    <AbsoluteFill style={{pointerEvents: 'none'}}>
+      {(layout === 'left' || layout === 'dual') && corners.left ? (
+        <span style={buildSpanStyle('left')}>{corners.left}</span>
       ) : null}
-      {right ? (
-        <span
-          style={{
-            ...baseStyle,
-            position: 'absolute',
-            top: '6%',
-            right: '6%',
-            maxWidth: '32%',
-            textAlign: 'right',
-          }}
-        >
-          {right}
-        </span>
+      {(layout === 'right' || layout === 'dual') && corners.right ? (
+        <span style={buildSpanStyle('right')}>{corners.right}</span>
       ) : null}
     </AbsoluteFill>
   );
 };
 
-/**
- * Renders a 'typewriter' style highlight.
- * Text appears character by character with a blinking caret.
- * @param context The highlight render context.
- * @returns A ReactNode representing the typewriter highlight.
- */
-const renderTypewriter: HighlightRenderer = (context) => renderCornerHighlights(context);
+const renderBottomBanner = (
+  {highlight, appear, exit, theme}: HighlightRenderContext,
+  text: string
+) => {
+  const eased = ease(clamp01(appear));
+  const exitEased = clamp01(exit);
+  const fontSize =
+    typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
+      ? highlight.fontSize
+      : 120;
+  const fontWeight =
+    typeof highlight.fontWeight === 'number' || typeof highlight.fontWeight === 'string'
+      ? highlight.fontWeight
+      : 900;
+  const letterSpacing =
+    typeof (highlight as Record<string, unknown>).letterSpacing === 'number'
+      ? ((highlight as Record<string, unknown>).letterSpacing as number)
+      : 1.4;
+  const textTransform =
+    typeof (highlight as Record<string, unknown>).textTransform === 'string'
+      ? ((highlight as Record<string, unknown>).textTransform as CSSProperties['textTransform'])
+      : 'uppercase';
 
-/**
- * Renders a 'noteBox' style highlight.
- * A box with text that slides in from a specified side.
- * @param context The highlight render context.
- * @returns A ReactNode representing the note box highlight.
- */
-const renderNoteBox: HighlightRenderer = (context) => renderCornerHighlights(context);
+  const color = theme?.textColor ?? BRAND.white;
 
-/**
- * Renders a 'sectionTitle' style highlight.
- * A full-screen title card with background effects.
- * @param context The highlight render context.
- * @returns A ReactNode representing the section title highlight.
- */
+  return (
+    <AbsoluteFill
+      style={{
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        paddingBottom: '8%',
+        opacity: exitEased,
+      }}
+    >
+      <div
+        style={{
+          fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
+          fontSize,
+          fontWeight,
+          letterSpacing,
+          textTransform,
+          color,
+          textAlign: 'center',
+          whiteSpace: 'pre-wrap',
+          textRendering: 'geometricPrecision',
+          transform: `translateY(${(1 - eased) * 60}px)`,
+        }}
+      >
+        {text}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const renderTextHighlight: HighlightRenderer = (context) => {
+  const {highlight} = context;
+  const corners = extractCornerTexts(highlight);
+  const primaryText = resolvePrimaryText(highlight);
+  const layout = determineLayout(highlight, corners, primaryText);
+
+  if (layout === 'none') {
+    return null;
+  }
+
+  if (layout === 'bottom' && primaryText) {
+    return renderBottomBanner(context, primaryText);
+  }
+
+  return renderCornerLayout(context, layout, corners);
+};
+
 const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme}) => {
   const title = highlight.title ?? highlight.text ?? '';
   if (!title) {
     return null;
   }
 
-  // Determine background gradient based on variant
   const backgroundVariant = (highlight.variant ?? '').toLowerCase();
   const baseGradient =
     backgroundVariant === 'black'
@@ -261,7 +293,6 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
 
   const eased = ease(clamp01(appear));
   const exitEased = clamp01(exit);
-  // Subtle scale animation for appearance/exit
   const scale = 1 + (1 - exitEased) * 0.015 + (1 - eased) * 0.015;
 
   const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
@@ -289,7 +320,6 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
 
   return (
     <AbsoluteFill style={container}>
-      {/* Decorative background elements */}
       <div
         style={{
           position: 'absolute',
@@ -323,7 +353,6 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
           opacity: 0.7,
         }}
       />
-      {/* Optional badge */}
       {highlight.badge ? (
         <div
           style={{
@@ -337,7 +366,6 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
           {highlight.badge}
         </div>
       ) : null}
-      {/* Main title */}
       <div
         style={{
           fontSize: 96,
@@ -350,7 +378,6 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
       >
         {title}
       </div>
-      {/* Optional subtitle */}
       <div
         style={{
           width: 180,
@@ -380,27 +407,18 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
   );
 };
 
-/**
- * A map of highlight types to their corresponding renderer functions.
- */
+const renderTypewriter: HighlightRenderer = renderTextHighlight;
+const renderNoteBox: HighlightRenderer = renderTextHighlight;
+
 const RENDERERS: Record<HighlightType, HighlightRenderer> = {
   typewriter: renderTypewriter,
   noteBox: renderNoteBox,
   sectionTitle: renderSectionTitle,
-  icon: () => null, // Icon highlights are handled by IconEffect component
+  icon: () => null,
 };
 
-/**
- * Renders a highlight based on its type.
- * @param context The highlight render context.
- * @returns A ReactNode representing the rendered highlight.
- */
 export const renderHighlightByType = (context: HighlightRenderContext): ReactNode => {
   const highlightType = (context.highlight.type as HighlightType | undefined) ?? 'noteBox';
-  const renderer = RENDERERS[highlightType] ?? renderNoteBox; // Fallback to noteBox
+  const renderer = RENDERERS[highlightType] ?? renderNoteBox;
   return renderer(context);
 };
-
-
-
-
