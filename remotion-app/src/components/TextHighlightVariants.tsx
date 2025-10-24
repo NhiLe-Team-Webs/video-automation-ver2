@@ -19,6 +19,35 @@ type HighlightRenderer = (context: HighlightRenderContext) => ReactNode;
 type CornerLayout = 'none' | 'left' | 'right' | 'dual' | 'bottom';
 
 const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
+const clampTo = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
+const DEFAULT_SAFE_HORIZONTAL = 0.08;
+const DEFAULT_SAFE_VERTICAL = 0.1;
+const DEFAULT_SAFE_BOTTOM = 0.12;
+const DEFAULT_STAGGER_LEFT = 0;
+const DEFAULT_STAGGER_RIGHT = 0.22;
+
+const toPercent = (value: unknown, fallback: number) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return `${(clampTo(value, 0.02, 0.2) * 100).toFixed(2)}%`;
+  }
+  if (typeof value === 'string') {
+    return value;
+  }
+  return `${(fallback * 100).toFixed(2)}%`;
+};
+
+const normalizeDelay = (value: unknown, fallback: number) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    if (value > 1) {
+      // Treat values > 1 as seconds relative to a 1s window
+      return clampTo(value / 5, 0, 0.9);
+    }
+    return clampTo(value, 0, 0.9);
+  }
+  return fallback;
+};
 
 const withAlpha = (color: string | undefined, alpha: number, fallback: string) => {
   if (!color) {
@@ -152,8 +181,41 @@ const renderCornerLayout = (
   layout: CornerLayout,
   corners: {left?: string; right?: string}
 ) => {
-  const eased = ease(clamp01(appear));
+  const baseAppear = clamp01(appear);
+  const eased = ease(baseAppear);
   const exitEased = clamp01(exit);
+  const exitProgress = 1 - exitEased;
+  const asRecord = highlight as Record<string, unknown>;
+
+  const staggerRecord =
+    (typeof asRecord.stagger === 'object' && asRecord.stagger !== null
+      ? (asRecord.stagger as Record<string, unknown>)
+      : undefined) ?? {};
+
+  const leftDelay = normalizeDelay(
+    asRecord.staggerLeft ?? staggerRecord.left,
+    DEFAULT_STAGGER_LEFT
+  );
+  const rightDelay = normalizeDelay(
+    asRecord.staggerRight ?? staggerRecord.right,
+    DEFAULT_STAGGER_RIGHT
+  );
+
+  const progressForSide = (side: 'left' | 'right') => {
+    const delay = side === 'left' ? leftDelay : rightDelay;
+    if (delay <= 0) {
+      return ease(baseAppear);
+    }
+    const denominator = 1 - delay;
+    if (denominator <= 0) {
+      return ease(1);
+    }
+    const adjusted = (baseAppear - delay) / denominator;
+    return ease(clamp01(adjusted));
+  };
+
+  const leftProgress = progressForSide('left');
+  const rightProgress = progressForSide('right');
 
   const fontSize =
     typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
@@ -172,13 +234,29 @@ const renderCornerLayout = (
       ? ((highlight as Record<string, unknown>).textTransform as CSSProperties['textTransform'])
       : 'uppercase';
 
-  const buildSpanStyle = (side: 'left' | 'right'): CSSProperties => {
-    const horizontalShift = (1 - eased) * 24 * (side === 'left' ? -1 : 1);
+  const horizontalInset = toPercent(
+    asRecord.safeInset ?? asRecord.safeInsetHorizontal ?? asRecord.safeMargin,
+    DEFAULT_SAFE_HORIZONTAL
+  );
+  const topInset = toPercent(asRecord.safeTop ?? asRecord.safeInsetVertical, DEFAULT_SAFE_VERTICAL);
+  const maxWidthValue =
+    typeof asRecord.maxWidth === 'string'
+      ? asRecord.maxWidth
+      : typeof asRecord.maxWidth === 'number'
+        ? `${clampTo(asRecord.maxWidth, 0.22, 0.5) * 100}%`
+        : 'clamp(18%, 28vw, 34%)';
+
+  const buildSpanStyle = (side: 'left' | 'right', progress: number): CSSProperties => {
+    const direction = side === 'left' ? -1 : 1;
+    const appearShift = (1 - progress) * 32 * direction;
+    const exitShift = exitProgress * 22 * direction;
+    const verticalShift = (1 - progress) * 18 + exitProgress * 20;
+    const scale = clampTo(1 + (1 - progress) * 0.02 - exitProgress * 0.04, 0.94, 1.08);
     return {
       position: 'absolute',
-      top: '6%',
-      [side]: '6%',
-      maxWidth: '34%',
+      top: topInset,
+      [side]: horizontalInset,
+      maxWidth: maxWidthValue,
       textAlign: side === 'left' ? 'left' : 'right',
       fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
       fontSize,
@@ -189,18 +267,18 @@ const renderCornerLayout = (
       color: theme?.textColor ?? BRAND.white,
       whiteSpace: 'pre-wrap',
       textRendering: 'geometricPrecision',
-      opacity: exitEased,
-      transform: `translate(${horizontalShift}px, ${(1 - eased) * 10}px)`,
+      opacity: Math.min(1, progress) * exitEased,
+      transform: `translate(${appearShift + exitShift}px, ${verticalShift}px) scale(${scale})`,
     };
   };
 
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       {(layout === 'left' || layout === 'dual') && corners.left ? (
-        <span style={buildSpanStyle('left')}>{corners.left}</span>
+        <span style={buildSpanStyle('left', leftProgress)}>{corners.left}</span>
       ) : null}
       {(layout === 'right' || layout === 'dual') && corners.right ? (
-        <span style={buildSpanStyle('right')}>{corners.right}</span>
+        <span style={buildSpanStyle('right', rightProgress)}>{corners.right}</span>
       ) : null}
     </AbsoluteFill>
   );
@@ -212,6 +290,8 @@ const renderBottomBanner = (
 ) => {
   const eased = ease(clamp01(appear));
   const exitEased = clamp01(exit);
+  const exitProgress = 1 - exitEased;
+  const asRecord = highlight as Record<string, unknown>;
   const fontSize =
     typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
       ? highlight.fontSize
@@ -229,6 +309,15 @@ const renderBottomBanner = (
       ? ((highlight as Record<string, unknown>).textTransform as CSSProperties['textTransform'])
       : 'uppercase';
 
+  const horizontalInset = toPercent(
+    asRecord.safeInset ?? asRecord.safeInsetHorizontal ?? asRecord.safeMargin,
+    DEFAULT_SAFE_HORIZONTAL
+  );
+  const bottomInset = toPercent(
+    asRecord.safeBottom ?? asRecord.safeInsetVertical,
+    DEFAULT_SAFE_BOTTOM
+  );
+
   const color = theme?.textColor ?? BRAND.white;
 
   return (
@@ -238,7 +327,9 @@ const renderBottomBanner = (
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        paddingBottom: '8%',
+        paddingBottom: bottomInset,
+        paddingLeft: horizontalInset,
+        paddingRight: horizontalInset,
         opacity: exitEased,
       }}
     >
@@ -253,7 +344,12 @@ const renderBottomBanner = (
           textAlign: 'center',
           whiteSpace: 'pre-wrap',
           textRendering: 'geometricPrecision',
-          transform: `translateY(${(1 - eased) * 60}px)`,
+          transform: `translateY(${(1 - eased) * 60 + exitProgress * 40}px) scale(${clampTo(
+            1 + exitProgress * 0.04,
+            0.94,
+            1.08
+          )})`,
+          opacity: Math.min(1, eased) * exitEased,
         }}
       >
         {text}
