@@ -24,12 +24,14 @@ import * as MdIcons from 'react-icons/md';
 import * as SiIcons from 'react-icons/si';
 import type {IconAnimation} from '../types';
 
-export type IconComponent = ComponentType<{
-  size?: number;
+type IconComponentProps = {
+  size?: number | string;
   color?: string;
   strokeWidth?: number;
   className?: string;
-}>;
+};
+
+export type IconComponent = ComponentType<IconComponentProps>;
 
 type IconSource = 'lucide' | 'react-icons/fa' | 'react-icons/md' | 'react-icons/si';
 
@@ -522,3 +524,4 @@ export const resolveIconVisual = (name?: string | null): IconVisual | null => {
   }
   return resolveWithFallback(candidates);
 };
+

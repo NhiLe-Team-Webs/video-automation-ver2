@@ -513,6 +513,16 @@ def generate_scene_map(
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
+def resolve_repo_root() -> Path:
+    """
+    Walk upwards from this file to locate the repository root.
+    The repo root is identified by the first ancestor containing an `assets` directory.
+    """
+    current = Path(__file__).resolve().parent
+    for candidate in (current, *current.parents):
+        if (candidate / "assets").exists():
+            return candidate
+    return current
 
 
 def resolve_output_path(input_path: Path, output_arg: Path | None) -> Path:
@@ -576,7 +586,7 @@ def main(argv: List[str] | None = None) -> int:
         parser.error("No valid entries found in SRT")
 
     # Resolve repository root and load catalogs/rules
-    repo_root = Path(__file__).resolve().parents[3]
+    repo_root = resolve_repo_root()
     broll_catalog = load_json(repo_root / "assets" / "broll_catalog.json")
     topic_index = build_topic_index(broll_catalog)
 
