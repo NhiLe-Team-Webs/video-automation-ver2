@@ -8,10 +8,24 @@
       "file": "assets/broll/ai_brain.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["ai", "innovation", "concept"],
-      "mood": ["futuristic", "inspired"],
-      "keywords": ["neural", "circuit", "glow"],
-      "recommendedUsage": ["openers", "innovation highlight"],
+      "topics": [
+        "ai",
+        "innovation",
+        "concept"
+      ],
+      "mood": [
+        "futuristic",
+        "inspired"
+      ],
+      "keywords": [
+        "neural",
+        "circuit",
+        "glow"
+      ],
+      "recommendedUsage": [
+        "openers",
+        "innovation highlight"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -22,10 +36,24 @@
       "file": "assets/broll/ai_dashboard.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["ai", "analytics", "dashboard"],
-      "mood": ["modern", "data-driven"],
-      "keywords": ["automation", "metrics", "interface"],
-      "recommendedUsage": ["tech explainers", "data storytelling"],
+      "topics": [
+        "ai",
+        "analytics",
+        "dashboard"
+      ],
+      "mood": [
+        "modern",
+        "data-driven"
+      ],
+      "keywords": [
+        "automation",
+        "metrics",
+        "interface"
+      ],
+      "recommendedUsage": [
+        "tech explainers",
+        "data storytelling"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -36,10 +64,24 @@
       "file": "assets/broll/ai_robot_hand.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["ai", "robotics", "innovation"],
-      "mood": ["futuristic", "dramatic"],
-      "keywords": ["hologram", "technology", "automation"],
-      "recommendedUsage": ["future vision", "tech transitions"],
+      "topics": [
+        "ai",
+        "robotics",
+        "innovation"
+      ],
+      "mood": [
+        "futuristic",
+        "dramatic"
+      ],
+      "keywords": [
+        "hologram",
+        "technology",
+        "automation"
+      ],
+      "recommendedUsage": [
+        "future vision",
+        "tech transitions"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -50,10 +92,24 @@
       "file": "assets/broll/business_strategy.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["business", "planning", "strategy"],
-      "mood": ["professional", "collaborative"],
-      "keywords": ["roadmap", "team", "whiteboard"],
-      "recommendedUsage": ["strategy segments", "narration cutaways"],
+      "topics": [
+        "business",
+        "planning",
+        "strategy"
+      ],
+      "mood": [
+        "professional",
+        "collaborative"
+      ],
+      "keywords": [
+        "roadmap",
+        "team",
+        "whiteboard"
+      ],
+      "recommendedUsage": [
+        "strategy segments",
+        "narration cutaways"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -64,10 +120,24 @@
       "file": "assets/broll/celebration_success.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["celebration", "team", "success"],
-      "mood": ["upbeat", "victorious"],
-      "keywords": ["confetti", "win", "achievement"],
-      "recommendedUsage": ["milestones", "CTA emphasis"],
+      "topics": [
+        "celebration",
+        "team",
+        "success"
+      ],
+      "mood": [
+        "upbeat",
+        "victorious"
+      ],
+      "keywords": [
+        "confetti",
+        "win",
+        "achievement"
+      ],
+      "recommendedUsage": [
+        "milestones",
+        "CTA emphasis"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -78,10 +148,24 @@
       "file": "assets/broll/coding_screen.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["coding", "software", "development"],
-      "mood": ["focused", "technical"],
-      "keywords": ["code", "monitor", "typing"],
-      "recommendedUsage": ["dev workflow", "product demos"],
+      "topics": [
+        "coding",
+        "software",
+        "development"
+      ],
+      "mood": [
+        "focused",
+        "technical"
+      ],
+      "keywords": [
+        "code",
+        "monitor",
+        "typing"
+      ],
+      "recommendedUsage": [
+        "dev workflow",
+        "product demos"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -92,10 +176,24 @@
       "file": "assets/broll/creative_brainstorm.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["creativity", "teamwork", "ideas"],
-      "mood": ["collaborative", "energetic"],
-      "keywords": ["post-it", "ideation", "meeting"],
-      "recommendedUsage": ["ideation stories", "team culture"],
+      "topics": [
+        "creativity",
+        "teamwork",
+        "ideas"
+      ],
+      "mood": [
+        "collaborative",
+        "energetic"
+      ],
+      "keywords": [
+        "post-it",
+        "ideation",
+        "meeting"
+      ],
+      "recommendedUsage": [
+        "ideation stories",
+        "team culture"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -106,10 +204,29 @@
       "file": "assets/broll/data_analysis.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["analytics", "data", "business"],
-      "mood": ["professional", "informative"],
-      "keywords": ["charts", "insights", "metrics"],
-      "recommendedUsage": ["insight highlights", "reporting segments"],
+      "topics": [
+        "analytics",
+        "data",
+        "business"
+      ],
+      "mood": [
+        "professional",
+        "informative"
+      ],
+      "keywords": [
+        "charts",
+        "dataset",
+        "insights",
+        "metrics",
+        "million",
+        "research",
+        "study",
+        "years"
+      ],
+      "recommendedUsage": [
+        "insight highlights",
+        "reporting segments"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -120,10 +237,24 @@
       "file": "assets/broll/data_visualization.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["data", "visualization", "analytics"],
-      "mood": ["informative", "modern"],
-      "keywords": ["charts", "graphs", "dashboard"],
-      "recommendedUsage": ["stat callouts", "slides"],
+      "topics": [
+        "data",
+        "visualization",
+        "analytics"
+      ],
+      "mood": [
+        "informative",
+        "modern"
+      ],
+      "keywords": [
+        "charts",
+        "graphs",
+        "dashboard"
+      ],
+      "recommendedUsage": [
+        "stat callouts",
+        "slides"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -134,10 +265,28 @@
       "file": "assets/broll/digital_brain.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["ai", "digital", "innovation"],
-      "mood": ["futuristic", "glowing"],
-      "keywords": ["neural", "network", "pattern"],
-      "recommendedUsage": ["tech transitions", "innovation beats"],
+      "topics": [
+        "ai",
+        "digital",
+        "innovation"
+      ],
+      "mood": [
+        "futuristic",
+        "glowing"
+      ],
+      "keywords": [
+        "autoimmune",
+        "biology",
+        "cells",
+        "immune",
+        "network",
+        "neural",
+        "pattern"
+      ],
+      "recommendedUsage": [
+        "tech transitions",
+        "innovation beats"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -148,10 +297,29 @@
       "file": "assets/broll/digital_network.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["network", "technology", "connections"],
-      "mood": ["futuristic", "calm"],
-      "keywords": ["nodes", "grid", "data flow"],
-      "recommendedUsage": ["backgrounds", "tech explainers"],
+      "topics": [
+        "network",
+        "technology",
+        "connections"
+      ],
+      "mood": [
+        "futuristic",
+        "calm"
+      ],
+      "keywords": [
+        "barr",
+        "data flow",
+        "epstein",
+        "grid",
+        "infection",
+        "mono",
+        "nodes",
+        "virus"
+      ],
+      "recommendedUsage": [
+        "backgrounds",
+        "tech explainers"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -162,10 +330,24 @@
       "file": "assets/broll/digital_transformation.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["digital", "transformation", "business"],
-      "mood": ["modern", "visionary"],
-      "keywords": ["overlay", "abstract", "technology"],
-      "recommendedUsage": ["chapter openers", "vision statements"],
+      "topics": [
+        "digital",
+        "transformation",
+        "business"
+      ],
+      "mood": [
+        "modern",
+        "visionary"
+      ],
+      "keywords": [
+        "overlay",
+        "abstract",
+        "technology"
+      ],
+      "recommendedUsage": [
+        "chapter openers",
+        "vision statements"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -176,10 +358,28 @@
       "file": "assets/broll/education_training.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["education", "training", "learning"],
-      "mood": ["encouraging", "professional"],
-      "keywords": ["classroom", "students", "instructor"],
-      "recommendedUsage": ["learning modules", "course promos"],
+      "topics": [
+        "education",
+        "training",
+        "learning"
+      ],
+      "mood": [
+        "encouraging",
+        "professional"
+      ],
+      "keywords": [
+        "care",
+        "classroom",
+        "instructor",
+        "patient",
+        "students",
+        "therapy",
+        "treatment"
+      ],
+      "recommendedUsage": [
+        "learning modules",
+        "course promos"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -190,10 +390,24 @@
       "file": "assets/broll/handshake_success.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["partnership", "business", "success"],
-      "mood": ["optimistic", "trustworthy"],
-      "keywords": ["deal", "agreement", "collaboration"],
-      "recommendedUsage": ["closing remarks", "partnership highlights"],
+      "topics": [
+        "partnership",
+        "business",
+        "success"
+      ],
+      "mood": [
+        "optimistic",
+        "trustworthy"
+      ],
+      "keywords": [
+        "deal",
+        "agreement",
+        "collaboration"
+      ],
+      "recommendedUsage": [
+        "closing remarks",
+        "partnership highlights"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -204,10 +418,24 @@
       "file": "assets/broll/innovation_lightbulb.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["innovation", "ideas", "concept"],
-      "mood": ["inspired", "creative"],
-      "keywords": ["lightbulb", "spark", "idea"],
-      "recommendedUsage": ["idea spotlight", "chapter cards"],
+      "topics": [
+        "innovation",
+        "ideas",
+        "concept"
+      ],
+      "mood": [
+        "inspired",
+        "creative"
+      ],
+      "keywords": [
+        "lightbulb",
+        "spark",
+        "idea"
+      ],
+      "recommendedUsage": [
+        "idea spotlight",
+        "chapter cards"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -218,10 +446,24 @@
       "file": "assets/broll/marketing_automation.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["marketing", "automation", "workflow"],
-      "mood": ["professional", "efficient"],
-      "keywords": ["campaign", "dashboard", "notifications"],
-      "recommendedUsage": ["marketing sections", "product explainers"],
+      "topics": [
+        "marketing",
+        "automation",
+        "workflow"
+      ],
+      "mood": [
+        "professional",
+        "efficient"
+      ],
+      "keywords": [
+        "campaign",
+        "dashboard",
+        "notifications"
+      ],
+      "recommendedUsage": [
+        "marketing sections",
+        "product explainers"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -232,10 +474,24 @@
       "file": "assets/broll/modern_office.jpg",
       "mediaType": "image",
       "orientation": "landscape",
-      "topics": ["office", "workspace", "culture"],
-      "mood": ["calm", "clean"],
-      "keywords": ["minimal", "desk", "city view"],
-      "recommendedUsage": ["establishing shots", "culture highlights"],
+      "topics": [
+        "office",
+        "workspace",
+        "culture"
+      ],
+      "mood": [
+        "calm",
+        "clean"
+      ],
+      "keywords": [
+        "minimal",
+        "desk",
+        "city view"
+      ],
+      "recommendedUsage": [
+        "establishing shots",
+        "culture highlights"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -246,10 +502,24 @@
       "file": "assets/broll/office_motion.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["office", "workflow", "team"],
-      "mood": ["dynamic", "professional"],
-      "keywords": ["movement", "hallway", "collaboration"],
-      "recommendedUsage": ["transitions", "culture storytelling"],
+      "topics": [
+        "office",
+        "workflow",
+        "team"
+      ],
+      "mood": [
+        "dynamic",
+        "professional"
+      ],
+      "keywords": [
+        "movement",
+        "hallway",
+        "collaboration"
+      ],
+      "recommendedUsage": [
+        "transitions",
+        "culture storytelling"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -260,10 +530,24 @@
       "file": "assets/broll/presentation_speaker.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["presentation", "speaker", "conference"],
-      "mood": ["inspirational", "authoritative"],
-      "keywords": ["audience", "stage", "conference"],
-      "recommendedUsage": ["thought leadership", "event recaps"],
+      "topics": [
+        "presentation",
+        "speaker",
+        "conference"
+      ],
+      "mood": [
+        "inspirational",
+        "authoritative"
+      ],
+      "keywords": [
+        "audience",
+        "stage",
+        "conference"
+      ],
+      "recommendedUsage": [
+        "thought leadership",
+        "event recaps"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -274,10 +558,24 @@
       "file": "assets/broll/remote_call.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["remote work", "communication", "collaboration"],
-      "mood": ["friendly", "productive"],
-      "keywords": ["video call", "team", "online"],
-      "recommendedUsage": ["remote culture", "collab segments"],
+      "topics": [
+        "remote work",
+        "communication",
+        "collaboration"
+      ],
+      "mood": [
+        "friendly",
+        "productive"
+      ],
+      "keywords": [
+        "video call",
+        "team",
+        "online"
+      ],
+      "recommendedUsage": [
+        "remote culture",
+        "collab segments"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -288,10 +586,24 @@
       "file": "assets/broll/startup_team.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["startup", "team", "collaboration"],
-      "mood": ["energetic", "fast-paced"],
-      "keywords": ["workspace", "agile", "planning"],
-      "recommendedUsage": ["culture stories", "momentum builds"],
+      "topics": [
+        "startup",
+        "team",
+        "collaboration"
+      ],
+      "mood": [
+        "energetic",
+        "fast-paced"
+      ],
+      "keywords": [
+        "workspace",
+        "agile",
+        "planning"
+      ],
+      "recommendedUsage": [
+        "culture stories",
+        "momentum builds"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -302,10 +614,24 @@
       "file": "assets/broll/teamwork_meeting.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["teamwork", "meeting", "planning"],
-      "mood": ["focused", "collaborative"],
-      "keywords": ["discussion", "strategy", "roundtable"],
-      "recommendedUsage": ["planning sections", "process explainers"],
+      "topics": [
+        "teamwork",
+        "meeting",
+        "planning"
+      ],
+      "mood": [
+        "focused",
+        "collaborative"
+      ],
+      "keywords": [
+        "discussion",
+        "strategy",
+        "roundtable"
+      ],
+      "recommendedUsage": [
+        "planning sections",
+        "process explainers"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -316,10 +642,24 @@
       "file": "assets/broll/training_workshop.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["training", "workshop", "education"],
-      "mood": ["supportive", "engaging"],
-      "keywords": ["whiteboard", "facilitator", "participants"],
-      "recommendedUsage": ["education beats", "onboarding sections"],
+      "topics": [
+        "training",
+        "workshop",
+        "education"
+      ],
+      "mood": [
+        "supportive",
+        "engaging"
+      ],
+      "keywords": [
+        "whiteboard",
+        "facilitator",
+        "participants"
+      ],
+      "recommendedUsage": [
+        "education beats",
+        "onboarding sections"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""
@@ -330,10 +670,24 @@
       "file": "assets/broll/typing_laptop.mp4",
       "mediaType": "video",
       "orientation": "landscape",
-      "topics": ["work", "technology", "productivity"],
-      "mood": ["focused", "steady"],
-      "keywords": ["keyboard", "typing", "closeup"],
-      "recommendedUsage": ["task highlight", "process montage"],
+      "topics": [
+        "work",
+        "technology",
+        "productivity"
+      ],
+      "mood": [
+        "focused",
+        "steady"
+      ],
+      "keywords": [
+        "keyboard",
+        "typing",
+        "closeup"
+      ],
+      "recommendedUsage": [
+        "task highlight",
+        "process montage"
+      ],
       "hasAudio": false,
       "durationHintSeconds": null,
       "notes": ""

@@ -7,7 +7,20 @@ import argparse
 import pathlib
 import sys
 
-REPO_ROOT = pathlib.Path(__file__).resolve().parents[3]
+
+def resolve_repo_root() -> pathlib.Path:
+    """
+    Walk upwards from this file's directory to find the repository root.
+    The root is considered the first ancestor that contains an `assets` directory.
+    """
+    current = pathlib.Path(__file__).resolve().parent
+    for candidate in (current, *current.parents):
+        if (candidate / "assets").exists():
+            return candidate
+    return current
+
+
+REPO_ROOT = resolve_repo_root()
 ASSETS_SFX_DIR = REPO_ROOT / "assets" / "sfx"
 CATALOG_PATH = REPO_ROOT / "remotion-app" / "src" / "data" / "sfxCatalog.ts"
 
