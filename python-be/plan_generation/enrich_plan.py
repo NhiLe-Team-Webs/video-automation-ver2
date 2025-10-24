@@ -24,6 +24,7 @@ import math
 import sys
 from collections import Counter
 from dataclasses import dataclass
+import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
@@ -161,6 +162,86 @@ def derive_duration_seconds(entry: Dict[str, Any], element: Dict[str, Any], fall
     return fallback
 
 
+def condense_text(value: str, max_words: int = 3) -> str:
+    tokens = value.split()
+    if not tokens:
+        return value.strip()
+    if len(tokens) <= max_words:
+        selected = tokens
+    else:
+        leading = tokens[: max_words - 1]
+        trailing = tokens[-1:]
+        selected = leading + trailing
+    condensed = " ".join(selected)
+    return condensed.strip().upper()
+
+
+def parse_srt_timestamp(value: str) -> Optional[float]:
+    match = re.match(r"^(\d{2}):(\d{2}):(\d{2}),(\d{3})$", value)
+    if not match:
+        return None
+    hours, minutes, seconds, milliseconds = match.groups()
+    total_seconds = (
+        int(hours) * 3600 + int(minutes) * 60 + int(seconds) + int(milliseconds) / 1000
+    )
+    return total_seconds
+
+
+def parse_srt_file(path: Path) -> List[Dict[str, Any]]:
+    if not path.exists():
+        return []
+
+    with path.open("r", encoding="utf-8") as handle:
+        raw = handle.read()
+
+    raw = raw.replace("\ufeff", "").strip()
+    if not raw:
+        return []
+
+    entries: List[Dict[str, Any]] = []
+    blocks = re.split(r"\r?\n\r?\n", raw)
+    for block in blocks:
+        lines = [line.strip() for line in block.splitlines() if line.strip()]
+        if len(lines) < 2:
+            continue
+
+        index_str = lines[0]
+        time_line = lines[1]
+        text_lines = lines[2:] if len(lines) > 2 else []
+
+        time_match = re.match(
+            r"(\d{2}:\d{2}:\d{2},\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2},\d{3})", time_line
+        )
+        if not time_match:
+            continue
+
+        start_seconds = parse_srt_timestamp(time_match.group(1))
+        end_seconds = parse_srt_timestamp(time_match.group(2))
+        if start_seconds is None or end_seconds is None or end_seconds <= start_seconds:
+            continue
+
+        try:
+            index = int(index_str)
+        except ValueError:
+            index = len(entries) + 1
+
+        text = " ".join(text_lines).strip()
+        if not text:
+            continue
+
+        entries.append(
+            {
+                "index": index,
+                "start": start_seconds,
+                "end": end_seconds,
+                "duration": end_seconds - start_seconds,
+                "text": text,
+            }
+        )
+
+    return entries
+
+
 def build_highlight_from_overlay(
     entry_index: int,
     entry: Dict[str, Any],
@@ -225,25 +306,61 @@ def build_highlight_from_overlay(
     if not main_text:
         return None
 
-    supporting = {key: value for key, value in supporting.items() if value}
+    supporting = {key: condense_text(value) for key, value in supporting.items() if value}
     duration = derive_duration_seconds(entry, element)
+    duration = max(1.6, min(duration, 3.6))
 
-    highlight = {
+    layout: Optional[str] = None
+    supporting_clean: Dict[str, str] = {}
+    left_value = supporting.get('topLeft') or supporting.get('topCenter')
+    right_value = supporting.get('topRight') or supporting.get('topCenter')
+
+    if left_value:
+        supporting_clean['topLeft'] = left_value
+    if right_value and right_value != left_value:
+        supporting_clean['topRight'] = right_value
+
+    # Normalize single string content as bottom banner
+    is_primary = isinstance(element.get('content'), str)
+    if is_primary:
+        layout = 'bottom'
+
+    highlight: Dict[str, Any] = {
         'id': f'kb-{entry_index:03d}-{element_index:02d}',
         'type': 'noteBox',
-        'variant': 'keyword',
-        'text': main_text,
-        'keyword': main_text,
         'start': round(timestamp, 2),
         'duration': round(duration, 2),
-        'position': 'bottom',
     }
 
-    if supporting:
-        highlight['supportingTexts'] = supporting
-
-    if context := sanitize_text(element.get('context') or entry.get('context')):
-        highlight['variant'] = f'keyword-{context.replace(" ", "-").lower()}'
+    if layout == 'bottom':
+        highlight['text'] = condense_text(main_text, 3)
+        highlight['keyword'] = highlight['text']
+        highlight['layout'] = 'bottom'
+        highlight['importance'] = 'primary'
+        highlight['position'] = 'bottom'
+        highlight['side'] = 'bottom'
+    else:
+        highlight['keyword'] = condense_text(main_text, 3)
+        highlight['importance'] = 'supporting'
+        highlight['position'] = 'top'
+        if supporting_clean:
+            highlight['supportingTexts'] = supporting_clean
+            if 'topLeft' in supporting_clean and 'topRight' in supporting_clean:
+                highlight['layout'] = 'dual'
+            elif 'topLeft' in supporting_clean:
+                highlight['layout'] = 'left'
+                highlight['side'] = 'left'
+            elif 'topRight' in supporting_clean:
+                highlight['layout'] = 'right'
+                highlight['side'] = 'right'
+            else:
+                highlight['layout'] = 'left'
+        else:
+            highlight['layout'] = 'bottom'
+            highlight['importance'] = 'primary'
+            highlight['position'] = 'bottom'
+            highlight['side'] = 'bottom'
+            highlight['text'] = condense_text(main_text, 3)
 
     return highlight
 
@@ -251,7 +368,7 @@ def build_highlight_from_overlay(
 def augment_highlights_from_catalog(
     plan: Dict[str, Any],
     catalog: Dict[str, Any],
-    min_gap: float = 0.6,
+    min_gap: float = 0.4,
 ) -> List[Dict[str, Any]]:
     """
     Generates additional highlight entries from a structured catalog (e.g., video2.json)
@@ -265,6 +382,7 @@ def augment_highlights_from_catalog(
     existing_starts = [h.get('start') for h in highlights if isinstance(h.get('start'), (int, float))]
 
     injected: List[Dict[str, Any]] = []
+    side_toggle = False
     for entry_index, entry in enumerate(timeline):
         elements = entry.get('elements') or []
         if not isinstance(elements, list):
@@ -283,6 +401,32 @@ def augment_highlights_from_catalog(
             if duplicate:
                 continue
 
+            layout = highlight.get('layout')
+
+            if layout in {'left', 'right'} and isinstance(highlight.get('supportingTexts'), dict):
+                desired = 'left' if not side_toggle else 'right'
+                texts = highlight['supportingTexts']
+                value = texts.get('topLeft') or texts.get('topRight')
+                if value and desired != layout:
+                    if desired == 'left':
+                        highlight['supportingTexts'] = {'topLeft': value}
+                        highlight['layout'] = 'left'
+                        highlight['side'] = 'left'
+                    else:
+                        highlight['supportingTexts'] = {'topRight': value}
+                        highlight['layout'] = 'right'
+                        highlight['side'] = 'right'
+                else:
+                    highlight['side'] = layout
+                side_toggle = not side_toggle
+                highlight.setdefault('position', 'top')
+            elif layout == 'dual':
+                highlight.setdefault('position', 'top')
+                highlight.pop('side', None)
+            elif layout == 'bottom':
+                highlight['side'] = 'bottom'
+                highlight['position'] = 'bottom'
+
             highlights.append(highlight)
             injected.append(highlight)
             existing_starts.append(start_time)
@@ -291,6 +435,130 @@ def augment_highlights_from_catalog(
         highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
 
     return injected
+
+
+def augment_highlights_from_srt(
+    plan: Dict[str, Any],
+    srt_path: Path,
+    min_gap: float = 0.5,
+) -> List[Dict[str, Any]]:
+    entries = parse_srt_file(srt_path)
+    if not entries:
+        return []
+
+    highlights = plan.setdefault('highlights', [])
+    existing_starts = [
+        h.get('start')
+        for h in highlights
+        if isinstance(h.get('start'), (int, float))
+    ]
+
+    injected: List[Dict[str, Any]] = []
+    side_toggle = False
+    bottom_cooldown = 0
+
+    for entry in entries:
+        start = max(0.0, entry['start'])
+        duration = max(1.2, min(entry['duration'] + 0.35, 3.4))
+
+        if any(abs(start - existing) <= min_gap for existing in existing_starts):
+            continue
+
+        raw_text = entry['text']
+        clean = re.sub(r"[^A-Za-z0-9\s'%-]", " ", raw_text)
+        words = [w for w in clean.split() if w]
+        if not words:
+            continue
+
+        contains_number = any(any(ch.isdigit() for ch in token) for token in words)
+        contains_question = "?" in raw_text
+
+        primary_text = condense_text(" ".join(words), 4)
+
+        split_point: Optional[int] = None
+        if len(words) >= 6:
+            split_point = max(3, min(len(words) - 2, len(words) // 2))
+        elif len(words) >= 4:
+            split_point = 2
+
+        left_segment = words[:split_point] if split_point else words
+        right_segment = (
+            words[split_point:] if split_point and split_point < len(words) else []
+        )
+
+        highlight: Dict[str, Any] = {
+            'id': f'srt-{entry["index"]:04d}',
+            'type': 'noteBox',
+            'start': round(start, 2),
+            'duration': round(duration, 2),
+            'keyword': primary_text,
+        }
+
+        should_bottom = contains_number or contains_question
+        if not should_bottom:
+            bottom_cooldown += 1
+            if bottom_cooldown >= 7:
+                should_bottom = True
+                bottom_cooldown = 0
+        else:
+            bottom_cooldown = 0
+
+        if should_bottom:
+            highlight.update(
+                {
+                    'layout': 'bottom',
+                    'importance': 'primary',
+                    'position': 'bottom',
+                    'side': 'bottom',
+                }
+            )
+        else:
+            supporting: Dict[str, str] = {}
+            if right_segment:
+                supporting['topLeft'] = condense_text(" ".join(left_segment), 3)
+                supporting['topRight'] = condense_text(" ".join(right_segment), 3)
+                highlight.update(
+                    {
+                        'layout': 'dual',
+                        'importance': 'supporting',
+                        'position': 'top',
+                        'supportingTexts': supporting,
+                    }
+                )
+            else:
+                chunk_text = condense_text(" ".join(left_segment), 3)
+                supporting_key = 'topLeft' if not side_toggle else 'topRight'
+                supporting[supporting_key] = chunk_text
+                highlight.update(
+                    {
+                        'layout': 'left' if not side_toggle else 'right',
+                        'importance': 'supporting',
+                        'position': 'top',
+                        'side': 'left' if not side_toggle else 'right',
+                        'supportingTexts': supporting,
+                    }
+                )
+                side_toggle = not side_toggle
+
+        highlights.append(highlight)
+        injected.append(highlight)
+        existing_starts.append(start)
+
+    if injected:
+        highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
+
+    return injected
+
+
+def strip_non_section_sfx(plan: Dict[str, Any]) -> None:
+    """
+    Removes sound effect metadata from non-section highlights to keep overlays subtle.
+    """
+    for highlight in plan.get('highlights', []):
+        if highlight.get('type') != 'sectionTitle':
+            highlight.pop('sfx', None)
+            highlight.pop('gain', None)
+            highlight.pop('ducking', None)
 
 
 # ---------------------------------------------------------------------------
@@ -694,6 +962,12 @@ def main(argv: List[str] | None = None) -> int:
         help="Optional path to a structured text highlight catalog (e.g., video2.json)",
     )
     parser.add_argument(
+        "--highlight-srt",
+        dest="highlight_srt_path",
+        type=Path,
+        help="Optional path to an SRT file used to generate highlight captions",
+    )
+    parser.add_argument(
         "--broll-threshold",
         dest="broll_threshold",
         type=float,
@@ -724,6 +998,11 @@ def main(argv: List[str] | None = None) -> int:
         if args.highlight_catalog_path
         else None
     )
+    highlight_srt_path = (
+        resolve(args.highlight_srt_path)
+        if args.highlight_srt_path
+        else None
+    )
 
     # Enrich the plan
     enriched_plan, warnings = enrich_plan(
@@ -745,6 +1024,19 @@ def main(argv: List[str] | None = None) -> int:
             print(
                 f"[INFO] Injected {len(injected)} highlight(s) from {args.highlight_catalog_path}"
             )
+
+    if highlight_srt_path and highlight_srt_path.exists():
+        injected_srt = augment_highlights_from_srt(enriched_plan, highlight_srt_path)
+        if injected_srt:
+            enriched_plan.setdefault("meta", {}).setdefault(
+                "highlightSrt",
+                str(highlight_srt_path),
+            )
+            print(
+                f"[INFO] Injected {len(injected_srt)} SRT highlight(s) from {highlight_srt_path}"
+            )
+
+    strip_non_section_sfx(enriched_plan)
 
     # Write the enriched plan to output
     write_json(enriched_plan, args.output_path)

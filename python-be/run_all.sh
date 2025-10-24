@@ -14,11 +14,7 @@ SOURCE_VIDEO="${1:-$SCRIPT_DIR/../public/input/input.mp4}"
 OUTPUT_DIR="$SCRIPT_DIR/outputs"
 PUBLIC_ROOT="$SCRIPT_DIR/../public"
 PUBLIC_INPUT="$PUBLIC_ROOT/input"
-DEFAULT_HIGHLIGHT_CATALOG="$SCRIPT_DIR/../video2.json"
-HIGHLIGHT_CATALOG="${HIGHLIGHT_CATALOG:-$DEFAULT_HIGHLIGHT_CATALOG}"
-if [[ -n "$HIGHLIGHT_CATALOG" && ! -f "$HIGHLIGHT_CATALOG" ]]; then
-  HIGHLIGHT_CATALOG=""
-fi
+HIGHLIGHT_CATALOG="${HIGHLIGHT_CATALOG:-}"
 
 AUTO_EDITOR_OUTPUT="$OUTPUT_DIR/stage1_cut.mp4"
 WHISPER_SRT="$OUTPUT_DIR/stage1_cut.srt"
@@ -26,8 +22,16 @@ PLAN_TMP="$OUTPUT_DIR/plan.json"
 PLAN_ENRICHED="$OUTPUT_DIR/plan_enriched.json"
 SCENE_MAP="$OUTPUT_DIR/scene_map.json"
 TRAINING_WINDOWS="$OUTPUT_DIR/training_windows.json"
+HIGHLIGHT_SRT="${HIGHLIGHT_SRT:-$WHISPER_SRT}"
 
 PYTHON=${PYTHON:-python}
+
+if [[ -n "$HIGHLIGHT_CATALOG" && ! -f "$HIGHLIGHT_CATALOG" ]]; then
+  HIGHLIGHT_CATALOG=""
+fi
+if [[ -n "$HIGHLIGHT_SRT" && ! -f "$HIGHLIGHT_SRT" ]]; then
+  HIGHLIGHT_SRT=""
+fi
 
 if [[ ! -f "$SOURCE_VIDEO" ]]; then
   echo "[ERROR] Missing input video: $SOURCE_VIDEO" >&2
@@ -96,6 +100,9 @@ echo "[STEP] Enrich plan => $PLAN_ENRICHED"
 ENRICH_CMD=("$PYTHON" -m plan_generation.enrich_plan "$PLAN_TMP" "$PLAN_ENRICHED" --scene-map "$SCENE_MAP")
 if [[ -n "$HIGHLIGHT_CATALOG" && -f "$HIGHLIGHT_CATALOG" ]]; then
   ENRICH_CMD+=(--highlight-catalog "$HIGHLIGHT_CATALOG")
+fi
+if [[ -n "$HIGHLIGHT_SRT" && -f "$HIGHLIGHT_SRT" ]]; then
+  ENRICH_CMD+=(--highlight-srt "$HIGHLIGHT_SRT")
 fi
 "${ENRICH_CMD[@]}"
 

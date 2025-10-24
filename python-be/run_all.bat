@@ -16,11 +16,7 @@ if "%SOURCE_VIDEO%"=="" set "SOURCE_VIDEO=%SCRIPT_DIR%..\public\input\input.mp4"
 set "OUTPUT_DIR=%SCRIPT_DIR%outputs"
 set "PUBLIC_ROOT=%SCRIPT_DIR%..\public"
 set "PUBLIC_INPUT=%PUBLIC_ROOT%\input"
-set "DEFAULT_HIGHLIGHT_CATALOG=%SCRIPT_DIR%..\video2.json"
 if not defined HIGHLIGHT_CATALOG (
-  set "HIGHLIGHT_CATALOG=%DEFAULT_HIGHLIGHT_CATALOG%"
-)
-if not exist "%HIGHLIGHT_CATALOG%" (
   set "HIGHLIGHT_CATALOG="
 )
 
@@ -30,6 +26,9 @@ set "PLAN_TMP=%OUTPUT_DIR%\plan.json"
 set "PLAN_ENRICHED=%OUTPUT_DIR%\plan_enriched.json"
 set "SCENE_MAP=%OUTPUT_DIR%\scene_map.json"
 set "TRAINING_WINDOWS=%OUTPUT_DIR%\training_windows.json"
+if not defined HIGHLIGHT_SRT (
+  set "HIGHLIGHT_SRT=%WHISPER_SRT%"
+)
 
 set "PYTHON=python"
 
@@ -80,6 +79,13 @@ if not exist "%WHISPER_SRT%" (
   exit /b 1
 )
 
+if defined HIGHLIGHT_CATALOG (
+  if not exist "%HIGHLIGHT_CATALOG%" set "HIGHLIGHT_CATALOG="
+)
+if defined HIGHLIGHT_SRT (
+  if not exist "%HIGHLIGHT_SRT%" set "HIGHLIGHT_SRT="
+)
+
 REM ---------------------------------------------------------------------------
 REM Derive scene map + training windows
 REM ---------------------------------------------------------------------------
@@ -103,11 +109,14 @@ REM ---------------------------------------------------------------------------
 REM Enrich plan with assets + motion cues
 REM ---------------------------------------------------------------------------
 echo [STEP] Enrich plan => %PLAN_ENRICHED%
-if "%HIGHLIGHT_CATALOG%"=="" (
-  %PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" --scene-map "%SCENE_MAP%"
-) else (
-  %PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" --scene-map "%SCENE_MAP%" --highlight-catalog "%HIGHLIGHT_CATALOG%"
+set ENRICH_ARGS=--scene-map "%SCENE_MAP%"
+if defined HIGHLIGHT_CATALOG (
+  set ENRICH_ARGS=%ENRICH_ARGS% --highlight-catalog "%HIGHLIGHT_CATALOG%"
 )
+if defined HIGHLIGHT_SRT (
+  set ENRICH_ARGS=%ENRICH_ARGS% --highlight-srt "%HIGHLIGHT_SRT%"
+)
+%PYTHON% -m plan_generation.enrich_plan "%PLAN_TMP%" "%PLAN_ENRICHED%" %ENRICH_ARGS%
 if errorlevel 1 (
   echo [ERROR] Plan enrichment failed.
   exit /b 1
@@ -122,5 +131,4 @@ copy /Y "%PLAN_ENRICHED%" "%PUBLIC_INPUT%\plan.json" >nul
 echo [DONE] Copied artifacts to public\input\
 echo        - Video: public\input\input.mp4
 echo        - Plan : public\input\plan.json
-echo [NEXT] Run: cd ..\remotion-app ^&^& npm install ^&^& npm run render
-pause
+exit /b 0
