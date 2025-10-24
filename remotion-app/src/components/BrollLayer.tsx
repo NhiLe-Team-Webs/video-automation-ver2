@@ -14,8 +14,9 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
   return (
     <AbsoluteFill>
       {timeline.map((segment, index) => {
-        if (segment.segment.broll && segment.segment.broll.file && segment.segment.broll.mode === 'full') {
-          const brollFile = segment.segment.broll.file;
+        const plannedBroll = segment.segment.broll;
+        if (plannedBroll && plannedBroll.file) {
+          const brollFile = plannedBroll.file;
           const assetPath = (() => {
             if (!brollFile) {
               return null;
@@ -54,12 +55,14 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
                 {mediaType === 'video' ? (
                   <Video
                     src={staticFile(assetPath)}
-                    startFrom={segment.segment.broll.startAt ? segment.segment.broll.startAt * fps : 0}
-                    playbackRate={segment.segment.broll.playbackRate ?? 1}
+                    startFrom={plannedBroll.startAt ? plannedBroll.startAt * fps : 0}
+                    playbackRate={plannedBroll.playbackRate ?? 1}
                     style={{
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
+                      position: 'absolute',
+                      inset: 0,
                     }}
                   />
                 ) : (
@@ -69,6 +72,8 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
+                      position: 'absolute',
+                      inset: 0,
                     }}
                     placeholder={`data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=`}
                   />
@@ -76,12 +81,12 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
               </AbsoluteFill>
             </Sequence>
           );
-        } else if (segment.segment.broll && segment.segment.broll.mode === 'full') {
+        } else if (plannedBroll) {
           // Render placeholder if broll is planned but file is missing or not full screen
           const brollStartFrame = segment.from;
           const brollDurationFrames = segment.duration;
-          const keyword = segment.segment.broll.id || segment.segment.label || segment.segment.title || 'broll';
-          const mediaType = segment.segment.broll.file?.match(/\.(mp4|mov|webm)$/i) ? 'video' : 'image';
+          const keyword = plannedBroll.id || segment.segment.label || segment.segment.title || 'broll';
+          const mediaType = plannedBroll.file?.match(/\.(mp4|mov|webm)$/i) ? 'video' : 'image';
 
           return (
             <Sequence

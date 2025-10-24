@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2025-10-24T10:27:21.003732+00:00",
+  "generatedAt": "2025-10-24T11:50:02.245998+00:00",
   "fps": 30.0,
   "motionRules": {
     "parallax": true,
@@ -11,33 +11,32 @@
     {
       "id": 1,
       "start": 0.0,
-      "end": 6.8,
-      "duration": 6.8,
+      "end": 6.28,
+      "duration": 6.28,
       "startFrame": 0,
-      "endFrame": 204,
-      "text": "Okay, yeah, so just like, I don't know, try to pretend that I'm not there, you just stay",
-      "textOneLine": "Okay, yeah, so just like, I don't know, try to pretend that I'm not there, you just stay",
+      "endFrame": 188,
+      "text": "Okay, yeah, so just like, and I'm proud to pretend that I was not there, you just say",
+      "textOneLine": "Okay, yeah, so just like, and I'm proud to pretend that I was not there, you just say",
       "tokens": [
         "okay",
         "yeah",
         "so",
         "just",
         "like",
+        "and",
         "i",
-        "don",
-        "t",
-        "know",
-        "try",
+        "m",
+        "proud",
         "to",
         "pretend",
         "that",
         "i",
-        "m",
+        "was",
         "not",
         "there",
         "you",
         "just",
-        "stay"
+        "say"
       ],
       "topics": [],
       "topicScores": {},
@@ -50,19 +49,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 88
+      "rawTextLength": 85
     },
     {
       "id": 2,
-      "start": 6.8,
-      "end": 9.36,
-      "duration": 2.5599999999999996,
-      "startFrame": 204,
-      "endFrame": 281,
-      "text": "and screw it up to me, and we get it.",
-      "textOneLine": "and screw it up to me, and we get it.",
+      "start": 6.28,
+      "end": 8.92,
+      "duration": 2.6399999999999997,
+      "startFrame": 188,
+      "endFrame": 268,
+      "text": "it, screw it up to me, and we get it.",
+      "textOneLine": "it, screw it up to me, and we get it.",
       "tokens": [
-        "and",
+        "it",
         "screw",
         "it",
         "up",
@@ -79,9 +78,9 @@
         "ideas"
       ],
       "topicScores": {
-        "creativity": 2,
-        "teamwork": 2,
-        "ideas": 2
+        "creativity": 3,
+        "teamwork": 3,
+        "ideas": 3
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -96,11 +95,11 @@
     },
     {
       "id": 3,
-      "start": 9.36,
-      "end": 13.12,
-      "duration": 3.76,
-      "startFrame": 281,
-      "endFrame": 394,
+      "start": 8.92,
+      "end": 12.76,
+      "duration": 3.84,
+      "startFrame": 268,
+      "endFrame": 383,
       "text": "And I only have six questions of these, and we'll just kind of go from there after that",
       "textOneLine": "And I only have six questions of these, and we'll just kind of go from there after that",
       "tokens": [
@@ -139,11 +138,11 @@
     },
     {
       "id": 4,
-      "start": 13.12,
-      "end": 14.84,
-      "duration": 1.7200000000000006,
-      "startFrame": 394,
-      "endFrame": 445,
+      "start": 12.76,
+      "end": 14.36,
+      "duration": 1.5999999999999996,
+      "startFrame": 383,
+      "endFrame": 431,
       "text": "if you want to get anything else in.",
       "textOneLine": "if you want to get anything else in.",
       "tokens": [
@@ -171,11 +170,11 @@
     },
     {
       "id": 5,
-      "start": 14.84,
-      "end": 15.84,
+      "start": 14.36,
+      "end": 15.36,
       "duration": 1.0,
-      "startFrame": 445,
-      "endFrame": 475,
+      "startFrame": 431,
+      "endFrame": 461,
       "text": "Okay.",
       "textOneLine": "Okay.",
       "tokens": [
@@ -196,11 +195,11 @@
     },
     {
       "id": 6,
-      "start": 15.84,
-      "end": 22.84,
+      "start": 15.36,
+      "end": 22.36,
       "duration": 7.0,
-      "startFrame": 475,
-      "endFrame": 685,
+      "startFrame": 461,
+      "endFrame": 671,
       "text": "Okay, so the first one, pick one word to describe Nick, and why?",
       "textOneLine": "Okay, so the first one, pick one word to describe Nick, and why?",
       "tokens": [
@@ -235,24 +234,19 @@
     },
     {
       "id": 7,
-      "start": 22.84,
-      "end": 28.28,
-      "duration": 5.440000000000001,
-      "startFrame": 685,
-      "endFrame": 848,
-      "text": "I think he's, oh, he's loyal for one.",
-      "textOneLine": "I think he's, oh, he's loyal for one.",
+      "start": 22.36,
+      "end": 25.0,
+      "duration": 2.6400000000000006,
+      "startFrame": 671,
+      "endFrame": 750,
+      "text": "I think he's, oh.",
+      "textOneLine": "I think he's, oh.",
       "tokens": [
         "i",
         "think",
         "he",
         "s",
-        "oh",
-        "he",
-        "s",
-        "loyal",
-        "for",
-        "one"
+        "oh"
       ],
       "topics": [],
       "topicScores": {},
@@ -265,24 +259,113 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 37
+      "rawTextLength": 17
     },
     {
       "id": 8,
-      "start": 28.28,
-      "end": 34.88,
-      "duration": 6.600000000000001,
-      "startFrame": 848,
-      "endFrame": 1046,
-      "text": "I got to start over, because I can't, I mean, he's honest, he's, I can't think of just one",
-      "textOneLine": "I got to start over, because I can't, I mean, he's honest, he's, I can't think of just one",
+      "start": 25.0,
+      "end": 26.0,
+      "duration": 1.0,
+      "startFrame": 750,
+      "endFrame": 780,
+      "text": "He's loyal.",
+      "textOneLine": "He's loyal.",
+      "tokens": [
+        "he",
+        "s",
+        "loyal"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 11
+    },
+    {
+      "id": 9,
+      "start": 26.0,
+      "end": 28.0,
+      "duration": 2.0,
+      "startFrame": 780,
+      "endFrame": 840,
+      "text": "I get a start over because...",
+      "textOneLine": "I get a start over because...",
       "tokens": [
         "i",
-        "got",
-        "to",
+        "get",
+        "a",
         "start",
         "over",
-        "because",
+        "because"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 29
+    },
+    {
+      "id": 10,
+      "start": 28.0,
+      "end": 29.0,
+      "duration": 1.0,
+      "startFrame": 840,
+      "endFrame": 870,
+      "text": "Yeah, go ahead, it's okay.",
+      "textOneLine": "Yeah, go ahead, it's okay.",
+      "tokens": [
+        "yeah",
+        "go",
+        "ahead",
+        "it",
+        "s",
+        "okay"
+      ],
+      "topics": [
+        "creativity",
+        "teamwork",
+        "ideas"
+      ],
+      "topicScores": {
+        "creativity": 1,
+        "teamwork": 1,
+        "ideas": 1
+      },
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 26
+    },
+    {
+      "id": 11,
+      "start": 29.0,
+      "end": 34.0,
+      "duration": 5.0,
+      "startFrame": 870,
+      "endFrame": 1020,
+      "text": "I can't, I mean, he's honest, he's, I can't think of just one word.",
+      "textOneLine": "I can't, I mean, he's honest, he's, I can't think of just one word.",
+      "tokens": [
         "i",
         "can",
         "t",
@@ -299,31 +382,7 @@
         "think",
         "of",
         "just",
-        "one"
-      ],
-      "topics": [],
-      "topicScores": {},
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 90
-    },
-    {
-      "id": 9,
-      "start": 34.88,
-      "end": 35.88,
-      "duration": 1.0,
-      "startFrame": 1046,
-      "endFrame": 1076,
-      "text": "word.",
-      "textOneLine": "word.",
-      "tokens": [
+        "one",
         "word"
       ],
       "topics": [],
@@ -337,21 +396,20 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 5
+      "rawTextLength": 67
     },
     {
-      "id": 10,
-      "start": 35.88,
-      "end": 37.88,
+      "id": 12,
+      "start": 34.0,
+      "end": 36.0,
       "duration": 2.0,
-      "startFrame": 1076,
-      "endFrame": 1136,
-      "text": "What would be some of the words?",
-      "textOneLine": "What would be some of the words?",
+      "startFrame": 1020,
+      "endFrame": 1080,
+      "text": "What are some of the words?",
+      "textOneLine": "What are some of the words?",
       "tokens": [
         "what",
-        "would",
-        "be",
+        "are",
         "some",
         "of",
         "the",
@@ -370,15 +428,15 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 32
+      "rawTextLength": 27
     },
     {
-      "id": 11,
-      "start": 37.88,
-      "end": 39.88,
+      "id": 13,
+      "start": 36.0,
+      "end": 38.0,
       "duration": 2.0,
-      "startFrame": 1136,
-      "endFrame": 1196,
+      "startFrame": 1080,
+      "endFrame": 1140,
       "text": "Well, he's just a sweet guy.",
       "textOneLine": "Well, he's just a sweet guy.",
       "tokens": [
@@ -404,12 +462,12 @@
       "rawTextLength": 28
     },
     {
-      "id": 12,
-      "start": 39.88,
-      "end": 45.32,
-      "duration": 5.439999999999998,
-      "startFrame": 1196,
-      "endFrame": 1360,
+      "id": 14,
+      "start": 38.0,
+      "end": 44.0,
+      "duration": 6.0,
+      "startFrame": 1140,
+      "endFrame": 1320,
       "text": "I mean, every time something really irritates me, I go back to what, you know, what attracted",
       "textOneLine": "I mean, every time something really irritates me, I go back to what, you know, what attracted",
       "tokens": [
@@ -445,14 +503,14 @@
       "rawTextLength": 93
     },
     {
-      "id": 13,
-      "start": 45.32,
-      "end": 52.36,
-      "duration": 7.039999999999999,
-      "startFrame": 1360,
-      "endFrame": 1571,
-      "text": "me just a very down-to-earth, honest man now, you know, so I think he made me cry.",
-      "textOneLine": "me just a very down-to-earth, honest man now, you know, so I think he made me cry.",
+      "id": 15,
+      "start": 44.0,
+      "end": 49.0,
+      "duration": 5.0,
+      "startFrame": 1320,
+      "endFrame": 1470,
+      "text": "me, just a very down-to-earth, honest man now.",
+      "textOneLine": "me, just a very down-to-earth, honest man now.",
       "tokens": [
         "me",
         "just",
@@ -463,16 +521,7 @@
         "earth",
         "honest",
         "man",
-        "now",
-        "you",
-        "know",
-        "so",
-        "i",
-        "think",
-        "he",
-        "made",
-        "me",
-        "cry"
+        "now"
       ],
       "topics": [],
       "topicScores": {},
@@ -485,15 +534,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 82
+      "rawTextLength": 46
     },
     {
-      "id": 14,
-      "start": 52.36,
-      "end": 54.36,
-      "duration": 2.0,
-      "startFrame": 1571,
-      "endFrame": 1631,
+      "id": 16,
+      "start": 49.0,
+      "end": 52.0,
+      "duration": 3.0,
+      "startFrame": 1470,
+      "endFrame": 1560,
       "text": "Oh, no.",
       "textOneLine": "Oh, no.",
       "tokens": [
@@ -514,16 +563,15 @@
       "rawTextLength": 7
     },
     {
-      "id": 15,
-      "start": 54.44,
-      "end": 59.24,
-      "duration": 4.800000000000004,
-      "startFrame": 1633,
-      "endFrame": 1777,
-      "text": "Um, how did you meet Nick?",
-      "textOneLine": "Um, how did you meet Nick?",
+      "id": 17,
+      "start": 52.0,
+      "end": 56.0,
+      "duration": 4.0,
+      "startFrame": 1560,
+      "endFrame": 1680,
+      "text": "How did you meet Nick?",
+      "textOneLine": "How did you meet Nick?",
       "tokens": [
-        "um",
         "how",
         "did",
         "you",
@@ -543,17 +591,17 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 26
+      "rawTextLength": 22
     },
     {
-      "id": 16,
-      "start": 59.24,
-      "end": 65.52,
-      "duration": 6.279999999999994,
-      "startFrame": 1777,
-      "endFrame": 1966,
-      "text": "Oh, it was, it was in high school, it was after a basketball game that I was playing",
-      "textOneLine": "Oh, it was, it was in high school, it was after a basketball game that I was playing",
+      "id": 18,
+      "start": 56.0,
+      "end": 59.0,
+      "duration": 3.0,
+      "startFrame": 1680,
+      "endFrame": 1770,
+      "text": "Oh, it was, it was in high school.",
+      "textOneLine": "Oh, it was, it was in high school.",
       "tokens": [
         "oh",
         "it",
@@ -562,7 +610,39 @@
         "was",
         "in",
         "high",
-        "school",
+        "school"
+      ],
+      "topics": [
+        "creativity",
+        "teamwork",
+        "ideas"
+      ],
+      "topicScores": {
+        "creativity": 2,
+        "teamwork": 2,
+        "ideas": 2
+      },
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 34
+    },
+    {
+      "id": 19,
+      "start": 59.0,
+      "end": 66.0,
+      "duration": 7.0,
+      "startFrame": 1770,
+      "endFrame": 1980,
+      "text": "It was after a basketball game that I was playing in, and he just showed up my door with his",
+      "textOneLine": "It was after a basketball game that I was playing in, and he just showed up my door with his",
+      "tokens": [
         "it",
         "was",
         "after",
@@ -572,39 +652,7 @@
         "that",
         "i",
         "was",
-        "playing"
-      ],
-      "topics": [
-        "creativity",
-        "teamwork",
-        "ideas"
-      ],
-      "topicScores": {
-        "creativity": 3,
-        "teamwork": 3,
-        "ideas": 3
-      },
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 84
-    },
-    {
-      "id": 17,
-      "start": 65.52,
-      "end": 71.92,
-      "duration": 6.400000000000006,
-      "startFrame": 1966,
-      "endFrame": 2158,
-      "text": "in, and he just showed up my door with his best buddy, his good friend, his best friend",
-      "textOneLine": "in, and he just showed up my door with his best buddy, his good friend, his best friend",
-      "tokens": [
+        "playing",
         "in",
         "and",
         "he",
@@ -614,25 +662,22 @@
         "my",
         "door",
         "with",
-        "his",
-        "best",
-        "buddy",
-        "his",
-        "good",
-        "friend",
-        "his",
-        "best",
-        "friend"
+        "his"
       ],
       "topics": [
         "ai",
         "innovation",
-        "robotics"
+        "robotics",
+        "creativity",
+        "teamwork"
       ],
       "topicScores": {
         "ai": 1,
         "innovation": 1,
-        "robotics": 1
+        "robotics": 1,
+        "creativity": 1,
+        "teamwork": 1,
+        "ideas": 1
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -643,18 +688,26 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 87
+      "rawTextLength": 92
     },
     {
-      "id": 18,
-      "start": 71.92,
-      "end": 76.8,
-      "duration": 4.8799999999999955,
-      "startFrame": 2158,
-      "endFrame": 2304,
-      "text": "actually, was dating a gal that I was friends with, and he just showed up at the door and",
-      "textOneLine": "actually, was dating a gal that I was friends with, and he just showed up at the door and",
+      "id": 20,
+      "start": 66.0,
+      "end": 72.0,
+      "duration": 6.0,
+      "startFrame": 1980,
+      "endFrame": 2160,
+      "text": "best buddy, his good friend, his best friend actually, was dating a gal that I was friends",
+      "textOneLine": "best buddy, his good friend, his best friend actually, was dating a gal that I was friends",
       "tokens": [
+        "best",
+        "buddy",
+        "his",
+        "good",
+        "friend",
+        "his",
+        "best",
+        "friend",
         "actually",
         "was",
         "dating",
@@ -663,7 +716,31 @@
         "that",
         "i",
         "was",
-        "friends",
+        "friends"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 90
+    },
+    {
+      "id": 21,
+      "start": 72.0,
+      "end": 76.0,
+      "duration": 4.0,
+      "startFrame": 2160,
+      "endFrame": 2280,
+      "text": "with, and he just showed up at the door and kind of a blind date.",
+      "textOneLine": "with, and he just showed up at the door and kind of a blind date.",
+      "tokens": [
         "with",
         "and",
         "he",
@@ -673,7 +750,12 @@
         "at",
         "the",
         "door",
-        "and"
+        "and",
+        "kind",
+        "of",
+        "a",
+        "blind",
+        "date"
       ],
       "topics": [
         "ai",
@@ -694,52 +776,22 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 89
+      "rawTextLength": 65
     },
     {
-      "id": 19,
-      "start": 76.8,
-      "end": 78.8,
+      "id": 22,
+      "start": 76.0,
+      "end": 78.0,
       "duration": 2.0,
-      "startFrame": 2304,
-      "endFrame": 2364,
-      "text": "kind of a blind date.",
-      "textOneLine": "kind of a blind date.",
-      "tokens": [
-        "kind",
-        "of",
-        "a",
-        "blind",
-        "date"
-      ],
-      "topics": [],
-      "topicScores": {},
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 21
-    },
-    {
-      "id": 20,
-      "start": 78.8,
-      "end": 80.8,
-      "duration": 2.0,
-      "startFrame": 2364,
-      "endFrame": 2424,
-      "text": "That's a cute question.",
-      "textOneLine": "That's a cute question.",
+      "startFrame": 2280,
+      "endFrame": 2340,
+      "text": "That's so cute.",
+      "textOneLine": "That's so cute.",
       "tokens": [
         "that",
         "s",
-        "a",
-        "cute",
-        "question"
+        "so",
+        "cute"
       ],
       "topics": [],
       "topicScores": {},
@@ -752,15 +804,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 23
+      "rawTextLength": 15
     },
     {
-      "id": 21,
-      "start": 80.8,
-      "end": 82.8,
+      "id": 23,
+      "start": 78.0,
+      "end": 80.0,
       "duration": 2.0,
-      "startFrame": 2424,
-      "endFrame": 2484,
+      "startFrame": 2340,
+      "endFrame": 2400,
       "text": "That's awesome.",
       "textOneLine": "That's awesome.",
       "tokens": [
@@ -782,12 +834,12 @@
       "rawTextLength": 15
     },
     {
-      "id": 22,
-      "start": 83.24,
-      "end": 89.24,
-      "duration": 6.0,
-      "startFrame": 2497,
-      "endFrame": 2677,
+      "id": 24,
+      "start": 81.0,
+      "end": 86.0,
+      "duration": 5.0,
+      "startFrame": 2430,
+      "endFrame": 2580,
       "text": "Um, what is your, someone's going to be tough if you think about it or can't answer it,",
       "textOneLine": "Um, what is your, someone's going to be tough if you think about it or can't answer it,",
       "tokens": [
@@ -834,12 +886,12 @@
       "rawTextLength": 87
     },
     {
-      "id": 23,
-      "start": 89.24,
-      "end": 92.24,
+      "id": 25,
+      "start": 86.0,
+      "end": 89.0,
       "duration": 3.0,
-      "startFrame": 2677,
-      "endFrame": 2767,
+      "startFrame": 2580,
+      "endFrame": 2670,
       "text": "it's okay, but what is your favorite memory with Nick?",
       "textOneLine": "it's okay, but what is your favorite memory with Nick?",
       "tokens": [
@@ -886,12 +938,12 @@
       "rawTextLength": 54
     },
     {
-      "id": 24,
-      "start": 92.24,
-      "end": 97.24,
-      "duration": 5.0,
-      "startFrame": 2767,
-      "endFrame": 2917,
+      "id": 26,
+      "start": 89.0,
+      "end": 92.0,
+      "duration": 3.0,
+      "startFrame": 2670,
+      "endFrame": 2760,
       "text": "Because it's going to take me a while to think of this.",
       "textOneLine": "Because it's going to take me a while to think of this.",
       "tokens": [
@@ -931,12 +983,12 @@
       "rawTextLength": 55
     },
     {
-      "id": 25,
-      "start": 97.24,
-      "end": 99.24,
-      "duration": 2.0,
-      "startFrame": 2917,
-      "endFrame": 2977,
+      "id": 27,
+      "start": 92.0,
+      "end": 93.0,
+      "duration": 1.0,
+      "startFrame": 2760,
+      "endFrame": 2790,
       "text": "No, let's just think about it.",
       "textOneLine": "No, let's just think about it.",
       "tokens": [
@@ -970,14 +1022,14 @@
       "rawTextLength": 30
     },
     {
-      "id": 26,
-      "start": 99.24,
-      "end": 103.24,
-      "duration": 4.0,
-      "startFrame": 2977,
-      "endFrame": 3097,
-      "text": "We can go on to the next one, and then something, you know, yeah, let's go on to the next one,",
-      "textOneLine": "We can go on to the next one, and then something, you know, yeah, let's go on to the next one,",
+      "id": 28,
+      "start": 93.0,
+      "end": 96.0,
+      "duration": 3.0,
+      "startFrame": 2790,
+      "endFrame": 2880,
+      "text": "We can go on to the next one, and then something, you know...",
+      "textOneLine": "We can go on to the next one, and then something, you know...",
       "tokens": [
         "we",
         "can",
@@ -991,16 +1043,7 @@
         "then",
         "something",
         "you",
-        "know",
-        "yeah",
-        "let",
-        "s",
-        "go",
-        "on",
-        "to",
-        "the",
-        "next",
-        "one"
+        "know"
       ],
       "topics": [
         "analytics",
@@ -1010,12 +1053,12 @@
         "work"
       ],
       "topicScores": {
-        "analytics": 2,
-        "business": 2,
-        "data": 2,
-        "technology": 2,
-        "work": 2,
-        "productivity": 2
+        "analytics": 1,
+        "business": 1,
+        "data": 1,
+        "technology": 1,
+        "work": 1,
+        "productivity": 1
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -1028,18 +1071,52 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 94
+      "rawTextLength": 61
     },
     {
-      "id": 27,
-      "start": 103.24,
-      "end": 105.24,
-      "duration": 2.0,
-      "startFrame": 3097,
-      "endFrame": 3157,
-      "text": "and then something might spark that.",
-      "textOneLine": "and then something might spark that.",
+      "id": 29,
+      "start": 96.0,
+      "end": 97.0,
+      "duration": 1.0,
+      "startFrame": 2880,
+      "endFrame": 2910,
+      "text": "Okay.",
+      "textOneLine": "Okay.",
       "tokens": [
+        "okay"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 5
+    },
+    {
+      "id": 30,
+      "start": 97.0,
+      "end": 100.0,
+      "duration": 3.0,
+      "startFrame": 2910,
+      "endFrame": 3000,
+      "text": "Yeah, let's go on to the next one, and then something might spark that.",
+      "textOneLine": "Yeah, let's go on to the next one, and then something might spark that.",
+      "tokens": [
+        "yeah",
+        "let",
+        "s",
+        "go",
+        "on",
+        "to",
+        "the",
+        "next",
+        "one",
         "and",
         "then",
         "something",
@@ -1050,12 +1127,20 @@
       "topics": [
         "innovation",
         "concept",
+        "analytics",
+        "business",
         "ideas"
       ],
       "topicScores": {
         "innovation": 1,
         "concept": 1,
-        "ideas": 1
+        "analytics": 1,
+        "business": 1,
+        "ideas": 1,
+        "data": 1,
+        "technology": 1,
+        "work": 1,
+        "productivity": 1
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -1063,29 +1148,32 @@
       "highlightTriggers": [],
       "cta": false,
       "ctaTriggers": [],
-      "motionCandidates": [],
+      "motionCandidates": [
+        "pan"
+      ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 36
+      "rawTextLength": 71
     },
     {
-      "id": 28,
-      "start": 105.24,
-      "end": 109.24,
+      "id": 31,
+      "start": 100.0,
+      "end": 104.0,
       "duration": 4.0,
-      "startFrame": 3157,
-      "endFrame": 3277,
-      "text": "Um, describe nice influence and impact on clear title.",
-      "textOneLine": "Um, describe nice influence and impact on clear title.",
+      "startFrame": 3000,
+      "endFrame": 3120,
+      "text": "Um, describe Nick's influence and impact on your title.",
+      "textOneLine": "Um, describe Nick's influence and impact on your title.",
       "tokens": [
         "um",
         "describe",
-        "nice",
+        "nick",
+        "s",
         "influence",
         "and",
         "impact",
         "on",
-        "clear",
+        "your",
         "title"
       ],
       "topics": [
@@ -1112,15 +1200,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 54
+      "rawTextLength": 55
     },
     {
-      "id": 29,
-      "start": 109.24,
-      "end": 111.24,
+      "id": 32,
+      "start": 104.0,
+      "end": 106.0,
       "duration": 2.0,
-      "startFrame": 3277,
-      "endFrame": 3337,
+      "startFrame": 3120,
+      "endFrame": 3180,
       "text": "Or your family.",
       "textOneLine": "Or your family.",
       "tokens": [
@@ -1142,14 +1230,14 @@
       "rawTextLength": 15
     },
     {
-      "id": 30,
-      "start": 111.68,
-      "end": 118.76,
-      "duration": 7.079999999999998,
-      "startFrame": 3350,
-      "endFrame": 3563,
-      "text": "I think it's just that he's been in it so long, and he's established these, the clientele",
-      "textOneLine": "I think it's just that he's been in it so long, and he's established these, the clientele",
+      "id": 33,
+      "start": 106.0,
+      "end": 112.0,
+      "duration": 6.0,
+      "startFrame": 3180,
+      "endFrame": 3360,
+      "text": "I think it's just that he's been in it so long, and he's established these clientele",
+      "textOneLine": "I think it's just that he's been in it so long, and he's established these clientele",
       "tokens": [
         "i",
         "think",
@@ -1169,7 +1257,6 @@
         "s",
         "established",
         "these",
-        "the",
         "clientele"
       ],
       "topics": [
@@ -1191,15 +1278,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 89
+      "rawTextLength": 84
     },
     {
-      "id": 31,
-      "start": 118.76,
-      "end": 119.76,
+      "id": 34,
+      "start": 112.0,
+      "end": 113.0,
       "duration": 1.0,
-      "startFrame": 3563,
-      "endFrame": 3593,
+      "startFrame": 3360,
+      "endFrame": 3390,
       "text": "that he has.",
       "textOneLine": "that he has.",
       "tokens": [
@@ -1221,14 +1308,14 @@
       "rawTextLength": 12
     },
     {
-      "id": 32,
-      "start": 119.76,
-      "end": 124.32,
-      "duration": 4.559999999999988,
-      "startFrame": 3593,
-      "endFrame": 3730,
-      "text": "And like, even when he first started and he got into escrow and then he was given an office",
-      "textOneLine": "And like, even when he first started and he got into escrow and then he was given an office",
+      "id": 35,
+      "start": 113.0,
+      "end": 117.0,
+      "duration": 4.0,
+      "startFrame": 3390,
+      "endFrame": 3510,
+      "text": "And like, even when he first started and he got into escrow, and then he was given an",
+      "textOneLine": "And like, even when he first started and he got into escrow, and then he was given an",
       "tokens": [
         "and",
         "like",
@@ -1247,23 +1334,10 @@
         "he",
         "was",
         "given",
-        "an",
-        "office"
+        "an"
       ],
-      "topics": [
-        "team",
-        "workflow",
-        "office",
-        "workspace",
-        "culture"
-      ],
-      "topicScores": {
-        "team": 1,
-        "workflow": 1,
-        "office": 1,
-        "workspace": 1,
-        "culture": 1
-      },
+      "topics": [],
+      "topicScores": {},
       "emotion": "neutral",
       "emotionTriggers": [],
       "highlightScore": 0.0,
@@ -1273,18 +1347,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 91
+      "rawTextLength": 85
     },
     {
-      "id": 33,
-      "start": 124.32,
-      "end": 129.96,
-      "duration": 5.640000000000015,
-      "startFrame": 3730,
-      "endFrame": 3899,
-      "text": "to manage, his very first client that brought him, this very first escrow, is still with",
-      "textOneLine": "to manage, his very first client that brought him, this very first escrow, is still with",
+      "id": 36,
+      "start": 117.0,
+      "end": 123.0,
+      "duration": 6.0,
+      "startFrame": 3510,
+      "endFrame": 3690,
+      "text": "office to manage, his very first client that brought him, his very first escrow, is still",
+      "textOneLine": "office to manage, his very first client that brought him, his very first escrow, is still",
       "tokens": [
+        "office",
         "to",
         "manage",
         "his",
@@ -1294,30 +1369,29 @@
         "that",
         "brought",
         "him",
-        "this",
+        "his",
         "very",
         "first",
         "escrow",
         "is",
-        "still",
-        "with"
+        "still"
       ],
       "topics": [
-        "ai",
-        "innovation",
-        "concept",
-        "analytics",
-        "robotics"
+        "workflow",
+        "office",
+        "workspace",
+        "culture",
+        "ai"
       ],
       "topicScores": {
-        "ai": 2,
-        "innovation": 2,
+        "ai": 1,
+        "innovation": 1,
         "concept": 1,
         "analytics": 1,
-        "robotics": 1,
         "business": 1,
         "planning": 1,
         "strategy": 1,
+        "team": 1,
         "ideas": 1,
         "data": 1,
         "visualization": 1,
@@ -1331,10 +1405,10 @@
         "learning": 1,
         "marketing": 1,
         "automation": 1,
-        "workflow": 1,
-        "office": 1,
-        "workspace": 1,
-        "culture": 1
+        "workflow": 2,
+        "office": 2,
+        "workspace": 2,
+        "culture": 2
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -1345,25 +1419,34 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 88
+      "rawTextLength": 89
     },
     {
-      "id": 34,
-      "start": 129.96,
-      "end": 130.96,
+      "id": 37,
+      "start": 123.0,
+      "end": 124.0,
       "duration": 1.0,
-      "startFrame": 3899,
-      "endFrame": 3929,
-      "text": "him to this day.",
-      "textOneLine": "him to this day.",
+      "startFrame": 3690,
+      "endFrame": 3720,
+      "text": "with him to this day.",
+      "textOneLine": "with him to this day.",
       "tokens": [
+        "with",
         "him",
         "to",
         "this",
         "day"
       ],
-      "topics": [],
-      "topicScores": {},
+      "topics": [
+        "ai",
+        "innovation",
+        "robotics"
+      ],
+      "topicScores": {
+        "ai": 1,
+        "innovation": 1,
+        "robotics": 1
+      },
       "emotion": "neutral",
       "emotionTriggers": [],
       "highlightScore": 0.0,
@@ -1373,15 +1456,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 16
+      "rawTextLength": 21
     },
     {
-      "id": 35,
-      "start": 130.96,
-      "end": 134.72,
-      "duration": 3.759999999999991,
-      "startFrame": 3929,
-      "endFrame": 4042,
+      "id": 38,
+      "start": 124.0,
+      "end": 128.0,
+      "duration": 4.0,
+      "startFrame": 3720,
+      "endFrame": 3840,
       "text": "And several of his, you know, clients are still with him.",
       "textOneLine": "And several of his, you know, clients are still with him.",
       "tokens": [
@@ -1443,14 +1526,14 @@
       "rawTextLength": 57
     },
     {
-      "id": 36,
-      "start": 134.72,
-      "end": 140.76,
-      "duration": 6.039999999999992,
-      "startFrame": 4042,
-      "endFrame": 4223,
-      "text": "So that, I think that says a lot, you know, it's just helped him to grow in handling people.",
-      "textOneLine": "So that, I think that says a lot, you know, it's just helped him to grow in handling people.",
+      "id": 39,
+      "start": 128.0,
+      "end": 130.0,
+      "duration": 2.0,
+      "startFrame": 3840,
+      "endFrame": 3900,
+      "text": "So that, I think that says a lot.",
+      "textOneLine": "So that, I think that says a lot.",
       "tokens": [
         "so",
         "that",
@@ -1459,9 +1542,31 @@
         "that",
         "says",
         "a",
-        "lot",
-        "you",
-        "know",
+        "lot"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 33
+    },
+    {
+      "id": 40,
+      "start": 130.0,
+      "end": 133.0,
+      "duration": 3.0,
+      "startFrame": 3900,
+      "endFrame": 3990,
+      "text": "It's just helped him to grow and, and have in people.",
+      "textOneLine": "It's just helped him to grow and, and have in people.",
+      "tokens": [
         "it",
         "s",
         "just",
@@ -1469,8 +1574,10 @@
         "him",
         "to",
         "grow",
+        "and",
+        "and",
+        "have",
         "in",
-        "handling",
         "people"
       ],
       "topics": [
@@ -1492,18 +1599,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 92
+      "rawTextLength": 53
     },
     {
-      "id": 37,
-      "start": 140.76,
-      "end": 145.84,
-      "duration": 5.0800000000000125,
-      "startFrame": 4223,
-      "endFrame": 4375,
-      "text": "I think too, I mean, this is a sight from that, growing up with six sisters and having",
-      "textOneLine": "I think too, I mean, this is a sight from that, growing up with six sisters and having",
+      "id": 41,
+      "start": 133.0,
+      "end": 138.0,
+      "duration": 5.0,
+      "startFrame": 3990,
+      "endFrame": 4140,
+      "text": "And I think too, I mean, this is a sight from that, growing up with six sisters and having",
+      "textOneLine": "And I think too, I mean, this is a sight from that, growing up with six sisters and having",
       "tokens": [
+        "and",
         "i",
         "think",
         "too",
@@ -1542,17 +1650,17 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 86
+      "rawTextLength": 90
     },
     {
-      "id": 38,
-      "start": 145.84,
-      "end": 152.76,
-      "duration": 6.9199999999999875,
-      "startFrame": 4375,
-      "endFrame": 4583,
-      "text": "to break up fights between, between women, but you know, it's, it's like just managing",
-      "textOneLine": "to break up fights between, between women, but you know, it's, it's like just managing",
+      "id": 42,
+      "start": 138.0,
+      "end": 143.0,
+      "duration": 5.0,
+      "startFrame": 4140,
+      "endFrame": 4290,
+      "text": "to break up fights between, between women.",
+      "textOneLine": "to break up fights between, between women.",
       "tokens": [
         "to",
         "break",
@@ -1560,7 +1668,31 @@
         "fights",
         "between",
         "between",
-        "women",
+        "women"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 42
+    },
+    {
+      "id": 43,
+      "start": 143.0,
+      "end": 148.0,
+      "duration": 5.0,
+      "startFrame": 4290,
+      "endFrame": 4440,
+      "text": "But, you know, it's, it's like just managing people and never forgetting from where he started",
+      "textOneLine": "But, you know, it's, it's like just managing people and never forgetting from where he started",
+      "tokens": [
         "but",
         "you",
         "know",
@@ -1570,7 +1702,15 @@
         "s",
         "like",
         "just",
-        "managing"
+        "managing",
+        "people",
+        "and",
+        "never",
+        "forgetting",
+        "from",
+        "where",
+        "he",
+        "started"
       ],
       "topics": [
         "creativity",
@@ -1593,26 +1733,18 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 86
+      "rawTextLength": 94
     },
     {
-      "id": 39,
-      "start": 152.76,
-      "end": 156.52,
-      "duration": 3.7600000000000193,
-      "startFrame": 4583,
-      "endFrame": 4696,
-      "text": "people and never forgetting from where he started from.",
-      "textOneLine": "people and never forgetting from where he started from.",
+      "id": 44,
+      "start": 148.0,
+      "end": 149.0,
+      "duration": 1.0,
+      "startFrame": 4440,
+      "endFrame": 4470,
+      "text": "from.",
+      "textOneLine": "from.",
       "tokens": [
-        "people",
-        "and",
-        "never",
-        "forgetting",
-        "from",
-        "where",
-        "he",
-        "started",
         "from"
       ],
       "topics": [],
@@ -1626,15 +1758,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 55
+      "rawTextLength": 5
     },
     {
-      "id": 40,
-      "start": 156.52,
-      "end": 161.76,
-      "duration": 5.239999999999981,
-      "startFrame": 4696,
-      "endFrame": 4853,
+      "id": 45,
+      "start": 149.0,
+      "end": 154.0,
+      "duration": 5.0,
+      "startFrame": 4470,
+      "endFrame": 4620,
       "text": "I just think, I think that's what's created these loyal, you know, clients and friendships.",
       "textOneLine": "I just think, I think that's what's created these loyal, you know, clients and friendships.",
       "tokens": [
@@ -1670,12 +1802,12 @@
       "rawTextLength": 91
     },
     {
-      "id": 41,
-      "start": 161.76,
-      "end": 162.76,
+      "id": 46,
+      "start": 154.0,
+      "end": 155.0,
       "duration": 1.0,
-      "startFrame": 4853,
-      "endFrame": 4883,
+      "startFrame": 4620,
+      "endFrame": 4650,
       "text": "Yeah, I agree.",
       "textOneLine": "Yeah, I agree.",
       "tokens": [
@@ -1697,14 +1829,14 @@
       "rawTextLength": 14
     },
     {
-      "id": 42,
-      "start": 162.76,
-      "end": 166.76,
+      "id": 47,
+      "start": 155.0,
+      "end": 159.0,
       "duration": 4.0,
-      "startFrame": 4883,
-      "endFrame": 5003,
-      "text": "I think that really says something, that the same people that he started off with are",
-      "textOneLine": "I think that really says something, that the same people that he started off with are",
+      "startFrame": 4650,
+      "endFrame": 4770,
+      "text": "I think that really says something, that the same people that he started off with are with",
+      "textOneLine": "I think that really says something, that the same people that he started off with are with",
       "tokens": [
         "i",
         "think",
@@ -1721,7 +1853,8 @@
         "started",
         "off",
         "with",
-        "are"
+        "are",
+        "with"
       ],
       "topics": [
         "ai",
@@ -1729,9 +1862,9 @@
         "robotics"
       ],
       "topicScores": {
-        "ai": 1,
-        "innovation": 1,
-        "robotics": 1
+        "ai": 2,
+        "innovation": 2,
+        "robotics": 2
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -1742,32 +1875,23 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 85
+      "rawTextLength": 90
     },
     {
-      "id": 43,
-      "start": 166.76,
-      "end": 167.76,
+      "id": 48,
+      "start": 159.0,
+      "end": 160.0,
       "duration": 1.0,
-      "startFrame": 5003,
-      "endFrame": 5033,
-      "text": "with him now.",
-      "textOneLine": "with him now.",
+      "startFrame": 4770,
+      "endFrame": 4800,
+      "text": "him now.",
+      "textOneLine": "him now.",
       "tokens": [
-        "with",
         "him",
         "now"
       ],
-      "topics": [
-        "ai",
-        "innovation",
-        "robotics"
-      ],
-      "topicScores": {
-        "ai": 1,
-        "innovation": 1,
-        "robotics": 1
-      },
+      "topics": [],
+      "topicScores": {},
       "emotion": "neutral",
       "emotionTriggers": [],
       "highlightScore": 0.0,
@@ -1777,15 +1901,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 13
+      "rawTextLength": 8
     },
     {
-      "id": 44,
-      "start": 167.76,
-      "end": 168.76,
+      "id": 49,
+      "start": 160.0,
+      "end": 161.0,
       "duration": 1.0,
-      "startFrame": 5033,
-      "endFrame": 5063,
+      "startFrame": 4800,
+      "endFrame": 4830,
       "text": "Yeah.",
       "textOneLine": "Yeah.",
       "tokens": [
@@ -1805,12 +1929,12 @@
       "rawTextLength": 5
     },
     {
-      "id": 45,
-      "start": 169.76,
-      "end": 170.76,
+      "id": 50,
+      "start": 161.0,
+      "end": 162.0,
       "duration": 1.0,
-      "startFrame": 5093,
-      "endFrame": 5123,
+      "startFrame": 4830,
+      "endFrame": 4860,
       "text": "Let's see.",
       "textOneLine": "Let's see.",
       "tokens": [
@@ -1832,12 +1956,12 @@
       "rawTextLength": 10
     },
     {
-      "id": 46,
-      "start": 170.76,
-      "end": 174.76,
+      "id": 51,
+      "start": 162.0,
+      "end": 166.0,
       "duration": 4.0,
-      "startFrame": 5123,
-      "endFrame": 5243,
+      "startFrame": 4860,
+      "endFrame": 4980,
       "text": "And what way do you think Nick has affected people's lives and business in general?",
       "textOneLine": "And what way do you think Nick has affected people's lives and business in general?",
       "tokens": [
@@ -1882,14 +2006,14 @@
       "rawTextLength": 83
     },
     {
-      "id": 47,
-      "start": 174.76,
-      "end": 175.76,
+      "id": 52,
+      "start": 166.0,
+      "end": 167.0,
       "duration": 1.0,
-      "startFrame": 5243,
-      "endFrame": 5273,
-      "text": "In business.",
-      "textOneLine": "In business.",
+      "startFrame": 4980,
+      "endFrame": 5010,
+      "text": "In business?",
+      "textOneLine": "In business?",
       "tokens": [
         "in",
         "business"
@@ -1912,16 +2036,18 @@
       "ctaTriggers": [],
       "motionCandidates": [],
       "parallaxEligible": false,
-      "sfxHints": [],
+      "sfxHints": [
+        "question"
+      ],
       "rawTextLength": 12
     },
     {
-      "id": 48,
-      "start": 178.76,
-      "end": 180.76,
-      "duration": 2.0,
-      "startFrame": 5363,
-      "endFrame": 5423,
+      "id": 53,
+      "start": 167.0,
+      "end": 171.0,
+      "duration": 4.0,
+      "startFrame": 5010,
+      "endFrame": 5130,
       "text": "Probably the same kind of stuff that he's done.",
       "textOneLine": "Probably the same kind of stuff that he's done.",
       "tokens": [
@@ -1950,12 +2076,12 @@
       "rawTextLength": 47
     },
     {
-      "id": 49,
-      "start": 180.76,
-      "end": 182.76,
+      "id": 54,
+      "start": 171.0,
+      "end": 173.0,
       "duration": 2.0,
-      "startFrame": 5423,
-      "endFrame": 5483,
+      "startFrame": 5130,
+      "endFrame": 5190,
       "text": "That's what I'm thinking.",
       "textOneLine": "That's what I'm thinking.",
       "tokens": [
@@ -1980,14 +2106,14 @@
       "rawTextLength": 25
     },
     {
-      "id": 50,
-      "start": 182.76,
-      "end": 187.76,
+      "id": 55,
+      "start": 173.0,
+      "end": 178.0,
       "duration": 5.0,
-      "startFrame": 5483,
-      "endFrame": 5633,
-      "text": "He's, he just has a real sensitive side to people's and what they, to people and employees",
-      "textOneLine": "He's, he just has a real sensitive side to people's and what they, to people and employees",
+      "startFrame": 5190,
+      "endFrame": 5340,
+      "text": "He's, he just has a real sense of sight to people's and what they, to people and employees",
+      "textOneLine": "He's, he just has a real sense of sight to people's and what they, to people and employees",
       "tokens": [
         "he",
         "s",
@@ -1996,8 +2122,9 @@
         "has",
         "a",
         "real",
-        "sensitive",
-        "side",
+        "sense",
+        "of",
+        "sight",
         "to",
         "people",
         "s",
@@ -2023,19 +2150,43 @@
       "rawTextLength": 90
     },
     {
-      "id": 51,
-      "start": 187.76,
-      "end": 193.76,
-      "duration": 6.0,
-      "startFrame": 5633,
-      "endFrame": 5813,
-      "text": "and what they need and not just in business, but you know, I think in general just, you",
-      "textOneLine": "and what they need and not just in business, but you know, I think in general just, you",
+      "id": 56,
+      "start": 178.0,
+      "end": 179.0,
+      "duration": 1.0,
+      "startFrame": 5340,
+      "endFrame": 5370,
+      "text": "and what they need.",
+      "textOneLine": "and what they need.",
       "tokens": [
         "and",
         "what",
         "they",
-        "need",
+        "need"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 19
+    },
+    {
+      "id": 57,
+      "start": 179.0,
+      "end": 187.0,
+      "duration": 8.0,
+      "startFrame": 5370,
+      "endFrame": 5610,
+      "text": "And not just in business, but, you know, I think in general just, you know, he sees potential",
+      "textOneLine": "And not just in business, but, you know, I think in general just, you know, he sees potential",
+      "tokens": [
         "and",
         "not",
         "just",
@@ -2049,7 +2200,11 @@
         "in",
         "general",
         "just",
-        "you"
+        "you",
+        "know",
+        "he",
+        "sees",
+        "potential"
       ],
       "topics": [
         "business",
@@ -2072,22 +2227,18 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 87
+      "rawTextLength": 93
     },
     {
-      "id": 52,
-      "start": 193.76,
-      "end": 197.76,
-      "duration": 4.0,
-      "startFrame": 5813,
-      "endFrame": 5933,
-      "text": "know, he sees potential in everybody.",
-      "textOneLine": "know, he sees potential in everybody.",
+      "id": 58,
+      "start": 187.0,
+      "end": 188.0,
+      "duration": 1.0,
+      "startFrame": 5610,
+      "endFrame": 5640,
+      "text": "in everybody.",
+      "textOneLine": "in everybody.",
       "tokens": [
-        "know",
-        "he",
-        "sees",
-        "potential",
         "in",
         "everybody"
       ],
@@ -2102,15 +2253,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 37
+      "rawTextLength": 13
     },
     {
-      "id": 53,
-      "start": 197.76,
-      "end": 202.76,
+      "id": 59,
+      "start": 188.0,
+      "end": 193.0,
       "duration": 5.0,
-      "startFrame": 5933,
-      "endFrame": 6083,
+      "startFrame": 5640,
+      "endFrame": 5790,
       "text": "And I just think he, I don't know, he just can, can read people in that way, I believe.",
       "textOneLine": "And I just think he, I don't know, he just can, can read people in that way, I believe.",
       "tokens": [
@@ -2149,15 +2300,16 @@
       "rawTextLength": 87
     },
     {
-      "id": 54,
-      "start": 203.76,
-      "end": 206.76,
+      "id": 60,
+      "start": 193.0,
+      "end": 196.0,
       "duration": 3.0,
-      "startFrame": 6113,
-      "endFrame": 6203,
-      "text": "Did he always plan on going into this industry?",
-      "textOneLine": "Did he always plan on going into this industry?",
+      "startFrame": 5790,
+      "endFrame": 5880,
+      "text": "Um, did he always plan on going into this industry?",
+      "textOneLine": "Um, did he always plan on going into this industry?",
       "tokens": [
+        "um",
         "did",
         "he",
         "always",
@@ -2194,15 +2346,15 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 47
+      "rawTextLength": 51
     },
     {
-      "id": 55,
-      "start": 206.76,
-      "end": 207.76,
+      "id": 61,
+      "start": 196.0,
+      "end": 197.0,
       "duration": 1.0,
-      "startFrame": 6203,
-      "endFrame": 6233,
+      "startFrame": 5880,
+      "endFrame": 5910,
       "text": "Oh, not at all.",
       "textOneLine": "Oh, not at all.",
       "tokens": [
@@ -2225,12 +2377,12 @@
       "rawTextLength": 15
     },
     {
-      "id": 56,
-      "start": 207.76,
-      "end": 208.76,
+      "id": 62,
+      "start": 197.0,
+      "end": 198.0,
       "duration": 1.0,
-      "startFrame": 6233,
-      "endFrame": 6263,
+      "startFrame": 5910,
+      "endFrame": 5940,
       "text": "No.",
       "textOneLine": "No.",
       "tokens": [
@@ -2250,14 +2402,14 @@
       "rawTextLength": 3
     },
     {
-      "id": 57,
-      "start": 208.76,
-      "end": 214.76,
-      "duration": 6.0,
-      "startFrame": 6263,
-      "endFrame": 6443,
-      "text": "No, it started with Bud Clifford and he, he started with US Life at 42 years ago.",
-      "textOneLine": "No, it started with Bud Clifford and he, he started with US Life at 42 years ago.",
+      "id": 63,
+      "start": 198.0,
+      "end": 205.0,
+      "duration": 7.0,
+      "startFrame": 5940,
+      "endFrame": 6150,
+      "text": "No, it started with Bud Clifford and he, he started at US Life at 42 years ago.",
+      "textOneLine": "No, it started with Bud Clifford and he, he started at US Life at 42 years ago.",
       "tokens": [
         "no",
         "it",
@@ -2269,7 +2421,7 @@
         "he",
         "he",
         "started",
-        "with",
+        "at",
         "us",
         "life",
         "at",
@@ -2280,15 +2432,15 @@
       "topics": [
         "ai",
         "innovation",
-        "robotics",
         "analytics",
+        "robotics",
         "business"
       ],
       "topicScores": {
-        "ai": 2,
-        "innovation": 2,
+        "ai": 1,
+        "innovation": 1,
         "analytics": 1,
-        "robotics": 2,
+        "robotics": 1,
         "business": 1,
         "creativity": 1,
         "teamwork": 1,
@@ -2306,15 +2458,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 81
+      "rawTextLength": 79
     },
     {
-      "id": 58,
-      "start": 214.76,
-      "end": 218.76,
+      "id": 64,
+      "start": 205.0,
+      "end": 209.0,
       "duration": 4.0,
-      "startFrame": 6443,
-      "endFrame": 6563,
+      "startFrame": 6150,
+      "endFrame": 6270,
       "text": "He started at the very bottom of the mail room and just worked his way up.",
       "textOneLine": "He started at the very bottom of the mail room and just worked his way up.",
       "tokens": [
@@ -2351,12 +2503,12 @@
       "rawTextLength": 74
     },
     {
-      "id": 59,
-      "start": 218.76,
-      "end": 223.76,
+      "id": 65,
+      "start": 209.0,
+      "end": 214.0,
       "duration": 5.0,
-      "startFrame": 6563,
-      "endFrame": 6713,
+      "startFrame": 6270,
+      "endFrame": 6420,
       "text": "But in the interim, he was going to go work for the Phoenix Fire Department.",
       "textOneLine": "But in the interim, he was going to go work for the Phoenix Fire Department.",
       "tokens": [
@@ -2398,12 +2550,12 @@
       "rawTextLength": 76
     },
     {
-      "id": 60,
-      "start": 223.76,
-      "end": 226.76,
+      "id": 66,
+      "start": 214.0,
+      "end": 217.0,
       "duration": 3.0,
-      "startFrame": 6713,
-      "endFrame": 6803,
+      "startFrame": 6420,
+      "endFrame": 6510,
       "text": "And Bud basically talked him out of it.",
       "textOneLine": "And Bud basically talked him out of it.",
       "tokens": [
@@ -2438,16 +2590,15 @@
       "rawTextLength": 39
     },
     {
-      "id": 61,
-      "start": 226.76,
-      "end": 229.76,
+      "id": 67,
+      "start": 217.0,
+      "end": 220.0,
       "duration": 3.0,
-      "startFrame": 6803,
-      "endFrame": 6893,
-      "text": "And you know, and hindsight, it was a great decision.",
-      "textOneLine": "And you know, and hindsight, it was a great decision.",
+      "startFrame": 6510,
+      "endFrame": 6600,
+      "text": "You know, and hindsight, it was a great decision.",
+      "textOneLine": "You know, and hindsight, it was a great decision.",
       "tokens": [
-        "and",
         "you",
         "know",
         "and",
@@ -2477,15 +2628,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 53
+      "rawTextLength": 49
     },
     {
-      "id": 62,
-      "start": 229.76,
-      "end": 231.76,
-      "duration": 2.0,
-      "startFrame": 6893,
-      "endFrame": 6953,
+      "id": 68,
+      "start": 220.0,
+      "end": 221.0,
+      "duration": 1.0,
+      "startFrame": 6600,
+      "endFrame": 6630,
       "text": "That's awesome.",
       "textOneLine": "That's awesome.",
       "tokens": [
@@ -2507,14 +2658,14 @@
       "rawTextLength": 15
     },
     {
-      "id": 63,
-      "start": 231.76,
-      "end": 235.76,
+      "id": 69,
+      "start": 221.0,
+      "end": 225.0,
       "duration": 4.0,
-      "startFrame": 6953,
-      "endFrame": 7073,
-      "text": "What is, how has the industry been with your family or his career been with your family?",
-      "textOneLine": "What is, how has the industry been with your family or his career been with your family?",
+      "startFrame": 6630,
+      "endFrame": 6750,
+      "text": "What is, how has the industry been with your family?",
+      "textOneLine": "What is, how has the industry been with your family?",
       "tokens": [
         "what",
         "is",
@@ -2522,13 +2673,6 @@
         "has",
         "the",
         "industry",
-        "been",
-        "with",
-        "your",
-        "family",
-        "or",
-        "his",
-        "career",
         "been",
         "with",
         "your",
@@ -2540,9 +2684,9 @@
         "robotics"
       ],
       "topicScores": {
-        "ai": 2,
-        "innovation": 2,
-        "robotics": 2
+        "ai": 1,
+        "innovation": 1,
+        "robotics": 1
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -2555,15 +2699,15 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 88
+      "rawTextLength": 52
     },
     {
-      "id": 64,
-      "start": 235.76,
-      "end": 237.76,
-      "duration": 2.0,
-      "startFrame": 7073,
-      "endFrame": 7133,
+      "id": 70,
+      "start": 225.0,
+      "end": 226.0,
+      "duration": 1.0,
+      "startFrame": 6750,
+      "endFrame": 6780,
       "text": "With my family?",
       "textOneLine": "With my family?",
       "tokens": [
@@ -2595,12 +2739,12 @@
       "rawTextLength": 15
     },
     {
-      "id": 65,
-      "start": 237.76,
-      "end": 238.76,
+      "id": 71,
+      "start": 226.0,
+      "end": 227.0,
       "duration": 1.0,
-      "startFrame": 7133,
-      "endFrame": 7163,
+      "startFrame": 6780,
+      "endFrame": 6810,
       "text": "Yeah.",
       "textOneLine": "Yeah.",
       "tokens": [
@@ -2620,15 +2764,16 @@
       "rawTextLength": 5
     },
     {
-      "id": 66,
-      "start": 238.76,
-      "end": 242.76,
+      "id": 72,
+      "start": 227.0,
+      "end": 231.0,
       "duration": 4.0,
-      "startFrame": 7163,
-      "endFrame": 7283,
-      "text": "Well, in the beginning, it was a lot of long hours building clientele.",
-      "textOneLine": "Well, in the beginning, it was a lot of long hours building clientele.",
+      "startFrame": 6810,
+      "endFrame": 6930,
+      "text": "Um, well in the beginning, it was a lot of long hours building clientele.",
+      "textOneLine": "Um, well in the beginning, it was a lot of long hours building clientele.",
       "tokens": [
+        "um",
         "well",
         "in",
         "the",
@@ -2662,15 +2807,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 70
+      "rawTextLength": 73
     },
     {
-      "id": 67,
-      "start": 242.76,
-      "end": 247.76,
+      "id": 73,
+      "start": 231.0,
+      "end": 236.0,
       "duration": 5.0,
-      "startFrame": 7283,
-      "endFrame": 7433,
+      "startFrame": 6930,
+      "endFrame": 7080,
       "text": "But I have to admit, he's, he always made us the top priority.",
       "textOneLine": "But I have to admit, he's, he always made us the top priority.",
       "tokens": [
@@ -2705,14 +2850,14 @@
       "rawTextLength": 62
     },
     {
-      "id": 68,
-      "start": 247.76,
-      "end": 252.76,
-      "duration": 5.0,
-      "startFrame": 7433,
-      "endFrame": 7583,
-      "text": "So he had that straight and the kids, I mean, the work ethic, his parents instilled in him",
-      "textOneLine": "So he had that straight and the kids, I mean, the work ethic, his parents instilled in him",
+      "id": 74,
+      "start": 236.0,
+      "end": 242.0,
+      "duration": 6.0,
+      "startFrame": 7080,
+      "endFrame": 7260,
+      "text": "So he had that straight and the kids, I mean the work ethic, his parents instilled in him",
+      "textOneLine": "So he had that straight and the kids, I mean the work ethic, his parents instilled in him",
       "tokens": [
         "so",
         "he",
@@ -2752,17 +2897,17 @@
       "sfxHints": [
         "tech"
       ],
-      "rawTextLength": 90
+      "rawTextLength": 89
     },
     {
-      "id": 69,
-      "start": 252.76,
-      "end": 256.76,
-      "duration": 4.0,
-      "startFrame": 7583,
-      "endFrame": 7703,
-      "text": "and then he's instilled in our children too, so.",
-      "textOneLine": "and then he's instilled in our children too, so.",
+      "id": 75,
+      "start": 242.0,
+      "end": 245.0,
+      "duration": 3.0,
+      "startFrame": 7260,
+      "endFrame": 7350,
+      "text": "and then he's instilled in our children too.",
+      "textOneLine": "and then he's instilled in our children too.",
       "tokens": [
         "and",
         "then",
@@ -2772,8 +2917,7 @@
         "in",
         "our",
         "children",
-        "too",
-        "so"
+        "too"
       ],
       "topics": [],
       "topicScores": {},
@@ -2786,15 +2930,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 48
+      "rawTextLength": 44
     },
     {
-      "id": 70,
-      "start": 256.76,
-      "end": 257.76,
+      "id": 76,
+      "start": 245.0,
+      "end": 246.0,
       "duration": 1.0,
-      "startFrame": 7703,
-      "endFrame": 7733,
+      "startFrame": 7350,
+      "endFrame": 7380,
       "text": "That's awesome.",
       "textOneLine": "That's awesome.",
       "tokens": [
@@ -2816,17 +2960,18 @@
       "rawTextLength": 15
     },
     {
-      "id": 71,
-      "start": 257.76,
-      "end": 261.76,
+      "id": 77,
+      "start": 246.0,
+      "end": 250.0,
       "duration": 4.0,
-      "startFrame": 7733,
-      "endFrame": 7853,
-      "text": "That's, you know, when, when we did that Father's Day video and you guys sent that message,",
-      "textOneLine": "That's, you know, when, when we did that Father's Day video and you guys sent that message,",
+      "startFrame": 7380,
+      "endFrame": 7500,
+      "text": "That's, um, you know, when, when we did that Father's Day video and you guys sent that",
+      "textOneLine": "That's, um, you know, when, when we did that Father's Day video and you guys sent that",
       "tokens": [
         "that",
         "s",
+        "um",
         "you",
         "know",
         "when",
@@ -2842,8 +2987,7 @@
         "you",
         "guys",
         "sent",
-        "that",
-        "message"
+        "that"
       ],
       "topics": [
         "remote work",
@@ -2864,18 +3008,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 91
+      "rawTextLength": 86
     },
     {
-      "id": 72,
-      "start": 261.76,
-      "end": 265.76,
+      "id": 78,
+      "start": 250.0,
+      "end": 254.0,
       "duration": 4.0,
-      "startFrame": 7853,
-      "endFrame": 7973,
-      "text": "that was such a neat thing to see from, you know.",
-      "textOneLine": "that was such a neat thing to see from, you know.",
+      "startFrame": 7500,
+      "endFrame": 7620,
+      "text": "message, that was such a neat thing to see from, you know.",
+      "textOneLine": "message, that was such a neat thing to see from, you know.",
       "tokens": [
+        "message",
         "that",
         "was",
         "such",
@@ -2899,20 +3044,20 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 49
+      "rawTextLength": 58
     },
     {
-      "id": 73,
-      "start": 265.76,
-      "end": 269.76,
+      "id": 79,
+      "start": 254.0,
+      "end": 258.0,
       "duration": 4.0,
-      "startFrame": 7973,
-      "endFrame": 8093,
-      "text": "Yeah, because even with those, the hectic schedule is a lot of you have to now.",
-      "textOneLine": "Yeah, because even with those, the hectic schedule is a lot of you have to now.",
+      "startFrame": 7620,
+      "endFrame": 7740,
+      "text": "Yeah, cause even with those, the hectic schedule is a lot of you have to now.",
+      "textOneLine": "Yeah, cause even with those, the hectic schedule is a lot of you have to now.",
       "tokens": [
         "yeah",
-        "because",
+        "cause",
         "even",
         "with",
         "those",
@@ -2947,15 +3092,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 79
+      "rawTextLength": 77
     },
     {
-      "id": 74,
-      "start": 269.76,
-      "end": 275.76,
+      "id": 80,
+      "start": 258.0,
+      "end": 264.0,
       "duration": 6.0,
-      "startFrame": 8093,
-      "endFrame": 8273,
+      "startFrame": 7740,
+      "endFrame": 7920,
       "text": "But he, I can remember our, just recently, Marin telling me that she remembers her dad.",
       "textOneLine": "But he, I can remember our, just recently, Marin telling me that she remembers her dad.",
       "tokens": [
@@ -2993,16 +3138,15 @@
       "rawTextLength": 87
     },
     {
-      "id": 75,
-      "start": 275.76,
-      "end": 279.76,
+      "id": 81,
+      "start": 264.0,
+      "end": 268.0,
       "duration": 4.0,
-      "startFrame": 8273,
-      "endFrame": 8393,
-      "text": "It, you know, even though he was working like he'd be running, he'd be screeching up in the parking lot,",
-      "textOneLine": "It, you know, even though he was working like he'd be running, he'd be screeching up in the parking lot,",
+      "startFrame": 7920,
+      "endFrame": 8040,
+      "text": "You know, even though he was working like he'd be running, he'd be screeching up in the",
+      "textOneLine": "You know, even though he was working like he'd be running, he'd be screeching up in the",
       "tokens": [
-        "it",
         "you",
         "know",
         "even",
@@ -3021,20 +3165,10 @@
         "screeching",
         "up",
         "in",
-        "the",
-        "parking",
-        "lot"
+        "the"
       ],
-      "topics": [
-        "creativity",
-        "teamwork",
-        "ideas"
-      ],
-      "topicScores": {
-        "creativity": 1,
-        "teamwork": 1,
-        "ideas": 1
-      },
+      "topics": [],
+      "topicScores": {},
       "emotion": "neutral",
       "emotionTriggers": [],
       "highlightScore": 0.0,
@@ -3044,18 +3178,20 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 104
+      "rawTextLength": 87
     },
     {
-      "id": 76,
-      "start": 279.76,
-      "end": 283.76,
+      "id": 82,
+      "start": 268.0,
+      "end": 272.0,
       "duration": 4.0,
-      "startFrame": 8393,
-      "endFrame": 8513,
-      "text": "be running across the field with his tie flying in the, you know, in the wind.",
-      "textOneLine": "be running across the field with his tie flying in the, you know, in the wind.",
+      "startFrame": 8040,
+      "endFrame": 8160,
+      "text": "parking lot, be running across the field with his tie flying in the, you know, in the",
+      "textOneLine": "parking lot, be running across the field with his tie flying in the, you know, in the",
       "tokens": [
+        "parking",
+        "lot",
         "be",
         "running",
         "across",
@@ -3070,8 +3206,7 @@
         "you",
         "know",
         "in",
-        "the",
-        "wind"
+        "the"
       ],
       "topics": [
         "ai",
@@ -3092,15 +3227,40 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 78
+      "rawTextLength": 85
     },
     {
-      "id": 77,
-      "start": 283.76,
-      "end": 287.76,
+      "id": 83,
+      "start": 272.0,
+      "end": 273.0,
+      "duration": 1.0,
+      "startFrame": 8160,
+      "endFrame": 8190,
+      "text": "wind.",
+      "textOneLine": "wind.",
+      "tokens": [
+        "wind"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 5
+    },
+    {
+      "id": 84,
+      "start": 273.0,
+      "end": 277.0,
       "duration": 4.0,
-      "startFrame": 8513,
-      "endFrame": 8633,
+      "startFrame": 8190,
+      "endFrame": 8310,
       "text": "And she said he always made an effort to be at all their games and coach stuff.",
       "textOneLine": "And she said he always made an effort to be at all their games and coach stuff.",
       "tokens": [
@@ -3138,14 +3298,14 @@
       "rawTextLength": 79
     },
     {
-      "id": 78,
-      "start": 287.76,
-      "end": 292.76,
+      "id": 85,
+      "start": 277.0,
+      "end": 282.0,
       "duration": 5.0,
-      "startFrame": 8633,
-      "endFrame": 8783,
-      "text": "And, you know, even if he had to go back late that night to work or go in extra early in the morning,",
-      "textOneLine": "And, you know, even if he had to go back late that night to work or go in extra early in the morning,",
+      "startFrame": 8310,
+      "endFrame": 8460,
+      "text": "And you know, even if he had to go back late that night to work or go in extra early in",
+      "textOneLine": "And you know, even if he had to go back late that night to work or go in extra early in",
       "tokens": [
         "and",
         "you",
@@ -3167,9 +3327,7 @@
         "in",
         "extra",
         "early",
-        "in",
-        "the",
-        "morning"
+        "in"
       ],
       "topics": [
         "remote work",
@@ -3188,18 +3346,20 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 101
+      "rawTextLength": 87
     },
     {
-      "id": 79,
-      "start": 292.76,
-      "end": 295.76,
-      "duration": 3.0,
-      "startFrame": 8783,
-      "endFrame": 8873,
-      "text": "he always, he balanced it somehow.",
-      "textOneLine": "he always, he balanced it somehow.",
+      "id": 86,
+      "start": 282.0,
+      "end": 284.0,
+      "duration": 2.0,
+      "startFrame": 8460,
+      "endFrame": 8520,
+      "text": "the morning, he always, he balanced it somehow.",
+      "textOneLine": "the morning, he always, he balanced it somehow.",
       "tokens": [
+        "the",
+        "morning",
         "he",
         "always",
         "he",
@@ -3226,15 +3386,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 34
+      "rawTextLength": 47
     },
     {
-      "id": 80,
-      "start": 295.76,
-      "end": 298.76,
+      "id": 87,
+      "start": 284.0,
+      "end": 287.0,
       "duration": 3.0,
-      "startFrame": 8873,
-      "endFrame": 8963,
+      "startFrame": 8520,
+      "endFrame": 8610,
       "text": "It was, it was tough, but we appreciated that.",
       "textOneLine": "It was, it was tough, but we appreciated that.",
       "tokens": [
@@ -3272,19 +3432,43 @@
       "rawTextLength": 46
     },
     {
-      "id": 81,
-      "start": 298.76,
-      "end": 300.76,
-      "duration": 2.0,
-      "startFrame": 8963,
-      "endFrame": 9023,
-      "text": "Yeah, I'm sure family first.",
-      "textOneLine": "Yeah, I'm sure family first.",
+      "id": 88,
+      "start": 287.0,
+      "end": 288.0,
+      "duration": 1.0,
+      "startFrame": 8610,
+      "endFrame": 8640,
+      "text": "Yeah, I'm sure.",
+      "textOneLine": "Yeah, I'm sure.",
       "tokens": [
         "yeah",
         "i",
         "m",
-        "sure",
+        "sure"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 15
+    },
+    {
+      "id": 89,
+      "start": 288.0,
+      "end": 289.0,
+      "duration": 1.0,
+      "startFrame": 8640,
+      "endFrame": 8670,
+      "text": "Family first.",
+      "textOneLine": "Family first.",
+      "tokens": [
         "family",
         "first"
       ],
@@ -3299,15 +3483,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 28
+      "rawTextLength": 13
     },
     {
-      "id": 82,
-      "start": 300.76,
-      "end": 301.76,
+      "id": 90,
+      "start": 289.0,
+      "end": 290.0,
       "duration": 1.0,
-      "startFrame": 9023,
-      "endFrame": 9053,
+      "startFrame": 8670,
+      "endFrame": 8700,
       "text": "Yeah.",
       "textOneLine": "Yeah.",
       "tokens": [
@@ -3327,12 +3511,12 @@
       "rawTextLength": 5
     },
     {
-      "id": 83,
-      "start": 301.76,
-      "end": 302.76,
+      "id": 91,
+      "start": 290.0,
+      "end": 291.0,
       "duration": 1.0,
-      "startFrame": 9053,
-      "endFrame": 9083,
+      "startFrame": 8700,
+      "endFrame": 8730,
       "text": "Yeah.",
       "textOneLine": "Yeah.",
       "tokens": [
@@ -3352,12 +3536,12 @@
       "rawTextLength": 5
     },
     {
-      "id": 84,
-      "start": 302.76,
-      "end": 303.76,
+      "id": 92,
+      "start": 291.0,
+      "end": 292.0,
       "duration": 1.0,
-      "startFrame": 9083,
-      "endFrame": 9113,
+      "startFrame": 8730,
+      "endFrame": 8760,
       "text": "That's great.",
       "textOneLine": "That's great.",
       "tokens": [
@@ -3379,12 +3563,12 @@
       "rawTextLength": 13
     },
     {
-      "id": 85,
-      "start": 303.76,
-      "end": 304.76,
+      "id": 93,
+      "start": 292.0,
+      "end": 293.0,
       "duration": 1.0,
-      "startFrame": 9113,
-      "endFrame": 9143,
+      "startFrame": 8760,
+      "endFrame": 8790,
       "text": "Um.",
       "textOneLine": "Um.",
       "tokens": [
@@ -3404,12 +3588,12 @@
       "rawTextLength": 3
     },
     {
-      "id": 86,
-      "start": 304.76,
-      "end": 306.76,
-      "duration": 2.0,
-      "startFrame": 9143,
-      "endFrame": 9203,
+      "id": 94,
+      "start": 293.0,
+      "end": 294.0,
+      "duration": 1.0,
+      "startFrame": 8790,
+      "endFrame": 8820,
       "text": "I'm really, really sorry.",
       "textOneLine": "I'm really, really sorry.",
       "tokens": [
@@ -3433,12 +3617,12 @@
       "rawTextLength": 25
     },
     {
-      "id": 87,
-      "start": 306.76,
-      "end": 308.76,
+      "id": 95,
+      "start": 294.0,
+      "end": 296.0,
       "duration": 2.0,
-      "startFrame": 9203,
-      "endFrame": 9263,
+      "startFrame": 8820,
+      "endFrame": 8880,
       "text": "Can I have you stay squirt up to me?",
       "textOneLine": "Can I have you stay squirt up to me?",
       "tokens": [
@@ -3468,15 +3652,16 @@
       "rawTextLength": 36
     },
     {
-      "id": 88,
-      "start": 308.76,
-      "end": 309.76,
+      "id": 96,
+      "start": 296.0,
+      "end": 297.0,
       "duration": 1.0,
-      "startFrame": 9263,
-      "endFrame": 9293,
-      "text": "I'm sorry.",
-      "textOneLine": "I'm sorry.",
+      "startFrame": 8880,
+      "endFrame": 8910,
+      "text": "Oh, I'm sorry.",
+      "textOneLine": "Oh, I'm sorry.",
       "tokens": [
+        "oh",
         "i",
         "m",
         "sorry"
@@ -3492,15 +3677,43 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 10
+      "rawTextLength": 14
     },
     {
-      "id": 89,
-      "start": 309.76,
-      "end": 310.76,
+      "id": 97,
+      "start": 297.0,
+      "end": 298.0,
       "duration": 1.0,
-      "startFrame": 9293,
-      "endFrame": 9323,
+      "startFrame": 8910,
+      "endFrame": 8940,
+      "text": "I don't know.",
+      "textOneLine": "I don't know.",
+      "tokens": [
+        "i",
+        "don",
+        "t",
+        "know"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 13
+    },
+    {
+      "id": 98,
+      "start": 298.0,
+      "end": 299.0,
+      "duration": 1.0,
+      "startFrame": 8940,
+      "endFrame": 8970,
       "text": "It's okay.",
       "textOneLine": "It's okay.",
       "tokens": [
@@ -3530,23 +3743,53 @@
       "rawTextLength": 10
     },
     {
-      "id": 90,
-      "start": 310.76,
-      "end": 314.76,
-      "duration": 4.0,
-      "startFrame": 9323,
-      "endFrame": 9443,
-      "text": "It's just like, like he's like, yeah, it's totally natural to like turn to who you're talking to.",
-      "textOneLine": "It's just like, like he's like, yeah, it's totally natural to like turn to who you're talking to.",
+      "id": 99,
+      "start": 299.0,
+      "end": 300.0,
+      "duration": 1.0,
+      "startFrame": 8970,
+      "endFrame": 9000,
+      "text": "It's just like a natural.",
+      "textOneLine": "It's just like a natural.",
       "tokens": [
         "it",
         "s",
         "just",
         "like",
-        "like",
-        "he",
-        "s",
-        "like",
+        "a",
+        "natural"
+      ],
+      "topics": [
+        "creativity",
+        "teamwork",
+        "ideas"
+      ],
+      "topicScores": {
+        "creativity": 1,
+        "teamwork": 1,
+        "ideas": 1
+      },
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 25
+    },
+    {
+      "id": 100,
+      "start": 300.0,
+      "end": 303.0,
+      "duration": 3.0,
+      "startFrame": 9000,
+      "endFrame": 9090,
+      "text": "Yeah, it's totally natural to like turn into who you're talking to.",
+      "textOneLine": "Yeah, it's totally natural to like turn into who you're talking to.",
+      "tokens": [
         "yeah",
         "it",
         "s",
@@ -3555,7 +3798,7 @@
         "to",
         "like",
         "turn",
-        "to",
+        "into",
         "who",
         "you",
         "re",
@@ -3568,9 +3811,9 @@
         "ideas"
       ],
       "topicScores": {
-        "creativity": 2,
-        "teamwork": 2,
-        "ideas": 2
+        "creativity": 1,
+        "teamwork": 1,
+        "ideas": 1
       },
       "emotion": "neutral",
       "emotionTriggers": [],
@@ -3581,15 +3824,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 97
+      "rawTextLength": 67
     },
     {
-      "id": 91,
-      "start": 314.76,
-      "end": 315.76,
+      "id": 101,
+      "start": 303.0,
+      "end": 304.0,
       "duration": 1.0,
-      "startFrame": 9443,
-      "endFrame": 9473,
+      "startFrame": 9090,
+      "endFrame": 9120,
       "text": "I'm sorry.",
       "textOneLine": "I'm sorry.",
       "tokens": [
@@ -3611,24 +3854,16 @@
       "rawTextLength": 10
     },
     {
-      "id": 92,
-      "start": 315.76,
-      "end": 317.76,
-      "duration": 2.0,
-      "startFrame": 9473,
-      "endFrame": 9533,
-      "text": "No, I keep, I kind of keep moving too.",
-      "textOneLine": "No, I keep, I kind of keep moving too.",
+      "id": 102,
+      "start": 304.0,
+      "end": 305.0,
+      "duration": 1.0,
+      "startFrame": 9120,
+      "endFrame": 9150,
+      "text": "No.",
+      "textOneLine": "No.",
       "tokens": [
-        "no",
-        "i",
-        "keep",
-        "i",
-        "kind",
-        "of",
-        "keep",
-        "moving",
-        "too"
+        "no"
       ],
       "topics": [],
       "topicScores": {},
@@ -3641,18 +3876,26 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 38
+      "rawTextLength": 3
     },
     {
-      "id": 93,
-      "start": 317.76,
-      "end": 319.76,
-      "duration": 2.0,
-      "startFrame": 9533,
-      "endFrame": 9593,
-      "text": "And I can jam myself in here.",
-      "textOneLine": "And I can jam myself in here.",
+      "id": 103,
+      "start": 305.0,
+      "end": 309.0,
+      "duration": 4.0,
+      "startFrame": 9150,
+      "endFrame": 9270,
+      "text": "I keep, I kind of keep moving too and I can jam myself in here.",
+      "textOneLine": "I keep, I kind of keep moving too and I can jam myself in here.",
       "tokens": [
+        "i",
+        "keep",
+        "i",
+        "kind",
+        "of",
+        "keep",
+        "moving",
+        "too",
         "and",
         "i",
         "can",
@@ -3672,19 +3915,18 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 29
+      "rawTextLength": 63
     },
     {
-      "id": 94,
-      "start": 319.76,
-      "end": 321.76,
-      "duration": 2.0,
-      "startFrame": 9593,
-      "endFrame": 9653,
-      "text": "Um, so, um.",
-      "textOneLine": "Um, so, um.",
+      "id": 104,
+      "start": 309.0,
+      "end": 310.0,
+      "duration": 1.0,
+      "startFrame": 9270,
+      "endFrame": 9300,
+      "text": "So, um.",
+      "textOneLine": "So, um.",
       "tokens": [
-        "um",
         "so",
         "um"
       ],
@@ -3699,15 +3941,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 11
+      "rawTextLength": 7
     },
     {
-      "id": 95,
-      "start": 321.76,
-      "end": 323.76,
-      "duration": 2.0,
-      "startFrame": 9653,
-      "endFrame": 9713,
+      "id": 105,
+      "start": 310.0,
+      "end": 311.0,
+      "duration": 1.0,
+      "startFrame": 9300,
+      "endFrame": 9330,
       "text": "Do you want to sit here?",
       "textOneLine": "Do you want to sit here?",
       "tokens": [
@@ -3734,12 +3976,12 @@
       "rawTextLength": 24
     },
     {
-      "id": 96,
-      "start": 323.76,
-      "end": 324.76,
+      "id": 106,
+      "start": 311.0,
+      "end": 312.0,
       "duration": 1.0,
-      "startFrame": 9713,
-      "endFrame": 9743,
+      "startFrame": 9330,
+      "endFrame": 9360,
       "text": "No, you're fine.",
       "textOneLine": "No, you're fine.",
       "tokens": [
@@ -3762,12 +4004,12 @@
       "rawTextLength": 16
     },
     {
-      "id": 97,
-      "start": 324.76,
-      "end": 325.76,
+      "id": 107,
+      "start": 312.0,
+      "end": 313.0,
       "duration": 1.0,
-      "startFrame": 9743,
-      "endFrame": 9773,
+      "startFrame": 9360,
+      "endFrame": 9390,
       "text": "Okay.",
       "textOneLine": "Okay.",
       "tokens": [
@@ -3787,15 +4029,42 @@
       "rawTextLength": 5
     },
     {
-      "id": 98,
-      "start": 325.76,
-      "end": 326.76,
+      "id": 108,
+      "start": 313.0,
+      "end": 314.0,
       "duration": 1.0,
-      "startFrame": 9773,
-      "endFrame": 9803,
-      "text": "No, no, go ahead.",
-      "textOneLine": "No, no, go ahead.",
+      "startFrame": 9390,
+      "endFrame": 9420,
+      "text": "Go ahead.",
+      "textOneLine": "Go ahead.",
       "tokens": [
+        "go",
+        "ahead"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 9
+    },
+    {
+      "id": 109,
+      "start": 314.0,
+      "end": 315.0,
+      "duration": 1.0,
+      "startFrame": 9420,
+      "endFrame": 9450,
+      "text": "No, no, no, go ahead.",
+      "textOneLine": "No, no, no, go ahead.",
+      "tokens": [
+        "no",
         "no",
         "no",
         "go",
@@ -3812,15 +4081,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 17
+      "rawTextLength": 21
     },
     {
-      "id": 99,
-      "start": 326.76,
-      "end": 327.76,
+      "id": 110,
+      "start": 315.0,
+      "end": 316.0,
       "duration": 1.0,
-      "startFrame": 9803,
-      "endFrame": 9833,
+      "startFrame": 9450,
+      "endFrame": 9480,
       "text": "Okay.",
       "textOneLine": "Okay.",
       "tokens": [
@@ -3840,20 +4109,44 @@
       "rawTextLength": 5
     },
     {
-      "id": 100,
-      "start": 327.76,
-      "end": 329.76,
-      "duration": 2.0,
-      "startFrame": 9833,
-      "endFrame": 9893,
-      "text": "I'm just trying to, yeah.",
-      "textOneLine": "I'm just trying to, yeah.",
+      "id": 111,
+      "start": 316.0,
+      "end": 317.0,
+      "duration": 1.0,
+      "startFrame": 9480,
+      "endFrame": 9510,
+      "text": "I'm just trying to.",
+      "textOneLine": "I'm just trying to.",
       "tokens": [
         "i",
         "m",
         "just",
         "trying",
-        "to",
+        "to"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 19
+    },
+    {
+      "id": 112,
+      "start": 317.0,
+      "end": 318.0,
+      "duration": 1.0,
+      "startFrame": 9510,
+      "endFrame": 9540,
+      "text": "Yeah.",
+      "textOneLine": "Yeah.",
+      "tokens": [
         "yeah"
       ],
       "topics": [],
@@ -3867,17 +4160,17 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 25
+      "rawTextLength": 5
     },
     {
-      "id": 101,
-      "start": 329.76,
-      "end": 337.76,
-      "duration": 8.0,
-      "startFrame": 9893,
-      "endFrame": 10133,
-      "text": "Um, so what, what was it like for him to decide to kind of go this direction with the retirement or?",
-      "textOneLine": "Um, so what, what was it like for him to decide to kind of go this direction with the retirement or?",
+      "id": 113,
+      "start": 318.0,
+      "end": 325.0,
+      "duration": 7.0,
+      "startFrame": 9540,
+      "endFrame": 9750,
+      "text": "Um, so what, what was it like for him to decide to kind of go this direction with the retirement",
+      "textOneLine": "Um, so what, what was it like for him to decide to kind of go this direction with the retirement",
       "tokens": [
         "um",
         "so",
@@ -3898,8 +4191,7 @@
         "direction",
         "with",
         "the",
-        "retirement",
-        "or"
+        "retirement"
       ],
       "topics": [
         "ai",
@@ -3924,21 +4216,47 @@
       "ctaTriggers": [],
       "motionCandidates": [],
       "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 96
+    },
+    {
+      "id": 114,
+      "start": 325.0,
+      "end": 326.0,
+      "duration": 1.0,
+      "startFrame": 9750,
+      "endFrame": 9780,
+      "text": "center?",
+      "textOneLine": "center?",
+      "tokens": [
+        "center"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 100
+      "rawTextLength": 7
     },
     {
-      "id": 102,
-      "start": 338.76,
-      "end": 340.76,
-      "duration": 2.0,
-      "startFrame": 10163,
-      "endFrame": 10223,
-      "text": "I don't know.",
-      "textOneLine": "I don't know.",
+      "id": 115,
+      "start": 326.0,
+      "end": 329.0,
+      "duration": 3.0,
+      "startFrame": 9780,
+      "endFrame": 9870,
+      "text": "Uh, I don't know.",
+      "textOneLine": "Uh, I don't know.",
       "tokens": [
+        "uh",
         "i",
         "don",
         "t",
@@ -3955,15 +4273,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 13
+      "rawTextLength": 17
     },
     {
-      "id": 103,
-      "start": 340.76,
-      "end": 345.76,
+      "id": 116,
+      "start": 329.0,
+      "end": 334.0,
       "duration": 5.0,
-      "startFrame": 10223,
-      "endFrame": 10373,
+      "startFrame": 9870,
+      "endFrame": 10020,
       "text": "I'm sure it's tough for him because he really enjoys the people he's with and working with",
       "textOneLine": "I'm sure it's tough for him because he really enjoys the people he's with and working with",
       "tokens": [
@@ -4015,12 +4333,12 @@
       "rawTextLength": 90
     },
     {
-      "id": 104,
-      "start": 345.76,
-      "end": 346.76,
+      "id": 117,
+      "start": 334.0,
+      "end": 335.0,
       "duration": 1.0,
-      "startFrame": 10373,
-      "endFrame": 10403,
+      "startFrame": 10020,
+      "endFrame": 10050,
       "text": "all these years.",
       "textOneLine": "all these years.",
       "tokens": [
@@ -4050,14 +4368,14 @@
       "rawTextLength": 16
     },
     {
-      "id": 105,
-      "start": 346.76,
-      "end": 350.76,
-      "duration": 4.0,
-      "startFrame": 10403,
-      "endFrame": 10523,
-      "text": "But I think it's just, you get to a point where things you want to do and as long as you still",
-      "textOneLine": "But I think it's just, you get to a point where things you want to do and as long as you still",
+      "id": 118,
+      "start": 335.0,
+      "end": 338.64,
+      "duration": 3.6399999999999864,
+      "startFrame": 10050,
+      "endFrame": 10159,
+      "text": "But I think it's just you get to a point where things you want to do and as long as you still",
+      "textOneLine": "But I think it's just you get to a point where things you want to do and as long as you still",
       "tokens": [
         "but",
         "i",
@@ -4129,15 +4447,15 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 94
+      "rawTextLength": 93
     },
     {
-      "id": 106,
-      "start": 350.76,
-      "end": 355.76,
-      "duration": 5.0,
-      "startFrame": 10523,
-      "endFrame": 10673,
+      "id": 119,
+      "start": 338.64,
+      "end": 344.0,
+      "duration": 5.360000000000014,
+      "startFrame": 10159,
+      "endFrame": 10320,
       "text": "have your health and you, you know, you have the opportunity to grab that.",
       "textOneLine": "have your health and you, you know, you have the opportunity to grab that.",
       "tokens": [
@@ -4170,32 +4488,23 @@
       "rawTextLength": 74
     },
     {
-      "id": 107,
-      "start": 355.76,
-      "end": 357.76,
+      "id": 120,
+      "start": 344.0,
+      "end": 346.0,
       "duration": 2.0,
-      "startFrame": 10673,
-      "endFrame": 10733,
-      "text": "Um, I mean, it's tiny.",
-      "textOneLine": "Um, I mean, it's tiny.",
+      "startFrame": 10320,
+      "endFrame": 10380,
+      "text": "Um, and that's tiny.",
+      "textOneLine": "Um, and that's tiny.",
       "tokens": [
         "um",
-        "i",
-        "mean",
-        "it",
+        "and",
+        "that",
         "s",
         "tiny"
       ],
-      "topics": [
-        "creativity",
-        "teamwork",
-        "ideas"
-      ],
-      "topicScores": {
-        "creativity": 1,
-        "teamwork": 1,
-        "ideas": 1
-      },
+      "topics": [],
+      "topicScores": {},
       "emotion": "neutral",
       "emotionTriggers": [],
       "highlightScore": 0.0,
@@ -4205,15 +4514,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 22
+      "rawTextLength": 20
     },
     {
-      "id": 108,
-      "start": 357.76,
-      "end": 360.76,
-      "duration": 3.0,
-      "startFrame": 10733,
-      "endFrame": 10823,
+      "id": 121,
+      "start": 346.0,
+      "end": 348.5,
+      "duration": 2.5,
+      "startFrame": 10380,
+      "endFrame": 10455,
       "text": "I, I'm happy that he's winding it down.",
       "textOneLine": "I, I'm happy that he's winding it down.",
       "tokens": [
@@ -4250,14 +4559,14 @@
       "rawTextLength": 39
     },
     {
-      "id": 109,
-      "start": 360.76,
-      "end": 365.76,
+      "id": 122,
+      "start": 348.5,
+      "end": 353.5,
       "duration": 5.0,
-      "startFrame": 10823,
-      "endFrame": 10973,
-      "text": "I like having him at home and I like, you know, the fact that I'm looking forward and excited",
-      "textOneLine": "I like having him at home and I like, you know, the fact that I'm looking forward and excited",
+      "startFrame": 10455,
+      "endFrame": 10605,
+      "text": "I like having him at home and I like, you know, the fact that I'm looking forward and",
+      "textOneLine": "I like having him at home and I like, you know, the fact that I'm looking forward and",
       "tokens": [
         "i",
         "like",
@@ -4277,8 +4586,7 @@
         "m",
         "looking",
         "forward",
-        "and",
-        "excited"
+        "and"
       ],
       "topics": [],
       "topicScores": {},
@@ -4291,18 +4599,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 93
+      "rawTextLength": 85
     },
     {
-      "id": 110,
-      "start": 365.76,
-      "end": 368.76,
+      "id": 123,
+      "start": 353.5,
+      "end": 356.5,
       "duration": 3.0,
-      "startFrame": 10973,
-      "endFrame": 11063,
-      "text": "about the next chapter in our lives.",
-      "textOneLine": "about the next chapter in our lives.",
+      "startFrame": 10605,
+      "endFrame": 10695,
+      "text": "excited about the next chapter in our lives.",
+      "textOneLine": "excited about the next chapter in our lives.",
       "tokens": [
+        "excited",
         "about",
         "the",
         "next",
@@ -4324,15 +4633,40 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 36
+      "rawTextLength": 44
     },
     {
-      "id": 111,
-      "start": 368.76,
-      "end": 371.76,
+      "id": 124,
+      "start": 356.5,
+      "end": 357.5,
+      "duration": 1.0,
+      "startFrame": 10695,
+      "endFrame": 10725,
+      "text": "So.",
+      "textOneLine": "So.",
+      "tokens": [
+        "so"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 3
+    },
+    {
+      "id": 125,
+      "start": 357.5,
+      "end": 360.5,
       "duration": 3.0,
-      "startFrame": 11063,
-      "endFrame": 11153,
+      "startFrame": 10725,
+      "endFrame": 10815,
       "text": "What do you think you guys will, what's the first thing you'll do?",
       "textOneLine": "What do you think you guys will, what's the first thing you'll do?",
       "tokens": [
@@ -4368,12 +4702,12 @@
       "rawTextLength": 66
     },
     {
-      "id": 112,
-      "start": 371.76,
-      "end": 373.76,
-      "duration": 2.0,
-      "startFrame": 11153,
-      "endFrame": 11213,
+      "id": 126,
+      "start": 360.5,
+      "end": 361.5,
+      "duration": 1.0,
+      "startFrame": 10815,
+      "endFrame": 10845,
       "text": "Sleep in.",
       "textOneLine": "Sleep in.",
       "tokens": [
@@ -4394,17 +4728,40 @@
       "rawTextLength": 9
     },
     {
-      "id": 113,
-      "start": 373.76,
-      "end": 374.76,
+      "id": 127,
+      "start": 361.5,
+      "end": 362.5,
       "duration": 1.0,
-      "startFrame": 11213,
-      "endFrame": 11243,
-      "text": "You know, I don't know.",
-      "textOneLine": "You know, I don't know.",
+      "startFrame": 10845,
+      "endFrame": 10875,
+      "text": "Yeah.",
+      "textOneLine": "Yeah.",
       "tokens": [
-        "you",
-        "know",
+        "yeah"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 5
+    },
+    {
+      "id": 128,
+      "start": 362.5,
+      "end": 363.5,
+      "duration": 1.0,
+      "startFrame": 10875,
+      "endFrame": 10905,
+      "text": "I don't know.",
+      "textOneLine": "I don't know.",
+      "tokens": [
         "i",
         "don",
         "t",
@@ -4421,15 +4778,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 23
+      "rawTextLength": 13
     },
     {
-      "id": 114,
-      "start": 374.76,
-      "end": 376.76,
-      "duration": 2.0,
-      "startFrame": 11243,
-      "endFrame": 11303,
+      "id": 129,
+      "start": 363.5,
+      "end": 364.5,
+      "duration": 1.0,
+      "startFrame": 10905,
+      "endFrame": 10935,
       "text": "He wants to travel some more.",
       "textOneLine": "He wants to travel some more.",
       "tokens": [
@@ -4454,24 +4811,48 @@
       "rawTextLength": 29
     },
     {
-      "id": 115,
-      "start": 376.76,
-      "end": 379.76,
-      "duration": 3.0,
-      "startFrame": 11303,
-      "endFrame": 11393,
-      "text": "Is there a special place you want to go?",
-      "textOneLine": "Is there a special place you want to go?",
+      "id": 130,
+      "start": 364.5,
+      "end": 365.5,
+      "duration": 1.0,
+      "startFrame": 10935,
+      "endFrame": 10965,
+      "text": "He, uh.",
+      "textOneLine": "He, uh.",
+      "tokens": [
+        "he",
+        "uh"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 7
+    },
+    {
+      "id": 131,
+      "start": 365.5,
+      "end": 366.5,
+      "duration": 1.0,
+      "startFrame": 10965,
+      "endFrame": 10995,
+      "text": "Is there a special place in America?",
+      "textOneLine": "Is there a special place in America?",
       "tokens": [
         "is",
         "there",
         "a",
         "special",
         "place",
-        "you",
-        "want",
-        "to",
-        "go"
+        "in",
+        "america"
       ],
       "topics": [],
       "topicScores": {},
@@ -4486,19 +4867,43 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 40
+      "rawTextLength": 36
     },
     {
-      "id": 116,
-      "start": 379.76,
-      "end": 384.76,
-      "duration": 5.0,
-      "startFrame": 11393,
-      "endFrame": 11543,
-      "text": "Um, I would love for him to be able to go like to Scotland and golf.",
-      "textOneLine": "Um, I would love for him to be able to go like to Scotland and golf.",
+      "id": 132,
+      "start": 366.5,
+      "end": 367.5,
+      "duration": 1.0,
+      "startFrame": 10995,
+      "endFrame": 11025,
+      "text": "Um.",
+      "textOneLine": "Um.",
       "tokens": [
-        "um",
+        "um"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 3
+    },
+    {
+      "id": 133,
+      "start": 367.5,
+      "end": 373.5,
+      "duration": 6.0,
+      "startFrame": 11025,
+      "endFrame": 11205,
+      "text": "I would love for him to be able to go like to Scotland and golf, you know, something",
+      "textOneLine": "I would love for him to be able to go like to Scotland and golf, you know, something",
+      "tokens": [
         "i",
         "would",
         "love",
@@ -4513,7 +4918,10 @@
         "to",
         "scotland",
         "and",
-        "golf"
+        "golf",
+        "you",
+        "know",
+        "something"
       ],
       "topics": [],
       "topicScores": {},
@@ -4526,21 +4934,18 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 68
+      "rawTextLength": 84
     },
     {
-      "id": 117,
-      "start": 384.76,
-      "end": 386.76,
-      "duration": 2.0,
-      "startFrame": 11543,
-      "endFrame": 11603,
-      "text": "You know, something like that would be awesome.",
-      "textOneLine": "You know, something like that would be awesome.",
+      "id": 134,
+      "start": 373.5,
+      "end": 374.5,
+      "duration": 1.0,
+      "startFrame": 11205,
+      "endFrame": 11235,
+      "text": "like that would be awesome.",
+      "textOneLine": "like that would be awesome.",
       "tokens": [
-        "you",
-        "know",
-        "something",
         "like",
         "that",
         "would",
@@ -4558,15 +4963,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 47
+      "rawTextLength": 27
     },
     {
-      "id": 118,
-      "start": 386.76,
-      "end": 392.76,
-      "duration": 6.0,
-      "startFrame": 11603,
-      "endFrame": 11783,
+      "id": 135,
+      "start": 374.5,
+      "end": 379.5,
+      "duration": 5.0,
+      "startFrame": 11235,
+      "endFrame": 11385,
       "text": "But, um, and just, you know, spend a lot of time with the grandkids right now.",
       "textOneLine": "But, um, and just, you know, spend a lot of time with the grandkids right now.",
       "tokens": [
@@ -4613,22 +5018,16 @@
       "rawTextLength": 78
     },
     {
-      "id": 119,
-      "start": 392.76,
-      "end": 394.76,
-      "duration": 2.0,
-      "startFrame": 11783,
-      "endFrame": 11843,
-      "text": "Um, jump in if you see them.",
-      "textOneLine": "Um, jump in if you see them.",
+      "id": 136,
+      "start": 379.5,
+      "end": 380.5,
+      "duration": 1.0,
+      "startFrame": 11385,
+      "endFrame": 11415,
+      "text": "Um.",
+      "textOneLine": "Um.",
       "tokens": [
-        "um",
-        "jump",
-        "in",
-        "if",
-        "you",
-        "see",
-        "them"
+        "um"
       ],
       "topics": [],
       "topicScores": {},
@@ -4641,24 +5040,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 28
+      "rawTextLength": 3
     },
     {
-      "id": 120,
-      "start": 394.76,
-      "end": 396.76,
-      "duration": 2.0,
-      "startFrame": 11843,
-      "endFrame": 11903,
-      "text": "No, I think, yeah, you can.",
-      "textOneLine": "No, I think, yeah, you can.",
+      "id": 137,
+      "start": 380.5,
+      "end": 381.5,
+      "duration": 1.0,
+      "startFrame": 11415,
+      "endFrame": 11445,
+      "text": "Um.",
+      "textOneLine": "Um.",
       "tokens": [
-        "no",
-        "i",
-        "think",
-        "yeah",
-        "you",
-        "can"
+        "um"
       ],
       "topics": [],
       "topicScores": {},
@@ -4671,79 +5065,18 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 27
+      "rawTextLength": 3
     },
     {
-      "id": 121,
-      "start": 396.76,
-      "end": 398.76,
-      "duration": 2.0,
-      "startFrame": 11903,
-      "endFrame": 11963,
-      "text": "Yeah, I just have to sit right down.",
-      "textOneLine": "Yeah, I just have to sit right down.",
+      "id": 138,
+      "start": 381.5,
+      "end": 390.5,
+      "duration": 9.0,
+      "startFrame": 11445,
+      "endFrame": 11715,
+      "text": "I told you I need to have more.",
+      "textOneLine": "I told you I need to have more.",
       "tokens": [
-        "yeah",
-        "i",
-        "just",
-        "have",
-        "to",
-        "sit",
-        "right",
-        "down"
-      ],
-      "topics": [],
-      "topicScores": {},
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 36
-    },
-    {
-      "id": 122,
-      "start": 398.76,
-      "end": 401.76,
-      "duration": 3.0,
-      "startFrame": 11963,
-      "endFrame": 12053,
-      "text": "Um, let's see.",
-      "textOneLine": "Um, let's see.",
-      "tokens": [
-        "um",
-        "let",
-        "s",
-        "see"
-      ],
-      "topics": [],
-      "topicScores": {},
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 14
-    },
-    {
-      "id": 123,
-      "start": 401.76,
-      "end": 404.76,
-      "duration": 3.0,
-      "startFrame": 12053,
-      "endFrame": 12143,
-      "text": "Um, I told you I need to have more.",
-      "textOneLine": "Um, I told you I need to have more.",
-      "tokens": [
-        "um",
         "i",
         "told",
         "you",
@@ -4764,15 +5097,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 35
+      "rawTextLength": 31
     },
     {
-      "id": 124,
-      "start": 404.76,
-      "end": 410.76,
+      "id": 139,
+      "start": 390.5,
+      "end": 396.5,
       "duration": 6.0,
-      "startFrame": 12143,
-      "endFrame": 12323,
+      "startFrame": 11715,
+      "endFrame": 11895,
       "text": "Um, what, uh, um, what's your, do you have a message for him?",
       "textOneLine": "Um, what, uh, um, what's your, do you have a message for him?",
       "tokens": [
@@ -4807,17 +5140,40 @@
       "rawTextLength": 61
     },
     {
-      "id": 125,
-      "start": 410.76,
-      "end": 414.76,
-      "duration": 4.0,
-      "startFrame": 12323,
-      "endFrame": 12443,
-      "text": "Yeah, um, if you want to do like, I had everyone do like a while away.",
-      "textOneLine": "Yeah, um, if you want to do like, I had everyone do like a while away.",
+      "id": 140,
+      "start": 396.5,
+      "end": 397.5,
+      "duration": 1.0,
+      "startFrame": 11895,
+      "endFrame": 11925,
+      "text": "Yeah.",
+      "textOneLine": "Yeah.",
       "tokens": [
-        "yeah",
-        "um",
+        "yeah"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 5
+    },
+    {
+      "id": 141,
+      "start": 397.5,
+      "end": 400.5,
+      "duration": 3.0,
+      "startFrame": 11925,
+      "endFrame": 12015,
+      "text": "If you want to do like, I had everyone do like a while away.",
+      "textOneLine": "If you want to do like, I had everyone do like a while away.",
+      "tokens": [
         "if",
         "you",
         "want",
@@ -4844,17 +5200,17 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 70
+      "rawTextLength": 60
     },
     {
-      "id": 126,
-      "start": 414.76,
-      "end": 417.76,
+      "id": 142,
+      "start": 400.5,
+      "end": 403.5,
       "duration": 3.0,
-      "startFrame": 12443,
-      "endFrame": 12533,
-      "text": "So if you want to do this part and like look at the camera and you're feel free to look",
-      "textOneLine": "So if you want to do this part and like look at the camera and you're feel free to look",
+      "startFrame": 12015,
+      "endFrame": 12105,
+      "text": "So if you want to do this part and I look at the camera and you're feel free to look",
+      "textOneLine": "So if you want to do this part and I look at the camera and you're feel free to look",
       "tokens": [
         "so",
         "if",
@@ -4865,7 +5221,7 @@
         "this",
         "part",
         "and",
-        "like",
+        "i",
         "look",
         "at",
         "the",
@@ -4889,15 +5245,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 87
+      "rawTextLength": 84
     },
     {
-      "id": 127,
-      "start": 417.76,
-      "end": 419.76,
-      "duration": 2.0,
-      "startFrame": 12533,
-      "endFrame": 12593,
+      "id": 143,
+      "start": 403.5,
+      "end": 404.5,
+      "duration": 1.0,
+      "startFrame": 12105,
+      "endFrame": 12135,
       "text": "at the camera during this part.",
       "textOneLine": "at the camera during this part.",
       "tokens": [
@@ -4922,12 +5278,12 @@
       "rawTextLength": 31
     },
     {
-      "id": 128,
-      "start": 419.76,
-      "end": 422.76,
-      "duration": 3.0,
-      "startFrame": 12593,
-      "endFrame": 12683,
+      "id": 144,
+      "start": 404.5,
+      "end": 408.5,
+      "duration": 4.0,
+      "startFrame": 12135,
+      "endFrame": 12255,
       "text": "Well, I was just going to tell him that, um, same thing.",
       "textOneLine": "Well, I was just going to tell him that, um, same thing.",
       "tokens": [
@@ -4958,14 +5314,14 @@
       "rawTextLength": 56
     },
     {
-      "id": 129,
-      "start": 422.76,
-      "end": 426.76,
+      "id": 145,
+      "start": 408.5,
+      "end": 412.5,
       "duration": 4.0,
-      "startFrame": 12683,
-      "endFrame": 12803,
-      "text": "I just basically said to you that I'm looking forward to, you know,",
-      "textOneLine": "I just basically said to you that I'm looking forward to, you know,",
+      "startFrame": 12255,
+      "endFrame": 12375,
+      "text": "I just basically said to you that I'm looking forward to him.",
+      "textOneLine": "I just basically said to you that I'm looking forward to him.",
       "tokens": [
         "i",
         "just",
@@ -4979,8 +5335,7 @@
         "looking",
         "forward",
         "to",
-        "you",
-        "know"
+        "him"
       ],
       "topics": [],
       "topicScores": {},
@@ -4995,15 +5350,15 @@
       "sfxHints": [
         "tech"
       ],
-      "rawTextLength": 67
+      "rawTextLength": 61
     },
     {
-      "id": 130,
-      "start": 426.76,
-      "end": 429.76,
-      "duration": 3.0,
-      "startFrame": 12803,
-      "endFrame": 12893,
+      "id": 146,
+      "start": 412.5,
+      "end": 414.5,
+      "duration": 2.0,
+      "startFrame": 12375,
+      "endFrame": 12435,
       "text": "I'm really excited about this new chapter.",
       "textOneLine": "I'm really excited about this new chapter.",
       "tokens": [
@@ -5030,20 +5385,20 @@
       "rawTextLength": 42
     },
     {
-      "id": 131,
-      "start": 429.76,
-      "end": 433.76,
+      "id": 147,
+      "start": 414.5,
+      "end": 418.5,
       "duration": 4.0,
-      "startFrame": 12893,
-      "endFrame": 13013,
-      "text": "I'm going to take on and, um, I love you.",
-      "textOneLine": "I'm going to take on and, um, I love you.",
+      "startFrame": 12435,
+      "endFrame": 12555,
+      "text": "I'm going to tape on and, um, I love you.",
+      "textOneLine": "I'm going to tape on and, um, I love you.",
       "tokens": [
         "i",
         "m",
         "going",
         "to",
-        "take",
+        "tape",
         "on",
         "and",
         "um",
@@ -5078,12 +5433,12 @@
       "rawTextLength": 41
     },
     {
-      "id": 132,
-      "start": 433.76,
-      "end": 434.76,
+      "id": 148,
+      "start": 418.5,
+      "end": 419.5,
       "duration": 1.0,
-      "startFrame": 13013,
-      "endFrame": 13043,
+      "startFrame": 12555,
+      "endFrame": 12585,
       "text": "What do you think?",
       "textOneLine": "What do you think?",
       "tokens": [
@@ -5108,12 +5463,12 @@
       "rawTextLength": 18
     },
     {
-      "id": 133,
-      "start": 434.76,
-      "end": 436.76,
+      "id": 149,
+      "start": 419.5,
+      "end": 421.5,
       "duration": 2.0,
-      "startFrame": 13043,
-      "endFrame": 13103,
+      "startFrame": 12585,
+      "endFrame": 12645,
       "text": "You think you've got some good stuff?",
       "textOneLine": "You think you've got some good stuff?",
       "tokens": [
@@ -5142,12 +5497,12 @@
       "rawTextLength": 37
     },
     {
-      "id": 134,
-      "start": 436.76,
-      "end": 437.76,
+      "id": 150,
+      "start": 421.5,
+      "end": 422.5,
       "duration": 1.0,
-      "startFrame": 13103,
-      "endFrame": 13133,
+      "startFrame": 12645,
+      "endFrame": 12675,
       "text": "Yes.",
       "textOneLine": "Yes.",
       "tokens": [
@@ -5167,17 +5522,20 @@
       "rawTextLength": 4
     },
     {
-      "id": 135,
-      "start": 437.76,
-      "end": 439.76,
+      "id": 151,
+      "start": 422.5,
+      "end": 424.5,
       "duration": 2.0,
-      "startFrame": 13133,
-      "endFrame": 13193,
-      "text": "I think a lot.",
-      "textOneLine": "I think a lot.",
+      "startFrame": 12675,
+      "endFrame": 12735,
+      "text": "I think I've got a lot.",
+      "textOneLine": "I think I've got a lot.",
       "tokens": [
         "i",
         "think",
+        "i",
+        "ve",
+        "got",
         "a",
         "lot"
       ],
@@ -5192,19 +5550,43 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 14
+      "rawTextLength": 23
     },
     {
-      "id": 136,
-      "start": 439.76,
-      "end": 442.76,
-      "duration": 3.0,
-      "startFrame": 13193,
-      "endFrame": 13283,
-      "text": "Yeah, I'm excited to see how this turns out.",
-      "textOneLine": "Yeah, I'm excited to see how this turns out.",
+      "id": 152,
+      "start": 424.5,
+      "end": 425.5,
+      "duration": 1.0,
+      "startFrame": 12735,
+      "endFrame": 12765,
+      "text": "Yeah.",
+      "textOneLine": "Yeah.",
       "tokens": [
-        "yeah",
+        "yeah"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 5
+    },
+    {
+      "id": 153,
+      "start": 425.5,
+      "end": 427.5,
+      "duration": 2.0,
+      "startFrame": 12765,
+      "endFrame": 12825,
+      "text": "I'm excited to see how this turns out.",
+      "textOneLine": "I'm excited to see how this turns out.",
+      "tokens": [
         "i",
         "m",
         "excited",
@@ -5226,15 +5608,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 44
+      "rawTextLength": 38
     },
     {
-      "id": 137,
-      "start": 442.76,
-      "end": 444.76,
+      "id": 154,
+      "start": 427.5,
+      "end": 429.5,
       "duration": 2.0,
-      "startFrame": 13283,
-      "endFrame": 13343,
+      "startFrame": 12825,
+      "endFrame": 12885,
       "text": "I didn't, you know, see the other interviews and stuff.",
       "textOneLine": "I didn't, you know, see the other interviews and stuff.",
       "tokens": [
@@ -5264,14 +5646,14 @@
       "rawTextLength": 55
     },
     {
-      "id": 138,
-      "start": 444.76,
-      "end": 449.76,
+      "id": 155,
+      "start": 429.5,
+      "end": 434.5,
       "duration": 5.0,
-      "startFrame": 13343,
-      "endFrame": 13493,
-      "text": "But, but I think, and Jim and Bart really enjoyed, you know, Jim.",
-      "textOneLine": "But, but I think, and Jim and Bart really enjoyed, you know, Jim.",
+      "startFrame": 12885,
+      "endFrame": 13035,
+      "text": "But, but I think, and Jim and Barb and all really enjoyed, you know.",
+      "textOneLine": "But, but I think, and Jim and Barb and all really enjoyed, you know.",
       "tokens": [
         "but",
         "but",
@@ -5280,12 +5662,13 @@
         "and",
         "jim",
         "and",
-        "bart",
+        "barb",
+        "and",
+        "all",
         "really",
         "enjoyed",
         "you",
-        "know",
-        "jim"
+        "know"
       ],
       "topics": [],
       "topicScores": {},
@@ -5300,19 +5683,19 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 65
+      "rawTextLength": 68
     },
     {
-      "id": 139,
-      "start": 449.76,
-      "end": 450.76,
+      "id": 156,
+      "start": 434.5,
+      "end": 435.5,
       "duration": 1.0,
-      "startFrame": 13493,
-      "endFrame": 13523,
-      "text": "Difficult.",
-      "textOneLine": "Difficult.",
+      "startFrame": 13035,
+      "endFrame": 13065,
+      "text": "Jim?",
+      "textOneLine": "Jim?",
       "tokens": [
-        "difficult"
+        "jim"
       ],
       "topics": [],
       "topicScores": {},
@@ -5324,20 +5707,50 @@
       "ctaTriggers": [],
       "motionCandidates": [],
       "parallaxEligible": false,
-      "sfxHints": [],
+      "sfxHints": [
+        "question"
+      ],
+      "rawTextLength": 4
+    },
+    {
+      "id": 157,
+      "start": 435.5,
+      "end": 436.5,
+      "duration": 1.0,
+      "startFrame": 13065,
+      "endFrame": 13095,
+      "text": "Did he go?",
+      "textOneLine": "Did he go?",
+      "tokens": [
+        "did",
+        "he",
+        "go"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [
+        "question"
+      ],
       "rawTextLength": 10
     },
     {
-      "id": 140,
-      "start": 450.76,
-      "end": 451.76,
+      "id": 158,
+      "start": 436.5,
+      "end": 437.5,
       "duration": 1.0,
-      "startFrame": 13523,
-      "endFrame": 13553,
-      "text": "No, no, no, no.",
-      "textOneLine": "No, no, no, no.",
+      "startFrame": 13095,
+      "endFrame": 13125,
+      "text": "No, no, no.",
+      "textOneLine": "No, no, no.",
       "tokens": [
-        "no",
         "no",
         "no",
         "no"
@@ -5353,25 +5766,22 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 15
+      "rawTextLength": 11
     },
     {
-      "id": 141,
-      "start": 451.76,
-      "end": 453.76,
-      "duration": 2.0,
-      "startFrame": 13553,
-      "endFrame": 13613,
-      "text": "No, he actually, he was pretty impressed.",
-      "textOneLine": "No, he actually, he was pretty impressed.",
+      "id": 159,
+      "start": 437.5,
+      "end": 438.5,
+      "duration": 1.0,
+      "startFrame": 13125,
+      "endFrame": 13155,
+      "text": "He was pretty excited.",
+      "textOneLine": "He was pretty excited.",
       "tokens": [
-        "no",
-        "he",
-        "actually",
         "he",
         "was",
         "pretty",
-        "impressed"
+        "excited"
       ],
       "topics": [],
       "topicScores": {},
@@ -5384,15 +5794,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 41
+      "rawTextLength": 22
     },
     {
-      "id": 142,
-      "start": 453.76,
-      "end": 454.76,
+      "id": 160,
+      "start": 438.5,
+      "end": 439.5,
       "duration": 1.0,
-      "startFrame": 13613,
-      "endFrame": 13643,
+      "startFrame": 13155,
+      "endFrame": 13185,
       "text": "I know.",
       "textOneLine": "I know.",
       "tokens": [
@@ -5413,18 +5823,19 @@
       "rawTextLength": 7
     },
     {
-      "id": 143,
-      "start": 454.76,
-      "end": 455.76,
+      "id": 161,
+      "start": 439.5,
+      "end": 440.5,
       "duration": 1.0,
-      "startFrame": 13643,
-      "endFrame": 13673,
-      "text": "That's just so funny.",
-      "textOneLine": "That's just so funny.",
+      "startFrame": 13185,
+      "endFrame": 13215,
+      "text": "That's what's so funny.",
+      "textOneLine": "That's what's so funny.",
       "tokens": [
         "that",
         "s",
-        "just",
+        "what",
+        "s",
         "so",
         "funny"
       ],
@@ -5439,15 +5850,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 21
+      "rawTextLength": 23
     },
     {
-      "id": 144,
-      "start": 455.76,
-      "end": 456.76,
+      "id": 162,
+      "start": 440.5,
+      "end": 441.5,
       "duration": 1.0,
-      "startFrame": 13673,
-      "endFrame": 13703,
+      "startFrame": 13215,
+      "endFrame": 13245,
       "text": "He talks about the meeting.",
       "textOneLine": "He talks about the meeting.",
       "tokens": [
@@ -5484,8 +5895,8 @@
     }
   ],
   "summary": {
-    "totalSegments": 144,
-    "estimatedDurationSeconds": 456.76,
+    "totalSegments": 162,
+    "estimatedDurationSeconds": 441.5,
     "highlightSegments": 0,
     "ctaSegments": 0,
     "motionFrequencyConfig": 0.45,
@@ -5493,34 +5904,34 @@
     "topTopics": [
       {
         "topic": "creativity",
-        "count": 22
+        "count": 23
       },
       {
         "topic": "teamwork",
-        "count": 22
+        "count": 23
       },
       {
         "topic": "ideas",
         "count": 21
       },
       {
-        "topic": "innovation",
-        "count": 18
-      },
-      {
         "topic": "ai",
         "count": 17
       },
       {
-        "topic": "robotics",
-        "count": 16
+        "topic": "innovation",
+        "count": 17
       },
       {
-        "topic": "analytics",
-        "count": 9
+        "topic": "robotics",
+        "count": 15
       },
       {
         "topic": "business",
+        "count": 10
+      },
+      {
+        "topic": "analytics",
         "count": 9
       }
     ]

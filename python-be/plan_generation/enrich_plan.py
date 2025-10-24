@@ -22,7 +22,7 @@ import argparse
 import json
 import math
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 import re
 from pathlib import Path
@@ -537,7 +537,7 @@ def ensure_broll_from_highlights(
                 return segment
         return None
 
-    assigned_ids: set[str] = set()
+    assigned_counts: defaultdict[str, int] = defaultdict(int)
 
     for highlight in highlights:
         start = highlight.get("start")
@@ -556,24 +556,34 @@ def ensure_broll_from_highlights(
             continue
 
         broll_id = match_broll_id(full_text)
-        if not broll_id or broll_id in assigned_ids:
+        if not broll_id:
+            continue
+        if assigned_counts[broll_id] >= MAX_BROLL_REUSE:
             continue
 
         item = catalog_items.get(broll_id)
         if not item:
             continue
+        mode = "full" if item.get("id") in BROLL_FULL_IDS else "overlay"
+        reasons = BROLL_REASONS.get(item.get("id")) or ["Highlight keyword match"]
 
         segment["broll"] = {
             "id": item.get("id"),
             "file": item.get("file"),
-            "mode": "overlay",
-            "confidence": 2.0,
-            "reasons": ["Highlight keyword match"],
+            "mode": mode,
+            "confidence": 3.0 if mode == "full" else 2.0,
+            "reasons": reasons,
         }
-        segment.setdefault("notes", []).append(
-            f"B-roll injected via highlight keyword: {item.get('id')}"
-        )
-        assigned_ids.add(broll_id)
+        notes = [
+            note
+            for note in segment.get("notes", [])
+            if not note.lower().startswith("no b-roll match")
+        ]
+        note_text = BROLL_NOTES.get(item.get("id")) or f"B-roll injected via highlight keyword: {item.get('id')}"
+        if note_text not in notes:
+            notes.append(note_text)
+        segment["notes"] = notes
+        assigned_counts[broll_id] += 1
 
 
 def ensure_motion_from_highlights(
@@ -600,16 +610,16 @@ def ensure_motion_from_highlights(
     assigned = sum(1 for segment in segments if segment.get("motionCue"))
 
     for highlight in highlights:
-        if assigned >= max_motions:
-            break
-
         start = highlight.get("start")
         if not isinstance(start, (int, float)):
             continue
 
         segment = locate_segment(start)
-        if not segment or segment.get("motionCue"):
+        if not segment:
             continue
+        existing_cue = segment.get("motionCue")
+        if assigned >= max_motions and not existing_cue:
+            break
 
         text_parts = [highlight.get("keyword") or ""]
         supporting = highlight.get("supportingTexts") or {}
@@ -617,7 +627,12 @@ def ensure_motion_from_highlights(
         combined_text = " ".join(filter(None, text_parts)).lower()
 
         motion: Optional[str] = None
+        animation_hint = (highlight.get("animation") or "").lower()
         if highlight.get("importance") == "primary" or any(ch.isdigit() for ch in combined_text):
+            motion = "zoomIn"
+        elif any(keyword in combined_text for keyword in MOTION_ZOOM_IN_KEYWORDS):
+            motion = "zoomIn"
+        elif animation_hint in MOTION_ANIMATION_HINTS:
             motion = "zoomIn"
         elif any(word in combined_text for word in motion_rules.get("zoom_out_keywords", [])):
             motion = "zoomOut"
@@ -628,10 +643,101 @@ def ensure_motion_from_highlights(
 
         if not motion:
             continue
+        if existing_cue:
+            if existing_cue == motion:
+                continue
+            if not (motion == "zoomIn" and existing_cue in {"zoomOut", "static"}):
+                continue
 
+        notes = [
+            note
+            for note in segment.get("notes", [])
+            if not note.lower().startswith("motion cue assigned")
+        ]
+        description = (
+            highlight.get("text")
+            or highlight.get("keyword")
+            or highlight.get("title")
+            or ""
+        ).strip()
+        if description:
+            note_text = f"Motion cue: {motion} to emphasise \"{description}\"."
+        else:
+            note_text = f"Motion cue: {motion} derived from highlight context."
+        if note_text not in notes:
+            notes.append(note_text)
+        segment["notes"] = notes
         segment["motionCue"] = motion
-        segment.setdefault("notes", []).append(f"Motion cue injected from highlight: {motion}")
-        assigned += 1
+        if not existing_cue:
+            assigned += 1
+
+
+def ensure_highlight_sfx(
+    plan: Dict[str, Any],
+    sfx_catalog: Dict[str, Any] | None,
+) -> None:
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    available: set[str] = set()
+    if sfx_catalog:
+        for item in sfx_catalog.get("items", []):
+            if not isinstance(item, dict):
+                continue
+            path = item.get("file") or item.get("id")
+            if isinstance(path, str):
+                available.add(path.lower())
+
+    for highlight in highlights:
+        if highlight.get("sfx"):
+            continue
+
+        text_parts = [
+            highlight.get("text"),
+            highlight.get("keyword"),
+            highlight.get("title"),
+        ]
+        combined = " ".join(filter(None, text_parts)).lower()
+        if not combined:
+            continue
+
+        for rule in HIGHLIGHT_SFX_RULES:
+            if any(keyword in combined for keyword in rule["keywords"]):
+                sfx_path = rule["sfx"]
+                if available and sfx_path.lower() not in available:
+                    continue
+                highlight["sfx"] = sfx_path
+                highlight["gain"] = rule.get("gain", -3.0)
+                metadata = highlight.setdefault("metadata", {})
+                if isinstance(metadata, dict):
+                    metadata.setdefault("audio", "auto")
+                break
+
+
+def trim_highlights_to_segments(plan: Dict[str, Any], margin: float = 0.25) -> None:
+    segments = plan.get("segments", [])
+    highlights = plan.get("highlights", [])
+    if not segments or not highlights:
+        return
+
+    latest_end = 0.0
+    for segment in segments:
+        try:
+            start = float(segment.get("sourceStart", 0.0))
+            duration = float(segment.get("duration", 0.0))
+        except (TypeError, ValueError):
+            continue
+        latest_end = max(latest_end, start + max(0.0, duration))
+
+    cutoff = latest_end + margin
+    trimmed = [
+        highlight
+        for highlight in highlights
+        if isinstance(highlight.get("start"), (int, float)) and highlight["start"] <= cutoff
+    ]
+    trimmed.sort(key=lambda item: item.get("start", 0.0))
+    plan["highlights"] = trimmed
 def augment_highlights_from_catalog(
     plan: Dict[str, Any],
     catalog: Dict[str, Any],
@@ -812,6 +918,9 @@ def augment_highlights_from_srt(
         if any(overlap_seconds(start, start + duration, existing, existing + (h.get('duration') or 0.0)) > 0.0 for existing, h in zip(existing_starts, highlights)):
             continue
 
+        raw_text = entry['text']
+        text_lower = raw_text.lower()
+
         # Check for phrases to blacklist
         if any(phrase in text_lower for phrase in BLACKLIST_PHRASES):
             continue
@@ -819,7 +928,6 @@ def augment_highlights_from_srt(
         if start < 0.6:
             continue
 
-        raw_text = entry['text']
         clean = re.sub(r"[^A-Za-z0-9\s'%-]", " ", raw_text)
         words = [w for w in clean.split() if w]
         if not words:
@@ -829,7 +937,6 @@ def augment_highlights_from_srt(
         if normalized_sentence in recent_phrases:
             continue
         recent_phrases.add(normalized_sentence)
-        text_lower = raw_text.lower()
 
         override = build_highlight_override(entry, text_lower, start, duration)
         if override:
@@ -839,13 +946,13 @@ def augment_highlights_from_srt(
             bottom_cooldown = 0
             side_toggle = False
             continue
-            continue
 
         contains_number = any(any(ch.isdigit() for ch in token) for token in words)
         contains_question = '?' in raw_text
 
         full_phrase = normalize_phrase(words, max_words=min(8, len(words)), max_chars=52)
         primary_text = normalize_phrase(words, max_words=4, max_chars=36)
+        focus_phrase = focus_tokens(words)
 
         left_words, right_words = split_words_for_supporting(words)
         left_text = normalize_phrase(left_words, max_words=4, max_chars=32)
@@ -877,31 +984,34 @@ def augment_highlights_from_srt(
         }
 
         if should_bottom:
+            focus_text = focus_phrase or focus_from_text(full_phrase)
             highlight.update(
                 {
                     'layout': 'bottom',
                     'importance': 'primary',
                     'position': 'bottom',
                     'side': 'bottom',
-                    'text': full_phrase,
-                    'keyword': full_phrase,
+                    'text': focus_text,
+                    'keyword': focus_text,
                 }
             )
             bottom_cooldown = 0
         else:
+            primary_focus = focus_from_text(primary_text) or focus_phrase or focus_from_text(full_phrase)
             highlight['importance'] = 'supporting'
             highlight['position'] = 'top'
-            highlight['keyword'] = primary_text
+            highlight['keyword'] = primary_focus
 
             if right_text:
-                supporting['topLeft'] = left_text
-                supporting['topRight'] = right_text
+                supporting['topLeft'] = focus_from_text(left_text) or left_text.upper()
+                supporting['topRight'] = focus_from_text(right_text) or right_text.upper()
                 highlight['supportingTexts'] = supporting
                 highlight['layout'] = 'dual'
                 highlight.pop('side', None)
             else:
+                left_focus = focus_from_text(left_text) or left_text.upper()
                 supporting_key = 'topLeft' if not side_toggle else 'topRight'
-                supporting[supporting_key] = left_text
+                supporting[supporting_key] = left_focus
                 highlight['supportingTexts'] = supporting
                 highlight['layout'] = 'left' if not side_toggle else 'right'
                 highlight['side'] = 'left' if not side_toggle else 'right'
@@ -918,11 +1028,131 @@ def augment_highlights_from_srt(
 
     return injected
 BROLL_RULES: List[Tuple[set[str], str]] = [
-    (set(["immune", "immune system", "autoimmune", "cells", "antibody"]), "digital_brain"),
-    (set(["virus", "epstein", "barr", "infection", "mono"]), "digital_network"),
-    (set(["study", "data", "million", "years", "research", "analysis"]), "data_analysis"),
-    (set(["treatment", "therapy", "medicine", "care"]), "education_training"),
+    # Legacy immune-system mappings
+    ({"immune", "immune system", "autoimmune", "cells", "antibody"}, "digital_brain"),
+    ({"virus", "epstein", "barr", "infection", "mono"}, "digital_network"),
+    ({"study", "data", "million", "years", "research", "analysis"}, "data_analysis"),
+    ({"treatment", "therapy", "medicine", "care"}, "education_training"),
+    # Digital marketing mappings
+    ({"digital marketing", "marketing", "online marketing"}, "marketing_automation"),
+    ({"strategy", "tactics", "plan", "framework"}, "business_strategy"),
+    ({"seo", "search engine optimization"}, "data_visualization"),
+    ({"social media", "facebook", "instagram", "linkedin"}, "digital_network"),
+    ({"ppc", "paid ads", "google ads"}, "data_visualization"),
+    ({"email marketing", "email campaigns"}, "digital_network"),
+    ({"web optimization", "website", "landing page"}, "digital_transformation"),
+    ({"audience", "segmentation", "target", "customer"}, "ai_brain"),
+    ({"learning", "education", "course", "training"}, "education_training"),
+    ({"career", "job", "growth", "specialise"}, "modern_office"),
+    ({"credibility", "authority", "expert"}, "innovation_lightbulb"),
+    ({"content", "blog", "video", "post"}, "digital_network"),
+    ({"organic", "paid", "promotion"}, "data_visualization"),
+    ({"brand awareness", "direct response"}, "business_strategy"),
+    ({"products", "services"}, "modern_office"),
+    ({"b2b", "b2c", "business to business", "business to consumer"}, "business_strategy"),
+    # Interview / testimonial mappings
+    ({"loyal", "loyalty", "loyal clients"}, "handshake_success"),
+    ({"sweet", "honest", "heartwarming"}, "celebration_success"),
+    ({"favorite memory", "favourite memory", "memory"}, "celebration_success"),
+    ({"high school", "sweetheart", "sweethearts"}, "training_workshop"),
+    ({"clientele", "clients", "client"}, "teamwork_meeting"),
+    ({"partnership", "still with", "day one"}, "modern_office"),
+    ({"relationship", "relationships", "friendships"}, "startup_team"),
+    ({"consistency", "consistent"}, "office_motion"),
 ]
+
+BROLL_NOTES = {
+    "handshake_success": "B-roll: handshake_success underscores loyalty anecdote.",
+    "celebration_success": "B-roll: celebration_success adds warmth during character description.",
+    "training_workshop": "B-roll: training_workshop illustrates the high-school group setup.",
+    "teamwork_meeting": "B-roll: teamwork_meeting spotlights established clientele.",
+    "modern_office": "B-roll: modern_office reinforces lasting client partnership.",
+    "startup_team": "B-roll: startup_team reinforces loyal client friendships.",
+    "office_motion": "B-roll: office_motion underscores consistent client relationships.",
+}
+
+BROLL_REASONS = {
+    "handshake_success": ["Handshake moment reinforces loyalty description."],
+    "celebration_success": ["Celebration visual supports the heartfelt moment."],
+    "training_workshop": ["Group setting mirrors the meeting story energy."],
+    "teamwork_meeting": ["Team huddle echoes long-term client relationships."],
+    "modern_office": ["Modern office still pairs with enduring partnerships."],
+    "startup_team": ["Collaborative workspace visualises loyal friendships with clients."],
+    "office_motion": ["Office walkthrough mirrors consistent client presence."],
+}
+
+BROLL_FULL_IDS = {
+    "handshake_success",
+    "celebration_success",
+    "training_workshop",
+    "teamwork_meeting",
+    "modern_office",
+    "startup_team",
+    "office_motion",
+}
+
+MAX_BROLL_REUSE = 2
+
+
+MOTION_ZOOM_IN_KEYWORDS = {
+    "loyal",
+    "loyalty",
+    "sweet",
+    "honest",
+    "memory",
+    "favorite memory",
+    "favourite memory",
+    "sweetheart",
+    "sweethearts",
+    "clientele",
+    "client",
+    "clients",
+    "relationship",
+    "relationships",
+    "consistency",
+    "consistent",
+}
+
+MOTION_ANIMATION_HINTS = {"zoom", "pulse", "bounce", "fade"}
+
+
+HIGHLIGHT_SFX_RULES = [
+    {"keywords": {"sweet", "honest"}, "sfx": "assets/sfx/emotion/applause.mp3", "gain": -2.5},
+    {"keywords": {"high school", "sweetheart", "sweethearts"}, "sfx": "assets/sfx/ui/pop.mp3", "gain": -2.5},
+    {"keywords": {"clientele", "client", "clients"}, "sfx": "assets/sfx/ui/pop.mp3", "gain": -2.5},
+    {"keywords": {"loyalty", "day one"}, "sfx": "assets/sfx/emphasis/ding.mp3", "gain": -2.5},
+    {"keywords": {"relationship", "relationships"}, "sfx": "assets/sfx/ui/bubble-pop.mp3", "gain": -3.0},
+    {"keywords": {"consistency", "consistent"}, "sfx": "assets/sfx/emphasis/ding.mp3", "gain": -3.0},
+]
+
+
+def focus_tokens(tokens: List[str], max_tokens: int = 3) -> str:
+    selected: List[str] = []
+    for token in tokens:
+        cleaned = re.sub(r"[^A-Za-z0-9']+", "", token)
+        if not cleaned:
+            continue
+        lower = cleaned.lower()
+        if lower in STOP_WORDS and selected:
+            continue
+        if lower in STOP_WORDS and not selected:
+            continue
+        selected.append(cleaned.upper())
+        if len(selected) >= max_tokens:
+            break
+    if not selected:
+        for token in tokens:
+            cleaned = re.sub(r"[^A-Za-z0-9']+", "", token)
+            if cleaned:
+                selected.append(cleaned.upper())
+            if len(selected) >= max_tokens:
+                break
+    return " ".join(selected[:max_tokens])
+
+
+def focus_from_text(text: str, max_tokens: int = 3) -> str:
+    words = re.findall(r"[A-Za-z0-9']+", text or "")
+    return focus_tokens(words, max_tokens=max_tokens)
 
 
 def match_broll_id(text: str) -> Optional[str]:
@@ -1259,10 +1489,15 @@ def strip_non_section_sfx(plan: Dict[str, Any]) -> None:
     Removes sound effect metadata from non-section highlights to keep overlays subtle.
     """
     for highlight in plan.get('highlights', []):
-        if highlight.get('type') != 'sectionTitle':
-            highlight.pop('sfx', None)
-            highlight.pop('gain', None)
-            highlight.pop('ducking', None)
+        if highlight.get('type') == 'sectionTitle':
+            continue
+        metadata = highlight.get('metadata')
+        preserve = isinstance(metadata, dict) and metadata.get('audio') in {'auto', 'keep', 'accent'}
+        if preserve:
+            continue
+        highlight.pop('sfx', None)
+        highlight.pop('gain', None)
+        highlight.pop('ducking', None)
 
 
 # ---------------------------------------------------------------------------
@@ -1754,8 +1989,10 @@ def main(argv: List[str] | None = None) -> int:
                 f"[INFO] Injected {len(injected_srt)} SRT highlight(s) from {highlight_srt_path}"
             )
 
+    trim_highlights_to_segments(enriched_plan)
     ensure_broll_from_highlights(enriched_plan, broll_catalog)
     ensure_motion_from_highlights(enriched_plan, motion_rules)
+    ensure_highlight_sfx(enriched_plan, sfx_catalog)
     strip_non_section_sfx(enriched_plan)
 
     # Write the enriched plan to output

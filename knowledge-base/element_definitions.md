@@ -63,3 +63,9 @@ Respect layer priority to avoid stacking conflicts; only one dominant element pe
 - Use `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).
 - Populate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).
 - Record `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).
+
+## Automation Rule Updates
+
+- **Full-frame b-roll** – Every assigned `broll` clip now renders as a full-screen cover beneath overlays. Keep shot selection clear of critical on-screen action, because text overlays will always sit above this layer.
+- **Compressed highlight copy** – Generated `noteBox`/`text_overlay` content must be distilled to 1–3 uppercase keywords (primary nouns/verbs). Dual-column highlights should keep each side within this limit.
+- **Staggered overlays** – When both left/right supporting texts are present, the left column should appear a fraction earlier (≈0.2 s) to mirror the pacing demonstrated in Video 1.
