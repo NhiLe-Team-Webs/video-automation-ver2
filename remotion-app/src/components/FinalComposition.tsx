@@ -4,6 +4,7 @@ import {usePlan} from '../hooks/usePlan';
 import type {FinalCompositionProps, Plan} from '../types';
 import {BRAND, resolveRuntimeConfig} from '../config';
 import {HighlightsLayer} from './HighlightsLayer';
+import {BrollLayer} from './BrollLayer';
 import {SfxLayer} from './SfxLayer';
 import {VideoTimeline, buildTimelineMetadata} from './VideoTimeline';
 import type {TimelineSegment} from './timeline';
@@ -161,6 +162,10 @@ export const FinalComposition: React.FC<FinalCompositionProps> = ({
             />
           </Sequence>
 
+          <Sequence name="broll" durationInFrames={timelineMetadata.totalDurationInFrames}>
+            <BrollLayer plan={activePlan} timeline={timelineMetadata.timeline} fps={fps} />
+          </Sequence>
+
           <Sequence name="highlights" durationInFrames={timelineMetadata.totalDurationInFrames}>
             <HighlightsLayer highlights={sanitizedHighlights} fps={fps} theme={highlightTheme} />
           </Sequence>
@@ -176,40 +181,6 @@ export const FinalComposition: React.FC<FinalCompositionProps> = ({
         </AbsoluteFill>
       </AbsoluteFill>
 
-      <AbsoluteFill pointerEvents="none">
-        <div
-          style={{
-            position: 'absolute',
-            top: 42,
-            right: 56,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            padding: '12px 20px',
-            borderRadius: '999px',
-            background: BRAND.overlays.accentGradient,
-            boxShadow: '0 18px 48px rgba(200,16,46,0.35)',
-            border: `1px solid ${BRAND.overlays.glassBorder}`,
-            textTransform: 'uppercase',
-            letterSpacing: 2.4,
-            fontFamily: BRAND.fonts.heading,
-            fontWeight: 700,
-            fontSize: 22,
-          }}
-        >
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              background: BRAND.white,
-              clipPath: 'polygon(100% 0, 0 0, 100% 100%)',
-              opacity: 0.75,
-            }}
-          />
-          <span style={{color: BRAND.white}}>Crown</span>
-          <span style={{color: BRAND.lightGray}}>Mercado</span>
-        </div>
-      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
