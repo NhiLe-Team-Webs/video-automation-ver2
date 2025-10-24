@@ -5,6 +5,8 @@ import type {
   HighlightOverlay,
   HighlightPlan,
   HighlightPosition,
+  HighlightImportance,
+  HighlightLayout,
   HighlightSupportingTexts,
   HighlightType,
   IconAnimation,
@@ -433,6 +435,39 @@ const iconAnimationSchema: z.ZodType<IconAnimation | undefined, z.ZodTypeDef, un
  * Zod schema for `HighlightPlan`.
  * It ensures `type` defaults to 'noteBox' if not explicitly set.
  */
+const highlightLayoutSchema: z.ZodType<HighlightLayout | undefined, z.ZodTypeDef, unknown> = z
+  .string()
+  .optional()
+  .transform((value) => {
+    if (!value) {
+      return undefined;
+    }
+    const normalized = value.trim().toLowerCase();
+    switch (normalized) {
+      case 'left':
+      case 'right':
+      case 'dual':
+      case 'bottom':
+        return normalized as HighlightLayout;
+      default:
+        return undefined;
+    }
+  });
+
+const highlightImportanceSchema: z.ZodType<HighlightImportance | undefined, z.ZodTypeDef, unknown> =
+  z
+    .string()
+    .optional()
+    .transform((value) => {
+      if (!value) {
+        return undefined;
+      }
+      const normalized = value.trim().toLowerCase();
+      return normalized === 'primary' || normalized === 'supporting'
+        ? (normalized as HighlightImportance)
+        : undefined;
+    });
+
 const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof highlightTypeSchema> & z.input<typeof highlightPositionSchema> & z.input<typeof iconAnimationSchema> & {
   id: unknown;
   text?: unknown;
@@ -460,6 +495,8 @@ const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof
   overlay?: unknown;
   repeatEvery?: unknown;
   frequencyMultiplier?: unknown;
+  layout?: unknown;
+  importance?: unknown;
 }> = z
   .object({
     id: z.string(),
@@ -491,18 +528,25 @@ const highlightPlanSchema: z.ZodType<HighlightPlan, z.ZodTypeDef, z.input<typeof
     overlay: highlightOverlaySchema.optional(),
     repeatEvery: z.number().positive().optional(),
     frequencyMultiplier: z.number().positive().optional(),
+    layout: highlightLayoutSchema,
+    importance: highlightImportanceSchema,
   })
-  .transform((highlight) => ({
-    ...highlight,
-    type: highlight.type ?? 'noteBox', // Default highlight type
-    text: highlight.text ?? highlight.keyword ?? undefined,
-    supportingTexts:
-      highlight.supportingTexts && Object.keys(highlight.supportingTexts).length
-        ? highlight.supportingTexts
-        : undefined,
-    overlay:
-      highlight.overlay && Object.keys(highlight.overlay).length ? highlight.overlay : undefined,
-  }));
+  .transform((highlight) => {
+    const normalized = {
+      ...highlight,
+      type: highlight.type ?? 'noteBox',
+    };
+
+    if (!normalized.supportingTexts || !Object.keys(normalized.supportingTexts).length) {
+      normalized.supportingTexts = undefined;
+    }
+
+    if (!normalized.overlay || !Object.keys(normalized.overlay).length) {
+      normalized.overlay = undefined;
+    }
+
+    return normalized;
+  });
 
 /**
  * Zod schema for the main `Plan` object.

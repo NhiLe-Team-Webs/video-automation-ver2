@@ -133,6 +133,9 @@ export interface HighlightOverlay {
   blur?: number;
 }
 
+export type HighlightLayout = 'auto' | 'left' | 'right' | 'dual' | 'bottom';
+export type HighlightImportance = 'primary' | 'supporting';
+
 export interface HighlightPlan {
   /** A unique identifier for the highlight. */
   id: string;
@@ -186,6 +189,10 @@ export interface HighlightPlan {
   supportingTexts?: HighlightSupportingTexts;
   /** Optional overlay configuration for section cards or advanced layouts. */
   overlay?: HighlightOverlay;
+  /** Optional explicit layout for text rendering. */
+  layout?: HighlightLayout;
+  /** Optional semantic importance flag (primary -> bottom banner). */
+  importance?: HighlightImportance;
   /** Optional hint to repeat this highlight every N seconds. */
   repeatEvery?: number;
   /** Optional density multiplier for adaptive scheduling. */
