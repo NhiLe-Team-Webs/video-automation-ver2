@@ -178,11 +178,11 @@
     "start": 33.44,
     "end": 42.12,
     "duration": 8.68,
-    "text": "So in January 2022, a study came out where they followed 10 million people for 20 years,",
+    "text": "So in January 2022, a study came out where they followed 10 million people for 20 years.",
     "guideline_snippets": [
       "Changelog: All notable changes to the AI planning knowledge base will be documented in this file.",
       "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
-      "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores."
+      "Recurring Cues: Lists expand rather than reset, so design overlays that append items sequentially.\nCredibility signals (\"Forbes\", \"Inc\", \"Top 1%\") deserve combined overlay plus b-roll emphasis.\nFailure stories lean on darker-toned visuals and restrained SFX; resolve with lighter shots as tone lifts.\nRelationship-building advice pairs well with collaborative or networking imagery."
     ],
     "plan_elements": [],
     "encoded_features": {
@@ -191,7 +191,7 @@
     },
     "text_features": {
       "text_length": 88,
-      "sentence_count": 0,
+      "sentence_count": 1,
       "word_count": 17,
       "relative_position": 0.0,
       "has_keyword_t\u01b0\u01a1ng_lai": false,
@@ -205,9 +205,9 @@
   {
     "index": 8,
     "start": 42.12,
-    "end": 47.6,
-    "duration": 5.480000000000004,
-    "text": "and they found that Epstein-Barr virus, so mono, the kissing disease, increased the risk",
+    "end": 47.58,
+    "duration": 5.460000000000001,
+    "text": "And they found that Epstein-Barr virus, so mono, the kissing disease, increased the risk",
     "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
       "Layer & Timing Hygiene: Do not overlap full-screen overlays at the same timestamp; offset by at least 0.3 s or merge copy. *Rationale:* Respects the stack hierarchy defined in [element_definitions.md](element_definitions.md#layer-stack).\nWhen the `video` layer is active (b-roll), overlays may occupy full width; otherwise keep margins to protect speaker visibility. *Rationale:* Preserves essential facial expressions.\nEnd SFX before the next major beat and cap overlay visibility at 6-8 s unless the segment is static. *Rationale:* Aligns with [quality_criteria.md](quality_criteria.md#timing) to prevent lingering elements.",
@@ -228,14 +228,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.55
+      "speaking_rate_wps": 2.56
     }
   },
   {
     "index": 9,
-    "start": 47.6,
+    "start": 47.58,
     "end": 50.84,
-    "duration": 3.240000000000002,
+    "duration": 3.260000000000005,
     "text": "of multiple sclerosis by 32 times.",
     "guideline_snippets": [
       "Layer Integrity: Only one element per layer at any instant (exceptions: audio layer can stack ambience plus SFX if mix-tested).\nTransitions do not collide with overlays unless intentionally coordinated.",
@@ -257,7 +257,7 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.85
+      "speaking_rate_wps": 1.84
     }
   },
   {
@@ -408,8 +408,8 @@
   {
     "index": 15,
     "start": 71.84,
-    "end": 79.92,
-    "duration": 8.079999999999998,
+    "end": 79.94,
+    "duration": 8.099999999999994,
     "text": "So 10 million people, 20 years, 12 people in like a day.",
     "guideline_snippets": [
       "4. Model Strategy: Treat timestamp and duration predictions as regression; element presence and type as multi-label or multi-class classification.\nConsider hierarchical modelling: first detect whether an element occurs, then specialise by element family.\nExplore sequence-to-sequence or encoder-decoder approaches for generating ordered element lists.\nReserve capacity for generative text (for example, overlay copy) via template libraries or conditional generation models.",
@@ -431,14 +431,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.49
+      "speaking_rate_wps": 1.48
     }
   },
   {
     "index": 16,
-    "start": 79.92,
+    "start": 79.94,
     "end": 82.16,
-    "duration": 2.239999999999995,
+    "duration": 2.219999999999999,
     "text": "How did they do that?",
     "guideline_snippets": [
       "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script.",
@@ -460,7 +460,7 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.23
+      "speaking_rate_wps": 2.25
     }
   },
   {
@@ -814,8 +814,8 @@
   {
     "index": 29,
     "start": 140.8,
-    "end": 146.88,
-    "duration": 6.079999999999984,
+    "end": 146.92,
+    "duration": 6.119999999999976,
     "text": "And if we could decode the immune archive at scale, we could apply forensic immunology",
     "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
@@ -837,14 +837,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.47
+      "speaking_rate_wps": 2.45
     }
   },
   {
     "index": 30,
-    "start": 146.88,
+    "start": 146.92,
     "end": 150.64,
-    "duration": 3.759999999999991,
+    "duration": 3.719999999999999,
     "text": "to diseases where we don't yet know the cause.",
     "guideline_snippets": [
       "Usage: **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.\n**Validation**: Provides concrete test cases for validating the AI's output against known good examples.\n**Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.\nRefer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns.",
@@ -866,14 +866,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.39
+      "speaking_rate_wps": 2.42
     }
   },
   {
     "index": 31,
     "start": 150.64,
-    "end": 154.24,
-    "duration": 3.6000000000000227,
+    "end": 154.28,
+    "duration": 3.640000000000015,
     "text": "So that is exactly what my team aims to do.",
     "guideline_snippets": [
       "Usage Guidelines: **Match by Context Tags** - ensure each generated element includes `context` (see `element_schema.json`). Use it to query `context_rules.json` and retrieve permitted `broll` or `sfx` tags.\n**Validate Asset Availability** - before finalising a plan, confirm `description` or `sound` values map to existing `id`s in the relevant catalog; log fallback suggestions when no exact match is found.\n**Respect Motion Constraints** - defer to `motion_rules.json` for allowable sequences (for example, minimum 0.5 s spacing between identical zooms).\n**Enrich Training Examples** - augment training data with catalog metadata (for example, embed `mood` vectors) so the model learns to pick assets aligned with emotional tone.\n**Keep Catalogs Synced** - update version numbers and regeneration timestamps when assets change; propagate updates to downstream caches.",
@@ -895,15 +895,15 @@
       "has_keyword_ai": true
     },
     "audio_features": {
-      "speaking_rate_wps": 2.78
+      "speaking_rate_wps": 2.75
     }
   },
   {
     "index": 32,
-    "start": 154.24,
-    "end": 162.32,
-    "duration": 8.079999999999984,
-    "text": "And so I am thrilled to announce publicly, for the first time, Imprint, a forensic immunology",
+    "start": 154.28,
+    "end": 162.36,
+    "duration": 8.080000000000013,
+    "text": "And so I am thrilled to announce publicly for the first time, Imprint, a forensic immunology",
     "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
       "1. Audit Existing Data & Targets: Understand transcript structure, narration pace, and how timeline annotations map to speech.\nCatalogue every element attribute that must be predicted: `timestamp`, `duration`, `type`, `layer`, `content/description`, `style`, `animation`, `sound`, `action`, optional `context` and `confidence` (see [element_schema.json](element_schema.json)).\nConfirm ingestion coverage for both transcripts and JSON timelines; flag missing sections or inconsistent timestamps.",
@@ -915,7 +915,7 @@
       "avg_element_duration": 0.0
     },
     "text_features": {
-      "text_length": 93,
+      "text_length": 92,
       "sentence_count": 0,
       "word_count": 16,
       "relative_position": 0.0,
@@ -929,9 +929,9 @@
   },
   {
     "index": 33,
-    "start": 162.32,
+    "start": 162.36,
     "end": 168.36,
-    "duration": 6.0400000000000205,
+    "duration": 6.0,
     "text": "focused research organization, or FRO, building machine learning and experimental tools to",
     "guideline_snippets": [
       "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores.",
@@ -953,14 +953,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.99
+      "speaking_rate_wps": 2.0
     }
   },
   {
     "index": 34,
     "start": 168.36,
-    "end": 173.72,
-    "duration": 5.359999999999985,
+    "end": 173.52,
+    "duration": 5.159999999999997,
     "text": "identify the hidden causes of and cures for chronic disease.",
     "guideline_snippets": [
       "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
@@ -982,14 +982,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.87
+      "speaking_rate_wps": 1.94
     }
   },
   {
     "index": 35,
-    "start": 173.72,
+    "start": 173.52,
     "end": 179.6,
-    "duration": 5.8799999999999955,
+    "duration": 6.079999999999984,
     "text": "Currently, we are generously supported by Eric and Wendy Schmidt, Convergent Research,",
     "guideline_snippets": [
       "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
@@ -1011,7 +1011,7 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.04
+      "speaking_rate_wps": 1.97
     }
   },
   {
@@ -1046,13 +1046,13 @@
   {
     "index": 37,
     "start": 182.0,
-    "end": 189.76,
-    "duration": 7.759999999999991,
-    "text": "We're also, yeah, New York, right, and everything else, we're also going to apply these tools",
+    "end": 184.0,
+    "duration": 2.0,
+    "text": "We're also, yeah, New York, right?",
     "guideline_snippets": [
-      "Usage Guidance: Review `data_sources.md` to understand raw inputs and supporting catalogs.\nAlign feature engineering and targets using `training_pipeline.md`, `element_definitions.md`, and `element_schema.json`.\nDuring plan generation, enforce `planning_guidelines.md` and validate against `quality_criteria.md`.\nLeverage `asset_catalogs.md` alongside the JSON catalogs to ensure selected assets exist and honour motion rules.\nConsult `videos/` and `examples/` for grounded samples (positive and negative) before crafting prompts, labels, or rule-based validators.\nLog any documentation changes in `CHANGELOG.md` so training runs can reference the correct knowledge base version.",
-      "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores.",
-      "Integration Touchpoints: **Feature Engineering** - include catalog tags as additional inputs when predicting `description` or `sound`.\n**Inference** - post-process model outputs by selecting the closest matching `id` using cosine similarity between description embeddings and catalog tags.\n**Evaluation** - add assertions in `quality_criteria.md` to confirm selected assets exist and comply with `motion_rules.json`.\nRefer back to `knowledge-base/data_sources.md` for provenance and to `planning_guidelines.md` for contextual placement rules."
+      "Layer & Timing Hygiene: Do not overlap full-screen overlays at the same timestamp; offset by at least 0.3 s or merge copy. *Rationale:* Respects the stack hierarchy defined in [element_definitions.md](element_definitions.md#layer-stack).\nWhen the `video` layer is active (b-roll), overlays may occupy full width; otherwise keep margins to protect speaker visibility. *Rationale:* Preserves essential facial expressions.\nEnd SFX before the next major beat and cap overlay visibility at 6-8 s unless the segment is static. *Rationale:* Aligns with [quality_criteria.md](quality_criteria.md#timing) to prevent lingering elements.",
+      "Layer Integrity: Only one element per layer at any instant (exceptions: audio layer can stack ambience plus SFX if mix-tested).\nTransitions do not collide with overlays unless intentionally coordinated.",
+      "Recurring Cues: Lists expand rather than reset, so design overlays that append items sequentially.\nCredibility signals (\"Forbes\", \"Inc\", \"Top 1%\") deserve combined overlay plus b-roll emphasis.\nFailure stories lean on darker-toned visuals and restrained SFX; resolve with lighter shots as tone lifts.\nRelationship-building advice pairs well with collaborative or networking imagery."
     ],
     "plan_elements": [],
     "encoded_features": {
@@ -1060,28 +1060,28 @@
       "avg_element_duration": 0.0
     },
     "text_features": {
-      "text_length": 93,
-      "sentence_count": 0,
-      "word_count": 16,
+      "text_length": 34,
+      "sentence_count": 1,
+      "word_count": 6,
       "relative_position": 0.0,
       "has_keyword_t\u01b0\u01a1ng_lai": false,
       "has_keyword_c\u00f4ng_ngh\u1ec7": false,
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.06
+      "speaking_rate_wps": 3.0
     }
   },
   {
     "index": 38,
-    "start": 189.76,
-    "end": 196.04,
-    "duration": 6.280000000000001,
-    "text": "to intractable chronic diseases, particularly neurological and psychiatric disorders.",
+    "start": 184.0,
+    "end": 186.0,
+    "duration": 2.0,
+    "text": "And everything.",
     "guideline_snippets": [
-      "Usage: **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.\n**Validation**: Provides concrete test cases for validating the AI's output against known good examples.\n**Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.\nRefer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns.",
-      "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
-      "Purpose: The `patterns.json` file provides machine-readable examples that complement the qualitative descriptions in `patterns.md`. It helps the AI model learn:\n**Correct sequencing**: How elements like `text_overlay`, `broll`, and `sound_effect` should follow each other.\n**Contextual application**: When to use specific styles, animations, or sound effects based on the narrative context.\n**Constraint adherence**: Examples that demonstrate compliance with rules defined in `element_schema.json` and `motion_rules.json`."
+      "3. Feature Engineering: Transcript features: semantic vectors, sentence length, relative position within the video, keyword flags (for example, \"Part 1\", \"mistake\", \"option\").\nAudio/tempo proxies: estimate speaking rate via word counts per window.\nTimeline context: distance to previous/next elements, element type history, context tags (aligned to `context_rules.json`).\nStyle cues: reuse `context` labels to signal metaphors, comparisons, or emphasis needs.\nAsset compatibility: embed catalog metadata (for example, `tags`, `mood`, `intensity`) from `broll_catalog.json` and `sfx_catalog.json` for recommendation scoring.",
+      "7. Deployment Checklist: Package preprocessing scripts, model weights, `element_schema.json`, and inference pipeline.\nProvide fallbacks when confidence is low (for example, default overlays or prompts for manual review).\nLog predictions with timestamps and context for downstream auditing.",
+      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow."
     ],
     "plan_elements": [],
     "encoded_features": {
@@ -1089,23 +1089,81 @@
       "avg_element_duration": 0.0
     },
     "text_features": {
-      "text_length": 85,
+      "text_length": 15,
       "sentence_count": 1,
-      "word_count": 9,
+      "word_count": 2,
       "relative_position": 0.0,
       "has_keyword_t\u01b0\u01a1ng_lai": false,
       "has_keyword_c\u00f4ng_ngh\u1ec7": false,
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.43
+      "speaking_rate_wps": 1.0
     }
   },
   {
     "index": 39,
+    "start": 186.8,
+    "end": 192.4,
+    "duration": 5.599999999999994,
+    "text": "We're also going to apply these tools to intractable chronic diseases, particularly",
+    "guideline_snippets": [
+      "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
+      "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
+      "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores."
+    ],
+    "plan_elements": [],
+    "encoded_features": {
+      "num_elements": 0,
+      "avg_element_duration": 0.0
+    },
+    "text_features": {
+      "text_length": 83,
+      "sentence_count": 0,
+      "word_count": 12,
+      "relative_position": 0.0,
+      "has_keyword_t\u01b0\u01a1ng_lai": false,
+      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
+      "has_keyword_ai": false
+    },
+    "audio_features": {
+      "speaking_rate_wps": 2.14
+    }
+  },
+  {
+    "index": 40,
+    "start": 192.4,
+    "end": 196.04,
+    "duration": 3.6399999999999864,
+    "text": "neurological and psychiatric disorders.",
+    "guideline_snippets": [
+      "Usage: **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.\n**Validation**: Provides concrete test cases for validating the AI's output against known good examples.\n**Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.\nRefer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns.",
+      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
+      "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors."
+    ],
+    "plan_elements": [],
+    "encoded_features": {
+      "num_elements": 0,
+      "avg_element_duration": 0.0
+    },
+    "text_features": {
+      "text_length": 39,
+      "sentence_count": 1,
+      "word_count": 4,
+      "relative_position": 0.0,
+      "has_keyword_t\u01b0\u01a1ng_lai": false,
+      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
+      "has_keyword_ai": false
+    },
+    "audio_features": {
+      "speaking_rate_wps": 1.1
+    }
+  },
+  {
+    "index": 41,
     "start": 196.04,
-    "end": 198.08,
-    "duration": 2.0400000000000205,
+    "end": 198.52,
+    "duration": 2.480000000000018,
     "text": "So why neuropsych, right?",
     "guideline_snippets": [
       "Usage: **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.\n**Validation**: Provides concrete test cases for validating the AI's output against known good examples.\n**Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.\nRefer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns.",
@@ -1127,14 +1185,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.96
+      "speaking_rate_wps": 1.61
     }
   },
   {
-    "index": 40,
-    "start": 198.08,
-    "end": 203.48,
-    "duration": 5.399999999999977,
+    "index": 42,
+    "start": 198.52,
+    "end": 203.52,
+    "duration": 5.0,
     "text": "Emerging evidence, including some of my own work, suggested a lot of what we are calling",
     "guideline_snippets": [
       "Recurring Cues: Lists expand rather than reset, so design overlays that append items sequentially.\nCredibility signals (\"Forbes\", \"Inc\", \"Top 1%\") deserve combined overlay plus b-roll emphasis.\nFailure stories lean on darker-toned visuals and restrained SFX; resolve with lighter shots as tone lifts.\nRelationship-building advice pairs well with collaborative or networking imagery.",
@@ -1156,14 +1214,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 2.96
+      "speaking_rate_wps": 3.2
     }
   },
   {
-    "index": 41,
-    "start": 203.48,
+    "index": 43,
+    "start": 203.52,
     "end": 208.08,
-    "duration": 4.600000000000023,
+    "duration": 4.560000000000002,
     "text": "psychiatric disorders are actually immune diseases.",
     "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
@@ -1185,11 +1243,11 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.3
+      "speaking_rate_wps": 1.32
     }
   },
   {
-    "index": 42,
+    "index": 44,
     "start": 208.08,
     "end": 215.04,
     "duration": 6.9599999999999795,
@@ -1218,44 +1276,15 @@
     }
   },
   {
-    "index": 43,
-    "start": 215.04,
-    "end": 217.44,
-    "duration": 2.4000000000000057,
-    "text": "in stress resilience.",
+    "index": 45,
+    "start": 215.08,
+    "end": 220.8,
+    "duration": 5.719999999999999,
+    "text": "in stress resilience, and that a lot of cases of schizophrenia are actually turning out to",
     "guideline_snippets": [
       "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
-      "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
-      "Usage: **Training**: Used as structured training data to teach the AI model how to generate valid and effective video plans.\n**Validation**: Provides concrete test cases for validating the AI's output against known good examples.\n**Debugging**: Helps in understanding and debugging unexpected behaviors in the AI's plan generation by comparing outputs to these reference patterns.\nRefer to `knowledge-base/examples/patterns.md` for qualitative descriptions and further context on these editing patterns."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 21,
-      "sentence_count": 1,
-      "word_count": 3,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.25
-    }
-  },
-  {
-    "index": 44,
-    "start": 217.44,
-    "end": 222.08,
-    "duration": 4.640000000000015,
-    "text": "And that a lot of cases of schizophrenia are actually turning out to be driven by underlying",
-    "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
-      "Recurring Cues: Lists expand rather than reset, so design overlays that append items sequentially.\nCredibility signals (\"Forbes\", \"Inc\", \"Top 1%\") deserve combined overlay plus b-roll emphasis.\nFailure stories lean on darker-toned visuals and restrained SFX; resolve with lighter shots as tone lifts.\nRelationship-building advice pairs well with collaborative or networking imagery.",
-      "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores."
+      "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues."
     ],
     "plan_elements": [],
     "encoded_features": {
@@ -1263,27 +1292,27 @@
       "avg_element_duration": 0.0
     },
     "text_features": {
-      "text_length": 92,
+      "text_length": 90,
       "sentence_count": 0,
-      "word_count": 17,
+      "word_count": 16,
       "relative_position": 0.0,
       "has_keyword_t\u01b0\u01a1ng_lai": false,
       "has_keyword_c\u00f4ng_ngh\u1ec7": false,
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 3.66
+      "speaking_rate_wps": 2.8
     }
   },
   {
-    "index": 45,
-    "start": 222.08,
+    "index": 46,
+    "start": 220.8,
     "end": 224.84,
-    "duration": 2.759999999999991,
-    "text": "autoimmune disease.",
+    "duration": 4.039999999999992,
+    "text": "be driven by underlying autoimmune disease.",
     "guideline_snippets": [
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p.",
-      "Structure: The `patterns.json` file is an array of objects, where each object represents a specific editing pattern. Each pattern typically includes:\n**`name`**: A descriptive name for the pattern.\n**`description`**: A brief explanation of the pattern's intent and usage.\n**`elements`**: An array of video elements, each conforming to the `element_schema.json`, demonstrating the pattern. These elements include `timestamp`, `type`, `layer`, and other relevant properties.\n**`notes`**: Additional qualitative notes or rationale for the pattern.",
+      "Review Workflow: Automated checks: compare predicted elements to ground truth with metrics (F1, MAE).\nHuman review: run through transcripts while watching the plan, verifying that each cue feels natural.\nRegression guardrail: maintain a curated library of \"golden\" plan outputs; new models must meet or exceed their scores.",
+      "Asset Catalog Integration: This document details how asset catalogs are integrated into the video automation pipeline. It ensures that the AI model's outputs can be directly mapped to available production assets, guaranteeing the generation of actionable and feasible video plans.\nConnect model outputs with available production assets to guarantee actionable plans.",
       "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
     ],
     "plan_elements": [],
@@ -1292,20 +1321,20 @@
       "avg_element_duration": 0.0
     },
     "text_features": {
-      "text_length": 19,
+      "text_length": 43,
       "sentence_count": 1,
-      "word_count": 2,
+      "word_count": 6,
       "relative_position": 0.0,
       "has_keyword_t\u01b0\u01a1ng_lai": false,
       "has_keyword_c\u00f4ng_ngh\u1ec7": false,
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 0.72
+      "speaking_rate_wps": 1.49
     }
   },
   {
-    "index": 46,
+    "index": 47,
     "start": 224.84,
     "end": 229.72,
     "duration": 4.8799999999999955,
@@ -1334,10 +1363,10 @@
     }
   },
   {
-    "index": 47,
+    "index": 48,
     "start": 229.72,
-    "end": 232.52,
-    "duration": 2.8000000000000114,
+    "end": 232.56,
+    "duration": 2.8400000000000034,
     "text": "And there's also everything that we saw during the pandemic, right?",
     "guideline_snippets": [
       "Changelog: All notable changes to the AI planning knowledge base will be documented in this file.",
@@ -1359,14 +1388,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 3.93
+      "speaking_rate_wps": 3.87
     }
   },
   {
-    "index": 48,
-    "start": 232.52,
+    "index": 49,
+    "start": 232.56,
     "end": 238.56,
-    "duration": 6.039999999999992,
+    "duration": 6.0,
     "text": "COVID causing de novo psychiatric disorders, long COVID.",
     "guideline_snippets": [
       "2. Preprocess & Align: Merge transcript text with timeline entries by timestamp, producing windows (5-10 seconds) that give sufficient context.\nNormalize timestamps to seconds for easier maths and modelling.\nSegment transcripts into sentences or clauses; tokenise and build embeddings (Sentence-BERT or equivalent).\nEncode video elements: one-hot for categorical fields, embeddings for text-heavy attributes (`description`, `content`); ensure categorical vocab matches [element_schema.json](element_schema.json).",
@@ -1388,11 +1417,11 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.32
+      "speaking_rate_wps": 1.33
     }
   },
   {
-    "index": 49,
+    "index": 50,
     "start": 238.56,
     "end": 244.24,
     "duration": 5.680000000000007,
@@ -1421,10 +1450,10 @@
     }
   },
   {
-    "index": 50,
+    "index": 51,
     "start": 244.24,
-    "end": 252.48,
-    "duration": 8.23999999999998,
+    "end": 252.44,
+    "duration": 8.199999999999989,
     "text": "Some cancers that had 90% mortality rates 50 years ago now have 90% cure rates.",
     "guideline_snippets": [
       "Coverage: Every major section (see `videos/*.md`) contains at least one supporting visual element.\nNo unaddressed transcript peaks: stories, statistics, frameworks, and comparisons must trigger at least a text overlay or b-roll.",
@@ -1446,14 +1475,14 @@
       "has_keyword_ai": false
     },
     "audio_features": {
-      "speaking_rate_wps": 1.82
+      "speaking_rate_wps": 1.83
     }
   },
   {
-    "index": 51,
-    "start": 252.48,
-    "end": 261.0,
-    "duration": 8.52000000000001,
+    "index": 52,
+    "start": 252.44,
+    "end": 260.96,
+    "duration": 8.519999999999982,
     "text": "What if we could extend that revolution to autoimmunity, diabetes, dementia, depression?",
     "guideline_snippets": [
       "Changelog: All notable changes to the AI planning knowledge base will be documented in this file.",
@@ -1479,10 +1508,10 @@
     }
   },
   {
-    "index": 52,
-    "start": 261.0,
-    "end": 267.52,
-    "duration": 6.519999999999982,
+    "index": 53,
+    "start": 260.96,
+    "end": 267.48,
+    "duration": 6.520000000000039,
     "text": "Maybe in 15 years, if we can learn what the immune system already knows, we could take",
     "guideline_snippets": [
       "Changelog: All notable changes to the AI planning knowledge base will be documented in this file.",
@@ -1508,10 +1537,10 @@
     }
   },
   {
-    "index": 53,
-    "start": 267.52,
-    "end": 271.12,
-    "duration": 3.6000000000000227,
+    "index": 54,
+    "start": 267.48,
+    "end": 271.08,
+    "duration": 3.599999999999966,
     "text": "the chronic out of chronic disease.",
     "guideline_snippets": [
       "6. Evaluation: Quantitative: accuracy/F1 for type classification, MAE for timestamps, BLEU/ROUGE for generated text.\nQualitative: human review against `quality_criteria.md` with focus on narrative fit and layer conflicts.\nStress tests: long speaking segments without elements, rapid-fire sections with many overlays, sections requiring metaphors.",
@@ -1537,67 +1566,9 @@
     }
   },
   {
-    "index": 54,
-    "start": 271.12,
-    "end": 272.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
     "index": 55,
-    "start": 272.12,
-    "end": 273.12,
-    "duration": 1.0,
-    "text": "Cheers and applause",
-    "guideline_snippets": [
-      "Introduction & Hook: **Pattern**: Speaker intro with a bold, engaging question.\n**Elements**: `speaker_intro` (main layer), `text_overlay` (overlay layer) with `bold_emphasis` style.\n**Rationale**: Immediately captures viewer attention and sets the stage for the video's core topic.",
-      "General Principles for Pattern Application: **Contextual Relevance**: Always ensure the chosen pattern aligns with the narrative intent and emotional tone of the spoken content.\n**Pacing**: Adjust the duration and animation speed of elements to match the speaker's pace and the overall rhythm of the video.\n**Clarity**: Prioritize clear communication. Overlays should be concise, and visuals should directly support the message without distraction.\n**Brand Consistency**: Adhere to established brand guidelines for styles, colors, and animations.\n**Layer Management**: Avoid visual clutter by respecting the layer stack hierarchy and ensuring elements do not overlap unnecessarily.\n**Sound Reinforcement**: Use sound effects judiciously to enhance emphasis and transitions, not to overwhelm the viewer.",
-      "Feature vs. Benefit: **Pattern**: Icon effect with a subtle sound cue for emphasis.\n**Elements**: `icon` (overlay layer) appearing with a `ui_pop` `sound_effect` (audio layer) when a feature or benefit is introduced.\n**Rationale**: Draws attention to the distinction and reinforces the learning point with an auditory cue."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 19,
-      "sentence_count": 0,
-      "word_count": 3,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 3.0
-    }
-  },
-  {
-    "index": 56,
-    "start": 273.12,
-    "end": 274.12,
+    "start": 271.08,
+    "end": 272.08,
     "duration": 1.0,
     "text": "Thank you.",
     "guideline_snippets": [
@@ -1621,499 +1592,6 @@
     },
     "audio_features": {
       "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 57,
-    "start": 274.12,
-    "end": 275.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 58,
-    "start": 275.12,
-    "end": 276.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 59,
-    "start": 276.12,
-    "end": 277.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 60,
-    "start": 277.12,
-    "end": 278.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 61,
-    "start": 278.12,
-    "end": 279.12,
-    "duration": 1.0,
-    "text": "Thank you.",
-    "guideline_snippets": [
-      "Type-Specific Requirements (allOf): The schema uses `allOf` to define conditional requirements based on the `type` of the element:\n**`broll`**:\nRequires `description`.\n`layer` must be `video`.\n**`text_overlay`, `text_animation`, `icon`, `section_header`, `emphasis`**:\nRequires `content`.\n`layer` must be `overlay`.\n**`sound_effect`**:\nRequires `sound`.\n`layer` must be `audio`.\n**`effect`**:\nRequires `action` and `duration`.\n`layer` must be `transition`.\n**`speaker_intro`, `achievement_highlight`**:\n`layer` must be `main`.\nThis schema ensures that all AI-generated video plan elements adhere to a strict, well-defined structure, facilitating robust validation and seamless integration into the video production workflow.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`).",
-      "Required Fields for All Elements: `timestamp` (number): Th\u1eddi gian xu\u1ea5t hi\u1ec7n c\u1ee7a ph\u1ea7n t\u1eed t\u00ednh b\u1eb1ng gi\u00e2y k\u1ec3 t\u1eeb khi video b\u1eaft \u0111\u1ea7u. Ph\u1ea3i l\u00e0 s\u1ed1 kh\u00f4ng \u00e2m.\n`type` (string): \u0110\u1ecbnh danh lo\u1ea1i ph\u1ea7n t\u1eed (v\u00ed d\u1ee5: `broll`, `text_overlay`, `sound_effect`).\n`layer` (string): L\u1edbp hi\u1ec3n th\u1ecb trong ng\u0103n x\u1ebfp t\u1ed5ng h\u1ee3p."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 10,
-      "sentence_count": 1,
-      "word_count": 2,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 2.0
-    }
-  },
-  {
-    "index": 62,
-    "start": 279.12,
-    "end": 280.12,
-    "duration": 1.0,
-    "text": "Thanks.",
-    "guideline_snippets": [
-      "Catalog Overview: File\nPurpose\nKey Fields\n`assets/broll_catalog.json`\nInventory of stills and footage for b-roll replacement shots.\n`id`, `title`, `file`, `mediaType`, `orientation`, `tags`, `mood`, `usageExamples`.\n`assets/sfx_catalog.json`\nLibrary of sound effects indexed by mood and cue type.\n`id`, `file`, `length`, `intensity`, `tags`, `recommendedContexts`.\n`assets/motion_rules.json`\nAllowed transitions and motion presets with usage rules.\n`id`, `action`, `layer`, `minSpacing`, `pairings`.\n`assets/context_rules.json`\nMapping from narrative contexts to preferred asset tags.\n`context`, `recommendedBrollTags`, `recommendedSfxTags`, `notes`.",
-      "Usage Guidance: Review `data_sources.md` to understand raw inputs and supporting catalogs.\nAlign feature engineering and targets using `training_pipeline.md`, `element_definitions.md`, and `element_schema.json`.\nDuring plan generation, enforce `planning_guidelines.md` and validate against `quality_criteria.md`.\nLeverage `asset_catalogs.md` alongside the JSON catalogs to ensure selected assets exist and honour motion rules.\nConsult `videos/` and `examples/` for grounded samples (positive and negative) before crafting prompts, labels, or rule-based validators.\nLog any documentation changes in `CHANGELOG.md` so training runs can reference the correct knowledge base version.",
-      "Scope: Consolidates rules, definitions, workflows, criteria, examples, and asset references derived from:\n`AI_Training_Plan.md`\n`transcript_video_1.txt` / `video1.json`\n`transcript_video_2.txt` / `video2.json`\nAsset catalogs under `assets/`\nGoal: guide the model to place highlights, b-roll, sound effects, overlays, and motion cues with high accuracy and narrative relevance."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 7,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.0
-    }
-  },
-  {
-    "index": 63,
-    "start": 280.12,
-    "end": 281.12,
-    "duration": 1.0,
-    "text": "Bye.",
-    "guideline_snippets": [
-      "Sound Effects: Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
-      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
-      "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 4,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.0
-    }
-  },
-  {
-    "index": 64,
-    "start": 281.12,
-    "end": 282.12,
-    "duration": 1.0,
-    "text": "Bye.",
-    "guideline_snippets": [
-      "Sound Effects: Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
-      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
-      "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 4,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.0
-    }
-  },
-  {
-    "index": 65,
-    "start": 282.12,
-    "end": 283.12,
-    "duration": 1.0,
-    "text": "Thanks for watching.",
-    "guideline_snippets": [
-      "Career Path Discussion: **Pattern**: B-roll footage illustrating career growth or industry trends.\n**Elements**: `broll` (video layer) with `description` matching the spoken content (e.g., \"modern office\", \"digital network\").\n**Rationale**: Breaks up speaker footage, adds visual interest, and metaphorically supports the narrative.",
-      "Introduction & Hook: **Pattern**: Speaker intro with a bold, engaging question.\n**Elements**: `speaker_intro` (main layer), `text_overlay` (overlay layer) with `bold_emphasis` style.\n**Rationale**: Immediately captures viewer attention and sets the stage for the video's core topic.",
-      "Narrative Alignment: Anchor every element to a transcript clause; avoid floating overlays with no spoken support. *Rationale:* Maintains coherence with dialogue and prevents disjointed visuals.\nTrack signal phrases (\"Part 1\", \"Stage 2\", \"Option 3\", \"Here's why\") to justify section headers or text overlays. *Rationale:* Reinforces structural beats described in [videos/video1_outline.md](videos/video1_outline.md) and [videos/video2_outline.md](videos/video2_outline.md).\nAlign stories and analogies with metaphorical b-roll using `context` hints or tag matches from [asset_catalogs.md](asset_catalogs.md). *Rationale:* Visualises abstract concepts for faster comprehension."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 20,
-      "sentence_count": 1,
-      "word_count": 3,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 3.0
-    }
-  },
-  {
-    "index": 66,
-    "start": 283.12,
-    "end": 284.12,
-    "duration": 1.0,
-    "text": "Bye.",
-    "guideline_snippets": [
-      "Sound Effects: Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
-      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
-      "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 4,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.0
-    }
-  },
-  {
-    "index": 67,
-    "start": 284.12,
-    "end": 285.12,
-    "duration": 1.0,
-    "text": "Bye.",
-    "guideline_snippets": [
-      "Sound Effects: Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
-      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
-      "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 4,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.0
-    }
-  },
-  {
-    "index": 68,
-    "start": 285.12,
-    "end": 286.12,
-    "duration": 1.0,
-    "text": "Thank you all for your time.",
-    "guideline_snippets": [
-      "Text & Animated Overlays: Use `highlighted_background` as the default for key facts, comparisons, and definitions. *Rationale:* Brand-consistent and legible (see `style` enum in `element_schema.json`).\nBuild progressive lists for frameworks; each new point appends to the previous overlay. *Rationale:* Mirrors positive examples in [examples/patterns.md](examples/patterns.md#video-1---how-i-would-learn-digital-marketing).\nApply `text_animation` presets when narration references numbers climbing (`count_up`) or typing/flow (`typing_effect`, `flow_chart`). *Rationale:* Motion choices should support narrative metaphors; guardrails defined in `motion_rules.json`.\nKeep copy concise and faithful to the transcript; default to title case for readability. *Rationale:* Preserves voice and aligns with guidance in [glossary.md](glossary.md).",
-      "Changelog: All notable changes to the AI planning knowledge base will be documented in this file.",
-      "2. Preprocess & Align: Merge transcript text with timeline entries by timestamp, producing windows (5-10 seconds) that give sufficient context.\nNormalize timestamps to seconds for easier maths and modelling.\nSegment transcripts into sentences or clauses; tokenise and build embeddings (Sentence-BERT or equivalent).\nEncode video elements: one-hot for categorical fields, embeddings for text-heavy attributes (`description`, `content`); ensure categorical vocab matches [element_schema.json](element_schema.json)."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 28,
-      "sentence_count": 1,
-      "word_count": 6,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 6.0
-    }
-  },
-  {
-    "index": 69,
-    "start": 286.12,
-    "end": 287.12,
-    "duration": 1.0,
-    "text": "Thank you for watching the show.",
-    "guideline_snippets": [
-      "Editing Patterns: This document provides qualitative descriptions and examples of common editing patterns used in the video automation pipeline. These patterns serve as concrete exemplars for the AI model, demonstrating how different video elements should be combined and sequenced to achieve specific narrative and visual effects. For machine-readable, structured examples, refer to `patterns.json`.",
-      "Extraction Reminders: Keep transcript timestamps in `M:SS` and convert to seconds during preprocessing.\nPreserve `context`, `style`, `animation`, and `sound` attributes; they contain supervision signals even when absent from transcripts.\nWhen augmenting data, cross-link transcript spans to timeline entries via timestamp proximity (+/- 1 second window works for both videos).\nTrack narrative sections (e.g., `Part 1`, `B2B vs B2C`) to help the model learn context-aware element placement.\nSynchronise with asset catalogs so generated descriptions map to real `id`s and comply with motion spacing rules.",
-      "Training Pipeline Blueprint: This document serves as the authoritative blueprint for the AI video plan generation training pipeline. It details the end-to-end process, from data preparation and feature engineering to model strategy, training routines, evaluation, and deployment. This blueprint is derived from the `AI_Training_Plan.md` (Vietnamese source) and should be used as the primary reference when preparing datasets, developing new models, or evolving the existing model stack.\nDerived from `AI_Training_Plan.md` (Vietnamese source). Use this as the authoritative workflow when preparing datasets or evolving the model stack."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 32,
-      "sentence_count": 1,
-      "word_count": 6,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 6.0
-    }
-  },
-  {
-    "index": 70,
-    "start": 287.12,
-    "end": 288.12,
-    "duration": 1.0,
-    "text": "Thanks for watching the show.",
-    "guideline_snippets": [
-      "Career Path Discussion: **Pattern**: B-roll footage illustrating career growth or industry trends.\n**Elements**: `broll` (video layer) with `description` matching the spoken content (e.g., \"modern office\", \"digital network\").\n**Rationale**: Breaks up speaker footage, adds visual interest, and metaphorically supports the narrative.",
-      "Extraction Reminders: Keep transcript timestamps in `M:SS` and convert to seconds during preprocessing.\nPreserve `context`, `style`, `animation`, and `sound` attributes; they contain supervision signals even when absent from transcripts.\nWhen augmenting data, cross-link transcript spans to timeline entries via timestamp proximity (+/- 1 second window works for both videos).\nTrack narrative sections (e.g., `Part 1`, `B2B vs B2C`) to help the model learn context-aware element placement.\nSynchronise with asset catalogs so generated descriptions map to real `id`s and comply with motion spacing rules.",
-      "Narrative Alignment: Anchor every element to a transcript clause; avoid floating overlays with no spoken support. *Rationale:* Maintains coherence with dialogue and prevents disjointed visuals.\nTrack signal phrases (\"Part 1\", \"Stage 2\", \"Option 3\", \"Here's why\") to justify section headers or text overlays. *Rationale:* Reinforces structural beats described in [videos/video1_outline.md](videos/video1_outline.md) and [videos/video2_outline.md](videos/video2_outline.md).\nAlign stories and analogies with metaphorical b-roll using `context` hints or tag matches from [asset_catalogs.md](asset_catalogs.md). *Rationale:* Visualises abstract concepts for faster comprehension."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 29,
-      "sentence_count": 1,
-      "word_count": 5,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 5.0
-    }
-  },
-  {
-    "index": 71,
-    "start": 288.12,
-    "end": 289.12,
-    "duration": 1.0,
-    "text": "I hope you enjoyed.",
-    "guideline_snippets": [
-      "Text & Animated Overlays: Use `highlighted_background` as the default for key facts, comparisons, and definitions. *Rationale:* Brand-consistent and legible (see `style` enum in `element_schema.json`).\nBuild progressive lists for frameworks; each new point appends to the previous overlay. *Rationale:* Mirrors positive examples in [examples/patterns.md](examples/patterns.md#video-1---how-i-would-learn-digital-marketing).\nApply `text_animation` presets when narration references numbers climbing (`count_up`) or typing/flow (`typing_effect`, `flow_chart`). *Rationale:* Motion choices should support narrative metaphors; guardrails defined in `motion_rules.json`.\nKeep copy concise and faithful to the transcript; default to title case for readability. *Rationale:* Preserves voice and aligns with guidance in [glossary.md](glossary.md).",
-      "B-Roll Selection: Pick b-roll that literalises or metaphorically echoes the spoken idea (for example, trash bin for \"mistakes\", instruments for \"learning analogies\", skyline for \"market scale\"). *Rationale:* Supports narrative cues in transcripts.\nMatch tone and pacing: fast cuts for energetic lists, steadier shots for reflective segments. *Rationale:* Mood tags in `broll_catalog.json` help maintain emotional alignment.\nLet each clip play until another `video` layer element arrives; smooth abrupt switches with `effect` actions defined in [element_schema.json](element_schema.json). *Rationale:* Avoids jarring cuts while respecting defaults in [element_definitions.md](element_definitions.md#element-families).",
-      "Narrative Alignment: Anchor every element to a transcript clause; avoid floating overlays with no spoken support. *Rationale:* Maintains coherence with dialogue and prevents disjointed visuals.\nTrack signal phrases (\"Part 1\", \"Stage 2\", \"Option 3\", \"Here's why\") to justify section headers or text overlays. *Rationale:* Reinforces structural beats described in [videos/video1_outline.md](videos/video1_outline.md) and [videos/video2_outline.md](videos/video2_outline.md).\nAlign stories and analogies with metaphorical b-roll using `context` hints or tag matches from [asset_catalogs.md](asset_catalogs.md). *Rationale:* Visualises abstract concepts for faster comprehension."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 19,
-      "sentence_count": 1,
-      "word_count": 4,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 4.0
-    }
-  },
-  {
-    "index": 72,
-    "start": 289.12,
-    "end": 290.12,
-    "duration": 1.0,
-    "text": "See you in the next one.",
-    "guideline_snippets": [
-      "Three-Part Learning Framework: **Pattern**: Progressive list reveal for a multi-stage framework.\n**Elements**: Series of `text_overlay` elements with `fade_in_list` animation, each adding a new point to the previous one.\n**Rationale**: Visually reinforces the structured learning path, making it easy for viewers to follow.",
-      "8. Maintenance Cadence: Quarterly data refresh to incorporate new annotated videos.\nMonthly error analysis session targeting repeated failure modes (mis-timed SFX, incorrect layer stacking).\nCapture feedback from editors to expand context tags and example catalogues.",
-      "Synchronisation Notes: Multiple elements can share the same timestamp; treat them as simultaneous but respect layer ordering.\nTransitions (`effect`) should begin before or exactly with the visual/text they introduce.\nUse `style` values to keep branding consistent (default: `highlighted_background` for critical callouts).\nPopulate `context` to support catalog lookups (see [asset_catalogs.md](asset_catalogs.md)).\nRecord `confidence` when available to support downstream thresholding (optional field in `element_schema.json`)."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 24,
-      "sentence_count": 1,
-      "word_count": 6,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 6.0
-    }
-  },
-  {
-    "index": 73,
-    "start": 290.12,
-    "end": 290.64,
-    "duration": 0.5199999999999818,
-    "text": "Bye.",
-    "guideline_snippets": [
-      "Sound Effects: Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.\nReserve `money`, `success`, or `achievement` sounds for monetary claims or milestones. *Rationale:* Prevents semantic drift and keeps the acoustic palette purposeful.\nUse `typing` sounds only when animations or narration mention writing or typing. *Rationale:* Maintains cohesive audiovisual storytelling.",
-      "`sound_effect`: **Purpose** - S\u1eed d\u1ee5ng c\u00e1c t\u00edn hi\u1ec7u \u00e2m thanh ng\u1eafn \u0111\u1ec3 nh\u1ea5n m\u1ea1nh c\u00e1c kho\u1ea3nh kh\u1eafc quan tr\u1ecdng, t\u1ea1o c\u1ea3m x\u00fac ho\u1eb7c t\u0103ng c\u01b0\u1eddng tr\u1ea3i nghi\u1ec7m ng\u01b0\u1eddi xem.\n**Layer** - `audio` (l\u1edbp \u00e2m thanh).\n**Key field** - `sound` (tham chi\u1ebfu \u0111\u1ebfn ID \u00e2m thanh trong `sfx_catalog.json`).\n**Common sounds** - `transition_rewind` (chuy\u1ec3n c\u1ea3nh tua l\u1ea1i), `whoosh_standard` (ti\u1ebfng v\u00fat ti\u00eau chu\u1ea9n), `ui_pop` (ti\u1ebfng pop giao di\u1ec7n ng\u01b0\u1eddi d\u00f9ng), `money` (ti\u1ec1n), `success` (th\u00e0nh c\u00f4ng), `fire` (l\u1eeda), `achievement` (th\u00e0nh t\u1ef1u), `crash` (va ch\u1ea1m), `money_loss` (m\u1ea5t ti\u1ec1n), `typing` (g\u00f5 ph\u00edm), `confusion` (b\u1ed1i r\u1ed1i), `expansion` (m\u1edf r\u1ed9ng), `emphasis_ding` (ti\u1ebfng ding nh\u1ea5n m\u1ea1nh), `heartbeat_soft` (ti\u1ebfng tim \u0111\u1eadp nh\u1eb9).\n**Defaults** - Ph\u00e1t m\u1ed9t l\u1ea7n v\u1edbi th\u1eddi l\u01b0\u1ee3ng \u0111\u01b0\u1ee3c x\u00e1c \u0111\u1ecbnh b\u1edfi t\u00e0i s\u1ea3n \u00e2m thanh g\u1ed1c.",
-      "9. Risk Controls: Mitigate noisy timestamps by smoothing predictions and enforcing minimum separation thresholds defined in `motion_rules.json`.\nPrevent style drift by constraining `style` predictions to allowed set per brand guide.\nDocument assumptions about transcript accuracy; include fallbacks when speech deviates from script."
-    ],
-    "plan_elements": [],
-    "encoded_features": {
-      "num_elements": 0,
-      "avg_element_duration": 0.0
-    },
-    "text_features": {
-      "text_length": 4,
-      "sentence_count": 1,
-      "word_count": 1,
-      "relative_position": 0.0,
-      "has_keyword_t\u01b0\u01a1ng_lai": false,
-      "has_keyword_c\u00f4ng_ngh\u1ec7": false,
-      "has_keyword_ai": false
-    },
-    "audio_features": {
-      "speaking_rate_wps": 1.92
     }
   }
 ]

@@ -28,6 +28,18 @@ MAX_BROLL_SUMMARY_ITEMS = 20
 MAX_SFX_ITEMS_PER_CATEGORY = 5
 
 
+def resolve_repo_root(start: Path | None = None) -> Path:
+    """
+    Walk upwards from the provided path (or this file) to find the repository root.
+    The root is identified as the first ancestor containing an `assets` directory.
+    """
+    current = (start or Path(__file__)).resolve().parent
+    for candidate in (current, *current.parents):
+        if (candidate / "assets").exists():
+            return candidate
+    return current
+
+
 def load_json_if_exists(path: Path | None) -> Dict[str, Any]:
     """
     Loads a JSON file from the given path if it exists, otherwise returns an empty dictionary.
@@ -102,7 +114,7 @@ def discover_available_sfx() -> Dict[str, str]:
         and values are their descriptions.
     """
     # Resolve the root directory of the repository
-    root_dir = Path(__file__).resolve().parents[3]
+    root_dir = resolve_repo_root()
     sfx_dir = root_dir / "assets" / "sfx"
     available: Dict[str, str] = {}
 
@@ -1325,7 +1337,7 @@ def main(argv: List[str] | None = None) -> int:
             scene_map_data = None
 
     # Resolve repository root and load asset catalogs/motion rules
-    repo_root = Path(__file__).resolve().parents[3]
+    repo_root = resolve_repo_root()
     broll_catalog = load_json_if_exists(repo_root / "assets" / "broll_catalog.json") or None
     sfx_catalog = load_json_if_exists(repo_root / "assets" / "sfx_catalog.json") or None
     motion_rules = load_json_if_exists(repo_root / "assets" / "motion_rules.json") or None
