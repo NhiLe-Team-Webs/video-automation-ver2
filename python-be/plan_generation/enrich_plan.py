@@ -1437,6 +1437,19 @@ def augment_highlights_from_srt(
             'duration': round(duration, 2),
         }
 
+        def adjust_start_for_midpoint(hl: Dict[str, Any]) -> float:
+            hl_duration = float(hl.get("duration", duration) or duration)
+            if hl_duration <= 0:
+                return start
+            window_end = start + duration
+            if window_end <= start:
+                return start
+            desired = start + duration * 0.55
+            max_start = max(start, window_end - hl_duration)
+            adjusted = min(max(desired, start), max_start)
+            hl["start"] = round(adjusted, 2)
+            return adjusted
+
         contains_number = any(any(ch.isdigit() for ch in token) for token in words)
         contains_question = '?' in raw_text
 
@@ -1511,9 +1524,10 @@ def augment_highlights_from_srt(
                     bottom_cooldown = 0
                     continue
                 bottom_cooldown = 0
+                adjusted_start = adjust_start_for_midpoint(highlight)
                 highlights.append(highlight)
                 injected.append(highlight)
-                existing_starts.append(start)
+                existing_starts.append(adjusted_start)
                 continue
 
             bottom_cooldown += 1
@@ -1522,9 +1536,10 @@ def augment_highlights_from_srt(
                 bottom_cooldown = 0
                 continue
 
+        adjusted_start = adjust_start_for_midpoint(highlight)
         highlights.append(highlight)
         injected.append(highlight)
-        existing_starts.append(start)
+        existing_starts.append(adjusted_start)
 
     if injected:
         highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)

@@ -1,138 +1,11 @@
 {
   "segments": [
     {
-      "id": "intro_instructions",
+      "id": "segment_1",
       "sourceStart": 0.0,
-      "duration": 15.0,
-      "label": "Intro & Instructions",
+      "duration": 4.9,
+      "label": "intro observation",
       "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomIn",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue: zoomIn emphasises \"EXPRESSIONS\"."
-      ]
-    },
-    {
-      "id": "describe_nick_q",
-      "sourceStart": 15.0,
-      "duration": 7.0,
-      "label": "Describe Nick Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "SFX hints propagated: question",
-        "B-roll: handshake_success underscores loyalty anecdote.",
-        "Motion cue: zoomIn emphasises \"Describe Nick: One Word\".",
-        "Motion cue: zoomOut emphasises \"LOYAL\"."
-      ],
-      "broll": {
-        "id": "handshake_success",
-        "file": "assets/broll/handshake_success.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Handshake moment reinforces loyalty description."
-        ]
-      }
-    },
-    {
-      "id": "nick_initial_traits",
-      "sourceStart": 22.0,
-      "duration": 26.0,
-      "label": "Nick's Initial Traits",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.6,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "motionCue": "zoomIn",
-      "sfxHints": [
-        "tech",
-        "question"
-      ],
-      "notes": [
-        "SFX hints propagated: tech, question",
-        "B-roll: celebration_success adds warmth during character description.",
-        "Motion cue: zoomIn emphasises \"START\".",
-        "Motion cue: zoomOut emphasises \"HONEST\".",
-        "Motion cue: zoomIn emphasises \"SWEET GUY\"."
-      ],
-      "broll": {
-        "id": "celebration_success",
-        "file": "assets/broll/celebration_success.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Celebration visual supports the heartfelt moment."
-        ]
-      }
-    },
-    {
-      "id": "how_we_met_q",
-      "sourceStart": 48.0,
-      "duration": 8.0,
-      "label": "How We Met Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.6,
-        "direction": "left"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: question",
-        "B-roll: training_workshop illustrates the high-school group setup."
-      ],
-      "broll": {
-        "id": "training_workshop",
-        "file": "assets/broll/training_workshop.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Group setting mirrors the meeting story energy."
-        ]
-      }
-    },
-    {
-      "id": "meeting_story",
-      "sourceStart": 56.0,
-      "duration": 24.0,
-      "label": "Their Meeting Story",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -145,283 +18,11 @@
       ]
     },
     {
-      "id": "favorite_memory_q",
-      "sourceStart": 80.0,
-      "duration": 9.0,
-      "label": "Favorite Memory Question",
+      "id": "segment_2",
+      "sourceStart": 4.9,
+      "duration": 3.0,
+      "label": "setting stage",
       "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "SFX hints propagated: question",
-        "B-roll: celebration_success adds warmth during character description.",
-        "Motion cue: zoomOut emphasises \"FAVORITE MEMORY\"."
-      ],
-      "broll": {
-        "id": "celebration_success",
-        "file": "assets/broll/celebration_success.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Celebration visual supports the heartfelt moment."
-        ]
-      }
-    },
-    {
-      "id": "memory_delay_next_q",
-      "sourceStart": 89.0,
-      "duration": 11.0,
-      "label": "Delay & Next Question Setup",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomIn",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue: zoomIn emphasises \"DESCRIBE NICK'S\"."
-      ]
-    },
-    {
-      "id": "nicks_impact_q",
-      "sourceStart": 100.0,
-      "duration": 6.0,
-      "label": "Nick's Impact Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "Motion cue assigned: zoomOut",
-        "B-roll: teamwork_meeting spotlights established clientele."
-      ],
-      "broll": {
-        "id": "teamwork_meeting",
-        "file": "assets/broll/teamwork_meeting.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Team huddle echoes long-term client relationships."
-        ]
-      }
-    },
-    {
-      "id": "client_loyalty_story",
-      "sourceStart": 106.0,
-      "duration": 34.0,
-      "label": "Client Loyalty Story",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.7,
-        "direction": "right"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "managing_people",
-      "sourceStart": 140.0,
-      "duration": 29.0,
-      "label": "Managing People & Loyalty",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.7,
-        "direction": "right"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomIn",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "SFX hints propagated: question",
-        "B-roll: handshake_success underscores loyalty anecdote.",
-        "Motion cue: zoomIn emphasises \"CREATED LOYAL\".",
-        "Motion cue: zoomOut emphasises \"PEOPLE\".",
-        "Motion cue: zoomIn emphasises \"WAY NICK\".",
-        "Motion cue: zoomOut emphasises \"BUSINESS\".",
-        "Motion cue: zoomIn emphasises \"THINKING\"."
-      ],
-      "broll": {
-        "id": "handshake_success",
-        "file": "assets/broll/handshake_success.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Handshake moment reinforces loyalty description."
-        ]
-      }
-    },
-    {
-      "id": "affecting_lives_q",
-      "sourceStart": 169.0,
-      "duration": 6.0,
-      "label": "Affecting Lives Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "sees_potential_answer",
-      "sourceStart": 175.0,
-      "duration": 16.0,
-      "label": "Seeing Potential in People",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue: zoomIn emphasises \"Sees Potential in Everyone\".",
-        "Motion cue: zoomOut emphasises \"EVERYBODY\"."
-      ]
-    },
-    {
-      "id": "career_path_q",
-      "sourceStart": 191.0,
-      "duration": 5.0,
-      "label": "Career Path Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "career_origin_story",
-      "sourceStart": 196.0,
-      "duration": 23.0,
-      "label": "Career Origin Story",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.6,
-        "direction": "up"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "SFX hints propagated: tech",
-        "B-roll: modern_office reinforces lasting client partnership."
-      ],
-      "broll": {
-        "id": "modern_office",
-        "file": "assets/broll/modern_office.jpg",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Modern office still pairs with enduring partnerships."
-        ]
-      }
-    },
-    {
-      "id": "industry_family_q",
-      "sourceStart": 219.0,
-      "duration": 5.0,
-      "label": "Industry & Family Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.6,
-        "direction": "up"
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "SFX hints propagated: question",
-        "B-roll: teamwork_meeting spotlights established clientele."
-      ],
-      "broll": {
-        "id": "teamwork_meeting",
-        "file": "assets/broll/teamwork_meeting.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Team huddle echoes long-term client relationships."
-        ]
-      }
-    },
-    {
-      "id": "family_priority",
-      "sourceStart": 224.0,
-      "duration": 19.0,
-      "label": "Family Priority & Work Ethic",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -432,11 +33,11 @@
       ],
       "notes": [
         "SFX hints propagated: tech",
-        "B-roll injected via highlight keyword: digital_network"
+        "B-roll injected via highlight keyword: ai_brain"
       ],
       "broll": {
-        "id": "digital_network",
-        "file": "assets/broll/digital_network.jpg",
+        "id": "ai_brain",
+        "file": "assets/broll/ai_brain.jpg",
         "mode": "overlay",
         "confidence": 2.0,
         "reasons": [
@@ -445,42 +46,464 @@
       }
     },
     {
-      "id": "fathers_day_anecdote",
-      "sourceStart": 243.0,
-      "duration": 46.0,
-      "label": "Father's Day Anecdote",
+      "id": "segment_3",
+      "sourceStart": 7.9,
+      "duration": 7.72,
+      "label": "audience count",
       "silenceAfter": false,
-      "transitionIn": {
+      "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_4",
+      "sourceStart": 15.62,
+      "duration": 5.52,
+      "label": "psychological symptoms",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_5",
+      "sourceStart": 21.14,
+      "duration": 4.44,
+      "label": "self-discovery",
+      "silenceAfter": false,
       "transitionOut": {
         "type": "slide",
         "duration": 0.6,
-        "direction": "down"
+        "direction": "left"
       },
       "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_6",
+      "sourceStart": 25.58,
+      "duration": 3.8,
+      "label": "avoid pointing",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_7",
+      "sourceStart": 29.38,
+      "duration": 3.56,
+      "label": "facts and stories",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_8",
+      "sourceStart": 32.94,
+      "duration": 5.36,
+      "label": "glimpse of self",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_9",
+      "sourceStart": 38.3,
+      "duration": 4.44,
+      "label": "personality psychology intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_10",
+      "sourceStart": 42.74,
+      "duration": 8.84,
+      "label": "neurons to narratives",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_11",
+      "sourceStart": 51.58,
+      "duration": 19.2,
+      "label": "like all, like some, like no other",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "right"
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
       "sfxHints": [
         "tech"
       ],
       "notes": [
         "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
         "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "technical_break",
-      "sourceStart": 289.0,
-      "duration": 26.0,
-      "label": "Technical Interruption",
+      "id": "segment_12",
+      "sourceStart": 70.78,
+      "duration": 37.2,
+      "label": "self-reflection to explanation",
       "silenceAfter": false,
       "transitionIn": {
         "type": "slide",
         "duration": 0.6,
-        "direction": "down"
+        "direction": "right"
       },
       "transitionOut": {
-        "type": "cut"
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_13",
+      "sourceStart": 107.98,
+      "duration": 5.68,
+      "label": "trait psychology intro",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_14",
+      "sourceStart": 113.66,
+      "duration": 16.12,
+      "label": "OCEAN acronym",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_15a",
+      "sourceStart": 129.78,
+      "duration": 30.2,
+      "label": "OCEAN definitions",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_15b",
+      "sourceStart": 159.98,
+      "duration": 6.52,
+      "label": "implications for well-being",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_15c",
+      "sourceStart": 166.5,
+      "duration": 24.92,
+      "label": "open/conscientious success",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_15d",
+      "sourceStart": 191.42,
+      "duration": 16.72,
+      "label": "extroversion & agreeableness intro",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_16",
+      "sourceStart": 208.14,
+      "duration": 8.84,
+      "label": "elbow-licking challenge",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "blur",
+        "duration": 0.6,
+        "intensity": 0.1
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_17",
+      "sourceStart": 217.0,
+      "duration": 1.12,
+      "label": "did you know that?",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "blur",
+        "duration": 0.6,
+        "intensity": 0.1
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No matching scene metadata; skipped B-roll and motion cue."
+      ]
+    },
+    {
+      "id": "segment_18",
+      "sourceStart": 218.12,
+      "duration": 15.56,
+      "label": "extrovert elbow",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_19",
+      "sourceStart": 233.68,
+      "duration": 9.92,
+      "label": "three natures intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "right"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_20",
+      "sourceStart": 243.6,
+      "duration": 3.72,
+      "label": "biogenic nature",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_21",
+      "sourceStart": 247.32,
+      "duration": 6.84,
+      "label": "sociogenic nature",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_22",
+      "sourceStart": 254.16,
+      "duration": 5.0,
+      "label": "individually you",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_23",
+      "sourceStart": 259.16,
+      "duration": 4.72,
+      "label": "ideogenic nature",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "right"
       },
       "kind": "normal",
       "sfxHints": [
@@ -492,13 +515,15 @@
       ]
     },
     {
-      "id": "retirement_decision_q",
-      "sourceStart": 315.0,
-      "duration": 14.8,
-      "label": "Retirement Decision Question",
+      "id": "segment_24",
+      "sourceStart": 263.88,
+      "duration": 0.84,
+      "label": "explain",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "cut"
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "right"
       },
       "transitionOut": {
         "type": "crossfade",
@@ -510,14 +535,125 @@
       ]
     },
     {
-      "id": "retirement_feelings",
-      "sourceStart": 329.8,
-      "duration": 22.92,
-      "label": "Feelings on Retirement",
+      "id": "segment_25a",
+      "sourceStart": 264.72,
+      "duration": 12.92,
+      "label": "extrovert stimulation",
       "silenceAfter": false,
-      "transitionIn": {
+      "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_25b",
+      "sourceStart": 277.64,
+      "duration": 22.46,
+      "label": "extroverts gather, introverts quiet/misunderstood",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25c",
+      "sourceStart": 300.1,
+      "duration": 8.56,
+      "label": "lower stimulation",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25d",
+      "sourceStart": 308.66,
+      "duration": 9.08,
+      "label": "caffeine extroverts",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25e",
+      "sourceStart": 317.74,
+      "duration": 8.4,
+      "label": "coffee need",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25f",
+      "sourceStart": 326.14,
+      "duration": 6.88,
+      "label": "introverts not well with coffee",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25g",
+      "sourceStart": 333.02,
+      "duration": 10.8,
+      "label": "speeded/quantitative misconstrued",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_25h",
+      "sourceStart": 343.82,
+      "duration": 5.16,
+      "label": "intriguing consequences",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.6,
+        "intensity": 0.15
       },
       "transitionOut": {
         "type": "slide",
@@ -530,37 +666,107 @@
       ]
     },
     {
-      "id": "retirement_plans_q",
-      "sourceStart": 352.72,
-      "duration": 3.0,
-      "label": "Retirement Plans Question",
+      "id": "segment_26",
+      "sourceStart": 348.98,
+      "duration": 3.8,
+      "label": "not what we seem",
       "silenceAfter": false,
-      "transitionIn": {
+      "transitionOut": {
         "type": "slide",
         "duration": 0.6,
         "direction": "left"
       },
-      "transitionOut": {
-        "type": "cut"
-      },
       "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
       "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
+        "No B-roll match above threshold."
       ]
     },
     {
-      "id": "retirement_plans_answer",
-      "sourceStart": 355.72,
-      "duration": 21.0,
-      "label": "Retirement Plans & Dreams",
+      "id": "segment_27",
+      "sourceStart": 352.78,
+      "duration": 5.28,
+      "label": "next point - sexual intercourse",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "cut"
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "right"
       },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_28",
+      "sourceStart": 358.06,
+      "duration": 6.32,
+      "label": "audience reaction",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_29",
+      "sourceStart": 364.38,
+      "duration": 14.32,
+      "label": "conjugal act frequency",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_30",
+      "sourceStart": 378.7,
+      "duration": 1.8,
+      "label": "rat study",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_31",
+      "sourceStart": 380.5,
+      "duration": 4.16,
+      "label": "per month",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_32",
+      "sourceStart": 384.66,
+      "duration": 3.84,
+      "label": "introverted men",
+      "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -575,17 +781,14 @@
       ]
     },
     {
-      "id": "message_for_nick_q",
-      "sourceStart": 376.72,
-      "duration": 15.0,
-      "label": "Message for Nick Question",
+      "id": "segment_33",
+      "sourceStart": 388.5,
+      "duration": 9.48,
+      "label": "3.0, extroverted men",
       "silenceAfter": false,
-      "transitionIn": {
+      "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
       },
       "kind": "normal",
       "sfxHints": [
@@ -597,14 +800,98 @@
       ]
     },
     {
-      "id": "final_message",
-      "sourceStart": 391.72,
-      "duration": 22.0,
-      "label": "Wife's Final Message",
+      "id": "segment_34",
+      "sourceStart": 397.98,
+      "duration": 4.92,
+      "label": "introverted women",
       "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
       },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_35",
+      "sourceStart": 402.9,
+      "duration": 4.4,
+      "label": "introverted male",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_36",
+      "sourceStart": 407.3,
+      "duration": 4.24,
+      "label": "heroic 7.5",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_37",
+      "sourceStart": 411.54,
+      "duration": 4.52,
+      "label": "handle all",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_38",
+      "sourceStart": 416.06,
+      "duration": 5.0,
+      "label": "communicate differently",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_39",
+      "sourceStart": 421.06,
+      "duration": 8.8,
+      "label": "social encounter closeness",
+      "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -619,819 +906,1026 @@
       ]
     },
     {
-      "id": "outro_remarks",
-      "sourceStart": 413.72,
-      "duration": 23.0,
-      "label": "Outro Remarks",
+      "id": "segment_40",
+      "sourceStart": 429.86,
+      "duration": 3.56,
+      "label": "eye contact",
       "silenceAfter": false,
-      "transitionIn": {
+      "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_41",
+      "sourceStart": 433.42,
+      "duration": 6.4,
+      "label": "diminutive terms",
+      "silenceAfter": false,
       "transitionOut": {
-        "type": "cut"
+        "type": "crossfade",
+        "duration": 0.5
       },
       "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
       "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
+        "No B-roll match above threshold."
       ]
     }
   ],
   "highlights": [
     {
-      "id": "srt-0003",
+      "id": "srt-0002",
       "type": "noteBox",
-      "start": 9.0,
-      "duration": 5.0,
+      "start": 3.22,
+      "duration": 3.5,
       "importance": "supporting",
       "position": "top",
-      "keyword": "EXPRESSIONS",
-      "side": "left",
+      "keyword": "WATCHING INTERACT",
       "supportingTexts": {
-        "topLeft": "EXPRESSIONS"
+        "topLeft": "WATCHING",
+        "topRight": "INTERACT"
       },
-      "layout": "left"
+      "layout": "dual"
     },
     {
-      "id": "describe_nick",
-      "start": 15.5,
-      "duration": 4.0,
+      "id": "srt-0004",
+      "type": "noteBox",
+      "start": 7.9,
+      "duration": 7.72,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "PEOPLE AUDIENCE",
+      "keyword": "PEOPLE AUDIENCE"
+    },
+    {
+      "id": "highlight_1",
+      "start": 16.5,
+      "duration": 3.5,
       "position": "center",
       "animation": "zoom",
       "type": "noteBox",
-      "text": "Describe Nick: One Word",
+      "text": "Psychological Symptoms",
       "volume": 0.75
     },
     {
       "id": "srt-0007",
       "type": "noteBox",
-      "start": 22.0,
-      "duration": 4.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "LOYAL",
-      "keyword": "LOYAL"
+      "start": 21.14,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "THOUGHT",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "THOUGHT"
+      },
+      "layout": "left"
     },
     {
-      "id": "srt-0008",
+      "id": "srt-0009",
       "type": "noteBox",
-      "start": 26.0,
-      "duration": 2.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "START",
-      "keyword": "START"
+      "start": 29.38,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "INTRUSIVE THOUGHT",
+      "supportingTexts": {
+        "topLeft": "INTRUSIVE THOUGHT",
+        "topRight": "TELL FACTS"
+      },
+      "layout": "dual"
     },
     {
-      "id": "srt-0011",
-      "type": "noteBox",
-      "start": 30.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HONEST",
-      "keyword": "HONEST",
-      "sfx": "assets/sfx/emotion/applause.mp3",
-      "gain": -2.5,
-      "metadata": {
-        "audio": "auto"
-      }
-    },
-    {
-      "id": "srt-0014",
-      "type": "noteBox",
-      "start": 36.0,
+      "id": "highlight_2",
+      "start": 39.5,
       "duration": 3.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "SWEET GUY",
-      "keyword": "SWEET GUY",
-      "sfx": "assets/sfx/emotion/applause.mp3",
-      "gain": -2.5,
-      "metadata": {
-        "audio": "auto"
-      }
-    },
-    {
-      "id": "loyal_honest",
-      "start": 43.5,
-      "duration": 3.0,
-      "position": "bottom",
+      "position": "top",
       "animation": "fade",
-      "type": "noteBox",
-      "text": "Loyal & Honest Man",
-      "volume": 0.7
+      "type": "sectionTitle",
+      "text": "Personality Psychology",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.75
     },
     {
-      "id": "srt-0018",
+      "id": "srt-0013",
       "type": "noteBox",
-      "start": 52.0,
-      "duration": 4.0,
+      "start": 42.74,
+      "duration": 3.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "MEET NICK",
-      "keyword": "MEET NICK"
+      "text": "LARGER PERSONALITY",
+      "keyword": "LARGER PERSONALITY"
+    },
+    {
+      "id": "highlight_3",
+      "start": 47.0,
+      "duration": 4.0,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "noteBox",
+      "text": "From Neurons to Narratives",
+      "volume": 0.75
+    },
+    {
+      "id": "srt-0015",
+      "type": "noteBox",
+      "start": 51.58,
+      "duration": 5.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "WAY",
+      "keyword": "WAY"
+    },
+    {
+      "id": "srt-0017",
+      "type": "noteBox",
+      "start": 60.66,
+      "duration": 4.52,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "CERTAIN RESPECTS",
+      "supportingTexts": {
+        "topLeft": "CERTAIN RESPECTS",
+        "topRight": "PEOPLE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "highlight_4",
+      "start": 65.5,
+      "duration": 4.0,
+      "position": "center",
+      "animation": "typewriter",
+      "type": "typewriter",
+      "text": "Like all, like some, like no other.",
+      "volume": 0.6
     },
     {
       "id": "srt-0019",
       "type": "noteBox",
-      "start": 56.0,
+      "start": 70.78,
       "duration": 4.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HIGH SCHOOL",
-      "keyword": "HIGH SCHOOL",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "gain": -2.5,
-      "metadata": {
-        "audio": "auto"
-      }
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "ALREADY MAY",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "ALREADY MAY"
+      },
+      "layout": "left"
     },
     {
       "id": "srt-0021",
       "type": "noteBox",
-      "start": 66.0,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "BEST BUDDY",
-      "supportingTexts": {
-        "topLeft": "BEST BUDDY",
-        "topRight": "FRIENDS"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0022",
-      "type": "noteBox",
-      "start": 72.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "SHOWED DOOR",
-      "supportingTexts": {
-        "topLeft": "SHOWED",
-        "topRight": "DOOR BLIND"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0026",
-      "type": "noteBox",
-      "start": 84.0,
-      "duration": 5.0,
+      "start": 77.34,
+      "duration": 6.28,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "FAVORITE MEMORY",
-      "keyword": "FAVORITE MEMORY"
+      "text": "46TH BORING",
+      "keyword": "46TH BORING"
     },
     {
-      "id": "srt-0032",
+      "id": "srt-0022",
       "type": "noteBox",
-      "start": 100.0,
+      "start": 83.62,
+      "duration": 5.36,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "MAY INTRIGUING",
+      "supportingTexts": {
+        "topLeft": "MAY",
+        "topRight": "INTRIGUING"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0023",
+      "type": "noteBox",
+      "start": 88.98,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "REGARDED PEOPLE",
+      "supportingTexts": {
+        "topLeft": "REGARDED",
+        "topRight": "PEOPLE GREAT"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0025",
+      "type": "noteBox",
+      "start": 94.1,
+      "duration": 3.56,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "SELF DIAGNOSED",
+      "keyword": "SELF DIAGNOSED"
+    },
+    {
+      "id": "srt-0026",
+      "type": "noteBox",
+      "start": 97.66,
+      "duration": 2.52,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "INHERENT TWITTINESS",
+      "keyword": "INHERENT TWITTINESS"
+    },
+    {
+      "id": "srt-0027",
+      "type": "noteBox",
+      "start": 100.18,
+      "duration": 4.68,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "MAKES PSYCHOLOGIST",
+      "supportingTexts": {
+        "topLeft": "MAKES",
+        "topRight": "PSYCHOLOGIST FASCINATED"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "highlight_5",
+      "start": 109.0,
+      "duration": 3.0,
+      "position": "top",
+      "animation": "zoom",
+      "type": "sectionTitle",
+      "text": "Trait Psychology",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "volume": 0.75
+    },
+    {
+      "id": "srt-0031",
+      "type": "noteBox",
+      "start": 113.66,
       "duration": 4.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "DESCRIBE NICK'S",
+      "keyword": "ALIGNS ALONG",
       "supportingTexts": {
-        "topLeft": "DESCRIBE NICK'S",
-        "topRight": "IMPACT TITLE"
+        "topLeft": "ALIGNS",
+        "topRight": "ALONG FIVE"
       },
       "layout": "dual"
     },
     {
       "id": "srt-0033",
       "type": "noteBox",
-      "start": 104.0,
+      "start": 123.22,
+      "duration": 4.08,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "ASPECTS DIFFERENCE",
+      "keyword": "ASPECTS DIFFERENCE"
+    },
+    {
+      "id": "highlight_6",
+      "start": 127.5,
       "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "FAMILY",
-      "keyword": "FAMILY"
-    },
-    {
-      "id": "srt-0034",
-      "type": "noteBox",
-      "start": 106.0,
-      "duration": 6.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "ESTABLISHED CLIENTELE",
-      "keyword": "ESTABLISHED CLIENTELE",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "gain": -2.5,
-      "metadata": {
-        "audio": "auto"
-      }
-    },
-    {
-      "id": "srt-0036",
-      "type": "noteBox",
-      "start": 113.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "ESCROW GIVEN",
-      "keyword": "ESCROW GIVEN"
-    },
-    {
-      "id": "client_loyalty",
-      "start": 122.0,
-      "duration": 3.0,
       "position": "center",
-      "animation": "typewriter",
-      "type": "sectionTitle",
-      "text": "Decades of Client Loyalty",
-      "sfx": "assets/sfx/ui/keyboard-typing.mp3",
-      "volume": 0.6
+      "animation": "pop",
+      "type": "noteBox",
+      "text": "OCEAN Acronym",
+      "volume": 0.75
+    },
+    {
+      "id": "srt-0035",
+      "type": "noteBox",
+      "start": 129.78,
+      "duration": 3.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "STANDS OPEN",
+      "supportingTexts": {
+        "topLeft": "STANDS",
+        "topRight": "OPEN EXPERIENCE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0037",
+      "type": "noteBox",
+      "start": 135.26,
+      "duration": 4.32,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "STANDS CONSCIENTIOUSNESS",
+      "supportingTexts": {
+        "topLeft": "STANDS CONSCIENTIOUSNESS",
+        "topRight": "CONTRAST"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0038",
+      "type": "noteBox",
+      "start": 139.62,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "LACKADAISICAL APPROACH",
+      "keyword": "LACKADAISICAL APPROACH"
+    },
+    {
+      "id": "srt-0040",
+      "type": "noteBox",
+      "start": 146.82,
+      "duration": 4.04,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "AGREEABLE INDIVIDUALS",
+      "supportingTexts": {
+        "topLeft": "AGREEABLE INDIVIDUALS",
+        "topRight": "CONTRAST"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0041",
       "type": "noteBox",
-      "start": 130.0,
-      "duration": 4.5,
+      "start": 150.86,
+      "duration": 2.48,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "HANDLING PEOPLE",
-      "keyword": "HANDLING PEOPLE"
+      "text": "DECIDEDLY AGREEABLE",
+      "keyword": "DECIDEDLY AGREEABLE"
+    },
+    {
+      "id": "srt-0042",
+      "type": "noteBox",
+      "start": 153.34,
+      "duration": 3.32,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "NEUROTIC INDIVIDUALS",
+      "supportingTexts": {
+        "topLeft": "NEUROTIC",
+        "topRight": "INDIVIDUALS CONTRAST"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0043",
       "type": "noteBox",
-      "start": 140.0,
-      "duration": 7.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "WOMEN MANAGING",
-      "supportingTexts": {
-        "topLeft": "WOMEN",
-        "topRight": "MANAGING PEOPLE"
-      },
-      "layout": "dual"
+      "start": 156.66,
+      "duration": 3.32,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "STABLE",
+      "keyword": "STABLE"
     },
     {
-      "id": "srt-0045",
+      "id": "srt-0044",
       "type": "noteBox",
-      "start": 149.0,
-      "duration": 4.5,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "CREATED LOYAL",
-      "supportingTexts": {
-        "topLeft": "CREATED LOYAL",
-        "topRight": "CLIENTS FRIENDSHIPS"
-      },
-      "layout": "dual"
+      "start": 159.98,
+      "duration": 3.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "DIMENSIONS IMPLICATIONS",
+      "keyword": "DIMENSIONS IMPLICATIONS"
     },
     {
-      "id": "srt-0047",
+      "id": "srt-0046",
       "type": "noteBox",
-      "start": 154.0,
+      "start": 166.54,
       "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "PEOPLE",
-      "keyword": "PEOPLE"
+      "text": "EXAMPLE OPENNESS",
+      "keyword": "EXAMPLE OPENNESS"
+    },
+    {
+      "id": "srt-0048",
+      "type": "noteBox",
+      "start": 174.54,
+      "duration": 3.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "OPEN PEOPLE",
+      "supportingTexts": {
+        "topLeft": "OPEN",
+        "topRight": "PEOPLE ACHIEVE"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0050",
       "type": "noteBox",
-      "start": 160.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "WAY NICK",
-      "keyword": "WAY NICK"
+      "start": 181.74,
+      "duration": 2.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "CONSCIENTIOUS PEOPLE",
+      "supportingTexts": {
+        "topLeft": "CONSCIENTIOUS",
+        "topRight": "PEOPLE ACHIEVE"
+      },
+      "layout": "dual"
     },
     {
-      "id": "srt-0051",
+      "id": "srt-0052",
       "type": "noteBox",
-      "start": 165.0,
-      "duration": 1.5,
+      "start": 188.02,
+      "duration": 3.4,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "BUSINESS",
-      "keyword": "BUSINESS"
-    },
-    {
-      "id": "srt-0053",
-      "type": "noteBox",
-      "start": 169.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "THINKING",
-      "keyword": "THINKING"
+      "text": "PASSION",
+      "keyword": "PASSION"
     },
     {
       "id": "srt-0054",
       "type": "noteBox",
-      "start": 171.0,
-      "duration": 7.0,
+      "start": 194.18,
+      "duration": 4.48,
       "importance": "supporting",
       "position": "top",
-      "keyword": "REAL SENSE",
+      "keyword": "CONDUCIVE WORKING",
       "supportingTexts": {
-        "topLeft": "REAL SENSE",
-        "topRight": "EMPLOYEES"
+        "topLeft": "CONDUCIVE",
+        "topRight": "WORKING PEOPLE"
       },
       "layout": "dual"
     },
     {
-      "id": "sees_potential",
-      "start": 180.0,
-      "duration": 4.0,
-      "position": "bottom",
-      "animation": "fade",
+      "id": "srt-0055",
       "type": "noteBox",
-      "text": "Sees Potential in Everyone",
-      "volume": 0.75
+      "start": 198.66,
+      "duration": 4.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "EXTROVERTS EXAMPLE",
+      "supportingTexts": {
+        "topLeft": "EXTROVERTS EXAMPLE",
+        "topRight": "FIND INTRIGUING"
+      },
+      "layout": "dual"
     },
     {
-      "id": "srt-0056",
+      "id": "srt-0057",
       "type": "noteBox",
-      "start": 186.0,
-      "duration": 1.5,
+      "start": 204.66,
+      "duration": 4.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "EVERYBODY",
-      "keyword": "EVERYBODY"
+      "text": "REVEALING RESPECT",
+      "keyword": "REVEALING RESPECT"
     },
     {
-      "id": "srt-0058",
+      "id": "srt-0059",
       "type": "noteBox",
-      "start": 188.0,
+      "start": 212.3,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "READ PEOPLE",
+      "keyword": "ADULTS LICK",
       "supportingTexts": {
-        "topLeft": "READ PEOPLE",
-        "topRight": "WAY BELIEVE"
+        "topLeft": "ADULTS LICK",
+        "topRight": "OUTSIDE ELBOW"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0062",
+      "id": "srt-0061",
       "type": "noteBox",
-      "start": 196.0,
-      "duration": 7.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "BUD CLIFFORD",
-      "keyword": "BUD CLIFFORD"
+      "start": 220.98,
+      "duration": 4.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "ALREADY TRIED",
+      "supportingTexts": {
+        "topLeft": "ALREADY",
+        "topRight": "TRIED LICK"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0063",
       "type": "noteBox",
-      "start": 203.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "MAIL ROOM",
-      "supportingTexts": {
-        "topLeft": "MAIL ROOM",
-        "topRight": "WORKED WAY"
-      },
-      "layout": "dual"
+      "start": 225.14,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EXTROVERTS AMONGST",
+      "keyword": "EXTROVERTS AMONGST"
     },
     {
       "id": "srt-0065",
       "type": "noteBox",
-      "start": 212.0,
-      "duration": 6.0,
+      "start": 231.46,
+      "duration": 4.5,
       "importance": "supporting",
       "position": "top",
-      "keyword": "BUD TALKED",
+      "keyword": "ELBOW PERSON",
       "supportingTexts": {
-        "topLeft": "BUD TALKED",
-        "topRight": "HINDSIGHT GREAT"
+        "topLeft": "ELBOW",
+        "topRight": "PERSON SITTING"
       },
       "layout": "dual"
     },
     {
       "id": "srt-0067",
       "type": "noteBox",
-      "start": 219.0,
-      "duration": 4.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "FAMILY",
-      "keyword": "FAMILY"
-    },
-    {
-      "id": "srt-0070",
-      "type": "noteBox",
-      "start": 224.0,
-      "duration": 6.0,
+      "start": 236.54,
+      "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "CLIENTELE ADMIT",
+      "keyword": "LET DEAL",
       "supportingTexts": {
-        "topLeft": "CLIENTELE",
-        "topRight": "ADMIT"
-      },
-      "layout": "dual",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "gain": -2.5,
-      "metadata": {
-        "audio": "auto"
-      }
-    },
-    {
-      "id": "family_first",
-      "start": 230.0,
-      "duration": 3.0,
-      "position": "center",
-      "animation": "pulse",
-      "type": "icon",
-      "text": "Family: Top Priority",
-      "name": "family",
-      "volume": 0.8
-    },
-    {
-      "id": "srt-0072",
-      "type": "noteBox",
-      "start": 233.0,
-      "duration": 6.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "STRAIGHT KIDS",
-      "keyword": "STRAIGHT KIDS"
-    },
-    {
-      "id": "srt-0073",
-      "type": "noteBox",
-      "start": 239.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "INSTILLED CHILDREN",
-      "supportingTexts": {
-        "topLeft": "INSTILLED",
-        "topRight": "CHILDREN"
+        "topLeft": "LET DEAL",
+        "topRight": "BIT DETAIL"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0075",
+      "id": "srt-0069",
       "type": "noteBox",
-      "start": 243.0,
+      "start": 242.98,
       "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "FATHER'S VIDEO",
-      "keyword": "FATHER'S VIDEO"
+      "text": "HELPS UNDERSTAND",
+      "keyword": "HELPS UNDERSTAND"
+    },
+    {
+      "id": "srt-0071",
+      "type": "noteBox",
+      "start": 250.18,
+      "duration": 3.56,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "SOCIOGENIC NATURE",
+      "supportingTexts": {
+        "topLeft": "SOCIOGENIC",
+        "topRight": "NATURE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0072",
+      "type": "noteBox",
+      "start": 253.74,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "CULTURAL",
+      "keyword": "CULTURAL"
+    },
+    {
+      "id": "srt-0075",
+      "type": "noteBox",
+      "start": 263.86,
+      "duration": 4.72,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "IDEOSYNCRATIC CALL",
+      "supportingTexts": {
+        "topLeft": "IDEOSYNCRATIC",
+        "topRight": "CALL IDEOGENIC"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0077",
       "type": "noteBox",
-      "start": 251.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "HECTIC SCHEDULE",
-      "side": "left",
-      "supportingTexts": {
-        "topLeft": "HECTIC SCHEDULE"
-      },
-      "layout": "left"
+      "start": 271.26,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "CHARACTERIZES EXTROVERTS",
+      "keyword": "CHARACTERIZES EXTROVERTS"
     },
     {
       "id": "srt-0079",
       "type": "noteBox",
-      "start": 261.0,
-      "duration": 5.0,
+      "start": 275.26,
+      "duration": 3.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "THOUGH WORKING",
+      "keyword": "STIMULATION ACHIEVED",
       "supportingTexts": {
-        "topLeft": "THOUGH WORKING",
-        "topRight": "HE'D RUNNING"
+        "topLeft": "STIMULATION",
+        "topRight": "ACHIEVED"
       },
       "layout": "dual"
     },
     {
       "id": "srt-0081",
       "type": "noteBox",
-      "start": 269.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "EFFORT GAMES",
-      "keyword": "EFFORT GAMES"
+      "start": 280.06,
+      "duration": 4.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "LOUD NOISES",
+      "supportingTexts": {
+        "topLeft": "LOUD NOISES",
+        "topRight": "SOCIAL EVENTS"
+      },
+      "layout": "dual"
     },
     {
-      "id": "srt-0084",
+      "id": "srt-0083",
       "type": "noteBox",
-      "start": 281.0,
-      "duration": 3.5,
+      "start": 287.34,
+      "duration": 4.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "APPRECIATED",
-      "keyword": "APPRECIATED"
+      "text": "GATHER TOGETHER",
+      "keyword": "GATHER TOGETHER"
+    },
+    {
+      "id": "srt-0085",
+      "type": "noteBox",
+      "start": 292.58,
+      "duration": 4.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "QUIET SPACES",
+      "supportingTexts": {
+        "topLeft": "QUIET SPACES",
+        "topRight": "FLOOR"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0087",
+      "type": "noteBox",
+      "start": 299.5,
+      "duration": 4.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "MAYBE MISCONSTRUED",
+      "supportingTexts": {
+        "topLeft": "MAYBE MISCONSTRUED",
+        "topRight": "ANTISOCIAL"
+      },
+      "layout": "dual"
     },
     {
       "id": "srt-0088",
       "type": "noteBox",
-      "start": 288.0,
-      "duration": 1.5,
+      "start": 303.5,
+      "duration": 3.14,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "GREAT",
-      "keyword": "GREAT"
+      "text": "NECESSARILY ANTISOCIAL",
+      "keyword": "NECESSARILY ANTISOCIAL"
     },
     {
-      "id": "srt-0090",
+      "id": "srt-0089",
       "type": "noteBox",
-      "start": 291.0,
+      "start": 307.74,
       "duration": 3.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "MAY SIMPLY",
+      "supportingTexts": {
+        "topLeft": "MAY",
+        "topRight": "SIMPLY REALIZE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0091",
+      "type": "noteBox",
+      "start": 313.66,
+      "duration": 3.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "LOWER LEVEL",
+      "supportingTexts": {
+        "topLeft": "LOWER",
+        "topRight": "LEVEL STIMULATION"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0092",
+      "type": "noteBox",
+      "start": 317.38,
+      "duration": 4.12,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "STAY SQUARED",
-      "keyword": "STAY SQUARED"
+      "text": "SOMETIMES INTERNAL",
+      "keyword": "SOMETIMES INTERNAL"
     },
     {
       "id": "srt-0093",
       "type": "noteBox",
-      "start": 295.0,
-      "duration": 5.0,
+      "start": 321.5,
+      "duration": 4.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "TOTALLY NATURAL",
+      "keyword": "CAFFEINE EXAMPLE",
       "supportingTexts": {
-        "topLeft": "TOTALLY NATURAL",
-        "topRight": "TALKING"
+        "topLeft": "CAFFEINE EXAMPLE",
+        "topRight": "MUCH BETTER"
       },
       "layout": "dual"
     },
     {
       "id": "srt-0095",
       "type": "noteBox",
-      "start": 301.0,
-      "duration": 5.0,
+      "start": 326.46,
+      "duration": 3.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "KEEP MOVING",
+      "keyword": "EXTROVERTS OFFICE",
       "supportingTexts": {
-        "topLeft": "KEEP MOVING",
-        "topRight": "JAM"
+        "topLeft": "EXTROVERTS",
+        "topRight": "OFFICE"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0102",
+      "id": "srt-0097",
       "type": "noteBox",
-      "start": 313.0,
+      "start": 329.58,
+      "duration": 5.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "CUP COFFEE",
+      "keyword": "CUP COFFEE"
+    },
+    {
+      "id": "srt-0099",
+      "type": "noteBox",
+      "start": 335.94,
+      "duration": 3.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "INTROVERTS",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "INTROVERTS"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "srt-0101",
+      "type": "noteBox",
+      "start": 341.3,
+      "duration": 2.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "THEY'VE COFFEE",
+      "supportingTexts": {
+        "topLeft": "THEY'VE",
+        "topRight": "COFFEE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0103",
+      "type": "noteBox",
+      "start": 346.9,
+      "duration": 2.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "INTROVERTS MAY",
+      "keyword": "INTROVERTS MAY"
+    },
+    {
+      "id": "srt-0105",
+      "type": "noteBox",
+      "start": 351.94,
       "duration": 2.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "KIDDING",
-      "keyword": "KIDDING"
+      "text": "MISCONSTRUAL",
+      "keyword": "MISCONSTRUAL"
     },
     {
-      "id": "srt-0104",
+      "id": "srt-0107",
       "type": "noteBox",
-      "start": 315.0,
-      "duration": 7.0,
+      "start": 356.68,
+      "duration": 4.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "DECIDE DIRECTION",
-      "keyword": "DECIDE DIRECTION"
-    },
-    {
-      "id": "srt-0105",
-      "type": "noteBox",
-      "start": 322.0,
-      "duration": 7.8,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "ENJOYS PEOPLE",
-      "keyword": "ENJOYS PEOPLE"
-    },
-    {
-      "id": "srt-0106",
-      "type": "noteBox",
-      "start": 329.8,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "WORKING YEARS",
-      "supportingTexts": {
-        "topLeft": "WORKING YEARS",
-        "topRight": "POINT"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0108",
-      "type": "noteBox",
-      "start": 339.12,
-      "duration": 6.08,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "OPPORTUNITY GRAB",
-      "side": "left",
-      "supportingTexts": {
-        "topLeft": "OPPORTUNITY GRAB"
-      },
-      "layout": "left"
+      "text": "SEEM",
+      "keyword": "SEEM"
     },
     {
       "id": "srt-0109",
       "type": "noteBox",
-      "start": 345.2,
-      "duration": 5.52,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "EXCITED",
-      "keyword": "EXCITED"
-    },
-    {
-      "id": "srt-0110",
-      "type": "noteBox",
-      "start": 350.72,
+      "start": 362.58,
       "duration": 3.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "CHAPTER LIVES",
-      "keyword": "CHAPTER LIVES"
+      "text": "GETTING",
+      "keyword": "GETTING"
+    },
+    {
+      "id": "srt-0111",
+      "type": "noteBox",
+      "start": 367.86,
+      "duration": 3.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "ALTHOUGH MAY",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "ALTHOUGH MAY"
+      },
+      "layout": "left"
     },
     {
       "id": "srt-0113",
       "type": "noteBox",
-      "start": 356.72,
-      "duration": 4.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "WANTS TRAVEL",
-      "keyword": "WANTS TRAVEL"
-    },
-    {
-      "id": "srt-0115",
-      "type": "noteBox",
-      "start": 363.72,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "LOVE ABLE",
-      "side": "left",
-      "supportingTexts": {
-        "topLeft": "LOVE ABLE"
-      },
-      "layout": "left"
-    },
-    {
-      "id": "srt-0116",
-      "type": "noteBox",
-      "start": 369.72,
-      "duration": 6.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "GRANDKIDS",
-      "keyword": "GRANDKIDS"
-    },
-    {
-      "id": "srt-0117",
-      "type": "noteBox",
-      "start": 375.72,
-      "duration": 10.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "TOLD",
-      "side": "left",
-      "supportingTexts": {
-        "topLeft": "TOLD"
-      },
-      "layout": "left"
-    },
-    {
-      "id": "srt-0121",
-      "type": "noteBox",
-      "start": 400.72,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "TELL",
-      "side": "left",
-      "supportingTexts": {
-        "topLeft": "TELL"
-      },
-      "layout": "left"
-    },
-    {
-      "id": "i_love_you_message",
-      "start": 409.72,
-      "duration": 4.0,
-      "position": "center",
-      "animation": "pulse",
-      "type": "noteBox",
-      "text": "I Love You",
-      "volume": 0.9
-    },
-    {
-      "id": "srt-0125",
-      "type": "noteBox",
-      "start": 414.72,
+      "start": 376.34,
       "duration": 3.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "YOU'VE GOOD",
-      "keyword": "YOU'VE GOOD"
-    },
-    {
-      "id": "srt-0128",
-      "type": "noteBox",
-      "start": 418.72,
-      "duration": 4.5,
       "importance": "supporting",
       "position": "top",
-      "keyword": "EXCITED TURNS",
+      "keyword": "STUDIES DONE",
       "supportingTexts": {
-        "topLeft": "EXCITED",
-        "topRight": "TURNS"
+        "topLeft": "STUDIES",
+        "topRight": "DONE FREQUENCY"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0133",
+      "id": "srt-0115",
       "type": "noteBox",
-      "start": 431.72,
-      "duration": 3.5,
+      "start": 383.82,
+      "duration": 4.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "EXCITED",
-      "keyword": "EXCITED"
+      "text": "BROKEN MALE",
+      "keyword": "BROKEN MALE"
+    },
+    {
+      "id": "srt-0117",
+      "type": "noteBox",
+      "start": 391.58,
+      "duration": 4.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "RAT STUDY",
+      "keyword": "RAT STUDY"
+    },
+    {
+      "id": "srt-0119",
+      "type": "noteBox",
+      "start": 401.1,
+      "duration": 3.84,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "INTROVERTED MEN",
+      "keyword": "INTROVERTED MEN"
+    },
+    {
+      "id": "srt-0120",
+      "type": "noteBox",
+      "start": 404.94,
+      "duration": 5.08,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EXTROVERTED MEN",
+      "keyword": "EXTROVERTED MEN"
+    },
+    {
+      "id": "srt-0121",
+      "type": "noteBox",
+      "start": 410.02,
+      "duration": 4.4,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "YES ALMOST",
+      "keyword": "YES ALMOST"
+    },
+    {
+      "id": "srt-0122",
+      "type": "noteBox",
+      "start": 415.58,
+      "duration": 4.92,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "INTROVERTED WOMEN",
+      "keyword": "INTROVERTED WOMEN"
+    },
+    {
+      "id": "srt-0123",
+      "type": "noteBox",
+      "start": 420.5,
+      "duration": 2.64,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "SPEAKING INTROVERTED",
+      "supportingTexts": {
+        "topLeft": "SPEAKING",
+        "topRight": "INTROVERTED MALE"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0124",
+      "type": "noteBox",
+      "start": 423.14,
+      "duration": 2.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EXPLAIN LATER",
+      "keyword": "EXPLAIN LATER"
+    },
+    {
+      "id": "srt-0126",
+      "type": "noteBox",
+      "start": 430.1,
+      "duration": 4.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "HANDLE MALE",
+      "supportingTexts": {
+        "topLeft": "HANDLE",
+        "topRight": "MALE EXTROVERTS"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0128",
+      "type": "noteBox",
+      "start": 434.62,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "COMMUNICATE DIFFERENTLY",
+      "supportingTexts": {
+        "topLeft": "COMMUNICATE DIFFERENTLY",
+        "topRight": "EXTROVERTS INTROVERTS"
+      },
+      "layout": "dual"
     }
   ],
   "meta": {
