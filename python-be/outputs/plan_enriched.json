@@ -1,75 +1,27 @@
 {
   "segments": [
     {
-      "id": "intro_setup",
+      "id": "intro_instructions",
       "sourceStart": 0.0,
-      "duration": 8.92,
-      "label": "Host sets interview tone",
+      "duration": 15.0,
+      "label": "Intro & Instructions",
       "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
+      "motionCue": "zoomIn",
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
+        "Motion cue: zoomIn emphasises \"EXPRESSIONS\"."
       ]
     },
     {
-      "id": "six_questions",
-      "sourceStart": 8.92,
-      "duration": 5.44,
-      "label": "Host explains structure",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "first_question",
-      "sourceStart": 14.36,
-      "duration": 8.0,
-      "label": "Q1: One word for Nick?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "loyal_restart",
-      "sourceStart": 22.36,
-      "duration": 6.64,
-      "label": "Guest mentions loyal, restarts",
+      "id": "describe_nick_q",
+      "sourceStart": 15.0,
+      "duration": 7.0,
+      "label": "Describe Nick Question",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -80,166 +32,176 @@
       },
       "kind": "normal",
       "motionCue": "zoomOut",
+      "sfxHints": [
+        "question"
+      ],
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "B-roll injected via highlight keyword: handshake_success"
+        "SFX hints propagated: question",
+        "B-roll: handshake_success underscores loyalty anecdote.",
+        "Motion cue: zoomIn emphasises \"Describe Nick: One Word\".",
+        "Motion cue: zoomOut emphasises \"LOYAL\"."
       ],
       "broll": {
         "id": "handshake_success",
         "file": "assets/broll/handshake_success.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
+        "mode": "full",
+        "confidence": 3.0,
         "reasons": [
-          "Highlight keyword match"
+          "Handshake moment reinforces loyalty description."
         ]
       }
     },
     {
-      "id": "honest_one_word",
-      "sourceStart": 29.0,
-      "duration": 5.0,
-      "label": "Guest struggles with one word",
+      "id": "nick_initial_traits",
+      "sourceStart": 22.0,
+      "duration": 26.0,
+      "label": "Nick's Initial Traits",
       "silenceAfter": false,
       "transitionIn": {
         "type": "cut"
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "more_words_sweet_guy",
-      "sourceStart": 34.0,
-      "duration": 6.0,
-      "label": "Host prompts, guest adds 'sweet'",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "down_to_earth",
-      "sourceStart": 40.0,
-      "duration": 9.0,
-      "label": "Guest describes Nick: down-to-earth, honest",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "how_did_you_meet",
-      "sourceStart": 49.0,
-      "duration": 7.0,
-      "label": "Q2: How did you meet Nick?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
         "type": "slide",
-        "duration": 0.5,
-        "direction": "up"
+        "duration": 0.6,
+        "direction": "left"
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
+      "motionCue": "zoomIn",
       "sfxHints": [
+        "tech",
         "question"
       ],
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: question",
-        "B-roll injected via highlight keyword: training_workshop"
-      ],
-      "broll": {
-        "id": "training_workshop",
-        "file": "assets/broll/training_workshop.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "high_school_blind_date",
-      "sourceStart": 56.0,
-      "duration": 60.0,
-      "label": "Guest recounts high school blind date",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "down"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
-        "SFX hints propagated: question",
-        "B-roll injected via highlight keyword: celebration_success"
+        "SFX hints propagated: tech, question",
+        "B-roll: celebration_success adds warmth during character description.",
+        "Motion cue: zoomIn emphasises \"START\".",
+        "Motion cue: zoomOut emphasises \"HONEST\".",
+        "Motion cue: zoomIn emphasises \"SWEET GUY\"."
       ],
       "broll": {
         "id": "celebration_success",
         "file": "assets/broll/celebration_success.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
+        "mode": "full",
+        "confidence": 3.0,
         "reasons": [
-          "Highlight keyword match"
+          "Celebration visual supports the heartfelt moment."
         ]
       }
     },
     {
-      "id": "cute_awesome",
-      "sourceStart": 116.0,
-      "duration": 4.0,
-      "label": "Host reacts to story",
+      "id": "how_we_met_q",
+      "sourceStart": 48.0,
+      "duration": 8.0,
+      "label": "How We Met Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: question",
+        "B-roll: training_workshop illustrates the high-school group setup."
+      ],
+      "broll": {
+        "id": "training_workshop",
+        "file": "assets/broll/training_workshop.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Group setting mirrors the meeting story energy."
+        ]
+      }
+    },
+    {
+      "id": "meeting_story",
+      "sourceStart": 56.0,
+      "duration": 24.0,
+      "label": "Their Meeting Story",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "favorite_memory_q",
+      "sourceStart": 80.0,
+      "duration": 9.0,
+      "label": "Favorite Memory Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "SFX hints propagated: question",
+        "B-roll: celebration_success adds warmth during character description.",
+        "Motion cue: zoomOut emphasises \"FAVORITE MEMORY\"."
+      ],
+      "broll": {
+        "id": "celebration_success",
+        "file": "assets/broll/celebration_success.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Celebration visual supports the heartfelt moment."
+        ]
+      }
+    },
+    {
+      "id": "memory_delay_next_q",
+      "sourceStart": 89.0,
+      "duration": 11.0,
+      "label": "Delay & Next Question Setup",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomIn",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue: zoomIn emphasises \"DESCRIBE NICK'S\"."
+      ]
+    },
+    {
+      "id": "nicks_impact_q",
+      "sourceStart": 100.0,
+      "duration": 6.0,
+      "label": "Nick's Impact Question",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -251,54 +213,32 @@
       "kind": "normal",
       "motionCue": "zoomOut",
       "notes": [
-        "No B-roll match above threshold.",
         "Motion cue assigned: zoomOut",
-        "B-roll injected via highlight keyword: teamwork_meeting"
+        "B-roll: teamwork_meeting spotlights established clientele."
       ],
       "broll": {
         "id": "teamwork_meeting",
         "file": "assets/broll/teamwork_meeting.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
+        "mode": "full",
+        "confidence": 3.0,
         "reasons": [
-          "Highlight keyword match"
+          "Team huddle echoes long-term client relationships."
         ]
       }
     },
     {
-      "id": "favorite_memory",
-      "sourceStart": 120.0,
-      "duration": 9.0,
-      "label": "Q3: Favorite memory?",
+      "id": "client_loyalty_story",
+      "sourceStart": 106.0,
+      "duration": 34.0,
+      "label": "Client Loyalty Story",
       "silenceAfter": false,
       "transitionIn": {
         "type": "cut"
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "need_time_move_on",
-      "sourceStart": 129.0,
-      "duration": 11.0,
-      "label": "Guest needs time, Host suggests moving on",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
         "type": "slide",
-        "duration": 0.5,
-        "direction": "left"
+        "duration": 0.7,
+        "direction": "right"
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -308,14 +248,14 @@
       ]
     },
     {
-      "id": "influence_on_family",
+      "id": "managing_people",
       "sourceStart": 140.0,
-      "duration": 6.0,
-      "label": "Q4: Influence on family?",
+      "duration": 29.0,
+      "label": "Managing People & Loyalty",
       "silenceAfter": false,
       "transitionIn": {
         "type": "slide",
-        "duration": 0.5,
+        "duration": 0.7,
         "direction": "right"
       },
       "transitionOut": {
@@ -323,81 +263,34 @@
         "duration": 0.5
       },
       "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "clientele_loyalty",
-      "sourceStart": 146.0,
-      "duration": 62.0,
-      "label": "Guest details client loyalty",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "motionCue": "pan",
+      "motionCue": "zoomIn",
       "sfxHints": [
-        "question",
-        "tech"
+        "question"
       ],
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
-        "SFX hints propagated: question, tech",
-        "B-roll injected via highlight keyword: business_strategy"
+        "SFX hints propagated: question",
+        "B-roll: handshake_success underscores loyalty anecdote.",
+        "Motion cue: zoomIn emphasises \"CREATED LOYAL\".",
+        "Motion cue: zoomOut emphasises \"PEOPLE\".",
+        "Motion cue: zoomIn emphasises \"WAY NICK\".",
+        "Motion cue: zoomOut emphasises \"BUSINESS\".",
+        "Motion cue: zoomIn emphasises \"THINKING\"."
       ],
       "broll": {
-        "id": "business_strategy",
-        "file": "assets/broll/business_strategy.jpg",
-        "mode": "overlay",
-        "confidence": 2.0,
+        "id": "handshake_success",
+        "file": "assets/broll/handshake_success.mp4",
+        "mode": "full",
+        "confidence": 3.0,
         "reasons": [
-          "Highlight keyword match"
+          "Handshake moment reinforces loyalty description."
         ]
       }
     },
     {
-      "id": "managing_people_roots",
-      "sourceStart": 208.0,
-      "duration": 26.0,
-      "label": "Guest on managing people and not forgetting roots",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "sfxHints": [
-        "question",
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
-        "SFX hints propagated: question, tech"
-      ]
-    },
-    {
-      "id": "agree_on_loyalty",
-      "sourceStart": 234.0,
+      "id": "affecting_lives_q",
+      "sourceStart": 169.0,
       "duration": 6.0,
-      "label": "Host agrees on client loyalty",
+      "label": "Affecting Lives Question",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -407,21 +300,17 @@
         "type": "cut"
       },
       "kind": "normal",
-      "motionCue": "pan",
-      "sfxHints": [
-        "tech"
-      ],
+      "motionCue": "zoomOut",
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
-        "SFX hints propagated: tech"
+        "Motion cue assigned: zoomOut"
       ]
     },
     {
-      "id": "affected_lives_business",
-      "sourceStart": 240.0,
-      "duration": 6.0,
-      "label": "Q5: Affected lives and business?",
+      "id": "sees_potential_answer",
+      "sourceStart": 175.0,
+      "duration": 16.0,
+      "label": "Seeing Potential in People",
       "silenceAfter": false,
       "transitionIn": {
         "type": "cut"
@@ -432,12 +321,116 @@
       },
       "kind": "normal",
       "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue: zoomIn emphasises \"Sees Potential in Everyone\".",
+        "Motion cue: zoomOut emphasises \"EVERYBODY\"."
+      ]
+    },
+    {
+      "id": "career_path_q",
+      "sourceStart": 191.0,
+      "duration": 5.0,
+      "label": "Career Path Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "career_origin_story",
+      "sourceStart": 196.0,
+      "duration": 23.0,
+      "label": "Career Origin Story",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "up"
+      },
+      "kind": "normal",
       "sfxHints": [
         "tech"
       ],
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: tech",
+        "B-roll: modern_office reinforces lasting client partnership."
+      ],
+      "broll": {
+        "id": "modern_office",
+        "file": "assets/broll/modern_office.jpg",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Modern office still pairs with enduring partnerships."
+        ]
+      }
+    },
+    {
+      "id": "industry_family_q",
+      "sourceStart": 219.0,
+      "duration": 5.0,
+      "label": "Industry & Family Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "up"
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "SFX hints propagated: question",
+        "B-roll: teamwork_meeting spotlights established clientele."
+      ],
+      "broll": {
+        "id": "teamwork_meeting",
+        "file": "assets/broll/teamwork_meeting.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Team huddle echoes long-term client relationships."
+        ]
+      }
+    },
+    {
+      "id": "family_priority",
+      "sourceStart": 224.0,
+      "duration": 19.0,
+      "label": "Family Priority & Work Ethic",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
         "SFX hints propagated: tech",
         "B-roll injected via highlight keyword: digital_network"
       ],
@@ -452,10 +445,10 @@
       }
     },
     {
-      "id": "sees_potential",
-      "sourceStart": 246.0,
-      "duration": 67.0,
-      "label": "Guest: Nick sees potential in everyone",
+      "id": "fathers_day_anecdote",
+      "sourceStart": 243.0,
+      "duration": 46.0,
+      "label": "Father's Day Anecdote",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
@@ -463,200 +456,107 @@
       },
       "transitionOut": {
         "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
+        "duration": 0.6,
+        "direction": "down"
       },
       "kind": "normal",
-      "motionCue": "zoomIn",
       "sfxHints": [
-        "question",
         "tech"
       ],
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomIn",
-        "SFX hints propagated: question, tech"
+        "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "planned_industry",
-      "sourceStart": 313.0,
-      "duration": 3.0,
-      "label": "Q6: Always plan this industry?",
+      "id": "technical_break",
+      "sourceStart": 289.0,
+      "duration": 26.0,
+      "label": "Technical Interruption",
       "silenceAfter": false,
       "transitionIn": {
         "type": "slide",
-        "duration": 0.5,
+        "duration": 0.6,
+        "direction": "down"
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "retirement_decision_q",
+      "sourceStart": 315.0,
+      "duration": 14.8,
+      "label": "Retirement Decision Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "retirement_feelings",
+      "sourceStart": 329.8,
+      "duration": 22.92,
+      "label": "Feelings on Retirement",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.6,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "retirement_plans_q",
+      "sourceStart": 352.72,
+      "duration": 3.0,
+      "label": "Retirement Plans Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.6,
         "direction": "left"
       },
       "transitionOut": {
         "type": "cut"
       },
       "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "not_at_all",
-      "sourceStart": 316.0,
-      "duration": 2.0,
-      "label": "Guest: No, not at all",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "mail_room_to_manager",
-      "sourceStart": 318.0,
-      "duration": 22.0,
-      "label": "Guest recounts career start and path",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "motionCue": "pan",
       "sfxHints": [
         "question"
       ],
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
-        "SFX hints propagated: question",
-        "B-roll injected via highlight keyword: data_analysis"
-      ],
-      "broll": {
-        "id": "data_analysis",
-        "file": "assets/broll/data_analysis.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "that_s_awesome",
-      "sourceStart": 340.0,
-      "duration": 1.0,
-      "label": "Host reaction",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "industry_with_family",
-      "sourceStart": 341.0,
-      "duration": 4.0,
-      "label": "Q7: Industry impact on family?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "with_family_yeah",
-      "sourceStart": 345.0,
-      "duration": 2.0,
-      "label": "Clarification",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "long_hours_family_priority",
-      "sourceStart": 347.0,
-      "duration": 58.0,
-      "label": "Guest: Long hours, but family always priority",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan",
         "SFX hints propagated: question"
       ]
     },
     {
-      "id": "awesome_reaction",
-      "sourceStart": 405.0,
-      "duration": 1.0,
-      "label": "Host reaction",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "fathers_day_video",
-      "sourceStart": 406.0,
-      "duration": 8.0,
-      "label": "Host refers to Father's Day video",
+      "id": "retirement_plans_answer",
+      "sourceStart": 355.72,
+      "duration": 21.0,
+      "label": "Retirement Plans & Dreams",
       "silenceAfter": false,
       "transitionIn": {
         "type": "cut"
@@ -666,30 +566,70 @@
         "duration": 0.5
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "message_for_nick_q",
+      "sourceStart": 376.72,
+      "duration": 15.0,
+      "label": "Message for Nick Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "final_message",
+      "sourceStart": 391.72,
+      "duration": 22.0,
+      "label": "Wife's Final Message",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
       "sfxHints": [
         "tech"
       ],
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
         "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "always_at_games_balanced",
-      "sourceStart": 414.0,
-      "duration": 33.0,
-      "label": "Guest: Nick balanced work and family, always at games",
+      "id": "outro_remarks",
+      "sourceStart": 413.72,
+      "duration": 23.0,
+      "label": "Outro Remarks",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.5
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "up"
+        "type": "cut"
       },
       "kind": "normal",
       "sfxHints": [
@@ -699,497 +639,103 @@
         "No B-roll match above threshold.",
         "SFX hints propagated: question"
       ]
-    },
-    {
-      "id": "family_first_host",
-      "sourceStart": 447.0,
-      "duration": 5.0,
-      "label": "Host emphasizes 'Family first'",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "down"
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "technical_direction",
-      "sourceStart": 452.0,
-      "duration": 4.0,
-      "label": "Host gives technical direction",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "apology_for_turning",
-      "sourceStart": 456.0,
-      "duration": 48.0,
-      "label": "Guest apologizes for turning",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "self_adjusting_host",
-      "sourceStart": 504.0,
-      "duration": 6.0,
-      "label": "Host self-adjusts",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "more_adjustments",
-      "sourceStart": 510.0,
-      "duration": 8.0,
-      "label": "Host/Guest making minor adjustments",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "retirement_decision",
-      "sourceStart": 518.0,
-      "duration": 8.0,
-      "label": "Q8: Retirement decision?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "tough_but_opportunity",
-      "sourceStart": 526.0,
-      "duration": 18.0,
-      "label": "Guest: Tough, but seizing opportunity",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "happy_new_chapter",
-      "sourceStart": 544.0,
-      "duration": 13.5,
-      "label": "Guest: Happy, excited for next chapter",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "first_thing_to_do",
-      "sourceStart": 557.5,
-      "duration": 3.0,
-      "label": "Q9: First thing you'll do in retirement?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "sleep_in_travel",
-      "sourceStart": 600.5,
-      "duration": 5.0,
-      "label": "Guest: Sleep in, travel",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "special_place",
-      "sourceStart": 605.5,
-      "duration": 2.0,
-      "label": "Host: Special place?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "scotland_golf",
-      "sourceStart": 607.5,
-      "duration": 7.0,
-      "label": "Guest: Scotland for golf",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "grandkids",
-      "sourceStart": 614.5,
-      "duration": 7.0,
-      "label": "Guest: Spend time with grandkids",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "up"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "message_for_him",
-      "sourceStart": 621.5,
-      "duration": 15.0,
-      "label": "Q10: Message for Nick?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "down"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "message_instructions",
-      "sourceStart": 636.5,
-      "duration": 8.0,
-      "label": "Host gives message instructions",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "i_love_you_message",
-      "sourceStart": 644.5,
-      "duration": 14.0,
-      "label": "Guest's message to Nick: excited for new chapter, I love you",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "good_stuff",
-      "sourceStart": 658.5,
-      "duration": 3.0,
-      "label": "Host asks about interview quality",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "yes_a_lot",
-      "sourceStart": 701.5,
-      "duration": 4.0,
-      "label": "Guest confirms good content",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "excited_for_results",
-      "sourceStart": 705.5,
-      "duration": 9.0,
-      "label": "Guest excited for final video, others enjoyed",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
-    },
-    {
-      "id": "jim_and_barb_outro",
-      "sourceStart": 714.5,
-      "duration": 5.0,
-      "label": "Host mentions Jim and Barb",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No matching scene metadata; skipped B-roll and motion cue."
-      ]
     }
   ],
   "highlights": [
     {
-      "id": "srt-0002",
+      "id": "srt-0003",
       "type": "noteBox",
-      "start": 6.28,
+      "start": 9.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "SCREW ME GET",
+      "keyword": "EXPRESSIONS",
+      "side": "left",
       "supportingTexts": {
-        "topLeft": "SCREW ME",
-        "topRight": "GET"
+        "topLeft": "EXPRESSIONS"
       },
-      "layout": "dual"
+      "layout": "left"
     },
     {
-      "id": "srt-0004",
-      "type": "noteBox",
-      "start": 12.76,
+      "id": "describe_nick",
+      "start": 15.5,
       "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "WANT GET ANYTHING ELSE",
-      "supportingTexts": {
-        "topLeft": "WANT",
-        "topRight": "GET ANYTHING ELSE"
-      },
-      "layout": "dual"
+      "position": "center",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "Describe Nick: One Word",
+      "volume": 0.75
     },
     {
       "id": "srt-0007",
       "type": "noteBox",
-      "start": 22.36,
-      "duration": 2.64,
+      "start": 22.0,
+      "duration": 4.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "I THINK HE'S OH",
-      "keyword": "I THINK HE'S OH"
+      "text": "LOYAL",
+      "keyword": "LOYAL"
     },
     {
       "id": "srt-0008",
       "type": "noteBox",
-      "start": 25.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HE'S LOYAL",
-      "keyword": "HE'S LOYAL"
-    },
-    {
-      "id": "srt-0010",
-      "type": "noteBox",
-      "start": 28.0,
+      "start": 26.0,
       "duration": 2.5,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "YEAH GO AHEAD IT'S",
-      "supportingTexts": {
-        "topLeft": "YEAH GO",
-        "topRight": "AHEAD IT'S OKAY"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0012",
-      "type": "noteBox",
-      "start": 34.0,
-      "duration": 3.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "SOME WORDS",
-      "keyword": "SOME WORDS"
+      "text": "START",
+      "keyword": "START"
+    },
+    {
+      "id": "srt-0011",
+      "type": "noteBox",
+      "start": 30.0,
+      "duration": 2.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "HONEST",
+      "keyword": "HONEST",
+      "sfx": "assets/sfx/emotion/applause.mp3",
+      "gain": -2.5,
+      "metadata": {
+        "audio": "auto"
+      }
     },
     {
       "id": "srt-0014",
       "type": "noteBox",
-      "start": 38.0,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I MEAN EVERY TIME",
-      "supportingTexts": {
-        "topLeft": "I MEAN EVERY TIME",
-        "topRight": "KNOW ATTRACTED"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "down_to_earth_honest",
-      "start": 45.0,
-      "duration": 3.0,
-      "position": "center",
-      "animation": "zoom",
-      "type": "noteBox",
-      "text": "Down-to-earth & honest",
-      "volume": 0.75
-    },
-    {
-      "id": "srt-0016",
-      "type": "noteBox",
-      "start": 49.0,
+      "start": 36.0,
       "duration": 3.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "OH NO",
-      "keyword": "OH NO"
+      "text": "SWEET GUY",
+      "keyword": "SWEET GUY",
+      "sfx": "assets/sfx/emotion/applause.mp3",
+      "gain": -2.5,
+      "metadata": {
+        "audio": "auto"
+      }
     },
     {
-      "id": "srt-0017",
+      "id": "loyal_honest",
+      "start": 43.5,
+      "duration": 3.0,
+      "position": "bottom",
+      "animation": "fade",
+      "type": "noteBox",
+      "text": "Loyal & Honest Man",
+      "volume": 0.7
+    },
+    {
+      "id": "srt-0018",
       "type": "noteBox",
       "start": 52.0,
       "duration": 4.0,
@@ -1197,11 +743,11 @@
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "HOW MEET NICK",
-      "keyword": "HOW MEET NICK"
+      "text": "MEET NICK",
+      "keyword": "MEET NICK"
     },
     {
-      "id": "srt-0018",
+      "id": "srt-0019",
       "type": "noteBox",
       "start": 56.0,
       "duration": 4.0,
@@ -1209,8 +755,8 @@
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "OH HIGH SCHOOL",
-      "keyword": "OH HIGH SCHOOL",
+      "text": "HIGH SCHOOL",
+      "keyword": "HIGH SCHOOL",
       "sfx": "assets/sfx/ui/pop.mp3",
       "gain": -2.5,
       "metadata": {
@@ -1218,107 +764,55 @@
       }
     },
     {
-      "id": "srt-0020",
+      "id": "srt-0021",
       "type": "noteBox",
       "start": 66.0,
       "duration": 6.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "BEST BUDDY HIS GOOD",
+      "keyword": "BEST BUDDY",
       "supportingTexts": {
-        "topLeft": "BEST BUDDY HIS GOOD",
-        "topRight": "I FRIENDS"
+        "topLeft": "BEST BUDDY",
+        "topRight": "FRIENDS"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0021",
+      "id": "srt-0022",
       "type": "noteBox",
       "start": 72.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "HE SHOWED DOOR KIND",
+      "keyword": "SHOWED DOOR",
       "supportingTexts": {
-        "topLeft": "HE SHOWED DOOR",
-        "topRight": "KIND BLIND DATE"
+        "topLeft": "SHOWED",
+        "topRight": "DOOR BLIND"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0023",
+      "id": "srt-0026",
       "type": "noteBox",
-      "start": 78.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "THAT'S AWESOME",
-      "keyword": "THAT'S AWESOME"
-    },
-    {
-      "id": "srt-0024",
-      "type": "noteBox",
-      "start": 81.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "UM SOMEONE'S GOING TOUGH",
-      "supportingTexts": {
-        "topLeft": "UM SOMEONE'S GOING TOUGH",
-        "topRight": "THINK ABOUT CAN'T ANSWER"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0025",
-      "type": "noteBox",
-      "start": 86.0,
+      "start": 84.0,
       "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "IT'S OKAY FAVORITE MEMORY NICK",
-      "keyword": "IT'S OKAY FAVORITE MEMORY NICK"
+      "text": "FAVORITE MEMORY",
+      "keyword": "FAVORITE MEMORY"
     },
     {
-      "id": "srt-0027",
-      "type": "noteBox",
-      "start": 92.0,
-      "duration": 3.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "NO LET'S THINK ABOUT",
-      "supportingTexts": {
-        "topLeft": "NO LET'S",
-        "topRight": "THINK ABOUT"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0029",
-      "type": "noteBox",
-      "start": 96.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "OKAY",
-      "keyword": "OKAY"
-    },
-    {
-      "id": "srt-0031",
+      "id": "srt-0032",
       "type": "noteBox",
       "start": 100.0,
-      "duration": 4.5,
+      "duration": 4.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "UM DESCRIBE NICK'S INFLUENCE",
+      "keyword": "DESCRIBE NICK'S",
       "supportingTexts": {
-        "topLeft": "UM DESCRIBE NICK'S INFLUENCE",
+        "topLeft": "DESCRIBE NICK'S",
         "topRight": "IMPACT TITLE"
       },
       "layout": "dual"
@@ -1326,38 +820,26 @@
     {
       "id": "srt-0033",
       "type": "noteBox",
-      "start": 106.0,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I THINK IT'S HE'S",
-      "supportingTexts": {
-        "topLeft": "I THINK IT'S",
-        "topRight": "HE'S LONG HE'S ESTABLISHED"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "high_school_blind_date_highlight",
-      "start": 113.0,
-      "duration": 3.0,
+      "start": 104.0,
+      "duration": 2.0,
+      "layout": "bottom",
+      "importance": "primary",
       "position": "bottom",
-      "animation": "typewriter",
-      "type": "typewriter",
-      "text": "Met on a high school blind date!",
-      "volume": 0.7
+      "side": "bottom",
+      "text": "FAMILY",
+      "keyword": "FAMILY"
     },
     {
-      "id": "srt-0036",
+      "id": "srt-0034",
       "type": "noteBox",
-      "start": 117.0,
+      "start": 106.0,
       "duration": 6.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "OFFICE MANAGE HIS FIRST CLIENT BROUGHT HIM HIS",
-      "keyword": "OFFICE MANAGE HIS FIRST CLIENT BROUGHT HIM HIS",
+      "text": "ESTABLISHED CLIENTELE",
+      "keyword": "ESTABLISHED CLIENTELE",
       "sfx": "assets/sfx/ui/pop.mp3",
       "gain": -2.5,
       "metadata": {
@@ -1365,125 +847,96 @@
       }
     },
     {
-      "id": "srt-0037",
+      "id": "srt-0036",
       "type": "noteBox",
-      "start": 123.0,
-      "duration": 2.5,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "HIM DAY",
-      "supportingTexts": {
-        "topLeft": "HIM",
-        "topRight": "DAY"
-      },
-      "layout": "dual"
+      "start": 113.0,
+      "duration": 5.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "ESCROW GIVEN",
+      "keyword": "ESCROW GIVEN"
     },
     {
-      "id": "srt-0039",
-      "type": "noteBox",
-      "start": 128.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I THINK SAYS LOT",
-      "supportingTexts": {
-        "topLeft": "I THINK",
-        "topRight": "SAYS LOT"
-      },
-      "layout": "dual"
+      "id": "client_loyalty",
+      "start": 122.0,
+      "duration": 3.0,
+      "position": "center",
+      "animation": "typewriter",
+      "type": "sectionTitle",
+      "text": "Decades of Client Loyalty",
+      "sfx": "assets/sfx/ui/keyboard-typing.mp3",
+      "volume": 0.6
     },
     {
       "id": "srt-0041",
       "type": "noteBox",
-      "start": 133.0,
-      "duration": 5.0,
+      "start": 130.0,
+      "duration": 4.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "I THINK TOO I MEAN SIGHT GROWING SIX",
-      "keyword": "I THINK TOO I MEAN SIGHT GROWING SIX"
-    },
-    {
-      "id": "srt-0042",
-      "type": "noteBox",
-      "start": 138.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "BREAK FIGHTS BETWEEN BETWEEN",
-      "supportingTexts": {
-        "topLeft": "BREAK",
-        "topRight": "FIGHTS BETWEEN BETWEEN WOMEN"
-      },
-      "layout": "dual"
+      "text": "HANDLING PEOPLE",
+      "keyword": "HANDLING PEOPLE"
     },
     {
       "id": "srt-0043",
       "type": "noteBox",
-      "start": 143.0,
-      "duration": 5.0,
+      "start": 140.0,
+      "duration": 7.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "KNOW IT'S IT'S LIKE",
+      "keyword": "WOMEN MANAGING",
       "supportingTexts": {
-        "topLeft": "KNOW IT'S IT'S LIKE",
-        "topRight": "NEVER FORGETTING HE STARTED"
+        "topLeft": "WOMEN",
+        "topRight": "MANAGING PEOPLE"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0044",
+      "id": "srt-0045",
       "type": "noteBox",
-      "start": 148.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "FROM",
-      "keyword": "FROM"
+      "start": 149.0,
+      "duration": 4.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "CREATED LOYAL",
+      "supportingTexts": {
+        "topLeft": "CREATED LOYAL",
+        "topRight": "CLIENTS FRIENDSHIPS"
+      },
+      "layout": "dual"
     },
     {
-      "id": "srt-0046",
+      "id": "srt-0047",
       "type": "noteBox",
       "start": 154.0,
-      "duration": 1.5,
+      "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "YEAH I AGREE",
-      "keyword": "YEAH I AGREE"
-    },
-    {
-      "id": "srt-0048",
-      "type": "noteBox",
-      "start": 159.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HIM NOW",
-      "keyword": "HIM NOW"
+      "text": "PEOPLE",
+      "keyword": "PEOPLE"
     },
     {
       "id": "srt-0050",
       "type": "noteBox",
-      "start": 161.0,
-      "duration": 1.5,
+      "start": 160.0,
+      "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "LET'S SEE",
-      "keyword": "LET'S SEE"
+      "text": "WAY NICK",
+      "keyword": "WAY NICK"
     },
     {
-      "id": "srt-0052",
+      "id": "srt-0051",
       "type": "noteBox",
-      "start": 166.0,
+      "start": 165.0,
       "duration": 1.5,
       "layout": "bottom",
       "importance": "primary",
@@ -1493,47 +946,45 @@
       "keyword": "BUSINESS"
     },
     {
-      "id": "srt-0054",
+      "id": "srt-0053",
       "type": "noteBox",
-      "start": 171.0,
+      "start": 169.0,
       "duration": 2.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "THAT'S I'M THINKING",
-      "keyword": "THAT'S I'M THINKING"
+      "text": "THINKING",
+      "keyword": "THINKING"
     },
     {
-      "id": "srt-0055",
+      "id": "srt-0054",
       "type": "noteBox",
-      "start": 173.0,
-      "duration": 5.0,
+      "start": 171.0,
+      "duration": 7.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "HE'S HE REAL SENSE",
+      "keyword": "REAL SENSE",
       "supportingTexts": {
-        "topLeft": "HE'S HE REAL SENSE",
-        "topRight": "PEOPLE EMPLOYEES"
+        "topLeft": "REAL SENSE",
+        "topRight": "EMPLOYEES"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0056",
-      "type": "noteBox",
-      "start": 178.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
+      "id": "sees_potential",
+      "start": 180.0,
+      "duration": 4.0,
       "position": "bottom",
-      "side": "bottom",
-      "text": "NEED",
-      "keyword": "NEED"
+      "animation": "fade",
+      "type": "noteBox",
+      "text": "Sees Potential in Everyone",
+      "volume": 0.75
     },
     {
-      "id": "srt-0058",
+      "id": "srt-0056",
       "type": "noteBox",
-      "start": 187.0,
+      "start": 186.0,
       "duration": 1.5,
       "layout": "bottom",
       "importance": "primary",
@@ -1543,667 +994,447 @@
       "keyword": "EVERYBODY"
     },
     {
-      "id": "srt-0060",
+      "id": "srt-0058",
       "type": "noteBox",
-      "start": 193.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "UM HE ALWAYS PLAN GOING INDUSTRY",
-      "keyword": "UM HE ALWAYS PLAN GOING INDUSTRY"
-    },
-    {
-      "id": "client_loyalty_highlight",
-      "start": 200.0,
-      "duration": 4.0,
-      "position": "top",
-      "animation": "slide",
-      "type": "noteBox",
-      "text": "First client still with him today",
-      "volume": 0.8
-    },
-    {
-      "id": "srt-0064",
-      "type": "noteBox",
-      "start": 205.0,
+      "start": 188.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "HE STARTED BOTTOM MAIL",
+      "keyword": "READ PEOPLE",
       "supportingTexts": {
-        "topLeft": "HE STARTED BOTTOM MAIL",
-        "topRight": "WORKED HIS WAY"
+        "topLeft": "READ PEOPLE",
+        "topRight": "WAY BELIEVE"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0066",
+      "id": "srt-0062",
       "type": "noteBox",
-      "start": 214.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "BUD BASICALLY TALKED HIM",
-      "supportingTexts": {
-        "topLeft": "BUD BASICALLY TALKED",
-        "topRight": "HIM"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0069",
-      "type": "noteBox",
-      "start": 221.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HOW INDUSTRY FAMILY",
-      "keyword": "HOW INDUSTRY FAMILY"
-    },
-    {
-      "id": "srt-0071",
-      "type": "noteBox",
-      "start": 226.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "YEAH",
-      "keyword": "YEAH"
-    },
-    {
-      "id": "srt-0073",
-      "type": "noteBox",
-      "start": 231.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I ADMIT HE'S HE",
-      "supportingTexts": {
-        "topLeft": "I ADMIT HE'S",
-        "topRight": "HE ALWAYS MADE US"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0074",
-      "type": "noteBox",
-      "start": 236.0,
-      "duration": 6.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HE STRAIGHT KIDS I MEAN WORK ETHIC HIS",
-      "keyword": "HE STRAIGHT KIDS I MEAN WORK ETHIC HIS"
-    },
-    {
-      "id": "srt-0075",
-      "type": "noteBox",
-      "start": 242.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "HE'S INSTILLED CHILDREN TOO",
-      "supportingTexts": {
-        "topLeft": "HE'S INSTILLED",
-        "topRight": "CHILDREN TOO"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0077",
-      "type": "noteBox",
-      "start": 246.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "THAT'S UM KNOW FATHER'S",
-      "supportingTexts": {
-        "topLeft": "THAT'S UM KNOW",
-        "topRight": "FATHER'S DAY VIDEO GUYS"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0079",
-      "type": "noteBox",
-      "start": 254.0,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "YEAH CAUSE EVEN HECTIC SCHEDULE LOT NOW",
-      "keyword": "YEAH CAUSE EVEN HECTIC SCHEDULE LOT NOW"
-    },
-    {
-      "id": "srt-0081",
-      "type": "noteBox",
-      "start": 264.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "KNOW EVEN THOUGH HE",
-      "supportingTexts": {
-        "topLeft": "KNOW EVEN THOUGH HE",
-        "topRight": "HE'D RUNNING HE'D SCREECHING"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0083",
-      "type": "noteBox",
-      "start": 272.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "WIND",
-      "keyword": "WIND"
-    },
-    {
-      "id": "srt-0085",
-      "type": "noteBox",
-      "start": 277.0,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "KNOW EVEN HE GO",
-      "supportingTexts": {
-        "topLeft": "KNOW EVEN HE GO",
-        "topRight": "NIGHT WORK GO EXTRA"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0086",
-      "type": "noteBox",
-      "start": 282.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "MORNING HE ALWAYS HE",
-      "supportingTexts": {
-        "topLeft": "MORNING HE ALWAYS",
-        "topRight": "HE BALANCED SOMEHOW"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0088",
-      "type": "noteBox",
-      "start": 287.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "YEAH I'M SURE",
-      "keyword": "YEAH I'M SURE"
-    },
-    {
-      "id": "srt-0092",
-      "type": "noteBox",
-      "start": 291.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "THAT'S GREAT",
-      "keyword": "THAT'S GREAT"
-    },
-    {
-      "id": "srt-0094",
-      "type": "noteBox",
-      "start": 293.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "I'M REALLY REALLY SORRY",
-      "keyword": "I'M REALLY REALLY SORRY"
-    },
-    {
-      "id": "srt-0096",
-      "type": "noteBox",
-      "start": 296.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "OH I'M SORRY",
-      "keyword": "OH I'M SORRY"
-    },
-    {
-      "id": "srt-0098",
-      "type": "noteBox",
-      "start": 298.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "IT'S OKAY",
-      "keyword": "IT'S OKAY"
-    },
-    {
-      "id": "sees_potential_highlight",
-      "start": 304.0,
-      "duration": 3.5,
-      "position": "center",
-      "animation": "pulse",
-      "type": "sectionTitle",
-      "text": "He sees potential in everyone",
-      "sfx": "assets/sfx/ui/notification.mp3",
-      "volume": 0.7
-    },
-    {
-      "id": "srt-0104",
-      "type": "noteBox",
-      "start": 309.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "UM",
-      "keyword": "UM"
-    },
-    {
-      "id": "srt-0106",
-      "type": "noteBox",
-      "start": 311.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "NO YOU'RE FINE",
-      "keyword": "NO YOU'RE FINE"
-    },
-    {
-      "id": "srt-0108",
-      "type": "noteBox",
-      "start": 313.0,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "GO AHEAD",
-      "keyword": "GO AHEAD"
-    },
-    {
-      "id": "srt-0111",
-      "type": "noteBox",
-      "start": 316.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "I'M TRYING",
-      "keyword": "I'M TRYING"
-    },
-    {
-      "id": "srt-0113",
-      "type": "noteBox",
-      "start": 318.0,
+      "start": 196.0,
       "duration": 7.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "UM LIKE HIM DECIDE KIND GO DIRECTION RETIREMENT",
-      "keyword": "UM LIKE HIM DECIDE KIND GO DIRECTION RETIREMENT"
+      "text": "BUD CLIFFORD",
+      "keyword": "BUD CLIFFORD"
     },
     {
-      "id": "worked_his_way_up_highlight",
-      "start": 325.0,
-      "duration": 4.0,
-      "position": "bottom",
-      "animation": "float",
+      "id": "srt-0063",
       "type": "noteBox",
-      "text": "Started from mail room, worked his way up",
-      "volume": 0.7
-    },
-    {
-      "id": "srt-0116",
-      "type": "noteBox",
-      "start": 329.0,
+      "start": 203.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "I'M SURE IT'S TOUGH",
+      "keyword": "MAIL ROOM",
       "supportingTexts": {
-        "topLeft": "I'M SURE IT'S TOUGH",
-        "topRight": "BECAUSE HE REALLY ENJOYS"
+        "topLeft": "MAIL ROOM",
+        "topRight": "WORKED WAY"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0117",
+      "id": "srt-0065",
       "type": "noteBox",
-      "start": 334.0,
-      "duration": 1.5,
+      "start": 212.0,
+      "duration": 6.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "BUD TALKED",
+      "supportingTexts": {
+        "topLeft": "BUD TALKED",
+        "topRight": "HINDSIGHT GREAT"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0067",
+      "type": "noteBox",
+      "start": 219.0,
+      "duration": 4.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "ALL YEARS",
-      "keyword": "ALL YEARS"
+      "text": "FAMILY",
+      "keyword": "FAMILY"
     },
     {
-      "id": "srt-0119",
+      "id": "srt-0070",
       "type": "noteBox",
-      "start": 338.64,
-      "duration": 5.36,
+      "start": 224.0,
+      "duration": 6.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "HEALTH KNOW OPPORTUNITY GRAB",
+      "keyword": "CLIENTELE ADMIT",
       "supportingTexts": {
-        "topLeft": "HEALTH",
-        "topRight": "KNOW OPPORTUNITY GRAB"
+        "topLeft": "CLIENTELE",
+        "topRight": "ADMIT"
       },
-      "layout": "dual"
+      "layout": "dual",
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "gain": -2.5,
+      "metadata": {
+        "audio": "auto"
+      }
     },
     {
-      "id": "srt-0120",
-      "type": "noteBox",
-      "start": 344.0,
-      "duration": 2.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "UM THAT'S TINY",
-      "keyword": "UM THAT'S TINY"
-    },
-    {
-      "id": "srt-0121",
-      "type": "noteBox",
-      "start": 346.0,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I I'M HAPPY HE'S",
-      "supportingTexts": {
-        "topLeft": "I I'M HAPPY",
-        "topRight": "HE'S WINDING DOWN"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "family_priority_highlight",
-      "start": 351.0,
-      "duration": 4.0,
-      "position": "top",
-      "animation": "pop",
+      "id": "family_first",
+      "start": 230.0,
+      "duration": 3.0,
+      "position": "center",
+      "animation": "pulse",
       "type": "icon",
-      "text": "Family always top priority",
-      "name": "Family",
-      "volume": 0.6
+      "text": "Family: Top Priority",
+      "name": "family",
+      "volume": 0.8
     },
     {
-      "id": "srt-0124",
+      "id": "srt-0072",
       "type": "noteBox",
-      "start": 356.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "SO",
-      "keyword": "SO"
-    },
-    {
-      "id": "srt-0126",
-      "type": "noteBox",
-      "start": 360.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "SLEEP",
-      "keyword": "SLEEP"
-    },
-    {
-      "id": "srt-0128",
-      "type": "noteBox",
-      "start": 362.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "I DON'T KNOW",
-      "keyword": "I DON'T KNOW"
-    },
-    {
-      "id": "srt-0130",
-      "type": "noteBox",
-      "start": 364.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HE UH",
-      "keyword": "HE UH"
-    },
-    {
-      "id": "srt-0132",
-      "type": "noteBox",
-      "start": 366.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "UM",
-      "keyword": "UM"
-    },
-    {
-      "id": "srt-0134",
-      "type": "noteBox",
-      "start": 373.5,
-      "duration": 2.5,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "LIKE AWESOME",
-      "supportingTexts": {
-        "topLeft": "LIKE",
-        "topRight": "AWESOME"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0138",
-      "type": "noteBox",
-      "start": 381.5,
-      "duration": 9.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I TOLD I NEED",
-      "supportingTexts": {
-        "topLeft": "I TOLD I",
-        "topRight": "NEED MORE"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0139",
-      "type": "noteBox",
-      "start": 390.5,
+      "start": 233.0,
       "duration": 6.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "UM UH UM WHAT'S MESSAGE HIM",
-      "keyword": "UM UH UM WHAT'S MESSAGE HIM"
+      "text": "STRAIGHT KIDS",
+      "keyword": "STRAIGHT KIDS"
     },
     {
-      "id": "srt-0141",
+      "id": "srt-0073",
       "type": "noteBox",
-      "start": 397.5,
-      "duration": 5.0,
+      "start": 239.0,
+      "duration": 4.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "WANT LIKE I EVERYONE",
+      "keyword": "INSTILLED CHILDREN",
       "supportingTexts": {
-        "topLeft": "WANT LIKE I",
-        "topRight": "EVERYONE LIKE WHILE AWAY"
+        "topLeft": "INSTILLED",
+        "topRight": "CHILDREN"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0143",
+      "id": "srt-0075",
       "type": "noteBox",
-      "start": 403.5,
-      "duration": 3.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "CAMERA DURING PART",
-      "supportingTexts": {
-        "topLeft": "CAMERA",
-        "topRight": "DURING PART"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0145",
-      "type": "noteBox",
-      "start": 408.5,
+      "start": 243.0,
       "duration": 5.0,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "I BASICALLY SAID I'M LOOKING FORWARD HIM",
-      "keyword": "I BASICALLY SAID I'M LOOKING FORWARD HIM"
+      "text": "FATHER'S VIDEO",
+      "keyword": "FATHER'S VIDEO"
     },
     {
-      "id": "srt-0147",
+      "id": "srt-0077",
       "type": "noteBox",
-      "start": 414.5,
+      "start": 251.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "I'M GOING TAPE UM",
+      "keyword": "HECTIC SCHEDULE",
+      "side": "left",
       "supportingTexts": {
-        "topLeft": "I'M GOING TAPE",
-        "topRight": "UM I LOVE"
+        "topLeft": "HECTIC SCHEDULE"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "srt-0079",
+      "type": "noteBox",
+      "start": 261.0,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "THOUGH WORKING",
+      "supportingTexts": {
+        "topLeft": "THOUGH WORKING",
+        "topRight": "HE'D RUNNING"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0149",
+      "id": "srt-0081",
       "type": "noteBox",
-      "start": 419.5,
+      "start": 269.0,
+      "duration": 5.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EFFORT GAMES",
+      "keyword": "EFFORT GAMES"
+    },
+    {
+      "id": "srt-0084",
+      "type": "noteBox",
+      "start": 281.0,
       "duration": 3.5,
       "layout": "bottom",
       "importance": "primary",
       "position": "bottom",
       "side": "bottom",
-      "text": "THINK YOU'VE GOT SOME GOOD STUFF",
-      "keyword": "THINK YOU'VE GOT SOME GOOD STUFF"
+      "text": "APPRECIATED",
+      "keyword": "APPRECIATED"
     },
     {
-      "id": "srt-0153",
+      "id": "srt-0088",
       "type": "noteBox",
-      "start": 425.5,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "I'M EXCITED SEE HOW",
-      "supportingTexts": {
-        "topLeft": "I'M EXCITED SEE",
-        "topRight": "HOW TURNS"
-      },
-      "layout": "dual"
+      "start": 288.0,
+      "duration": 1.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "GREAT",
+      "keyword": "GREAT"
     },
     {
-      "id": "srt-0155",
+      "id": "srt-0090",
       "type": "noteBox",
-      "start": 429.5,
+      "start": 291.0,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "STAY SQUARED",
+      "keyword": "STAY SQUARED"
+    },
+    {
+      "id": "srt-0093",
+      "type": "noteBox",
+      "start": 295.0,
       "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "I THINK JIM BARB",
+      "keyword": "TOTALLY NATURAL",
       "supportingTexts": {
-        "topLeft": "I THINK",
-        "topRight": "JIM BARB ALL REALLY"
+        "topLeft": "TOTALLY NATURAL",
+        "topRight": "TALKING"
       },
       "layout": "dual"
     },
     {
-      "id": "srt-0156",
+      "id": "srt-0095",
       "type": "noteBox",
-      "start": 434.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "JIM",
-      "keyword": "JIM"
-    },
-    {
-      "id": "srt-0158",
-      "type": "noteBox",
-      "start": 436.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "NO NO NO",
-      "keyword": "NO NO NO"
-    },
-    {
-      "id": "srt-0160",
-      "type": "noteBox",
-      "start": 438.5,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "I KNOW",
-      "keyword": "I KNOW"
-    },
-    {
-      "id": "srt-0162",
-      "type": "noteBox",
-      "start": 440.5,
-      "duration": 2.5,
+      "start": 301.0,
+      "duration": 5.0,
       "importance": "supporting",
       "position": "top",
-      "keyword": "HE TALKS ABOUT MEETING",
+      "keyword": "KEEP MOVING",
       "supportingTexts": {
-        "topLeft": "HE TALKS",
-        "topRight": "ABOUT MEETING"
+        "topLeft": "KEEP MOVING",
+        "topRight": "JAM"
       },
       "layout": "dual"
+    },
+    {
+      "id": "srt-0102",
+      "type": "noteBox",
+      "start": 313.0,
+      "duration": 2.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "KIDDING",
+      "keyword": "KIDDING"
+    },
+    {
+      "id": "srt-0104",
+      "type": "noteBox",
+      "start": 315.0,
+      "duration": 7.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "DECIDE DIRECTION",
+      "keyword": "DECIDE DIRECTION"
+    },
+    {
+      "id": "srt-0105",
+      "type": "noteBox",
+      "start": 322.0,
+      "duration": 7.8,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "ENJOYS PEOPLE",
+      "keyword": "ENJOYS PEOPLE"
+    },
+    {
+      "id": "srt-0106",
+      "type": "noteBox",
+      "start": 329.8,
+      "duration": 5.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "WORKING YEARS",
+      "supportingTexts": {
+        "topLeft": "WORKING YEARS",
+        "topRight": "POINT"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0108",
+      "type": "noteBox",
+      "start": 339.12,
+      "duration": 6.08,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "OPPORTUNITY GRAB",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "OPPORTUNITY GRAB"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "srt-0109",
+      "type": "noteBox",
+      "start": 345.2,
+      "duration": 5.52,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EXCITED",
+      "keyword": "EXCITED"
+    },
+    {
+      "id": "srt-0110",
+      "type": "noteBox",
+      "start": 350.72,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "CHAPTER LIVES",
+      "keyword": "CHAPTER LIVES"
+    },
+    {
+      "id": "srt-0113",
+      "type": "noteBox",
+      "start": 356.72,
+      "duration": 4.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "WANTS TRAVEL",
+      "keyword": "WANTS TRAVEL"
+    },
+    {
+      "id": "srt-0115",
+      "type": "noteBox",
+      "start": 363.72,
+      "duration": 6.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "LOVE ABLE",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "LOVE ABLE"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "srt-0116",
+      "type": "noteBox",
+      "start": 369.72,
+      "duration": 6.0,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "GRANDKIDS",
+      "keyword": "GRANDKIDS"
+    },
+    {
+      "id": "srt-0117",
+      "type": "noteBox",
+      "start": 375.72,
+      "duration": 10.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "TOLD",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "TOLD"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "srt-0121",
+      "type": "noteBox",
+      "start": 400.72,
+      "duration": 6.0,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "TELL",
+      "side": "left",
+      "supportingTexts": {
+        "topLeft": "TELL"
+      },
+      "layout": "left"
+    },
+    {
+      "id": "i_love_you_message",
+      "start": 409.72,
+      "duration": 4.0,
+      "position": "center",
+      "animation": "pulse",
+      "type": "noteBox",
+      "text": "I Love You",
+      "volume": 0.9
+    },
+    {
+      "id": "srt-0125",
+      "type": "noteBox",
+      "start": 414.72,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "YOU'VE GOOD",
+      "keyword": "YOU'VE GOOD"
+    },
+    {
+      "id": "srt-0128",
+      "type": "noteBox",
+      "start": 418.72,
+      "duration": 4.5,
+      "importance": "supporting",
+      "position": "top",
+      "keyword": "EXCITED TURNS",
+      "supportingTexts": {
+        "topLeft": "EXCITED",
+        "topRight": "TURNS"
+      },
+      "layout": "dual"
+    },
+    {
+      "id": "srt-0133",
+      "type": "noteBox",
+      "start": 431.72,
+      "duration": 3.5,
+      "layout": "bottom",
+      "importance": "primary",
+      "position": "bottom",
+      "side": "bottom",
+      "text": "EXCITED",
+      "keyword": "EXCITED"
     }
   ],
   "meta": {
-    "warnings": [
-      "Gap of 40.00s between first_thing_to_do and sleep_in_travel; consider extending previous duration.",
-      "Gap of 40.00s between good_stuff and yes_a_lot; consider extending previous duration."
-    ],
     "highlightSrt": "D:\\Projects\\Crownmercado\\video-automation\\python-be\\outputs\\stage1_cut.srt"
   }
 }

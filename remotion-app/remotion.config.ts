@@ -5,3 +5,4 @@ Config.setCodec("h264");
 Config.setOverwriteOutput(true);
 Config.setAudioCodec("aac");
 Config.setAudioBitrate("128k");
+Config.setPublicDir("./public");

@@ -10,3 +10,4 @@ jsonschema
 sentence-transformers
 numpy
 networkx
+nltk

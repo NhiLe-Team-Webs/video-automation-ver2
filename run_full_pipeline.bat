@@ -25,7 +25,7 @@ if not exist node_modules (
     goto :EOF
   )
 )
-npm start
+npm run build
 popd
 
 endlocal
