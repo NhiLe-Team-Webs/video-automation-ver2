@@ -1,10 +1,10 @@
 {
   "segments": [
     {
-      "id": "intro",
+      "id": "segment_1",
       "sourceStart": 0.0,
-      "duration": 6.6,
-      "label": "Here's a teaser.",
+      "duration": 4.92,
+      "label": "Intro / Conversations",
       "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
@@ -18,34 +18,41 @@
       ]
     },
     {
-      "id": "hook_question",
-      "sourceStart": 6.6,
-      "duration": 6.04,
-      "label": "What if I told you that cures for chronic disease were hidden in our own immune systems?",
+      "id": "segment_2",
+      "sourceStart": 4.92,
+      "duration": 2.96,
+      "label": "Fair to say",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
       "sfxHints": [
-        "question"
+        "tech"
       ],
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: question"
+        "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "problem_statement",
-      "sourceStart": 12.64,
-      "duration": 4.24,
-      "label": "If only we could read that information out.",
+      "id": "segment_3",
+      "sourceStart": 7.88,
+      "duration": 10.02,
+      "label": "Psychological Symptoms",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
-        "type": "cut"
+        "type": "crossfade",
+        "duration": 0.5
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -55,38 +62,183 @@
       ]
     },
     {
-      "id": "ms_example_intro",
-      "sourceStart": 16.88,
-      "duration": 3.28,
-      "label": "So let's take multiple sclerosis, for example.",
+      "id": "segment_4",
+      "sourceStart": 17.9,
+      "duration": 3.26,
+      "label": "Discuss Today",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.4
+        "duration": 0.5
       },
       "kind": "normal",
       "motionCue": "zoomOut",
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "B-roll injected via highlight keyword: digital_brain"
-      ],
-      "broll": {
-        "id": "digital_brain",
-        "file": "assets/broll/digital_brain.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
+        "Motion cue assigned: zoomOut"
+      ]
     },
     {
-      "id": "ms_explanation",
-      "sourceStart": 20.16,
-      "duration": 7.36,
-      "label": "Multiple sclerosis is a debilitating autoimmune disease where our own cells attack the brain.",
+      "id": "segment_5",
+      "sourceStart": 21.16,
+      "duration": 4.44,
+      "label": "Know Who You Are",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_6",
+      "sourceStart": 25.6,
+      "duration": 5.48,
+      "label": "Avoid Intrusion",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_7",
+      "sourceStart": 31.08,
+      "duration": 7.24,
+      "label": "Facts and Stories",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_8",
+      "sourceStart": 38.32,
+      "duration": 7.88,
+      "label": "Personality Science Intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_9",
+      "sourceStart": 46.2,
+      "duration": 5.36,
+      "label": "Neurons to Narratives",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_10",
+      "sourceStart": 51.56,
+      "duration": 3.84,
+      "label": "Our Own Way",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_11",
+      "sourceStart": 55.4,
+      "duration": 5.24,
+      "label": "Make Sense of Selves",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_12",
+      "sourceStart": 60.64,
+      "duration": 10.12,
+      "label": "Like No Other",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -103,129 +255,15 @@
       ]
     },
     {
-      "id": "cause_unknown",
-      "sourceStart": 27.52,
-      "duration": 5.92,
-      "label": "And for years, we didn't know what caused it, which makes it very difficult to treat.",
+      "id": "segment_13",
+      "sourceStart": 70.76,
+      "duration": 6.4,
+      "label": "Not Intriguing",
       "silenceAfter": false,
-      "transitionOut": {
+      "transitionIn": {
         "type": "crossfade",
         "duration": 0.5
       },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "B-roll injected via highlight keyword: data_analysis"
-      ],
-      "broll": {
-        "id": "data_analysis",
-        "file": "assets/broll/data_analysis.mp4",
-        "mode": "overlay",
-        "confidence": 2.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "large_study",
-      "sourceStart": 33.44,
-      "duration": 8.68,
-      "label": "So in January 2022, a study came out where they followed 10 million people for 20 years.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "B-roll injected via highlight keyword: digital_network"
-      ],
-      "broll": {
-        "id": "digital_network",
-        "file": "assets/broll/digital_network.jpg",
-        "mode": "overlay",
-        "confidence": 2.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "ebv_discovery",
-      "sourceStart": 42.12,
-      "duration": 5.46,
-      "label": "And they found that Epstein-Barr virus, so mono, the kissing disease, increased the risk",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "ebv_impact",
-      "sourceStart": 47.58,
-      "duration": 3.26,
-      "label": "of multiple sclerosis by 32 times.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "zoom",
-        "duration": 0.4,
-        "intensity": 0.15
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "big_deal",
-      "sourceStart": 50.84,
-      "duration": 1.96,
-      "label": "It's a big deal.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "news_mention",
-      "sourceStart": 52.8,
-      "duration": 2.64,
-      "label": "You might have seen it in the news.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "nature_study",
-      "sourceStart": 55.44,
-      "duration": 5.84,
-      "label": "So three days later, another study came out in nature showing not just a correlation,",
-      "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -238,11 +276,57 @@
       ]
     },
     {
-      "id": "direct_link_12people",
-      "sourceStart": 61.28,
-      "duration": 7.64,
-      "label": "but a direct link between Epstein-Barr virus and multiple sclerosis, using just 12 people",
+      "id": "segment_14",
+      "sourceStart": 77.16,
+      "duration": 6.28,
+      "label": "Most Boring Person",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_15",
+      "sourceStart": 83.44,
+      "duration": 10.52,
+      "label": "Great Thundering Twit",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_16",
+      "sourceStart": 93.96,
+      "duration": 10.76,
+      "label": "Psychologist Fascinated",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -255,215 +339,79 @@
       ]
     },
     {
-      "id": "minimal_sampling",
-      "sourceStart": 68.92,
-      "duration": 2.92,
-      "label": "and sampling like once.",
+      "id": "segment_17",
+      "sourceStart": 104.72,
+      "duration": 5.32,
+      "label": "Explain Approach",
       "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
       },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "dramatic_comparison",
-      "sourceStart": 71.84,
-      "duration": 8.1,
-      "label": "So 10 million people, 20 years, 12 people in like a day.",
-      "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
       "kind": "normal",
       "motionCue": "zoomOut",
+      "sfxHints": [
+        "tech"
+      ],
       "notes": [
         "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: tech"
       ]
     },
     {
-      "id": "how_did_they_do_that",
-      "sourceStart": 79.94,
-      "duration": 2.22,
-      "label": "How did they do that?",
+      "id": "segment_18",
+      "sourceStart": 110.04,
+      "duration": 3.48,
+      "label": "Trait Psychology Intro",
       "silenceAfter": false,
-      "transitionOut": {
+      "transitionIn": {
         "type": "slide",
         "duration": 0.5,
         "direction": "right"
       },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "team_explanation_start",
-      "sourceStart": 82.16,
-      "duration": 6.56,
-      "label": "So the team, Robinson and Lance, used a snapshot of information stored in our memory immune",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "forensic_immunology_concept",
-      "sourceStart": 88.72,
-      "duration": 6.24,
-      "label": "cells to infer backwards what had come before and triggered the disease, or what I like",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "forensic_immunology_term",
-      "sourceStart": 94.96,
-      "duration": 4.76,
-      "label": "to call forensic immunology.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "robinson_case",
-      "sourceStart": 99.72,
-      "duration": 4.36,
-      "label": "And in Robinson's case, right, they already knew what they were looking for, Epstein-Barr",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "specific_targets",
-      "sourceStart": 104.08,
-      "duration": 2.24,
-      "label": "virus, myelin.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "decoding_challenge",
-      "sourceStart": 106.32,
-      "duration": 8.32,
-      "label": "So they only had to decode a tiny part of the massive, distributed, ever-evolving archive",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "memory_immune_system",
-      "sourceStart": 114.64,
-      "duration": 2.88,
-      "label": "that is the memory immune system.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "immune_system_imprint_intro",
-      "sourceStart": 117.52,
-      "duration": 6.0,
-      "label": "So the immune system stores an imprint of everything it encounters, infections, allergies,",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "immune_system_imprint_list",
-      "sourceStart": 123.52,
-      "duration": 4.2,
-      "label": "autoimmunity, toxins, cancer.",
-      "silenceAfter": false,
       "transitionOut": {
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
+      "motionCue": "zoomIn",
+      "sfxHints": [
+        "tech"
+      ],
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
+        "SFX hints propagated: tech",
+        "B-roll injected via highlight keyword: business_strategy",
+        "Motion cue: zoomIn emphasises \"Personality Science Trait Psychology Framework\"."
+      ],
+      "broll": {
+        "id": "business_strategy",
+        "file": "assets/broll/business_strategy.jpg",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Highlight keyword match"
+        ]
+      }
     },
     {
-      "id": "web_browser_history",
-      "sourceStart": 127.72,
-      "duration": 3.28,
-      "label": "It's basically a web browser history.",
+      "id": "segment_19",
+      "sourceStart": 113.52,
+      "duration": 3.32,
+      "label": "Five Dimensions",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
-        "type": "zoom",
-        "duration": 0.5,
-        "intensity": 0.2
+        "type": "crossfade",
+        "duration": 0.5
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -473,13 +421,39 @@
       ]
     },
     {
-      "id": "how_vaccines_work",
-      "sourceStart": 131.0,
-      "duration": 2.72,
-      "label": "It's also how vaccines work.",
+      "id": "segment_20",
+      "sourceStart": 116.84,
+      "duration": 10.32,
+      "label": "Differences Between People",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
-        "type": "cut"
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue: zoomOut emphasises \"OCEAN Acronym\"."
+      ]
+    },
+    {
+      "id": "segment_21",
+      "sourceStart": 127.16,
+      "duration": 2.48,
+      "label": "OCEAN Acronym",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
       },
       "kind": "normal",
       "notes": [
@@ -487,11 +461,15 @@
       ]
     },
     {
-      "id": "immune_system_knows",
-      "sourceStart": 133.72,
-      "duration": 7.08,
-      "label": "So though we may not know what is causing a disease, the immune system probably does.",
+      "id": "segment_22",
+      "sourceStart": 129.64,
+      "duration": 5.48,
+      "label": "O - Openness",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -504,49 +482,18 @@
       ]
     },
     {
-      "id": "decode_archive_scale",
-      "sourceStart": 140.8,
-      "duration": 6.12,
-      "label": "And if we could decode the immune archive at scale, we could apply forensic immunology",
+      "id": "segment_23",
+      "sourceStart": 135.12,
+      "duration": 6.84,
+      "label": "C - Conscientiousness",
       "silenceAfter": false,
-      "transitionOut": {
+      "transitionIn": {
         "type": "crossfade",
         "duration": 0.5
       },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "diseases_unknown_cause",
-      "sourceStart": 146.92,
-      "duration": 3.72,
-      "label": "to diseases where we don't yet know the cause.",
-      "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "team_aims",
-      "sourceStart": 150.64,
-      "duration": 3.64,
-      "label": "So that is exactly what my team aims to do.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "up"
+        "duration": 0.5
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -554,366 +501,305 @@
         "tech"
       ],
       "notes": [
-        "No B-roll match above threshold.",
         "Motion cue assigned: zoomOut",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "announce_imprint_start",
-      "sourceStart": 154.28,
-      "duration": 8.08,
-      "label": "And so I am thrilled to announce publicly for the first time, Imprint, a forensic immunology",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "imprint_mission_tools",
-      "sourceStart": 162.36,
-      "duration": 5.0,
-      "label": "focused research organization, or FRO, building machine learning and experimental tools to",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "imprint_mission_goal",
-      "sourceStart": 167.36,
-      "duration": 6.16,
-      "label": "identify the hidden causes of and cures for chronic disease.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "acknowledgements_schmidt",
-      "sourceStart": 173.52,
-      "duration": 6.08,
-      "label": "Currently, we are generously supported by Eric and Wendy Schmidt, Convergent Research,",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "acknowledgements_nyc",
-      "sourceStart": 179.6,
-      "duration": 2.4,
-      "label": "and the City of New York.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "audience_reaction_nyc",
-      "sourceStart": 182.0,
-      "duration": 2.0,
-      "label": "We're also, yeah, New York, right?",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "audience_reaction_pause",
-      "sourceStart": 184.0,
-      "duration": 2.8,
-      "label": "And everything.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "application_scope_intro",
-      "sourceStart": 186.8,
-      "duration": 5.6,
-      "label": "We're also going to apply these tools to intractable chronic diseases, particularly",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "cta"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: cta"
-      ]
-    },
-    {
-      "id": "neuropsych_focus",
-      "sourceStart": 192.4,
-      "duration": 3.64,
-      "label": "neurological and psychiatric disorders.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "why_neuropsych",
-      "sourceStart": 196.04,
-      "duration": 2.48,
-      "label": "So why neuropsych, right?",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.4,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "emerging_evidence_intro",
-      "sourceStart": 198.52,
-      "duration": 5.0,
-      "label": "Emerging evidence, including some of my own work, suggested a lot of what we are calling",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "immune_diseases_reclassification",
-      "sourceStart": 203.52,
-      "duration": 4.56,
-      "label": "psychiatric disorders are actually immune diseases.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "example_stress_memory",
-      "sourceStart": 208.08,
-      "duration": 6.96,
-      "label": "So for example, the immune system stores a memory of psychological stress and is involved",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "example_schizophrenia",
-      "sourceStart": 215.08,
-      "duration": 5.72,
-      "label": "in stress resilience, and that a lot of cases of schizophrenia are actually turning out to",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "example_schizophrenia_autoimmune",
-      "sourceStart": 220.8,
-      "duration": 4.04,
-      "label": "be driven by underlying autoimmune disease.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.4
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "example_shingles_dementia",
-      "sourceStart": 224.84,
-      "duration": 4.88,
-      "label": "And the shingles vaccine might prevent dementia.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "pandemic_connection_intro",
-      "sourceStart": 229.72,
-      "duration": 2.84,
-      "label": "And there's also everything that we saw during the pandemic, right?",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "cut"
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "pandemic_disorders_long_covid",
-      "sourceStart": 232.56,
-      "duration": 6.0,
-      "label": "COVID causing de novo psychiatric disorders, long COVID.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold.",
+        "SFX hints propagated: tech",
         "B-roll injected via highlight keyword: education_training"
       ],
       "broll": {
         "id": "education_training",
         "file": "assets/broll/education_training.jpg",
-        "mode": "overlay",
-        "confidence": 2.0,
+        "mode": "full",
+        "confidence": 3.0,
         "reasons": [
           "Highlight keyword match"
         ]
       }
     },
     {
-      "id": "immunotherapy_revolution_cancer",
-      "sourceStart": 238.56,
-      "duration": 5.68,
-      "label": "So really, we are in the middle of an immunotherapy revolution for cancer, right?",
+      "id": "segment_24",
+      "sourceStart": 141.96,
+      "duration": 4.72,
+      "label": "E - Extroversion",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
       },
       "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
+      "motionCue": "zoomOut",
       "notes": [
         "No B-roll match above threshold.",
-        "SFX hints propagated: question"
+        "Motion cue assigned: zoomOut"
       ]
     },
     {
-      "id": "cancer_cure_rates_example",
-      "sourceStart": 244.24,
-      "duration": 8.2,
-      "label": "Some cancers that had 90% mortality rates 50 years ago now have 90% cure rates.",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "extend_revolution_vision",
-      "sourceStart": 252.44,
-      "duration": 8.52,
-      "label": "What if we could extend that revolution to autoimmunity, diabetes, dementia, depression?",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "future_impact_learn_immune_system",
-      "sourceStart": 260.96,
+      "id": "segment_25",
+      "sourceStart": 146.68,
       "duration": 6.52,
-      "label": "Maybe in 15 years, if we can learn what the immune system already knows, we could take",
+      "label": "A - Agreeableness",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_26",
+      "sourceStart": 153.2,
+      "duration": 6.64,
+      "label": "N - Neuroticism",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_27",
+      "sourceStart": 159.84,
+      "duration": 6.56,
+      "label": "Implications for Well-being",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_28",
+      "sourceStart": 166.4,
+      "duration": 8.0,
+      "label": "Predictors of Success",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_29",
+      "sourceStart": 174.4,
+      "duration": 7.2,
+      "label": "Audacious and Odd",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_30",
+      "sourceStart": 181.6,
+      "duration": 9.64,
+      "label": "Conscientious Traits",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_31",
+      "sourceStart": 191.24,
+      "duration": 7.24,
+      "label": "Working Well with People",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_32",
+      "sourceStart": 198.48,
+      "duration": 9.48,
+      "label": "Extroverts in Class",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_33",
+      "sourceStart": 207.96,
+      "duration": 10.16,
+      "label": "Elbow Challenge Setup",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_34",
+      "sourceStart": 218.12,
+      "duration": 2.6,
+      "label": "Did You Know?",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_35",
+      "sourceStart": 220.72,
+      "duration": 4.16,
+      "label": "Attempted Lick",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut"
+      ]
+    },
+    {
+      "id": "segment_36",
+      "sourceStart": 224.88,
+      "duration": 9.4,
+      "label": "Extrovert Elbow Lick",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "pan",
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: pan"
+      ]
+    },
+    {
+      "id": "segment_37",
+      "sourceStart": 234.28,
+      "duration": 2.04,
+      "label": "Identify Extroverts",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -924,11 +810,61 @@
       ]
     },
     {
-      "id": "chronic_out_of_disease_cta",
-      "sourceStart": 267.48,
-      "duration": 3.6,
-      "label": "the chronic out of chronic disease.",
+      "id": "segment_38",
+      "sourceStart": 236.32,
+      "duration": 6.44,
+      "label": "Extroversion Detail",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_39",
+      "sourceStart": 242.76,
+      "duration": 3.44,
+      "label": "Three Natures Intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "right"
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_40",
+      "sourceStart": 246.2,
+      "duration": 3.76,
+      "label": "Biogenic Nature",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
@@ -939,14 +875,707 @@
       ]
     },
     {
-      "id": "thank_you",
-      "sourceStart": 271.08,
-      "duration": 1.0,
-      "label": "Thank you.",
+      "id": "segment_41",
+      "sourceStart": 249.96,
+      "duration": 6.8,
+      "label": "Sociogenic Nature",
       "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "B-roll: teamwork_meeting spotlights established clientele."
+      ],
+      "broll": {
+        "id": "teamwork_meeting",
+        "file": "assets/broll/teamwork_meeting.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Team huddle echoes long-term client relationships."
+        ]
+      }
+    },
+    {
+      "id": "segment_42",
+      "sourceStart": 256.76,
+      "duration": 11.6,
+      "label": "Idio-genic Nature",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_43",
+      "sourceStart": 268.36,
+      "duration": 2.28,
+      "label": "Explain Natures",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_44",
+      "sourceStart": 270.64,
+      "duration": 4.08,
+      "label": "Extrovert Stimulation",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_45",
+      "sourceStart": 274.72,
+      "duration": 4.72,
+      "label": "Exciting Stimulation",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_46",
+      "sourceStart": 279.44,
+      "duration": 4.12,
+      "label": "TED Social Events",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_47",
+      "sourceStart": 283.56,
+      "duration": 4.88,
+      "label": "Extrovert Magnetic Core",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_48",
+      "sourceStart": 288.44,
+      "duration": 1.44,
+      "label": "I've Seen You",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_49",
+      "sourceStart": 289.88,
+      "duration": 5.36,
+      "label": "Introvert Quiet Spaces",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_50",
+      "sourceStart": 295.24,
+      "duration": 11.84,
+      "label": "Not Antisocial",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_51",
+      "sourceStart": 307.08,
+      "duration": 9.68,
+      "label": "Lower Stimulation",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_52",
+      "sourceStart": 316.76,
+      "duration": 4.08,
+      "label": "Internal Stimulant",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_53",
+      "sourceStart": 320.84,
+      "duration": 5.0,
+      "label": "Caffeine for Extroverts",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_54",
+      "sourceStart": 325.84,
+      "duration": 9.48,
+      "label": "Coffee Need",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_55",
+      "sourceStart": 335.32,
+      "duration": 6.88,
+      "label": "Introvert Coffee Effect",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_56",
+      "sourceStart": 342.2,
+      "duration": 9.12,
+      "label": "Quantitative Tasks",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_57",
+      "sourceStart": 351.32,
+      "duration": 1.72,
+      "label": "Misconstrual",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_58",
+      "sourceStart": 353.04,
+      "duration": 8.96,
+      "label": "Intriguing Consequences",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "B-roll injected via highlight keyword: education_training"
+      ],
+      "broll": {
+        "id": "education_training",
+        "file": "assets/broll/education_training.jpg",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Highlight keyword match"
+        ]
+      }
+    },
+    {
+      "id": "segment_59",
+      "sourceStart": 362.0,
+      "duration": 5.24,
+      "label": "Sexual Intercourse Intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "right"
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "left"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_60",
+      "sourceStart": 367.24,
+      "duration": 8.44,
+      "label": "Audience Agrees",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_61",
+      "sourceStart": 375.68,
+      "duration": 11.2,
+      "label": "Conjugal Act Studies",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_62",
+      "sourceStart": 386.88,
+      "duration": 5.36,
+      "label": "Rat Study Joke",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_63",
+      "sourceStart": 395.2,
+      "duration": 9.0,
+      "label": "Introverted Men Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_64",
+      "sourceStart": 404.2,
+      "duration": 1.44,
+      "label": "Introverted Men Stat",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_65",
+      "sourceStart": 405.64,
+      "duration": 5.68,
+      "label": "Extroverted Men Question",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "question"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: question"
+      ]
+    },
+    {
+      "id": "segment_66",
+      "sourceStart": 411.32,
+      "duration": 3.56,
+      "label": "Extroverted Men Stat",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_67",
+      "sourceStart": 414.88,
+      "duration": 2.56,
+      "label": "Introverted Women Stat",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_68",
+      "sourceStart": 417.44,
+      "duration": 9.04,
+      "label": "Extroverted Women Heroic",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "sfxHints": [
+        "tech"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "SFX hints propagated: tech"
+      ]
+    },
+    {
+      "id": "segment_69",
+      "sourceStart": 426.48,
+      "duration": 7.16,
+      "label": "Extroverted Women Stat Full",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_70",
+      "sourceStart": 442.12,
+      "duration": 5.84,
+      "label": "Communication Differences Intro",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_71",
+      "sourceStart": 447.96,
+      "duration": 5.84,
+      "label": "Extrovert Social Encounter",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_72",
+      "sourceStart": 453.84,
+      "duration": 4.04,
+      "label": "Close Communication",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_73",
+      "sourceStart": 457.88,
+      "duration": 4.72,
+      "label": "Eye Contact",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_74",
+      "sourceStart": 462.6,
+      "duration": 4.64,
+      "label": "Diminutive Terms",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_75",
+      "sourceStart": 467.24,
+      "duration": 8.16,
+      "label": "Extrovert Engagement",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.5
+      },
+      "transitionOut": {
+        "type": "cut"
       },
       "kind": "normal",
       "notes": [
@@ -956,552 +1585,302 @@
   ],
   "highlights": [
     {
-      "id": "highlight_hook",
-      "start": 7.5,
-      "duration": 3.5,
-      "position": "center",
-      "animation": "zoom",
-      "type": "noteBox",
-      "text": "Cures hidden in our immune systems?",
-      "volume": 0.75
-    },
-    {
-      "id": "srt-0003",
-      "type": "noteBox",
-      "start": 12.64,
-      "duration": 4.24,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "ONLY READ INFORMATION",
-      "supportingTexts": {
-        "topLeft": "ONLY READ",
-        "topRight": "INFORMATION"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0005",
-      "type": "noteBox",
-      "start": 20.16,
-      "duration": 7.36,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "MULTIPLE SCLEROSIS DEBILITATING AUT…",
-      "supportingTexts": {
-        "topLeft": "MULTIPLE SCLEROSIS DEBILITATING…",
-        "topRight": "OWN CELLS ATTACK BRAIN"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0006",
-      "type": "noteBox",
-      "start": 27.52,
-      "duration": 5.92,
-      "importance": "supporting",
-      "position": "top",
-      "layout": "dual",
-      "keyword": "UNKNOWN CAUSE",
-      "supportingTexts": {
-        "topLeft": "UNKNOWN CAUSE",
-        "topRight": "HARD TO TREAT"
-      }
-    },
-    {
-      "id": "srt-0007",
-      "type": "noteBox",
-      "start": 33.44,
-      "duration": 8.68,
-      "importance": "supporting",
-      "position": "top",
-      "layout": "dual",
-      "keyword": "10 MILLION PEOPLE",
-      "supportingTexts": {
-        "topLeft": "10 MILLION PEOPLE",
-        "topRight": "20 YEARS"
-      }
-    },
-    {
-      "id": "srt-0008",
-      "type": "noteBox",
-      "start": 42.12,
-      "duration": 5.46,
-      "importance": "supporting",
-      "position": "top",
-      "layout": "dual",
-      "keyword": "EPSTEIN-BARR VIRUS",
-      "supportingTexts": {
-        "topLeft": "EPSTEIN-BARR VIRUS",
-        "topRight": "THE KISSING DISEASE"
-      }
-    },
-    {
-      "id": "highlight_ebv_impact",
-      "start": 48.0,
-      "duration": 3.0,
+      "id": "highlight_1",
+      "start": 110.04,
+      "duration": 3.48,
       "position": "bottom",
-      "animation": "bounce",
-      "type": "noteBox",
-      "text": "32X Increased MS Risk!",
+      "animation": "fade",
+      "type": "sectionTitle",
+      "text": "Personality Science Trait Psychology Framework",
+      "keyword": "PERSONALITY SCIENCE TRAIT PSYCHOLOGY FRAMEWORK",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "layout": "bottom",
       "volume": 0.7
     },
     {
-      "id": "srt-0011",
-      "type": "noteBox",
-      "start": 52.8,
-      "duration": 4.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "SEEN NEWS",
-      "supportingTexts": {
-        "topLeft": "SEEN",
-        "topRight": "NEWS"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0013",
-      "type": "noteBox",
-      "start": 61.28,
-      "duration": 7.64,
-      "importance": "supporting",
-      "position": "top",
-      "layout": "dual",
-      "keyword": "EPSTEIN-BARR VIRUS",
-      "supportingTexts": {
-        "topLeft": "EPSTEIN-BARR VIRUS",
-        "topRight": "MONONUCLEOSIS"
-      }
-    },
-    {
-      "id": "srt-0014",
-      "type": "noteBox",
-      "start": 68.92,
-      "duration": 2.92,
-      "layout": "bottom",
-      "importance": "primary",
+      "id": "highlight_2",
+      "start": 127.16,
+      "duration": 2.28,
       "position": "bottom",
-      "side": "bottom",
-      "text": "SAMPLING LIKE ONCE",
-      "keyword": "SAMPLING LIKE ONCE"
-    },
-    {
-      "id": "highlight_dramatic_comparison",
-      "start": 74.0,
-      "duration": 4.0,
-      "position": "top",
-      "animation": "typewriter",
-      "type": "typewriter",
-      "text": "10 Million vs. 12 People: How?",
-      "volume": 0.5
-    },
-    {
-      "id": "srt-0016",
+      "animation": "zoom",
       "type": "noteBox",
-      "start": 79.94,
-      "duration": 2.5,
-      "layout": "bottom",
+      "text": "OCEAN Acronym",
+      "keyword": "OCEAN Acronym",
       "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "HOW",
-      "keyword": "HOW"
-    },
-    {
-      "id": "srt-0018",
-      "type": "noteBox",
-      "start": 88.72,
-      "duration": 6.24,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "CELLS INFER BACKWARDS COME",
-      "supportingTexts": {
-        "topLeft": "CELLS INFER BACKWARDS",
-        "topRight": "COME BEFORE TRIGGERED DISEASE"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0019",
-      "type": "noteBox",
-      "start": 94.96,
-      "duration": 4.76,
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "CALL FORENSIC IMMUNOLOGY",
-      "keyword": "CALL FORENSIC IMMUNOLOGY"
-    },
-    {
-      "id": "srt-0020",
-      "type": "noteBox",
-      "start": 99.72,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "layout": "dual",
-      "keyword": "EPSTEIN-BARR VIRUS",
-      "supportingTexts": {
-        "topLeft": "EPSTEIN-BARR VIRUS",
-        "topRight": "MONONUCLEOSIS"
-      }
-    },
-    {
-      "id": "srt-0022",
-      "type": "noteBox",
-      "start": 106.32,
-      "duration": 8.32,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "ONLY DECODE TINY PART",
-      "supportingTexts": {
-        "topLeft": "ONLY DECODE",
-        "topRight": "TINY PART MASSIVE DISTRIBUTED"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0023",
-      "type": "noteBox",
-      "start": 114.64,
-      "duration": 3.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "MEMORY IMMUNE SYSTEM",
-      "supportingTexts": {
-        "topLeft": "THAT IS THE",
-        "topRight": "MEMORY IMMUNE SYSTEM"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0025",
-      "type": "noteBox",
-      "start": 123.52,
-      "duration": 4.2,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "AUTOIMMUNITY TOXINS CANCER",
-      "keyword": "AUTOIMMUNITY TOXINS CANCER"
-    },
-    {
-      "id": "highlight_web_browser_history",
-      "start": 128.0,
-      "duration": 3.0,
-      "position": "center",
-      "animation": "pop",
-      "type": "noteBox",
-      "text": "Immune System: A Web Browser History",
       "volume": 0.75
     },
     {
-      "id": "srt-0027",
-      "type": "noteBox",
-      "start": 131.0,
-      "duration": 2.72,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "IT'S ALSO HOW VACCINES",
-      "supportingTexts": {
-        "topLeft": "IT'S ALSO",
-        "topRight": "HOW VACCINES WORK"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0028",
-      "type": "noteBox",
-      "start": 133.72,
-      "duration": 7.08,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "THOUGH NOT KNOW CAUSING",
-      "supportingTexts": {
-        "topLeft": "THOUGH NOT KNOW",
-        "topRight": "CAUSING DISEASE IMMUNE SYSTEM"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0029",
-      "type": "noteBox",
-      "start": 140.8,
-      "duration": 6.12,
-      "layout": "bottom",
-      "importance": "primary",
+      "id": "highlight_3",
+      "start": 129.64,
+      "duration": 5.28,
       "position": "bottom",
-      "side": "bottom",
-      "text": "DECODE IMMUNE ARCHIVE SCALE APPLY FORENSIC IMMUNOLO…",
-      "keyword": "DECODE IMMUNE ARCHIVE SCALE APPLY FORENSIC IMMUNOLO…"
-    },
-    {
-      "id": "highlight_imprint_announcement",
-      "start": 155.0,
-      "duration": 3.5,
-      "position": "center",
       "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "O",
+        "topRight": "Closed"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "EXPERIENCE",
+      "text": "EXPERIENCE"
+    },
+    {
+      "id": "highlight_4",
+      "start": 135.12,
+      "duration": 6.64,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "C",
+        "topRight": "Lackadaisical"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "CONSCIENTIOUSNESS CONTRAST LACKADAISICAL APPROA...",
+      "text": "CONSCIENTIOUSNESS CONTRAST LACKADAISICAL APPROA..."
+    },
+    {
+      "id": "highlight_5",
+      "start": 141.96,
+      "duration": 4.52,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "E",
+        "topRight": "Introverted"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "EXTROVERSION CONTRAST INTROVERTED PEOPLE",
+      "text": "EXTROVERSION CONTRAST INTROVERTED PEOPLE"
+    },
+    {
+      "id": "highlight_6",
+      "start": 146.68,
+      "duration": 6.32,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "A",
+        "topRight": "Disagreeable"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "AGREEABLE INDIVIDUALS",
+      "text": "AGREEABLE INDIVIDUALS"
+    },
+    {
+      "id": "highlight_7",
+      "start": 153.2,
+      "duration": 6.64,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "N",
+        "topRight": "Emotional Stability"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "NEUROTIC INDIVIDUALS",
+      "text": "NEUROTIC INDIVIDUALS"
+    },
+    {
+      "id": "highlight_8",
+      "start": 169.16,
+      "duration": 5.24,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "Life Success",
+      "keyword": "Life Success",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "highlight_9",
+      "start": 242.76,
+      "duration": 3.24,
+      "position": "bottom",
+      "animation": "fade",
       "type": "sectionTitle",
-      "text": "Introducing Imprint: Forensic Immunology",
-      "sfx": "assets/sfx/emotion/applause.mp3",
-      "volume": 0.6
+      "text": "Natures Recap",
+      "keyword": "NATURES RECAP",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "layout": "bottom",
+      "volume": 0.7
     },
     {
-      "id": "srt-0033",
-      "type": "noteBox",
-      "start": 162.36,
-      "duration": 6.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "FOCUSED RESEARCH ORGANIZATION FRO",
+      "id": "highlight_10",
+      "start": 246.2,
+      "duration": 3.56,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
       "supportingTexts": {
-        "topLeft": "FOCUSED RESEARCH ORGANIZATION F…",
-        "topRight": "EXPERIMENTAL TOOLS"
+        "topLeft": "1st",
+        "topRight": "Neurophysiology"
       },
-      "layout": "dual"
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "BIOGENIC NATURE NEUROPHYSIOLOGY",
+      "text": "BIOGENIC NATURE NEUROPHYSIOLOGY"
     },
     {
-      "id": "srt-0034",
+      "id": "highlight_11",
+      "start": 249.96,
+      "duration": 6.24,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "2nd",
+        "topRight": "Cultural Social"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "staggerRight": 0.5,
+      "keyword": "SOCIOGENIC NATURE CULTURAL SOCIAL ASPECTS",
+      "text": "SOCIOGENIC NATURE CULTURAL SOCIAL ASPECTS"
+    },
+    {
+      "id": "highlight_12",
+      "start": 263.64,
+      "duration": 4.72,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "text",
+      "supportingTexts": {
+        "topLeft": "3rd"
+      },
+      "layout": "dual",
+      "showBottom": true,
+      "staggerLeft": 0.0,
+      "keyword": "IDIOSYNCRATIC CALL IDIO GENIC NATURE",
+      "text": "IDIOSYNCRATIC CALL IDIO GENIC NATURE"
+    },
+    {
+      "id": "highlight_13",
+      "start": 272.72,
+      "duration": 2.0,
+      "position": "bottom",
+      "animation": "zoom",
       "type": "noteBox",
-      "start": 168.36,
+      "text": "STIMULATION",
+      "keyword": "STIMULATION",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom"
+    },
+    {
+      "id": "highlight_14",
+      "start": 362.0,
+      "duration": 5.24,
+      "position": "bottom",
+      "animation": "fade",
+      "type": "sectionTitle",
+      "text": "Sexual Intercourse Overview",
+      "keyword": "SEXUAL INTERCOURSE OVERVIEW",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "highlight_15",
+      "start": 404.2,
+      "duration": 3.04,
+      "position": "bottom",
+      "animation": "pop",
+      "type": "noteBox",
+      "text": "3 0 MEN",
+      "keyword": "3 0 MEN",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.75
+    },
+    {
+      "id": "highlight_16",
+      "start": 411.32,
+      "duration": 3.36,
+      "position": "bottom",
+      "animation": "pop",
+      "type": "noteBox",
+      "text": "ALMOST TWICE MUCH",
+      "keyword": "ALMOST TWICE MUCH",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.75
+    },
+    {
+      "id": "highlight_17",
+      "start": 414.88,
+      "duration": 2.56,
+      "position": "bottom",
+      "animation": "pop",
+      "type": "noteBox",
+      "text": "Introverted Women 3 1",
+      "keyword": "Introverted Women 3 1",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.75
+    },
+    {
+      "id": "highlight_18",
+      "start": 426.48,
       "duration": 5.16,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "IDENTIFY HIDDEN CAUSES CURES",
-      "supportingTexts": {
-        "topLeft": "IDENTIFY HIDDEN CAUSES",
-        "topRight": "CURES CHRONIC DISEASE"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0035",
-      "type": "noteBox",
-      "start": 173.52,
-      "duration": 6.08,
-      "layout": "bottom",
-      "importance": "primary",
       "position": "bottom",
-      "side": "bottom",
-      "text": "CURRENTLY GENEROUSLY SUPPORTED ERIC WENDY SCHMIDT C…",
-      "keyword": "CURRENTLY GENEROUSLY SUPPORTED ERIC WENDY SCHMIDT C…"
-    },
-    {
-      "id": "srt-0037",
+      "animation": "pop",
       "type": "noteBox",
-      "start": 182.0,
-      "duration": 3.0,
-      "layout": "bottom",
+      "text": "MALE EXTROVERTS",
+      "keyword": "MALE EXTROVERTS",
       "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "WE'RE ALSO YEAH NEW YORK RIGHT",
-      "keyword": "WE'RE ALSO YEAH NEW YORK RIGHT"
-    },
-    {
-      "id": "srt-0039",
-      "type": "noteBox",
-      "start": 186.8,
-      "duration": 5.6,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "WE'RE ALSO GOING APPLY",
-      "supportingTexts": {
-        "topLeft": "WE'RE ALSO GOING APPLY",
-        "topRight": "TOOLS INTRACTABLE CHRONIC DISEA…"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0040",
-      "type": "noteBox",
-      "start": 192.4,
-      "duration": 3.64,
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "NEUROLOGICAL PSYCHIATRIC DISORDERS",
-      "keyword": "NEUROLOGICAL PSYCHIATRIC DISORDERS"
-    },
-    {
-      "id": "srt-0041",
-      "type": "noteBox",
-      "start": 196.04,
-      "duration": 2.48,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "WHY NEUROPSYCH RIGHT",
-      "keyword": "WHY NEUROPSYCH RIGHT"
-    },
-    {
-      "id": "srt-0042",
-      "type": "noteBox",
-      "start": 198.52,
-      "duration": 5.0,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "EMERGING EVIDENCE INCLUDING SOME",
-      "supportingTexts": {
-        "topLeft": "EMERGING EVIDENCE INCLUDING SOME",
-        "topRight": "CALLING"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0043",
-      "type": "noteBox",
-      "start": 203.52,
-      "duration": 4.56,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "PSYCHIATRIC DISORDERS ACTUALLY IMMU…",
-      "supportingTexts": {
-        "topLeft": "PSYCHIATRIC DISORDERS",
-        "topRight": "ACTUALLY IMMUNE DISEASES"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0044",
-      "type": "noteBox",
-      "start": 208.08,
-      "duration": 6.96,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "EXAMPLE IMMUNE SYSTEM STORES MEMORY PSYCHOLOGICAL S…",
-      "keyword": "EXAMPLE IMMUNE SYSTEM STORES MEMORY PSYCHOLOGICAL S…"
-    },
-    {
-      "id": "srt-0045",
-      "type": "noteBox",
-      "start": 215.08,
-      "duration": 5.72,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "STRESS RESILIENCE LOT CASES",
-      "supportingTexts": {
-        "topLeft": "STRESS RESILIENCE",
-        "topRight": "LOT CASES SCHIZOPHRENIA ACTUALLY"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0046",
-      "type": "noteBox",
-      "start": 220.8,
-      "duration": 4.04,
-      "importance": "supporting",
-      "position": "top",
-      "keyword": "DRIVEN UNDERLYING AUTOIMMUNE DISEASE",
-      "supportingTexts": {
-        "topLeft": "DRIVEN",
-        "topRight": "UNDERLYING AUTOIMMUNE DISEASE"
-      },
-      "layout": "dual"
-    },
-    {
-      "id": "srt-0047",
-      "type": "noteBox",
-      "start": 224.84,
-      "duration": 4.88,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "SHINGLES VACCINE PREVENT DEMENTIA",
-      "keyword": "SHINGLES VACCINE PREVENT DEMENTIA"
-    },
-    {
-      "id": "srt-0048",
-      "type": "noteBox",
-      "start": 229.72,
-      "duration": 5.0,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "THERE'S ALSO EVERYTHING SAW DURING PANDEMIC RIGHT",
-      "keyword": "THERE'S ALSO EVERYTHING SAW DURING PANDEMIC RIGHT"
-    },
-    {
-      "id": "srt-0050",
-      "type": "noteBox",
-      "start": 238.56,
-      "duration": 5.68,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "REALLY MIDDLE IMMUNOTHERAPY REVOLUTION CANCER RIGHT",
-      "keyword": "REALLY MIDDLE IMMUNOTHERAPY REVOLUTION CANCER RIGHT"
-    },
-    {
-      "id": "srt-0051",
-      "type": "noteBox",
-      "start": 244.24,
-      "duration": 8.2,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "SOME CANCERS 90% MORTALITY RATES 50 YEARS AGO",
-      "keyword": "SOME CANCERS 90% MORTALITY RATES 50 YEARS AGO"
-    },
-    {
-      "id": "srt-0052",
-      "type": "noteBox",
-      "start": 252.44,
-      "duration": 8.52,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "EXTEND REVOLUTION AUTOIMMUNITY DIABETES DEMENTIA DE…",
-      "keyword": "EXTEND REVOLUTION AUTOIMMUNITY DIABETES DEMENTIA DE…"
-    },
-    {
-      "id": "srt-0053",
-      "type": "noteBox",
-      "start": 260.96,
-      "duration": 6.52,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "MAYBE 15 YEARS LEARN IMMUNE SYSTEM ALREADY KNOWS",
-      "keyword": "MAYBE 15 YEARS LEARN IMMUNE SYSTEM ALREADY KNOWS"
-    },
-    {
-      "id": "highlight_cta_chronic_disease",
-      "start": 267.5,
-      "duration": 3.0,
-      "position": "center",
-      "animation": "pulse",
-      "type": "noteBox",
-      "text": "Take the 'Chronic' out of Disease!",
-      "volume": 0.8
-    },
-    {
-      "id": "srt-0055",
-      "type": "noteBox",
-      "start": 271.08,
-      "duration": 1.5,
-      "layout": "bottom",
-      "importance": "primary",
-      "position": "bottom",
-      "side": "bottom",
-      "text": "THANK",
-      "keyword": "THANK"
+      "volume": 0.75
     }
   ],
   "meta": {
-    "highlightSrt": "D:\\Projects\\Crownmercado\\video-automation\\python-be\\outputs\\stage1_cut.srt"
+    "warnings": [
+      "Gap of 2.96s between segment_62 and segment_63; consider extending previous duration.",
+      "Gap of 8.48s between segment_69 and segment_70; consider extending previous duration."
+    ]
   }
 }

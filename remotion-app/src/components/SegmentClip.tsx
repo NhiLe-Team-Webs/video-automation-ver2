@@ -67,11 +67,7 @@ const resolveCameraMovement = (segment: TimelineSegment['segment']): CameraMovem
 //   return typeof subtitle === 'string' ? subtitle : undefined;
 // };
 const normalizeMotionCue = (cue: unknown): MotionCue | undefined => {
-  if (cue === 'pan' || cue === 'zoomIn' || cue === 'zoomOut' || cue === 'shake') {
-    return cue;
-  }
-
-  if (cue === 'tiltUp' || cue === 'tiltDown') {
+  if (cue === 'zoomIn' || cue === 'zoomOut') {
     return cue;
   }
 
@@ -81,9 +77,6 @@ const normalizeMotionCue = (cue: unknown): MotionCue | undefined => {
 
   const token = cue.trim().toLowerCase();
   switch (token) {
-    case 'pan':
-    case 'slide':
-      return 'pan';
     case 'zoomin':
     case 'zoom-in':
     case 'pushin':
@@ -94,16 +87,6 @@ const normalizeMotionCue = (cue: unknown): MotionCue | undefined => {
     case 'pullback':
     case 'pull':
       return 'zoomOut';
-    case 'shake':
-    case 'impact':
-    case 'rumble':
-      return 'shake';
-    case 'tiltup':
-    case 'tilt-up':
-      return 'tiltUp';
-    case 'tiltdown':
-    case 'tilt-down':
-      return 'tiltDown';
     default:
       return undefined;
   }
@@ -189,23 +172,14 @@ const computeCameraTransform = (
   // Calculate animation progress and eased value
   const progress = duration <= 1 ? 1 : clamp01(frame / Math.max(1, duration - 1));
   const eased = easeInOut(progress);
-  
+
   // Determine start and end scale for zoom effect
   const startScale = movement === 'zoomIn' ? 1 : 1.08;
   const endScale = movement === 'zoomIn' ? 1.08 : 1;
   const scale = startScale + (endScale - startScale) * eased;
-  
-  // Add a subtle vertical drift for a more dynamic feel
-  const driftDirection = movement === 'zoomIn' ? -1 : 1;
-  const drift = Math.sin(eased * Math.PI) * 12 * driftDirection;
-
-  const transformParts = [`scale(${scale.toFixed(4)})`];
-  if (Math.abs(drift) > 0.1) {
-    transformParts.push(`translateY(${drift.toFixed(2)}px)`);
-  }
 
   return {
-    transformParts,
+    transformParts: [`scale(${scale.toFixed(4)})`],
     transformOrigin: 'center center',
   };
 };
@@ -229,32 +203,6 @@ const computeMotionCueTransforms = (
   const eased = easeInOut(progress);
 
   switch (cue) {
-    case 'pan': {
-      const offset = Math.sin(eased * Math.PI) * 28;
-      return [`translateX(${offset.toFixed(2)}px)`];
-    }
-    case 'zoomIn': {
-      const scale = 1 + 0.06 * eased;
-      return [`scale(${scale.toFixed(4)})`];
-    }
-    case 'zoomOut': {
-      const scale = 1 + 0.06 * (1 - eased);
-      return [`scale(${scale.toFixed(4)})`];
-    }
-    case 'shake': {
-      const intensity = 4;
-      const shakeX = Math.sin(time * Math.PI * 10) * intensity * (1 - Math.abs(0.5 - eased) * 2);
-      const shakeY = Math.cos(time * Math.PI * 8) * (intensity * 0.6) * (1 - Math.abs(0.5 - eased) * 2);
-      return [`translate(${shakeX.toFixed(2)}px, ${shakeY.toFixed(2)}px)`];
-    }
-    case 'tiltUp': {
-      const offset = (1 - eased) * 26;
-      return [`translateY(${offset.toFixed(2)}px)`];
-    }
-    case 'tiltDown': {
-      const offset = (eased - 0.5) * 2 * 22;
-      return [`translateY(${offset.toFixed(2)}px)`];
-    }
     default:
       return [];
   }
@@ -606,7 +554,7 @@ export const SegmentClip: React.FC<SegmentClipProps> = ({
   const videoStyle: CSSProperties = {
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
+    objectFit: 'contain',
     transform: combinedTransforms.join(' '),
     transformOrigin: cameraTransform.transformOrigin,
     willChange: 'transform',

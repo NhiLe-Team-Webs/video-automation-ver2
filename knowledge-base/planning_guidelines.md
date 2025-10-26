@@ -17,6 +17,7 @@ This document outlines the operational rules and best practices for proposing ti
 - Build progressive lists for frameworks; each new point appends to the previous overlay. *Rationale:* Mirrors positive examples in [examples/patterns.md](examples/patterns.md#video-1---how-i-would-learn-digital-marketing).
 - Apply `text_animation` presets when narration references numbers climbing (`count_up`) or typing/flow (`typing_effect`, `flow_chart`). *Rationale:* Motion choices should support narrative metaphors; guardrails defined in `motion_rules.json`.
 - Keep copy concise and faithful to the transcript; default to title case for readability. *Rationale:* Preserves voice and aligns with guidance in [glossary.md](glossary.md).
+- Surface highlight keywords as 1–2 word noun or verb phrases that retain meaning together; drop conversational fillers (`uh`, `oh`, `you know`) before publishing. *Rationale:* Keeps on-screen knowledge base text signal-rich and purposeful.
 
 ## Sound Effects
 - Pair new terms or section changes with subtle SFX (`ui_pop`, `whoosh_standard`). *Rationale:* Audio cues boost recall and correspond to assets in `sfx_catalog.json`.

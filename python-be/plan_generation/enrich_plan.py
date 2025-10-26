@@ -22,62 +22,397 @@ import argparse
 import json
 import math
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+try:
+    import nltk  # type: ignore
+    from nltk.corpus import stopwords  # type: ignore
+    from nltk.tokenize import word_tokenize  # type: ignore
+    from nltk.tag import pos_tag  # type: ignore
+except ImportError:
+    nltk = None  # type: ignore[assignment]
+    stopwords = None  # type: ignore[assignment]
+    word_tokenize = None  # type: ignore[assignment]
+    pos_tag = None  # type: ignore[assignment]
 
-STOP_WORDS = {
+
+def ensure_nltk_resource(resource_path: str, download_name: str) -> None:
+    if nltk is None:
+        raise ImportError(
+            "NLTK is required for highlight keyword extraction. "
+            "Install it via 'pip install nltk'."
+        )
+    try:
+        nltk.data.find(resource_path)
+    except LookupError:
+        nltk.download(download_name)
+
+
+if nltk is not None:
+    ensure_nltk_resource('tokenizers/punkt', 'punkt')
+    ensure_nltk_resource('taggers/averaged_perceptron_tagger', 'averaged_perceptron_tagger')
+    ensure_nltk_resource('corpora/stopwords', 'stopwords')
+
+_ALLOWED_CONNECTORS = {"OF", "FOR", "AND", "&", "IN", "ON", "VS", "VERSUS", "TO", "WITH"}
+_COMMON_VERB_TOKENS = {
+    "be",
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "being",
+    "been",
+    "do",
+    "does",
+    "did",
+    "doing",
+    "have",
+    "has",
+    "had",
+    "having",
+    "make",
+    "makes",
+    "making",
+    "made",
+    "watch",
+    "watches",
+    "watching",
+    "interact",
+    "interacts",
+    "interacting",
+    "discuss",
+    "discusses",
+    "discussing",
+    "explain",
+    "explains",
+    "explaining",
+    "stand",
+    "stands",
+    "standing",
+    "tell",
+    "tells",
+    "telling",
+    "catch",
+    "catches",
+    "catching",
+    "let",
+    "lets",
+    "letting",
+    "take",
+    "takes",
+    "taking",
+    "know",
+    "knows",
+    "knowing",
+    "think",
+    "thinks",
+    "thinking",
+    "feel",
+    "feels",
+    "feeling",
+    "see",
+    "sees",
+    "seeing",
+    "talk",
+    "talks",
+    "talking",
+    "say",
+    "says",
+    "saying",
+    "look",
+    "looks",
+    "looking",
+    "get",
+    "gets",
+    "getting",
+    "give",
+    "gives",
+    "giving",
+    "keep",
+    "keeps",
+    "keeping",
+    "want",
+    "wants",
+    "wanting",
+    "need",
+    "needs",
+    "needing",
+    "allow",
+    "allows",
+    "allowing",
+    "may",
+    "might",
+    "should",
+    "could",
+    "would",
+    "will",
+    "can",
+    "now",
+    "today",
+    "tonight",
+    "already",
+    "maybe",
+    "just",
+}
+
+_TOKEN_SANITIZER = re.compile(r"\s+")
+_ALNUM_PATTERN = re.compile(r"[A-Za-z0-9]")
+_COMMON_VERB_TOKENS_LOWER = {token.lower() for token in _COMMON_VERB_TOKENS}
+
+
+@lru_cache(maxsize=1)
+def _ensure_pos_tagger() -> bool:
+    if nltk is None or pos_tag is None:
+        return False
+    resources = [
+        ("taggers/averaged_perceptron_tagger_eng", "averaged_perceptron_tagger_eng"),
+        ("taggers/averaged_perceptron_tagger", "averaged_perceptron_tagger"),
+    ]
+    for resource_path, download_name in resources:
+        try:
+            nltk.data.find(resource_path)  # type: ignore[union-attr]
+            return True
+        except LookupError:
+            try:
+                nltk.download(download_name, quiet=True)  # type: ignore[union-attr]
+                nltk.data.find(resource_path)  # type: ignore[union-attr]
+                return True
+            except Exception:
+                continue
+    return False
+
+
+def _clean_token(token: str) -> str:
+    return _TOKEN_SANITIZER.sub(" ", token.strip())
+
+
+def _trim_edge_connectors(tokens: List[str]) -> List[str]:
+    result = list(tokens)
+    while result and result[0].upper() in _ALLOWED_CONNECTORS:
+        result.pop(0)
+    while result and result[-1].upper() in _ALLOWED_CONNECTORS:
+        result.pop()
+    return result
+
+
+def _has_noun(tag_map: Dict[int, str], indices: range) -> bool:
+    for idx in indices:
+        if tag_map.get(idx, "").startswith("NN"):
+            return True
+    return False
+
+
+def _filter_with_pos(tokens: List[str]) -> List[str]:
+    if not _ensure_pos_tagger():
+        return []
+
+    taggable_indices: List[int] = []
+    taggable_tokens: List[str] = []
+    for idx, token in enumerate(tokens):
+        cleaned = re.sub(r"[^A-Za-z0-9'-]+", "", token)
+        if not cleaned:
+            continue
+        if cleaned.upper() in _ALLOWED_CONNECTORS:
+            continue
+        taggable_indices.append(idx)
+        taggable_tokens.append(cleaned.lower())
+
+    if not taggable_tokens:
+        return []
+
+    tagged = pos_tag(taggable_tokens)
+    index_to_tag = {taggable_indices[i]: tag.upper() for i, (_, tag) in enumerate(tagged)}
+
+    selected: List[str] = []
+    total = len(tokens)
+    for idx, token in enumerate(tokens):
+        normalized = _clean_token(token)
+        if not normalized:
+            continue
+        upper_token = normalized.upper()
+        if upper_token in _ALLOWED_CONNECTORS:
+            if _has_noun(index_to_tag, range(0, idx)) and _has_noun(index_to_tag, range(idx + 1, total)):
+                selected.append(upper_token)
+            continue
+
+        tag = index_to_tag.get(idx, "")
+        if not tag:
+            continue
+        if tag.startswith("NN"):
+            selected.append(normalized)
+        elif tag.startswith("JJ") or tag == "CD":
+            if _has_noun(index_to_tag, range(idx + 1, total)):
+                selected.append(normalized)
+
+    return _trim_edge_connectors(selected)
+
+
+def _fallback_filter(tokens: List[str]) -> List[str]:
+    selected: List[str] = []
+    total = len(tokens)
+
+    def _has_future_content(start: int) -> bool:
+        for future_idx in range(start, total):
+            candidate = tokens[future_idx].strip()
+            if not candidate:
+                continue
+            lower = candidate.lower()
+            if lower in _COMMON_VERB_TOKENS_LOWER:
+                continue
+            if not _ALNUM_PATTERN.search(candidate):
+                continue
+            return True
+        return False
+
+    for idx, token in enumerate(tokens):
+        normalized = _clean_token(token)
+        if not normalized:
+            continue
+        upper_token = normalized.upper()
+        lower_token = normalized.lower()
+        if upper_token in _ALLOWED_CONNECTORS:
+            if selected and _has_future_content(idx + 1):
+                selected.append(upper_token)
+            continue
+        if lower_token in _COMMON_VERB_TOKENS_LOWER:
+            continue
+        if not _ALNUM_PATTERN.search(normalized):
+            continue
+        selected.append(normalized)
+
+    return _trim_edge_connectors(selected)
+
+
+def filter_tokens_to_noun_phrase(tokens: List[str], max_tokens: int | None = None) -> List[str]:
+    cleaned = [_clean_token(token) for token in tokens if _clean_token(token)]
+    if not cleaned:
+        return []
+
+    filtered = _filter_with_pos(cleaned)
+    if not filtered:
+        filtered = _fallback_filter(cleaned)
+    if not filtered:
+        filtered = cleaned
+
+    if max_tokens is not None and max_tokens > 0:
+        limited: List[str] = []
+        content_count = 0
+        for token in filtered:
+            limited.append(token)
+            if token.upper() not in _ALLOWED_CONNECTORS:
+                content_count += 1
+            if content_count >= max_tokens:
+                break
+        filtered = _trim_edge_connectors(limited) or filtered
+
+    return filtered
+
+
+DEFAULT_STOP_WORDS = {
     "a",
+    "about",
+    "after",
+    "again",
+    "against",
+    "all",
     "an",
     "and",
+    "any",
     "are",
     "as",
     "at",
     "be",
+    "because",
     "been",
+    "before",
+    "being",
     "but",
     "by",
-    "can",
-    "could",
     "did",
     "do",
     "does",
+    "doing",
+    "down",
+    "during",
+    "each",
+    "few",
     "for",
     "from",
+    "further",
     "had",
     "has",
     "have",
+    "having",
+    "he",
+    "her",
     "here",
+    "hers",
+    "herself",
+    "him",
+    "himself",
+    "his",
+    "how",
+    "i",
     "if",
     "in",
     "into",
     "is",
     "it",
     "its",
+    "itself",
     "just",
-    "may",
-    "might",
+    "me",
+    "more",
+    "most",
+    "my",
+    "myself",
+    "no",
+    "nor",
+    "not",
+    "now",
     "of",
+    "off",
     "on",
+    "once",
+    "only",
     "or",
+    "other",
     "our",
+    "ours",
+    "ourselves",
     "out",
+    "over",
+    "own",
+    "same",
+    "she",
     "should",
     "so",
+    "some",
+    "such",
+    "than",
     "that",
     "the",
     "their",
+    "theirs",
     "them",
+    "themselves",
     "then",
     "there",
     "these",
     "they",
     "this",
     "those",
+    "through",
     "to",
+    "too",
+    "under",
+    "until",
     "up",
     "very",
     "was",
@@ -87,13 +422,36 @@ STOP_WORDS = {
     "when",
     "where",
     "which",
+    "while",
     "who",
-    "will",
+    "whom",
+    "why",
     "with",
     "would",
     "you",
     "your",
+    "yours",
+    "yourself",
+    "yourselves",
+    "im",
+    "ive",
+    "hes",
+    "shes",
+    "youre",
+    "theyre",
+    "weve",
+    "thats",
+    "theres",
+    "whats",
+    "gonna",
+    "wanna",
+    "lets",
 }
+STOP_WORDS = set(stopwords.words('english')) if stopwords else set()
+if STOP_WORDS:
+    STOP_WORDS.update(DEFAULT_STOP_WORDS)
+else:
+    STOP_WORDS = set(DEFAULT_STOP_WORDS)
 IMPORTANT_SHORT_TOKENS = {"ai", "ms", "ebv", "cta"}
 BLACKLIST_PHRASES = {
     "thanks for watching",
@@ -104,6 +462,242 @@ BLACKLIST_PHRASES = {
     "bye",
     "goodbye",
 }
+FILLER_WORDS = {
+    "uh",
+    "um",
+    "uhh",
+    "umm",
+    "oh",
+    "ah",
+    "er",
+    "hmm",
+    "huh",
+    "yeah",
+    "yep",
+    "nope",
+    "okay",
+    "ok",
+    "alright",
+    "ahead",
+}
+FILLER_PHRASES = {
+    "you know",
+    "i mean",
+    "kind of",
+    "sort of",
+    "yeah yeah",
+    "oh okay",
+}
+MIN_KEYWORD_LENGTH = 3
+MAX_KEYWORD_TOKENS = 3
+MAX_SRT_AUTO_HIGHLIGHTS = 6
+MAX_TOTAL_HIGHLIGHTS = 20
+SECTION_TITLE_SUFFIXES: tuple[str, ...] = (
+    "Overview",
+    "Insights",
+    "Focus",
+    "Spotlight",
+    "Framework",
+    "Recap",
+    "Summary",
+)
+GENERIC_SKIP_TOKENS = {
+    "GET",
+    "WANT",
+    "THINK",
+    "GO",
+    "COME",
+    "MAKE",
+    "TAKE",
+    "DO",
+    "DOING",
+    "SAY",
+    "SAYS",
+    "SAYING",
+    "ASK",
+    "ASKING",
+    "TRY",
+    "TRYING",
+    "TRIES",
+    "SEE",
+    "SEES",
+    "LOOK",
+    "LOOKS",
+    "LOOKING",
+    "NEED",
+    "NEEDS",
+    "JUST",
+    "RIGHT",
+    "OKAY",
+    "OK",
+    "WELL",
+    "FIRST",
+    "SECOND",
+    "THIRD",
+    "ONE",
+    "TWO",
+    "THREE",
+    "ANYTHING",
+    "ANYONE",
+    "ANYBODY",
+    "EVERYTHING",
+    "EVERYONE",
+    "THING",
+    "THINGS",
+    "STUFF",
+    "AHEAD",
+    "GONNA",
+    "WANNA",
+    "CAN",
+    "CANT",
+    "GOING",
+    "KNOW",
+    "NEXT",
+    "ALWAYS",
+    "PRETTY",
+    "ACTUALLY",
+    "DAY",
+    "LOT",
+    "EVEN",
+    "MADE",
+    "BASICALLY",
+    "SAID",
+    "DONT",
+    "DON",
+    "DIDNT",
+    "AWESOME",
+    "AWAY",
+    "BACK",
+    "LATE",
+    "BEGINNING",
+    "LONG",
+    "HAPPY",
+    "WINDING",
+    "HELPED",
+    "GROW",
+    "CAMERA",
+    "PART",
+    "MESSAGE",
+    "MORNING",
+    "BALANCED",
+    "SIT",
+    "SLEEP",
+    "SOMEHOW",
+    "SOMETHING",
+    "FEEL",
+    "FREE",
+    "INTERVIEWS",
+    "JIM",
+    "HOME",
+    "FACT",
+    "HOURS",
+    "BUILDING",
+    "INDUSTRY",
+    "SIX",
+    "QUESTIONS",
+    "SORRY",
+    "FINE",
+    "FORWARD",
+    "STARTED",
+    "BOTTOM",
+    "MIGHT",
+    "SPARK",
+    "SPEND",
+    "TIME",
+    "REALLY",
+    "SURE",
+    "TOUGH",
+    "KIND",
+    "LIKE",
+    "SCREW",
+    "ELSE",
+    "PICK",
+    "WORD",
+    "WORDS",
+    "MEAN",
+    "MEANS",
+    "MEANT",
+    "QUESTION",
+    "ANSWER",
+    "ASKED",
+    "SAYED",
+    "I",
+    "ME",
+    "MY",
+    "MINE",
+    "WE",
+    "US",
+    "OUR",
+    "OURS",
+    "YOU",
+    "YOUR",
+    "YOURS",
+    "HE",
+    "HIM",
+    "HIS",
+    "SHE",
+    "HER",
+    "HERS",
+    "THEY",
+    "THEM",
+    "THEIR",
+    "THEIRS",
+    "HES",
+    "SHES",
+    "IM",
+    "IVE",
+    "YOURE",
+    "THEYRE",
+    "WEVE",
+    "ITS",
+    "IT",
+    "S",
+    "GOT",
+    "GIVE",
+    "GIVING",
+    "TAKES",
+    "TAKEN",
+}
+
+PRONOUN_TOKENS = {
+    "I",
+    "YOU",
+    "WE",
+    "THEY",
+    "HE",
+    "SHE",
+    "IT",
+    "ME",
+    "HIM",
+    "HER",
+    "THEM",
+    "US",
+    "YOUR",
+    "OUR",
+    "THEIR",
+    "MY",
+    "YOURSELF",
+    "OURSELVES",
+    "THEMSELVES",
+}
+
+ADJECTIVE_SUFFIXES = (
+    "IVE",
+    "OUS",
+    "FUL",
+    "LESS",
+    "ING",
+    "ED",
+    "ABLE",
+    "IBLE",
+    "ANT",
+    "ENT",
+    "LIKE",
+    "ISH",
+    "AL",
+    "ARY",
+    "ERY",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -226,6 +820,13 @@ def sanitize_text(value: Any) -> Optional[str]:
     return text or None
 
 
+def ensure_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def derive_duration_seconds(entry: Dict[str, Any], element: Dict[str, Any], fallback: float = 3.0) -> float:
     """
     Resolves a duration in seconds from element or entry metadata, with dynamic adjustments.
@@ -252,30 +853,122 @@ def derive_duration_seconds(entry: Dict[str, Any], element: Dict[str, Any], fall
     return base_duration
 
 
-def condense_text(value: str, max_words: int = 3, max_chars: int = 42) -> str:
-    """Condenses a string to a maximum number of words and characters, in uppercase."""
-    tokens = [token for token in value.split() if token.lower() not in STOP_WORDS]
-    if not tokens:
-        # If all words are stop words, use original value but still condense
-        tokens = [token for token in value.split() if token]
+def condense_text(value: str, max_words: int = 2, max_chars: int = 42) -> str:
+    """
+    Condenses text into an uppercase keyword phrase while filtering filler terms.
+    Returns the first `max_words` tokens (default 2) that are not stop words or filler.
+    """
+    phrase = select_keyword_phrase(
+        value,
+        max_tokens=min(max_words, MAX_KEYWORD_TOKENS),
+        max_chars=max_chars,
+    )
+    return phrase or ""
 
-    selected = tokens[:max_words]
-    condensed = " ".join(selected).upper()
-    if len(condensed) > max_chars:
-        condensed = condensed[: max_chars - 1].rstrip() + "…"
-    return condensed
+
+def _clean_token(token: str) -> str:
+    return re.sub(r"[^A-Za-z0-9']+", "", token or "")
+
+
+def keyword_is_meaningful(text: str) -> bool:
+    tokens = [token.upper() for token in re.findall(r"[A-Za-z0-9]+", text or "") if token]
+    if not tokens:
+        return False
+    if tokens == ["FIRST", "ONE"]:
+        return False
+    if all(token in GENERIC_SKIP_TOKENS for token in tokens):
+        return False
+    if any(token.lower() in _COMMON_VERB_TOKENS_LOWER for token in tokens):
+        return False
+    content_tokens = [token for token in tokens if token.upper() not in _ALLOWED_CONNECTORS]
+    if len(content_tokens) == 1 and len(content_tokens[0]) < 5:
+        return False
+    return True
+
+
+def select_keyword_phrase(
+    text: str,
+    max_tokens: int = MAX_KEYWORD_TOKENS,
+    max_chars: int = 42,
+) -> Optional[str]:
+    if not text:
+        return None
+
+    tokens = re.findall(r"[A-Za-z0-9']+", text)
+    raw_candidates: List[str] = []
+    seen: set[str] = set()
+    for token in tokens:
+        normalized = re.sub(r"[^a-z0-9]", "", token.lower())
+        if not normalized:
+            continue
+        if normalized in FILLER_WORDS:
+            continue
+        if normalized in STOP_WORDS and normalized not in IMPORTANT_SHORT_TOKENS:
+            continue
+        if normalized.upper() in GENERIC_SKIP_TOKENS:
+            continue
+        if len(normalized) < MIN_KEYWORD_LENGTH and normalized not in IMPORTANT_SHORT_TOKENS:
+            continue
+        candidate_upper = token.upper()
+        if candidate_upper in seen:
+            continue
+        seen.add(candidate_upper)
+        raw_candidates.append(token)
+        if len(raw_candidates) >= max_tokens * 3:
+            break
+
+    if not raw_candidates:
+        return None
+
+    filtered_tokens = filter_tokens_to_noun_phrase(raw_candidates, max_tokens=max_tokens)
+    if not filtered_tokens:
+        filtered_tokens = raw_candidates[:max_tokens]
+
+    keywords = [token.upper() for token in filtered_tokens if token]
+    if not keywords:
+        return None
+
+    phrase = " ".join(keywords[:max_tokens])
+    if not keyword_is_meaningful(phrase):
+        filtered = [kw for kw in keywords if keyword_is_meaningful(kw)]
+        if not filtered:
+            return None
+        phrase = filtered[0] if len(filtered) == 1 else " ".join(filtered[:max_tokens])
+        if not keyword_is_meaningful(phrase):
+            return None
+
+    if len(phrase) > max_chars:
+        phrase = phrase[: max_chars - 1].rstrip() + "..."
+    return phrase
+
+
+def ensure_highlight_keyword(fields: Dict[str, Any]) -> bool:
+    keyword = fields.get("keyword")
+    if isinstance(keyword, str) and keyword and keyword_is_meaningful(keyword):
+        return True
+    text_value = fields.get("text")
+    if isinstance(text_value, str) and text_value and keyword_is_meaningful(text_value):
+        fields["keyword"] = text_value
+        return True
+    return False
+
+
+def extract_meaningful_phrases(
+    text: str,
+    max_phrases: int = 1,
+    max_chars_per_phrase: int = 42,
+) -> List[str]:
+    phrase = select_keyword_phrase(text, max_tokens=MAX_KEYWORD_TOKENS, max_chars=max_chars_per_phrase)
+    return [phrase] if phrase else []
 
 
 def normalize_phrase(words: List[str], max_words: int, max_chars: int = 48) -> str:
-    """Normalizes a list of words into a phrase, applying stop word filtering and length limits."""
-    meaningful_words = [w for w in words if w.lower() not in STOP_WORDS or w.lower() in IMPORTANT_SHORT_TOKENS]
-    if not meaningful_words:
-        meaningful_words = words # Fallback if all are stop words
-
-    phrase = " ".join(meaningful_words[:max_words]).upper()
-    if len(phrase) > max_chars:
-        phrase = phrase[: max_chars - 1].rstrip() + "…"
-    return phrase
+    """Normalizes a list of words into a concise keyword phrase."""
+    joined = " ".join(words)
+    phrases = extract_meaningful_phrases(joined, max_phrases=1, max_chars_per_phrase=max_chars)
+    if phrases:
+        return phrases[0]
+    return condense_text(joined, max_words=min(max_words, MAX_KEYWORD_TOKENS), max_chars=max_chars)
 
 
 def split_words_for_supporting(words: List[str]) -> Tuple[List[str], List[str]]:
@@ -289,6 +982,473 @@ def split_words_for_supporting(words: List[str]) -> Tuple[List[str], List[str]]:
 
     midpoint = max(2, len(words) // 2)
     return words[:midpoint], words[midpoint:]
+
+
+def collect_scene_window(
+    scene_segments: Iterable[Dict[str, Any]],
+    start: float,
+    end: float,
+    *,
+    min_overlap: float = 0.06,
+) -> List[Dict[str, Any]]:
+    """
+    Return transcript entries overlapping the given time window.
+    """
+    window: List[Dict[str, Any]] = []
+    for entry in scene_segments:
+        seg_start = float(entry.get("start", 0.0))
+        seg_end = float(entry.get("end", seg_start))
+        if seg_end <= seg_start:
+            continue
+        if overlap_seconds(start, end, seg_start, seg_end) >= min_overlap:
+            window.append(entry)
+    window.sort(key=lambda item: float(item.get("start", 0.0)))
+    return window
+
+
+def derive_phrase_from_window(
+    window: List[Dict[str, Any]],
+    *,
+    max_tokens: int = MAX_KEYWORD_TOKENS + 2,
+) -> Optional[str]:
+    """
+    Build a noun phrase from a transcript window.
+    """
+    if not window:
+        return None
+
+    text_parts: List[str] = []
+    tokens: List[str] = []
+    for entry in window:
+        text_value = entry.get("textOneLine") or entry.get("text") or ""
+        if text_value:
+            text_parts.append(str(text_value))
+        segment_tokens = entry.get("tokens") or []
+        if isinstance(segment_tokens, list):
+            tokens.extend(str(token) for token in segment_tokens if token)
+
+    blob = " ".join(part.strip() for part in text_parts if part).strip()
+    if blob:
+        phrase = select_keyword_phrase(blob, max_tokens=max_tokens, max_chars=48)
+        if phrase:
+            return phrase
+
+    if tokens:
+        filtered_tokens = filter_tokens_to_noun_phrase(tokens, max_tokens=max_tokens)
+        if filtered_tokens:
+            fallback_phrase = " ".join(token.upper() for token in filtered_tokens if token)
+            if keyword_is_meaningful(fallback_phrase):
+                return fallback_phrase
+
+    return None
+
+
+def snap_highlights_to_transcript(
+    plan: Dict[str, Any],
+    scene_segments: Iterable[Dict[str, Any]],
+    *,
+    min_overlap: float = 0.06,
+    min_duration: float = 0.6,
+) -> Dict[int, List[Dict[str, Any]]]:
+    """
+    Snap highlights to the transcript timeline and return the windows used.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return {}
+
+    scene_segments_list = list(scene_segments)
+    if not scene_segments_list:
+        return {}
+
+    highlight_windows: Dict[int, List[Dict[str, Any]]] = {}
+
+    for idx, highlight in enumerate(highlights):
+        start = highlight.get("start")
+        duration = highlight.get("duration")
+        if not isinstance(start, (int, float)) or not isinstance(duration, (int, float)):
+            continue
+
+        start = float(start)
+        duration = float(duration) if duration else min_duration
+        if duration <= 0:
+            duration = min_duration
+        end = start + duration
+        if end <= start:
+            end = start + min_duration
+
+        window = collect_scene_window(scene_segments_list, start, end, min_overlap=min_overlap)
+        if not window:
+            best_entry: Optional[Dict[str, Any]] = None
+            best_overlap = 0.0
+            for entry in scene_segments_list:
+                seg_start = float(entry.get("start", 0.0))
+                seg_end = float(entry.get("end", seg_start))
+                if seg_end <= seg_start:
+                    continue
+                ov = overlap_seconds(start, end, seg_start, seg_end)
+                if ov > best_overlap:
+                    best_overlap = ov
+                    best_entry = entry
+            if best_entry:
+                window = [best_entry]
+
+        if not window:
+            continue
+
+        snapped_start = float(window[0].get("start", start))
+        snapped_end = float(window[-1].get("end", end))
+        if snapped_end <= snapped_start:
+            continue
+
+        highlight["start"] = round(snapped_start, 2)
+        highlight["duration"] = round(max(min_duration, snapped_end - snapped_start), 2)
+        highlight_windows[idx] = window
+
+    if highlight_windows:
+        plan["highlights"] = sorted(highlights, key=lambda item: item.get("start", 0.0) or 0.0)
+
+    return highlight_windows
+
+
+def refresh_highlight_phrases(
+    plan: Dict[str, Any],
+    highlight_windows: Dict[int, List[Dict[str, Any]]],
+) -> None:
+    """
+    Replace highlight keyword/text with transcript-derived noun phrases when needed.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights or not highlight_windows:
+        return
+
+    refreshed: List[Dict[str, Any]] = []
+
+    for idx, highlight in enumerate(highlights):
+        window = highlight_windows.get(idx)
+        if not window:
+            highlight_type = (highlight.get("type") or "").lower()
+            if highlight_type == "sectiontitle" or keyword_is_meaningful(str(highlight.get("keyword") or highlight.get("text") or "")):
+                refreshed.append(highlight)
+            continue
+        highlight_id = str(highlight.get("id") or "")
+        if highlight_id.startswith("cta_"):
+            refreshed.append(highlight)
+            continue
+
+        candidate_phrase = derive_phrase_from_window(window)
+        if not candidate_phrase:
+            if (highlight.get("type") or "").lower() == "sectiontitle":
+                refreshed.append(highlight)
+            elif keyword_is_meaningful(str(highlight.get("keyword") or "")) or keyword_is_meaningful(str(highlight.get("text") or "")):
+                refreshed.append(highlight)
+            continue
+
+        transcript_tokens = {
+            token.upper()
+            for entry in window
+            for token in entry.get("tokens") or []
+            if isinstance(token, str) and token
+        }
+
+        def needs_override(value: Any) -> bool:
+            if not isinstance(value, str) or not value.strip():
+                return True
+            words = {token.upper() for token in re.findall(r"[A-Za-z0-9']+", value)}
+            if not words:
+                return True
+            if transcript_tokens and not words.issubset(transcript_tokens):
+                return True
+            return False
+
+        highlight_type = (highlight.get("type") or "").lower()
+        if highlight_type == "icon":
+            continue
+
+        if needs_override(highlight.get("keyword")):
+            highlight["keyword"] = candidate_phrase
+        if highlight_type == "sectiontitle":
+            if needs_override(highlight.get("text")):
+                highlight["text"] = candidate_phrase.title()
+        else:
+            if needs_override(highlight.get("text")):
+                highlight["text"] = candidate_phrase
+
+        keyword_value = highlight.get("keyword") or highlight.get("text")
+        if not isinstance(keyword_value, str) or not keyword_is_meaningful(keyword_value):
+            continue
+
+        refreshed.append(highlight)
+
+    plan["highlights"] = refreshed
+
+
+def decorate_section_highlights(plan: Dict[str, Any]) -> None:
+    """
+    Ensures sectionTitle highlights present a decorated phrase so their text
+    never mirrors raw B-roll labels or plain transcript snippets.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    used_texts: set[str] = set()
+    suffix_count = len(SECTION_TITLE_SUFFIXES)
+    if suffix_count == 0:
+        return
+
+    for highlight in highlights:
+        if (highlight.get("type") or "").lower() != "sectiontitle":
+            continue
+        base_source = (
+            highlight.get("keyword")
+            or highlight.get("text")
+            or ""
+        )
+        base_phrase = (
+            select_keyword_phrase(str(base_source), max_tokens=MAX_KEYWORD_TOKENS + 1, max_chars=48)
+            or condense_text(str(base_source), max_words=MAX_KEYWORD_TOKENS + 1, max_chars=48)
+            or "Key Theme"
+        )
+        highlight_id = str(highlight.get("id") or "")
+        seed = sum(ord(ch) for ch in highlight_id)
+        base_title = base_phrase.title()
+
+        attempt = 0
+        chosen_text = ""
+        while attempt < suffix_count * 2:
+            suffix = SECTION_TITLE_SUFFIXES[(seed + attempt) % suffix_count]
+            if suffix.lower() in base_title.lower():
+                candidate = base_title
+            else:
+                candidate = f"{base_title} {suffix}"
+            normalized = candidate.strip()
+            if normalized.lower() not in used_texts:
+                chosen_text = normalized
+                break
+            attempt += 1
+        if not chosen_text:
+            chosen_text = base_title.strip() or "Key Theme Overview"
+
+        highlight["text"] = chosen_text
+        highlight["keyword"] = chosen_text.upper()
+        used_texts.add(chosen_text.lower())
+
+
+def enforce_highlight_spacing(
+    plan: Dict[str, Any],
+    *,
+    min_gap: float = 0.2,
+    min_duration: float = 0.6,
+) -> None:
+    """
+    Prevent overlapping highlight windows by trimming or prioritising key beats.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    ordered = sorted(highlights, key=lambda item: item.get("start", 0.0) or 0.0)
+    filtered: List[Dict[str, Any]] = []
+
+    for current in ordered:
+        start = current.get("start")
+        duration = current.get("duration")
+        if not isinstance(start, (int, float)) or not isinstance(duration, (int, float)):
+            continue
+        start = float(start)
+        duration = max(min_duration, float(duration))
+
+        while filtered:
+            previous = filtered[-1]
+            prev_start = float(previous.get("start", 0.0))
+            prev_duration = max(min_duration, float(previous.get("duration", min_duration)))
+            prev_end = prev_start + prev_duration
+            if start >= prev_end + min_gap:
+                break
+
+            available = start - min_gap - prev_start
+            current_is_section = (current.get("type") or "").lower() == "sectiontitle"
+            previous_is_section = (previous.get("type") or "").lower() == "sectiontitle"
+
+            if available >= min_duration:
+                previous["duration"] = round(available, 2)
+                break
+
+            if current_is_section and not previous_is_section:
+                filtered.pop()
+                continue
+
+            if not current_is_section and previous_is_section:
+                break
+
+            if available > 0.4:
+                previous["duration"] = round(max(min_duration, available), 2)
+                break
+
+            if duration > prev_duration:
+                filtered.pop()
+                continue
+
+            break  # drop current highlight
+
+        if filtered:
+            prev_last = filtered[-1]
+            prev_end = float(prev_last.get("start", 0.0)) + float(prev_last.get("duration", min_duration))
+            if start < prev_end + min_gap:
+                continue
+
+        current["start"] = round(start, 2)
+        current["duration"] = round(duration, 2)
+        filtered.append(current)
+
+    plan["highlights"] = filtered
+
+
+def prune_highlights(
+    plan: Dict[str, Any],
+    *,
+    max_total: int = MAX_TOTAL_HIGHLIGHTS,
+) -> None:
+    """
+    Reduces highlight count to a manageable number, preferring noun-rich,
+    numerically significant, or section-title moments.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights or len(highlights) <= max_total:
+        return
+
+    def score_highlight(item: Dict[str, Any]) -> float:
+        base = 0.0
+        h_type = (item.get("type") or "").lower()
+        if h_type == "sectiontitle":
+            base += 120
+        elif h_type == "icon":
+            base += 40
+        elif h_type == "cta":
+            base += 80
+
+        if (item.get("importance") or "").lower() == "primary":
+            base += 12
+
+        text = str(item.get("keyword") or item.get("text") or "")
+        tokens = re.findall(r"[A-Za-z0-9]+", text)
+        if not tokens:
+            return base - 25.0
+        content_tokens = [token for token in tokens if token.upper() not in _ALLOWED_CONNECTORS]
+        noun_like = sum(1 for token in content_tokens if token.lower() not in _COMMON_VERB_TOKENS_LOWER)
+        base += min(noun_like * 4, 20)
+
+        if any(char.isdigit() for char in text):
+            base += 10
+
+        duration = float(item.get("duration") or 0.0)
+        base += min(duration, 5.0)
+
+        start = float(item.get("start") or 0.0)
+        # Slight preference for earlier highlights to maintain pacing
+        base += max(0.0, 8.0 - start * 0.05)
+
+        # Reward compact multi-word noun clusters; penalize single short words
+        if len(content_tokens) >= 2:
+            base += 10
+        elif len(content_tokens) == 1:
+            if len(content_tokens[0]) >= 6:
+                base += 2
+            else:
+                base -= 12
+
+        return base
+
+    scored = [
+        (score_highlight(item), float(item.get("start") or 0.0), idx, item)
+        for idx, item in enumerate(highlights)
+    ]
+    scored.sort(key=lambda entry: (-entry[0], entry[1], entry[2]))
+    retained = {entry[3].get("id") for entry in scored[:max_total]}
+
+    plan["highlights"] = [item for item in highlights if item.get("id") in retained]
+    plan["highlights"].sort(key=lambda item: item.get("start", 0.0) or 0.0)
+
+
+def inject_section_cards(
+    plan: Dict[str, Any],
+    segment_summaries: Iterable[Tuple[Dict[str, Any], SceneSummary]],
+    scene_segments: Iterable[Dict[str, Any]],
+    *,
+    max_cards: int = 4,
+    min_gap_seconds: float = 18.0,
+) -> List[Dict[str, Any]]:
+    """
+    Inject centred sectionTitle highlights for major topic pivots.
+    """
+    segment_summaries = list(segment_summaries)
+    if not segment_summaries:
+        return []
+
+    highlights = plan.setdefault("highlights", [])
+    existing_sections = [
+        float(item.get("start", 0.0))
+        for item in highlights
+        if isinstance(item, dict) and (item.get("type") or "").lower() == "sectiontitle"
+    ]
+    existing_sections.sort()
+
+    inserted: List[Dict[str, Any]] = []
+    last_section = existing_sections[-1] if existing_sections else -float("inf")
+
+    for segment, summary in segment_summaries:
+        if len(inserted) >= max_cards:
+            break
+        if summary.highlight_score < 0.65:
+            continue
+        if summary.duration < 3.0:
+            continue
+        start_time = float(summary.start)
+        if start_time < 5.0:
+            continue
+        if start_time < last_section + min_gap_seconds:
+            continue
+        if any(abs(start_time - existing) < min_gap_seconds * 0.5 for existing in existing_sections):
+            continue
+
+        window = collect_scene_window(scene_segments, summary.start, summary.end, min_overlap=0.4)
+        if not window:
+            continue
+
+        phrase = derive_phrase_from_window(window, max_tokens=MAX_KEYWORD_TOKENS + 2)
+        if not phrase:
+            continue
+
+        raw_id = segment.get("id") or f"{len(highlights) + len(inserted)}"
+        highlight_id = f"section_{raw_id}"
+
+        section_highlight = {
+            "id": highlight_id,
+            "type": "sectionTitle",
+            "start": round(float(window[0].get("start", summary.start)), 2),
+            "duration": round(min(max(summary.duration, 3.2), 5.2), 2),
+            "text": phrase.title(),
+            "keyword": phrase,
+            "position": "center",
+            "animation": "float",
+            "variant": "brand",
+            "overlay": {"tint": "#050607", "opacity": 0.72, "blendMode": "multiply"},
+            "sfx": "assets/sfx/ui/swipe.mp3",
+            "volume": 0.55,
+            "importance": "primary",
+        }
+
+        highlights.append(section_highlight)
+        inserted.append(section_highlight)
+        existing_sections.append(section_highlight["start"])
+        existing_sections.sort()
+        last_section = section_highlight["start"]
+
+    if inserted:
+        highlights.sort(key=lambda item: item.get("start", 0.0) or 0.0)
+
+    return inserted
 
 
 def parse_srt_timestamp(value: str) -> Optional[float]:
@@ -421,60 +1581,60 @@ def build_highlight_from_overlay(
     if not main_text:
         return None
 
-    supporting = {key: condense_text(value) for key, value in supporting.items() if value}
+    supporting_cleaned: Dict[str, str] = {}
+    for key, value in supporting.items():
+        if not value:
+            continue
+        phrases = extract_meaningful_phrases(value, max_phrases=1, max_chars_per_phrase=32)
+        if phrases:
+            supporting_cleaned[key] = phrases[0]
+
     duration = derive_duration_seconds(entry, element)
 
-    layout: Optional[str] = None
-    supporting_clean: Dict[str, str] = {}
-    left_value = supporting.get('topLeft') or supporting.get('topCenter')
-    right_value = supporting.get('topRight') or supporting.get('topCenter')
+    supporting_final: Dict[str, str] = {}
+    left_value = supporting_cleaned.get('topLeft') or supporting_cleaned.get('topCenter')
+    right_value = supporting_cleaned.get('topRight') or supporting_cleaned.get('topCenter')
 
     if left_value:
-        supporting_clean['topLeft'] = left_value
+        supporting_final['topLeft'] = left_value
     if right_value and right_value != left_value:
-        supporting_clean['topRight'] = right_value
+        supporting_final['topRight'] = right_value
 
-    # Normalize single string content as bottom banner
-    is_primary = isinstance(element.get('content'), str)
-    if is_primary:
-        layout = 'bottom'
+    main_phrases = extract_meaningful_phrases(main_text, max_phrases=1, max_chars_per_phrase=42)
+    if not main_phrases:
+        return None
+    primary_keyword = main_phrases[0]
+    if not keyword_is_meaningful(primary_keyword):
+        return None
 
     highlight: Dict[str, Any] = {
         'id': f'kb-{entry_index:03d}-{element_index:02d}',
         'type': 'noteBox',
         'start': round(timestamp, 2),
         'duration': round(duration, 2),
+        'position': 'bottom',
+        'layout': 'bottom',
+        'importance': 'primary',
+        'showBottom': True,
+        'safeBottom': 0.18,
+        'safeInsetHorizontal': 0.08,
+        'text': primary_keyword,
+        'keyword': primary_keyword,
     }
 
-    if layout == 'bottom':
-        highlight['text'] = condense_text(main_text, 3)
-        highlight['keyword'] = highlight['text']
-        highlight['layout'] = 'bottom'
-        highlight['importance'] = 'primary'
-        highlight['position'] = 'bottom'
-        highlight['side'] = 'bottom'
-    else:
-        highlight['keyword'] = condense_text(main_text, 3)
-        highlight['importance'] = 'supporting'
-        highlight['position'] = 'top'
-        if supporting_clean:
-            highlight['supportingTexts'] = supporting_clean
-            if 'topLeft' in supporting_clean and 'topRight' in supporting_clean:
-                highlight['layout'] = 'dual'
-            elif 'topLeft' in supporting_clean:
-                highlight['layout'] = 'left'
-                highlight['side'] = 'left'
-            elif 'topRight' in supporting_clean:
-                highlight['layout'] = 'right'
-                highlight['side'] = 'right'
-            else:
-                highlight['layout'] = 'left'
-        else:
-            highlight['layout'] = 'bottom'
-            highlight['importance'] = 'primary'
-            highlight['position'] = 'bottom'
-            highlight['side'] = 'bottom'
-            highlight['text'] = condense_text(main_text, 3)
+    if supporting_final:
+        highlight['supportingTexts'] = supporting_final
+        both_sides = 'topLeft' in supporting_final and 'topRight' in supporting_final
+        if both_sides:
+            highlight['layout'] = 'dual'
+            highlight['staggerLeft'] = 0.0
+            highlight['staggerRight'] = 2.0
+        elif 'topLeft' in supporting_final:
+            highlight['layout'] = 'left'
+            highlight['staggerLeft'] = 0.0
+        elif 'topRight' in supporting_final:
+            highlight['layout'] = 'right'
+            highlight['staggerRight'] = 0.0
 
     return highlight
 
@@ -499,6 +1659,84 @@ BROLL_RULES: List[Tuple[set[str], str]] = [
     (set(["brand awareness", "direct response"]), "business_strategy"),
     (set(["products", "services"]), "modern_office"),
     (set(["b2b", "b2c", "business to business", "business to consumer"]), "business_strategy"),
+    (set(["loyal", "loyalty", "loyal clients"]), "handshake_success"),
+    (set(["sweet", "honest", "heartwarming"]), "celebration_success"),
+    (set(["favorite memory", "favourite memory", "memory", "family", "grandkids"]), "celebration_success"),
+    (set(["high school", "sweetheart", "sweethearts"]), "training_workshop"),
+    (set(["clientele", "clients", "client"]), "teamwork_meeting"),
+    (set(["partnership", "still with", "day one"]), "modern_office"),
+    (set(["relationship", "relationships", "friendships"]), "startup_team"),
+    (set(["consistency", "consistent"]), "office_motion"),
+    (set(["mail room", "mailroom"]), "modern_office"),
+    (set(["industry", "business owner", "company"]), "modern_office"),
+    (set(["personality", "psychology", "traits", "introvert", "extrovert"]), "education_training"),
+    (set(["mind", "brain", "thought", "thinking"]), "ai_brain"),
+    (set(["people", "audience", "social", "crowd", "group"]), "teamwork_meeting"),
+]
+
+BROLL_NOTES = {
+    "handshake_success": "B-roll: handshake_success underscores loyalty anecdote.",
+    "celebration_success": "B-roll: celebration_success adds warmth during character description.",
+    "training_workshop": "B-roll: training_workshop illustrates the high-school group setup.",
+    "teamwork_meeting": "B-roll: teamwork_meeting spotlights established clientele.",
+    "modern_office": "B-roll: modern_office reinforces lasting client partnership.",
+    "startup_team": "B-roll: startup_team reinforces loyal friendships with clients.",
+    "office_motion": "B-roll: office_motion underscores consistent client relationships.",
+}
+
+BROLL_REASONS = {
+    "handshake_success": ["Handshake moment reinforces loyalty description."],
+    "celebration_success": ["Celebration visual supports the heartfelt moment."],
+    "training_workshop": ["Group setting mirrors the meeting story energy."],
+    "teamwork_meeting": ["Team huddle echoes long-term client relationships."],
+    "modern_office": ["Modern office still pairs with enduring partnerships."],
+    "startup_team": ["Collaborative workspace visualises loyal friendships with clients."],
+    "office_motion": ["Office walkthrough mirrors consistent client presence."],
+}
+
+BROLL_FULL_IDS = {
+    "handshake_success",
+    "celebration_success",
+    "training_workshop",
+    "teamwork_meeting",
+    "modern_office",
+    "startup_team",
+    "office_motion",
+}
+
+MAX_BROLL_REUSE = 2
+
+
+MOTION_ZOOM_IN_KEYWORDS = {
+    "loyal",
+    "loyalty",
+    "sweet",
+    "honest",
+    "memory",
+    "favorite memory",
+    "favourite memory",
+    "sweetheart",
+    "sweethearts",
+    "clientele",
+    "client",
+    "clients",
+    "relationship",
+    "relationships",
+    "consistency",
+    "consistent",
+}
+
+MOTION_ANIMATION_HINTS = {"zoom", "pulse", "bounce", "fade"}
+ALLOWED_MOTIONS = {"zoomIn", "zoomOut"}
+
+
+HIGHLIGHT_SFX_RULES = [
+    {"keywords": {"sweet", "honest"}, "sfx": "assets/sfx/emotion/applause.mp3", "gain": -2.5},
+    {"keywords": {"high school", "sweetheart", "sweethearts"}, "sfx": "assets/sfx/ui/pop.mp3", "gain": -2.5},
+    {"keywords": {"clientele", "client", "clients"}, "sfx": "assets/sfx/ui/pop.mp3", "gain": -2.5},
+    {"keywords": {"loyalty", "day one"}, "sfx": "assets/sfx/emphasis/ding.mp3", "gain": -2.5},
+    {"keywords": {"relationship", "relationships"}, "sfx": "assets/sfx/ui/bubble-pop.mp3", "gain": -3.0},
+    {"keywords": {"consistency", "consistent"}, "sfx": "assets/sfx/emphasis/ding.mp3", "gain": -3.0},
 ]
 
 
@@ -528,7 +1766,6 @@ def ensure_broll_from_highlights(
     highlights = plan.get("highlights", [])
     if not highlights:
         return
-
     def locate_segment(timecode: float) -> Optional[Dict[str, Any]]:
         for segment in segments:
             start = float(segment.get("sourceStart", 0.0))
@@ -537,7 +1774,9 @@ def ensure_broll_from_highlights(
                 return segment
         return None
 
-    assigned_ids: set[str] = set()
+    assigned_counts: defaultdict[str, int] = defaultdict(int)
+
+    last_motion: Optional[str] = None
 
     for highlight in highlights:
         start = highlight.get("start")
@@ -556,24 +1795,34 @@ def ensure_broll_from_highlights(
             continue
 
         broll_id = match_broll_id(full_text)
-        if not broll_id or broll_id in assigned_ids:
+        if not broll_id:
+            continue
+        if assigned_counts[broll_id] >= MAX_BROLL_REUSE:
             continue
 
         item = catalog_items.get(broll_id)
         if not item:
             continue
+        mode = "full"
+        reasons = BROLL_REASONS.get(item.get("id")) or ["Highlight keyword match"]
 
         segment["broll"] = {
             "id": item.get("id"),
             "file": item.get("file"),
-            "mode": "overlay",
-            "confidence": 2.0,
-            "reasons": ["Highlight keyword match"],
+            "mode": mode,
+            "confidence": 3.0,
+            "reasons": reasons,
         }
-        segment.setdefault("notes", []).append(
-            f"B-roll injected via highlight keyword: {item.get('id')}"
-        )
-        assigned_ids.add(broll_id)
+        notes = [
+            note
+            for note in segment.get("notes", [])
+            if not note.lower().startswith("no b-roll match")
+        ]
+        note_text = BROLL_NOTES.get(item.get("id")) or f"B-roll injected via highlight keyword: {item.get('id')}"
+        if note_text not in notes:
+            notes.append(note_text)
+        segment["notes"] = notes
+        assigned_counts[broll_id] += 1
 
 
 def ensure_motion_from_highlights(
@@ -598,18 +1847,19 @@ def ensure_motion_from_highlights(
 
     max_motions = max(1, math.ceil(len(segments) * float(motion_rules.get("motion_frequency", 0.5))))
     assigned = sum(1 for segment in segments if segment.get("motionCue"))
+    last_motion: Optional[str] = None
 
     for highlight in highlights:
-        if assigned >= max_motions:
-            break
-
         start = highlight.get("start")
         if not isinstance(start, (int, float)):
             continue
 
         segment = locate_segment(start)
-        if not segment or segment.get("motionCue"):
+        if not segment:
             continue
+        existing_cue = segment.get("motionCue")
+        if assigned >= max_motions and not existing_cue:
+            break
 
         text_parts = [highlight.get("keyword") or ""]
         supporting = highlight.get("supportingTexts") or {}
@@ -617,21 +1867,135 @@ def ensure_motion_from_highlights(
         combined_text = " ".join(filter(None, text_parts)).lower()
 
         motion: Optional[str] = None
-        if highlight.get("importance") == "primary" or any(ch.isdigit() for ch in combined_text):
+        animation_hint = (highlight.get("animation") or "").lower()
+        zoom_out_keywords = motion_rules.get("zoom_out_keywords", [])
+        zoom_out_hit = any(word in combined_text for word in zoom_out_keywords)
+
+        has_number = any(ch.isdigit() for ch in combined_text)
+
+        if highlight.get("importance") == "primary":
+            if zoom_out_hit and last_motion == "zoomIn":
+                motion = "zoomOut"
+            elif has_number:
+                motion = "zoomIn"
+            elif last_motion == "zoomIn":
+                motion = "zoomOut"
+            else:
+                motion = "zoomIn"
+        elif has_number:
             motion = "zoomIn"
-        elif any(word in combined_text for word in motion_rules.get("zoom_out_keywords", [])):
+        elif any(keyword in combined_text for keyword in MOTION_ZOOM_IN_KEYWORDS):
+            motion = "zoomIn"
+        elif animation_hint in MOTION_ANIMATION_HINTS:
+            motion = "zoomIn"
+        elif zoom_out_hit:
             motion = "zoomOut"
-        elif any(word in combined_text for word in motion_rules.get("pan_keywords", [])):
-            motion = "pan"
-        elif any(word in combined_text for word in motion_rules.get("shake_keywords", [])):
-            motion = "shake"
+        else:
+            if existing_cue in ALLOWED_MOTIONS:
+                motion = existing_cue
+            else:
+                motion = "zoomOut" if last_motion == "zoomIn" else "zoomIn"
 
         if not motion:
             continue
+        if existing_cue:
+            if existing_cue == motion:
+                continue
+            if existing_cue not in ALLOWED_MOTIONS and motion in ALLOWED_MOTIONS:
+                pass
+            elif existing_cue in ALLOWED_MOTIONS and motion != existing_cue:
+                segment["motionCue"] = motion
+            else:
+                continue
 
+        notes = [
+            note
+            for note in segment.get("notes", [])
+            if not note.lower().startswith("motion cue assigned")
+        ]
+        description = (
+            highlight.get("text")
+            or highlight.get("keyword")
+            or highlight.get("title")
+            or ""
+        ).strip()
+        gist = f"\"{description}\"" if description else "highlight context"
+        note_text = f"Motion cue: {motion} emphasises {gist}."
+        if note_text not in notes:
+            notes.append(note_text)
+        segment["notes"] = notes
         segment["motionCue"] = motion
-        segment.setdefault("notes", []).append(f"Motion cue injected from highlight: {motion}")
-        assigned += 1
+        if not existing_cue:
+            assigned += 1
+        last_motion = motion
+
+
+def ensure_highlight_sfx(
+    plan: Dict[str, Any],
+    sfx_catalog: Dict[str, Any] | None,
+) -> None:
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    available: set[str] = set()
+    if sfx_catalog:
+        for item in sfx_catalog.get("items", []):
+            if not isinstance(item, dict):
+                continue
+            path = item.get("file") or item.get("id")
+            if isinstance(path, str):
+                available.add(path.lower())
+
+    for highlight in highlights:
+        if highlight.get("sfx"):
+            continue
+
+        text_parts = [
+            highlight.get("text"),
+            highlight.get("keyword"),
+            highlight.get("title"),
+        ]
+        combined = " ".join(filter(None, text_parts)).lower()
+        if not combined:
+            continue
+
+        for rule in HIGHLIGHT_SFX_RULES:
+            if any(keyword in combined for keyword in rule["keywords"]):
+                sfx_path = rule["sfx"]
+                if available and sfx_path.lower() not in available:
+                    continue
+                highlight["sfx"] = sfx_path
+                highlight["gain"] = rule.get("gain", -3.0)
+                metadata = highlight.setdefault("metadata", {})
+                if isinstance(metadata, dict):
+                    metadata.setdefault("audio", "auto")
+                break
+
+
+def trim_highlights_to_segments(plan: Dict[str, Any], margin: float = 0.25) -> None:
+    segments = plan.get("segments", [])
+    highlights = plan.get("highlights", [])
+    if not segments or not highlights:
+        return
+
+    latest_end = 0.0
+    for segment in segments:
+        try:
+            start = float(segment.get("sourceStart", 0.0))
+            duration = float(segment.get("duration", 0.0))
+        except (TypeError, ValueError):
+            continue
+        latest_end = max(latest_end, start + max(0.0, duration))
+
+    cutoff = latest_end + margin
+    trimmed = [
+        highlight
+        for highlight in highlights
+        if isinstance(highlight.get("start"), (int, float)) and highlight["start"] <= cutoff
+    ]
+    trimmed.sort(key=lambda item: item.get("start", 0.0))
+    plan["highlights"] = trimmed
 def augment_highlights_from_catalog(
     plan: Dict[str, Any],
     catalog: Dict[str, Any],
@@ -668,32 +2032,49 @@ def augment_highlights_from_catalog(
             if duplicate:
                 continue
 
-            layout = highlight.get('layout')
+            layout = highlight.get('layout') or 'bottom'
+            highlight['position'] = 'bottom'
+            highlight['showBottom'] = True
+            highlight['importance'] = (highlight.get('importance') or 'primary').lower()
 
-            if layout in {'left', 'right'} and isinstance(highlight.get('supportingTexts'), dict):
+            supporting_texts = highlight.get('supportingTexts')
+            if layout in {'left', 'right'} and isinstance(supporting_texts, dict):
                 desired = 'left' if not side_toggle else 'right'
-                texts = highlight['supportingTexts']
-                value = texts.get('topLeft') or texts.get('topRight')
-                if value and desired != layout:
-                    if desired == 'left':
-                        highlight['supportingTexts'] = {'topLeft': value}
-                        highlight['layout'] = 'left'
-                        highlight['side'] = 'left'
-                    else:
-                        highlight['supportingTexts'] = {'topRight': value}
-                        highlight['layout'] = 'right'
-                        highlight['side'] = 'right'
+                value = (
+                    supporting_texts.get('topLeft')
+                    if desired == 'left'
+                    else supporting_texts.get('topRight')
+                )
+                fallback_value = supporting_texts.get('topLeft') or supporting_texts.get('topRight')
+                final_value = value or fallback_value
+                if desired == 'left' and final_value:
+                    highlight['supportingTexts'] = {'topLeft': final_value}
+                    highlight['layout'] = 'left'
+                    highlight['staggerLeft'] = 0.0
+                    highlight.pop('staggerRight', None)
+                elif desired == 'right' and final_value:
+                    highlight['supportingTexts'] = {'topRight': final_value}
+                    highlight['layout'] = 'right'
+                    highlight['staggerRight'] = 0.0
+                    highlight.pop('staggerLeft', None)
                 else:
-                    highlight['side'] = layout
+                    highlight['layout'] = desired
                 side_toggle = not side_toggle
-                highlight.setdefault('position', 'top')
             elif layout == 'dual':
-                highlight.setdefault('position', 'top')
-                highlight.pop('side', None)
-            elif layout == 'bottom':
-                highlight['side'] = 'bottom'
-                highlight['position'] = 'bottom'
+                if isinstance(supporting_texts, dict):
+                    highlight['layout'] = 'dual'
+                    highlight['staggerLeft'] = 0.0
+                    highlight['staggerRight'] = max(
+                        2.0,
+                        ensure_float(highlight.get('staggerRight'), 2.0),
+                    )
+            else:
+                highlight['layout'] = 'bottom'
+                highlight.pop('supportingTexts', None)
+                highlight.pop('staggerLeft', None)
+                highlight.pop('staggerRight', None)
 
+            highlight.pop('side', None)
             highlights.append(highlight)
             injected.append(highlight)
             existing_starts.append(start_time)
@@ -717,10 +2098,14 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'text': 'EPSTEIN-BARR VIRUS',
             'keyword': 'EPSTEIN-BARR VIRUS',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': 'EPSTEIN-BARR VIRUS',
                 'topRight': right,
@@ -732,10 +2117,14 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'text': 'UNKNOWN CAUSE',
             'keyword': 'UNKNOWN CAUSE',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': 'UNKNOWN CAUSE',
                 'topRight': 'HARD TO TREAT',
@@ -747,10 +2136,16 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
+            'text': '10 MILLION PEOPLE',
             'keyword': '10 MILLION PEOPLE',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': '10 MILLION PEOPLE',
                 'topRight': '20 YEARS',
@@ -764,10 +2159,12 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'duration': round(duration, 2),
             'importance': 'primary',
             'position': 'bottom',
-            'side': 'bottom',
             'layout': 'bottom',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
             'text': 'DIRECT LINK: EBV ? MS',
             'keyword': 'DIRECT LINK: EBV ? MS',
+            'showBottom': True,
         }
     if 'multiple sclerosis' in text_lower and '32' in text_lower:
         return {
@@ -777,10 +2174,12 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'duration': round(duration, 2),
             'importance': 'primary',
             'position': 'bottom',
-            'side': 'bottom',
             'layout': 'bottom',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
             'text': '32X MS RISK',
             'keyword': '32X MS RISK',
+            'showBottom': True,
         }
     return None
 def augment_highlights_from_srt(
@@ -793,380 +2192,40 @@ def augment_highlights_from_srt(
         return []
 
     highlights = plan.setdefault('highlights', [])
-    existing_starts = [
-        h.get('start')
-        for h in highlights
-        if isinstance(h.get('start'), (int, float))
-    ]
-
-    injected: List[Dict[str, Any]] = []
-    side_toggle = False
-    bottom_cooldown = 0
-    recent_phrases: set[str] = set()
-
-    for entry in entries:
-        start = max(0.0, entry['start'])
-        duration = derive_duration_seconds(entry, entry) # Use dynamic duration
-
-        # Check for overlap with existing highlights
-        if any(overlap_seconds(start, start + duration, existing, existing + (h.get('duration') or 0.0)) > 0.0 for existing, h in zip(existing_starts, highlights)):
-            continue
-
-        # Check for phrases to blacklist
-        if any(phrase in text_lower for phrase in BLACKLIST_PHRASES):
-            continue
-
-        if start < 0.6:
-            continue
-
-        raw_text = entry['text']
-        clean = re.sub(r"[^A-Za-z0-9\s'%-]", " ", raw_text)
-        words = [w for w in clean.split() if w]
-        if not words:
-            continue
-
-        normalized_sentence = " ".join(words).lower()
-        if normalized_sentence in recent_phrases:
-            continue
-        recent_phrases.add(normalized_sentence)
-        text_lower = raw_text.lower()
-
-        override = build_highlight_override(entry, text_lower, start, duration)
-        if override:
-            highlights.append(override)
-            injected.append(override)
-            existing_starts.append(start)
-            bottom_cooldown = 0
-            side_toggle = False
-            continue
-            continue
-
-        contains_number = any(any(ch.isdigit() for ch in token) for token in words)
-        contains_question = '?' in raw_text
-
-        full_phrase = normalize_phrase(words, max_words=min(8, len(words)), max_chars=52)
-        primary_text = normalize_phrase(words, max_words=4, max_chars=36)
-
-        left_words, right_words = split_words_for_supporting(words)
-        left_text = normalize_phrase(left_words, max_words=4, max_chars=32)
-        right_text = normalize_phrase(right_words, max_words=4, max_chars=32) if right_words else ''
-
-        if 'epstein-barr' in text_lower:
-            left_text = 'EPSTEIN-BARR VIRUS'
-            right_text = '32X MS RISK' if '32' in text_lower else ('THE KISSING DISEASE' if 'kissing' in text_lower else 'MONONUCLEOSIS')
-        elif "didn't know what caused" in text_lower:
-            left_text = 'UNKNOWN CAUSE'
-            right_text = 'HARD TO TREAT'
-        elif '10 million' in text_lower and '20 year' in text_lower:
-            left_text = '10 MILLION PEOPLE'
-            right_text = '20 YEARS'
-        elif 'direct link' in text_lower and 'multiple sclerosis' in text_lower:
-            left_text = 'DIRECT LINK'
-            right_text = 'EBV ? MS'
-
-        supporting: Dict[str, str] = {}
-        should_bottom = contains_number or contains_question or len(words) <= 4
-        if not should_bottom and (len(left_text) < 3 or left_text == right_text):
-            should_bottom = True
-
-        highlight: Dict[str, Any] = {
-            'id': f'srt-{entry["index"]:04d}',
-            'type': 'noteBox',
-            'start': round(start, 2),
-            'duration': round(duration, 2),
-        }
-
-        if should_bottom:
-            highlight.update(
-                {
-                    'layout': 'bottom',
-                    'importance': 'primary',
-                    'position': 'bottom',
-                    'side': 'bottom',
-                    'text': full_phrase,
-                    'keyword': full_phrase,
-                }
-            )
-            bottom_cooldown = 0
-        else:
-            highlight['importance'] = 'supporting'
-            highlight['position'] = 'top'
-            highlight['keyword'] = primary_text
-
-            if right_text:
-                supporting['topLeft'] = left_text
-                supporting['topRight'] = right_text
-                highlight['supportingTexts'] = supporting
-                highlight['layout'] = 'dual'
-                highlight.pop('side', None)
-            else:
-                supporting_key = 'topLeft' if not side_toggle else 'topRight'
-                supporting[supporting_key] = left_text
-                highlight['supportingTexts'] = supporting
-                highlight['layout'] = 'left' if not side_toggle else 'right'
-                highlight['side'] = 'left' if not side_toggle else 'right'
-                side_toggle = not side_toggle
-
-            bottom_cooldown += 1
-
-        highlights.append(highlight)
-        injected.append(highlight)
-        existing_starts.append(start)
-
-    if injected:
-        highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
-
-    return injected
-BROLL_RULES: List[Tuple[set[str], str]] = [
-    (set(["immune", "immune system", "autoimmune", "cells", "antibody"]), "digital_brain"),
-    (set(["virus", "epstein", "barr", "infection", "mono"]), "digital_network"),
-    (set(["study", "data", "million", "years", "research", "analysis"]), "data_analysis"),
-    (set(["treatment", "therapy", "medicine", "care"]), "education_training"),
-]
-
-
-def match_broll_id(text: str) -> Optional[str]:
-    lowered = text.lower()
-    for keywords, broll_id in BROLL_RULES:
-        if any(keyword in lowered for keyword in keywords):
-            return broll_id
-    return None
-
-
-def ensure_broll_from_highlights(
-    plan: Dict[str, Any],
-    broll_catalog: Dict[str, Any] | None,
-) -> None:
-    if not broll_catalog:
-        return
-
-    catalog_items = {item.get("id"): item for item in broll_catalog.get("items", [])}
-    if not catalog_items:
-        return
-
-    segments = plan.get("segments", [])
-    if not segments:
-        return
-
-    highlights = plan.get("highlights", [])
-    if not highlights:
-        return
-
-    def locate_segment(timecode: float) -> Optional[Dict[str, Any]]:
-        for segment in segments:
-            start = float(segment.get("sourceStart", 0.0))
-            end = start + float(segment.get("duration", 0.0))
-            if start <= timecode <= end:
-                return segment
-        return None
-
-    assigned_ids: set[str] = set()
-
-    for highlight in highlights:
-        start = highlight.get("start")
-        if not isinstance(start, (int, float)):
-            continue
-
-        segment = locate_segment(start)
-        if not segment or segment.get("broll"):
-            continue
-
-        text_sources = [highlight.get("keyword") or ""]
-        supporting = highlight.get("supportingTexts") or {}
-        text_sources.extend(supporting.values())
-        full_text = " ".join(filter(None, text_sources))
-        if not full_text:
-            continue
-
-        broll_id = match_broll_id(full_text)
-        if not broll_id or broll_id in assigned_ids:
-            continue
-
-        item = catalog_items.get(broll_id)
-        if not item:
-            continue
-
-        segment["broll"] = {
-            "id": item.get("id"),
-            "file": item.get("file"),
-            "mode": "overlay",
-            "confidence": 2.0,
-            "reasons": ["Highlight keyword match"],
-        }
-        segment.setdefault("notes", []).append(
-            f"B-roll injected via highlight keyword: {item.get('id')}"
-        )
-        assigned_ids.add(broll_id)
-
-
-def ensure_motion_from_highlights(
-    plan: Dict[str, Any],
-    motion_rules: Dict[str, Any] | None,
-) -> None:
-    if not motion_rules:
-        motion_rules = {}
-
-    segments = plan.get("segments", [])
-    highlights = plan.get("highlights", [])
-    if not segments or not highlights:
-        return
-
-    def locate_segment(timecode: float) -> Optional[Dict[str, Any]]:
-        for segment in segments:
-            start = float(segment.get("sourceStart", 0.0))
-            end = start + float(segment.get("duration", 0.0))
-            if start <= timecode <= end:
-                return segment
-        return None
-
-    max_motions = max(1, math.ceil(len(segments) * float(motion_rules.get("motion_frequency", 0.5))))
-    assigned = sum(1 for segment in segments if segment.get("motionCue"))
-
-    for highlight in highlights:
-        if assigned >= max_motions:
-            break
-
-        start = highlight.get("start")
-        if not isinstance(start, (int, float)):
-            continue
-
-        segment = locate_segment(start)
-        if not segment or segment.get("motionCue"):
-            continue
-
-        text_parts = [highlight.get("keyword") or ""]
-        supporting = highlight.get("supportingTexts") or {}
-        text_parts.extend(supporting.values())
-        combined_text = " ".join(filter(None, text_parts)).lower()
-
-        motion: Optional[str] = None
-        if highlight.get("importance") == "primary" or any(ch.isdigit() for ch in combined_text):
-            motion = "zoomIn"
-        elif any(word in combined_text for word in motion_rules.get("zoom_out_keywords", [])):
-            motion = "zoomOut"
-        elif any(word in combined_text for word in motion_rules.get("pan_keywords", [])):
-            motion = "pan"
-        elif any(word in combined_text for word in motion_rules.get("shake_keywords", [])):
-            motion = "shake"
-
-        if not motion:
-            continue
-
-        segment["motionCue"] = motion
-        segment.setdefault("notes", []).append(f"Motion cue injected from highlight: {motion}")
-        assigned += 1
-def augment_highlights_from_catalog(
-    plan: Dict[str, Any],
-    catalog: Dict[str, Any],
-    min_gap: float = 0.4,
-) -> List[Dict[str, Any]]:
-    """
-    Generates additional highlight entries from a structured catalog (e.g., video2.json)
-    and appends them to the plan while avoiding duplicates.
-    """
-    timeline = catalog.get('video_timeline') or catalog.get('timeline') or []
-    if not isinstance(timeline, list) or not timeline:
-        return []
-
-    highlights = plan.setdefault('highlights', [])
-    existing_starts = [h.get('start') for h in highlights if isinstance(h.get('start'), (int, float))]
-
-    injected: List[Dict[str, Any]] = []
-    side_toggle = False
-    for entry_index, entry in enumerate(timeline):
-        elements = entry.get('elements') or []
-        if not isinstance(elements, list):
-            continue
-
-        for element_index, element in enumerate(elements):
-            highlight = build_highlight_from_overlay(entry_index, entry, element_index, element)
-            if not highlight:
-                continue
-
-            start_time = highlight.get('start')
-            if start_time is None:
-                continue
-
-            duplicate = any(abs(start_time - existing) <= min_gap for existing in existing_starts)
-            if duplicate:
-                continue
-
-            layout = highlight.get('layout')
-
-            if layout in {'left', 'right'} and isinstance(highlight.get('supportingTexts'), dict):
-                desired = 'left' if not side_toggle else 'right'
-                texts = highlight['supportingTexts']
-                value = texts.get('topLeft') or texts.get('topRight')
-                if value and desired != layout:
-                    if desired == 'left':
-                        highlight['supportingTexts'] = {'topLeft': value}
-                        highlight['layout'] = 'left'
-                        highlight['side'] = 'left'
-                    else:
-                        highlight['supportingTexts'] = {'topRight': value}
-                        highlight['layout'] = 'right'
-                        highlight['side'] = 'right'
-                else:
-                    highlight['side'] = layout
-                side_toggle = not side_toggle
-                highlight.setdefault('position', 'top')
-            elif layout == 'dual':
-                highlight.setdefault('position', 'top')
-                highlight.pop('side', None)
-            elif layout == 'bottom':
-                highlight['side'] = 'bottom'
-                highlight['position'] = 'bottom'
-
-            highlights.append(highlight)
-            injected.append(highlight)
-            existing_starts.append(start_time)
-
-    if injected:
-        highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
-
-    return injected
-
-
-def augment_highlights_from_srt(
-    plan: Dict[str, Any],
-    srt_path: Path,
-    min_gap: float = 0.5,
-) -> List[Dict[str, Any]]:
-    entries = parse_srt_file(srt_path)
-    if not entries:
-        return []
-
-    highlights = plan.setdefault('highlights', [])
-    # Sort existing highlights by start time for efficient overlap checking
     highlights.sort(key=lambda h: h.get('start', 0.0))
 
-    existing_starts = [
-        h.get('start')
-        for h in highlights
-        if isinstance(h.get('start'), (int, float))
-    ]
+    def has_conflict(start_time: float, duration_time: float) -> bool:
+        end_time = start_time + duration_time
+        for existing in highlights:
+            existing_start = existing.get('start')
+            existing_duration = existing.get('duration') or 0.0
+            if not isinstance(existing_start, (int, float)):
+                continue
+            existing_end = existing_start + float(existing_duration)
+            if overlap_seconds(start_time, end_time, existing_start, existing_end) > 0.0:
+                return True
+            if abs(existing_start - start_time) <= min_gap:
+                return True
+        return False
 
     injected: List[Dict[str, Any]] = []
     side_toggle = False
-    bottom_cooldown = 0
     recent_phrases: set[str] = set()
 
     for entry in entries:
+        if len(injected) >= MAX_SRT_AUTO_HIGHLIGHTS:
+            break
+        if len(highlights) >= MAX_TOTAL_HIGHLIGHTS:
+            break
+
         start = max(0.0, entry['start'])
-        duration = derive_duration_seconds(entry, entry) # Use dynamic duration
+        duration = derive_duration_seconds(entry, entry)
 
-        # Check for overlap with existing highlights
-        if any(overlap_seconds(start, start + duration, existing, existing + (h.get('duration') or 0.0)) > 0.0 for existing, h in zip(existing_starts, highlights)):
-            continue
-
-        # Skip highlights too early in the video
-        if start < 0.6:
+        if start < 0.6 or has_conflict(start, duration):
             continue
 
         raw_text = entry['text']
         text_lower = raw_text.lower()
-
-        # Check for phrases to blacklist
         if any(phrase in text_lower for phrase in BLACKLIST_PHRASES):
             continue
 
@@ -1182,87 +2241,95 @@ def augment_highlights_from_srt(
 
         override = build_highlight_override(entry, text_lower, start, duration)
         if override:
-            highlights.append(override)
-            injected.append(override)
-            existing_starts.append(start)
-            bottom_cooldown = 0
-            side_toggle = False
+            if ensure_highlight_keyword(override):
+                highlights.append(override)
+                injected.append(override)
             continue
 
-        contains_number = any(any(ch.isdigit() for ch in token) for token in words)
-        contains_question = "?" in raw_text
-
-        full_phrase = normalize_phrase(words, max_words=min(8, len(words)), max_chars=52)
-        primary_text = normalize_phrase(words, max_words=4, max_chars=36)
+        primary_text = normalize_phrase(words, max_words=4, max_chars=40)
+        if not primary_text or not keyword_is_meaningful(primary_text):
+            continue
 
         left_words, right_words = split_words_for_supporting(words)
         left_text = normalize_phrase(left_words, max_words=4, max_chars=32)
         right_text = normalize_phrase(right_words, max_words=4, max_chars=32) if right_words else ""
 
-        supporting: Dict[str, str] = {}
-        should_bottom = contains_number or contains_question or len(words) <= 4 or bottom_cooldown >= 2
-        if not should_bottom and (len(left_text) < 3 or left_text == right_text):
-            should_bottom = True
-
         highlight: Dict[str, Any] = {
-            'id': f'srt-{entry["index"]:04d}',
+            'id': f"srt-{entry['index']:04d}",
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
+            'position': 'bottom',
+            'layout': 'bottom',
+            'importance': 'primary',
+            'showBottom': True,
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
+            'text': primary_text,
+            'keyword': primary_text,
         }
 
-        if should_bottom:
-            highlight.update(
-                {
-                    'layout': 'bottom',
-                    'importance': 'primary',
-                    'position': 'bottom',
-                    'side': 'bottom',
-                    'text': full_phrase,
-                    'keyword': full_phrase,
-                }
-            )
-            bottom_cooldown = 0
-        else:
-            highlight['importance'] = 'supporting'
-            highlight['position'] = 'top'
-            highlight['keyword'] = primary_text
+        supporting_candidates: List[Tuple[str, str]] = []
+        if left_text and keyword_is_meaningful(left_text) and left_text != primary_text:
+            supporting_candidates.append(('left', left_text))
+        if right_text and keyword_is_meaningful(right_text) and right_text not in {primary_text, left_text}:
+            supporting_candidates.append(('right', right_text))
 
-            if right_text:
-                supporting['topLeft'] = left_text
-                supporting['topRight'] = right_text
-                highlight['supportingTexts'] = supporting
-                highlight['layout'] = 'dual'
-                highlight.pop('side', None)
+        supporting_texts: Dict[str, str] = {}
+        if len(supporting_candidates) >= 2:
+            supporting_texts['topLeft'] = supporting_candidates[0][1]
+            supporting_texts['topRight'] = supporting_candidates[1][1]
+            highlight['layout'] = 'dual'
+            highlight['staggerLeft'] = 0.0
+            highlight['staggerRight'] = 2.0
+        elif len(supporting_candidates) == 1:
+            desired_side = 'left' if not side_toggle else 'right'
+            _, phrase = supporting_candidates[0]
+            final_side = desired_side
+            if final_side == 'left':
+                supporting_texts['topLeft'] = phrase
+                highlight['layout'] = 'left'
+                highlight['staggerLeft'] = 0.0
             else:
-                supporting_key = 'topLeft' if not side_toggle else 'topRight'
-                supporting[supporting_key] = left_text
-                highlight['supportingTexts'] = supporting
-                highlight['layout'] = 'left' if not side_toggle else 'right'
-                highlight['side'] = 'left' if not side_toggle else 'right'
-                side_toggle = not side_toggle
+                supporting_texts['topRight'] = phrase
+                highlight['layout'] = 'right'
+                highlight['staggerRight'] = 0.0
+            side_toggle = not side_toggle
 
-            bottom_cooldown += 1
+        if supporting_texts:
+            highlight['supportingTexts'] = supporting_texts
+
+        if not ensure_highlight_keyword(highlight):
+            continue
+
+        hl_duration = float(highlight.get('duration', duration) or duration)
+        window_end = start + duration
+        max_start = max(start, window_end - hl_duration)
+        desired = start + duration * 0.55
+        highlight['start'] = round(min(max(desired, start), max_start), 2)
 
         highlights.append(highlight)
         injected.append(highlight)
-        existing_starts.append(start)
 
     if injected:
         highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
 
     return injected
-
 
 def strip_non_section_sfx(plan: Dict[str, Any]) -> None:
     """
     Removes sound effect metadata from non-section highlights to keep overlays subtle.
     """
     for highlight in plan.get('highlights', []):
-        if highlight.get('type') != 'sectionTitle':
-            highlight.pop('sfx', None)
-            highlight.pop('gain', None)
-            highlight.pop('ducking', None)
+        if highlight.get('type') == 'sectionTitle':
+            continue
+        metadata = highlight.get('metadata')
+        preserve = isinstance(metadata, dict) and metadata.get('audio') in {'auto', 'keep', 'accent'}
+        if preserve:
+            continue
+        highlight.pop('sfx', None)
+        highlight.pop('gain', None)
+        highlight.pop('ducking', None)
 
 
 # ---------------------------------------------------------------------------
@@ -1561,13 +2628,14 @@ def enrich_plan(
     broll_threshold: float = 1.5,
 ) -> Tuple[Dict[str, Any], List[str]]:
     segments = plan.get("segments") or []
-    scene_segments = scene_map.get("segments") or []
+    scene_segments = list(scene_map.get("segments") or [])
     motion_rules = motion_rules or {}
 
     total_segments = len(segments)
     assigned_motion = 0
     cta_candidates: List[Tuple[Dict[str, Any], SceneSummary]] = []
     warnings: List[str] = []
+    segment_summary_pairs: List[Tuple[Dict[str, Any], SceneSummary]] = []
 
     for segment in segments:
         segment.setdefault("kind", "normal")
@@ -1588,7 +2656,7 @@ def enrich_plan(
                 segment["broll"] = {
                     "id": broll["id"],
                     "file": broll["file"],
-                    "mode": "overlay" if scene_summary.highlight_score < 0.85 else "full",
+                    "mode": "full",
                     "confidence": broll["confidence"],
                     "reasons": broll["reasons"],
                 }
@@ -1618,7 +2686,17 @@ def enrich_plan(
         if notes:
             segment.setdefault("notes", []).extend(notes)
 
+        segment_summary_pairs.append((segment, scene_summary))
+
     ensure_cta_highlight(plan, cta_candidates, sfx_catalog)
+    inserted_sections = inject_section_cards(plan, segment_summary_pairs, scene_segments)
+    if inserted_sections:
+        meta = plan.setdefault("meta", {})
+        generated = meta.setdefault("generatedSections", 0)
+        try:
+            meta["generatedSections"] = int(generated) + len(inserted_sections)
+        except Exception:
+            meta["generatedSections"] = len(inserted_sections)
 
     warnings.extend(compute_timing_warnings(segments))
     if warnings:
@@ -1754,8 +2832,19 @@ def main(argv: List[str] | None = None) -> int:
                 f"[INFO] Injected {len(injected_srt)} SRT highlight(s) from {highlight_srt_path}"
             )
 
+    scene_segments_for_alignment = list(scene_map.get("segments") or [])
+    highlight_windows = snap_highlights_to_transcript(
+        enriched_plan,
+        scene_segments_for_alignment,
+    )
+    refresh_highlight_phrases(enriched_plan, highlight_windows)
+    decorate_section_highlights(enriched_plan)
+    enforce_highlight_spacing(enriched_plan)
+    prune_highlights(enriched_plan)
+    trim_highlights_to_segments(enriched_plan)
     ensure_broll_from_highlights(enriched_plan, broll_catalog)
     ensure_motion_from_highlights(enriched_plan, motion_rules)
+    ensure_highlight_sfx(enriched_plan, sfx_catalog)
     strip_non_section_sfx(enriched_plan)
 
     # Write the enriched plan to output
@@ -1772,3 +2861,5 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
