@@ -27,6 +27,329 @@ MAX_SCENE_CONTEXT_ITEMS = 32
 MAX_BROLL_SUMMARY_ITEMS = 20
 MAX_SFX_ITEMS_PER_CATEGORY = 5
 
+HIGHLIGHT_STOPWORDS = {
+    "am",
+    "are",
+    "is",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "do",
+    "does",
+    "did",
+    "doing",
+    "have",
+    "has",
+    "had",
+    "having",
+    "will",
+    "would",
+    "shall",
+    "should",
+    "can",
+    "could",
+    "may",
+    "might",
+    "must",
+    "need",
+    "learn",
+    "think",
+    "get",
+    "got",
+    "gets",
+    "make",
+    "makes",
+    "made",
+    "show",
+    "shows",
+    "showing",
+    "build",
+    "builds",
+    "building",
+    "drive",
+    "drives",
+    "driving",
+    "improve",
+    "improves",
+    "improving",
+    "increase",
+    "increases",
+    "increasing",
+    "reduce",
+    "reduces",
+    "reducing",
+    "create",
+    "creates",
+    "creating",
+    "deliver",
+    "delivers",
+    "delivering",
+    "discover",
+    "discovers",
+    "discovering",
+    "enable",
+    "enables",
+    "enabling",
+    "align",
+    "aligns",
+    "aligning",
+    "drive",
+    "driven",
+    "driving",
+    "go",
+    "goes",
+    "going",
+    "unlock",
+    "unlocks",
+    "unlocking",
+    "boost",
+    "boosts",
+    "boosting",
+    "simplify",
+    "simplifies",
+    "simplifying",
+    "provide",
+    "provides",
+    "providing",
+    "ensure",
+    "ensures",
+    "ensuring",
+    "achieve",
+    "achieves",
+    "achieving",
+    "optimize",
+    "optimizes",
+    "optimizing",
+    "with",
+    "and",
+    "or",
+    "to",
+    "for",
+    "of",
+    "the",
+    "a",
+    "an",
+    "that",
+    "this",
+    "these",
+    "those",
+    "into",
+    "on",
+    "in",
+    "by",
+    "at",
+    "from",
+    "over",
+    "under",
+    "about",
+    "how",
+    "why",
+    "when",
+    "where",
+    "who",
+    "whom",
+    "which",
+    "while",
+    "during",
+    "across",
+    "through",
+    "every",
+    "each",
+    "your",
+    "you",
+    "we",
+    "they",
+    "our",
+    "their",
+    "my",
+    "mine",
+    "yours",
+    "ours",
+    "theirs",
+    "it's",
+    "its",
+}
+
+_ALLOWED_CONNECTORS = {"of", "for", "and", "&", "in", "on", "vs", "versus", "to", "with"}
+_COMMON_VERB_TOKENS = {
+    "be",
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "being",
+    "been",
+    "do",
+    "does",
+    "did",
+    "doing",
+    "have",
+    "has",
+    "had",
+    "having",
+    "make",
+    "makes",
+    "making",
+    "made",
+    "watch",
+    "watches",
+    "watching",
+    "interact",
+    "interacts",
+    "interacting",
+    "discuss",
+    "discusses",
+    "discussing",
+    "explain",
+    "explains",
+    "explaining",
+    "stand",
+    "stands",
+    "standing",
+    "tell",
+    "tells",
+    "telling",
+    "catch",
+    "catches",
+    "catching",
+    "let",
+    "lets",
+    "letting",
+    "take",
+    "takes",
+    "taking",
+    "know",
+    "knows",
+    "knowing",
+    "think",
+    "thinks",
+    "thinking",
+    "feel",
+    "feels",
+    "feeling",
+    "see",
+    "sees",
+    "seeing",
+    "talk",
+    "talks",
+    "talking",
+    "say",
+    "says",
+    "saying",
+    "look",
+    "looks",
+    "looking",
+    "get",
+    "gets",
+    "getting",
+    "give",
+    "gives",
+    "giving",
+    "keep",
+    "keeps",
+    "keeping",
+    "want",
+    "wants",
+    "wanting",
+    "need",
+    "needs",
+    "needing",
+    "allow",
+    "allows",
+    "allowing",
+    "may",
+    "might",
+    "should",
+    "could",
+    "would",
+    "will",
+    "can",
+    "now",
+    "today",
+    "tonight",
+    "already",
+    "maybe",
+    "just",
+}
+
+_TOKEN_SANITIZER = re.compile(r"\s+")
+_ALNUM_PATTERN = re.compile(r"[A-Za-z0-9]")
+_COMMON_VERB_TOKENS_LOWER = {token.lower() for token in _COMMON_VERB_TOKENS}
+
+
+def _clean_token(token: str) -> str:
+    return _TOKEN_SANITIZER.sub(" ", token.strip())
+
+
+def _trim_edge_connectors(tokens: list[str]) -> list[str]:
+    result = list(tokens)
+    while result and result[0].lower() in _ALLOWED_CONNECTORS:
+        result.pop(0)
+    while result and result[-1].lower() in _ALLOWED_CONNECTORS:
+        result.pop()
+    return result
+
+
+def _filter_tokens_to_noun_phrase(tokens: list[str]) -> list[str]:
+    selected: list[str] = []
+    total = len(tokens)
+
+    def _has_future_content(start: int) -> bool:
+        for future_idx in range(start, total):
+            candidate = tokens[future_idx].strip()
+            if not candidate:
+                continue
+            lower = candidate.lower()
+            if lower in _COMMON_VERB_TOKENS_LOWER:
+                continue
+            if not _ALNUM_PATTERN.search(candidate):
+                continue
+            return True
+        return False
+
+    for idx, token in enumerate(tokens):
+        normalized = _clean_token(token)
+        if not normalized:
+            continue
+        lower_token = normalized.lower()
+        if lower_token in _ALLOWED_CONNECTORS:
+            if selected and _has_future_content(idx + 1):
+                selected.append(lower_token)
+            continue
+        if lower_token in _COMMON_VERB_TOKENS_LOWER:
+            continue
+        if not _ALNUM_PATTERN.search(normalized):
+            continue
+        selected.append(normalized)
+
+    return _trim_edge_connectors(selected)
+
+
+def filter_tokens_to_noun_phrase(tokens: list[str], max_tokens: int | None = None) -> list[str]:
+    cleaned = [_clean_token(token) for token in tokens if _clean_token(token)]
+    if not cleaned:
+        return []
+
+    filtered = _filter_tokens_to_noun_phrase(cleaned)
+    if not filtered:
+        filtered = cleaned
+
+    if max_tokens is not None and max_tokens > 0:
+        limited: list[str] = []
+        content_count = 0
+        for token in filtered:
+            limited.append(token)
+            if token.lower() not in _ALLOWED_CONNECTORS:
+                content_count += 1
+            if content_count >= max_tokens:
+                break
+        filtered = _trim_edge_connectors(limited) or filtered
+
+    return filtered
+
 
 def resolve_repo_root(start: Path | None = None) -> Path:
     """
@@ -64,6 +387,36 @@ def load_json_if_exists(path: Path | None) -> Dict[str, Any]:
     except OSError:
         print(f"[WARN] Could not read JSON file: {path}", file=sys.stderr)
     return {}
+
+
+def sanitize_highlight_text(value: str) -> str:
+    """
+    Reduce highlight text to a compact noun phrase by removing filler words and verbs.
+    Fallback to the original string if aggressive filtering would produce an empty result.
+    """
+    if not value:
+        return value
+
+    tokens = re.findall(r"[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF']+", value)
+    if not tokens:
+        return value.strip()
+
+    filtered = [token for token in tokens if token.lower() not in HIGHLIGHT_STOPWORDS]
+    candidate_tokens = filtered if filtered else tokens
+    noun_tokens = filter_tokens_to_noun_phrase(candidate_tokens, max_tokens=5)
+    if noun_tokens:
+        candidate_tokens = noun_tokens
+
+    phrase = " ".join(candidate_tokens).strip()
+    if not phrase:
+        return value.strip()
+
+    # Keep original casing for acronyms, otherwise title-case for readability
+    if phrase.isupper():
+        return phrase
+    return " ".join(
+        word if word.isupper() else word.capitalize() for word in phrase.split()
+    )
 
 
 def _safe_float(value: Any, default: float = 0.0) -> float:
@@ -175,7 +528,7 @@ def _build_sfx_lookup() -> Dict[str, str]:
 SFX_LOOKUP = _build_sfx_lookup()
 TRANSITION_TYPES = ["cut", "crossfade", "slide", "zoom", "scale", "rotate", "blur"]
 TRANSITION_DIRECTIONS = ["left", "right", "up", "down"]
-HIGHLIGHT_POSITIONS = ["top", "center", "bottom"]
+HIGHLIGHT_POSITIONS = ["bottom", "center"]
 HIGHLIGHT_ANIMATIONS = [
     "fade",
     "zoom",
@@ -552,8 +905,12 @@ def build_prompt(
         f"- `transitionIn`/`transitionOut` types may be: {transition_types}; slides can add `direction` ({transition_directions}); zoom/scale/rotate/blur may include `intensity` between 0.1 and 0.35.",
         "- Trim or merge sentences when silence exceeds ~0.7s unless a pause is intentionally required.",
         f"- Emit at most {MAX_HIGHLIGHTS} standout highlights; keep each roughly 2-4 seconds.",
-        f"- Populate `highlights` with `type` (noteBox/typewriter/sectionTitle/icon/etc.), `text`, `start`, `duration`, plus `position` ({highlight_positions}) and `animation` ({highlight_animations}).",
+        f"- Populate `highlights` with `type` (noteBox/typewriter/sectionTitle/icon/etc.), `text`, `start`, `duration`, plus `position` ({highlight_positions}) and `animation` ({highlight_animations}). Icons may sit centre; all large text callouts stay `position: \"bottom\"`.",
+        "- Keep highlight placements to three slots: a bold bottom banner for the key noun phrase, plus optional concise supporting phrases at `supportingTexts.topLeft` and `supportingTexts.topRight`.",
+        "- For textual highlights, keep `text`/`keyword` to a meaningful noun phrase (no verbs, no conjunction lists). Always anchor the main phrase at the bottom centre using `layout: \"bottom\"` (or set `layout` to `left`/`right`/`dual` with `supportingTexts.topLeft`/`supportingTexts.topRight` while keeping the bottom text).",
+        "- When both left and right supporting texts are present, ensure the right side appears second by leaving the left stagger at 0 and adding `staggerRight: 2` (seconds).",
         "- For `type: \"icon\"` include `name` (short label) and optional icon/colors/animation; attach SFX when it enhances energy.",
+        "- When assigning B-roll, set `mode: \"full\"` so footage fills the frame beneath overlays and animations.",
         f"- Always pick SFX from `assets/sfx` with relative paths (for example assets/sfx/ui/pop.mp3). Available options: {sfx_names}. Key notes: {sfx_notes}.",
         "- When highlights include SFX, align `start` with the moment and set `volume` between 0-1 if needed.",
         "- Segments must touch end-to-start with no gaps in the source timeline.",
@@ -881,7 +1238,7 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     if not isinstance(raw, dict):
         return None
 
-    highlight_type_raw = raw.get("type") or raw.get("kind") or raw.get("layout")
+    highlight_type_raw = raw.get("type") or raw.get("kind")
     highlight_type: str | None = None
     if isinstance(highlight_type_raw, str):
         type_key = highlight_type_raw.strip().lower().replace(" ", "").replace("-", "").replace("_", "")
@@ -903,19 +1260,19 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
         highlight_type = type_map.get(type_key, highlight_type_raw.strip())
 
     # Extract and strip various text fields
-    text = (raw.get("text") or raw.get("caption") or "").strip()
-    title = (raw.get("title") or "").strip()
-    subtitle = (raw.get("subtitle") or "").strip()
-    badge = (raw.get("badge") or "").strip()
-    name = (raw.get("name") or raw.get("label") or "").strip()
+    text_raw = (raw.get("text") or raw.get("caption") or "").strip()
+    title_raw = (raw.get("title") or "").strip()
+    subtitle_raw = (raw.get("subtitle") or "").strip()
+    badge_raw = (raw.get("badge") or "").strip()
+    name_raw = (raw.get("name") or raw.get("label") or "").strip()
     icon_value = (raw.get("icon") or raw.get("iconName") or "").strip()
 
     # Determine if it's an icon type if not explicitly set
-    has_icon_marker = bool(icon_value or (name and not highlight_type))
+    has_icon_marker = bool(icon_value or (name_raw and not highlight_type))
     resolved_highlight_type = highlight_type or ("icon" if has_icon_marker else None)
 
     # If no content is provided, this is not a valid highlight
-    if not any([text, title, subtitle, badge, name, icon_value]):
+    if not any([text_raw, title_raw, subtitle_raw, badge_raw, name_raw, icon_value]):
         return None
 
     # Normalize start time
@@ -932,10 +1289,12 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
         duration = DEFAULT_HIGHLIGHT_DURATION
     duration = max(1.5, min(duration, 5.0))
 
-    # Normalize position
-    position = (raw.get("position") or raw.get("placement") or "center").lower()
-    if position not in HIGHLIGHT_POSITIONS:
-        position = "center"
+    # Determine highlight positioning defaults
+    is_icon_highlight = resolved_highlight_type == "icon"
+    default_position = "center" if is_icon_highlight else "bottom"
+    position = (raw.get("position") or raw.get("placement") or default_position).lower()
+    if position not in HIGHLIGHT_POSITIONS or not is_icon_highlight:
+        position = default_position
 
     # Normalize animation, with default based on type
     animation_raw = raw.get("animation") or raw.get("style") or raw.get("motion")
@@ -958,6 +1317,22 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     animation = animation_map.get(animation_key, animation_default)
 
     # Construct the base highlight dictionary
+    sanitized_text = ""
+    if not is_icon_highlight:
+        primary_candidates = [
+            text_raw,
+            raw.get("keyword", "").strip() if isinstance(raw.get("keyword"), str) else "",
+            title_raw,
+            subtitle_raw,
+        ]
+        for candidate in primary_candidates:
+            if not candidate:
+                continue
+            sanitized_candidate = sanitize_highlight_text(candidate)
+            if sanitized_candidate:
+                sanitized_text = sanitized_candidate
+                break
+
     highlight: Dict[str, Any] = {
         "id": str(raw.get("id") or f"highlight-{index + 1:02d}"),
         "start": round(start, 3),
@@ -966,23 +1341,40 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
         "animation": animation,
     }
 
-    # Add type, defaulting to noteBox if text is present and type is not set
-    if resolved_highlight_type:
-        highlight["type"] = resolved_highlight_type
-    elif text:
-        highlight["type"] = "noteBox"
+    assigned_type = resolved_highlight_type or ("icon" if is_icon_highlight else None)
+    if not assigned_type:
+        if sanitized_text:
+            assigned_type = "noteBox"
+        elif text_raw:
+            assigned_type = "noteBox"
 
-    # Add text fields if present
-    if text:
-        highlight["text"] = text
-    if title:
-        highlight["title"] = title
-    if subtitle:
-        highlight["subtitle"] = subtitle
-    if badge:
-        highlight["badge"] = badge
-    if name:
-        highlight["name"] = name
+    if assigned_type:
+        highlight["type"] = assigned_type
+
+    if assigned_type == "noteBox":
+        if not sanitized_text:
+            return None
+        highlight["text"] = sanitized_text
+        highlight["keyword"] = sanitized_text
+        importance_raw = raw.get("importance")
+        if isinstance(importance_raw, str) and importance_raw.strip():
+            highlight["importance"] = importance_raw.strip().lower()
+        else:
+            highlight.setdefault("importance", "primary")
+        highlight["showBottom"] = True
+        highlight.setdefault("safeBottom", 0.18)
+        highlight.setdefault("safeInsetHorizontal", 0.08)
+    elif assigned_type == "icon" and text_raw:
+        highlight["text"] = text_raw
+
+    if title_raw:
+        highlight["title"] = title_raw
+    if subtitle_raw:
+        highlight["subtitle"] = subtitle_raw
+    if badge_raw:
+        highlight["badge"] = badge_raw
+    if name_raw:
+        highlight["name"] = name_raw
     if icon_value:
         highlight["icon"] = icon_value
 
@@ -992,7 +1384,7 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
         highlight["asset"] = asset
 
     # Normalize and add variant
-    variant_raw = raw.get("variant") or raw.get("layout") or raw.get("styleVariant")
+    variant_raw = raw.get("variant") or raw.get("styleVariant")
     if variant_raw:
         variant_key = str(variant_raw).strip().lower().replace(" ", "").replace("-", "").replace("_", "")
         variant_map = {
@@ -1031,10 +1423,102 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     if isinstance(icon_color, str) and icon_color.strip():
         highlight["iconColor"] = icon_color.strip()
 
-    # Add side alignment
-    side = (raw.get("side") or raw.get("alignment") or "").strip().lower()
+    # Normalize supporting text layout for dual highlights
+    supporting_texts: Dict[str, str] = {}
+
+    def coerce_supporting(value: Any) -> str | None:
+        if isinstance(value, str):
+            cleaned = sanitize_highlight_text(value.strip())
+            return cleaned or None
+        return None
+
+    raw_supporting = raw.get("supportingTexts")
+    if isinstance(raw_supporting, dict):
+        left_candidate = (
+            raw_supporting.get("topLeft")
+            or raw_supporting.get("top_left")
+            or raw_supporting.get("left")
+            or raw_supporting.get("primary")
+        )
+        right_candidate = (
+            raw_supporting.get("topRight")
+            or raw_supporting.get("top_right")
+            or raw_supporting.get("right")
+            or raw_supporting.get("secondary")
+        )
+        left_text = coerce_supporting(left_candidate)
+        right_text = coerce_supporting(right_candidate)
+        if left_text:
+            supporting_texts["topLeft"] = left_text
+        if right_text:
+            supporting_texts["topRight"] = right_text
+
+    # Support alternate schemas (items array, side-specific keys)
+    if not supporting_texts:
+        items = raw.get("items")
+        if isinstance(items, list):
+            if len(items) > 0:
+                left_text = coerce_supporting(items[0])
+                if left_text:
+                    supporting_texts["topLeft"] = left_text
+            if len(items) > 1:
+                right_text = coerce_supporting(items[1])
+                if right_text:
+                    supporting_texts["topRight"] = right_text
+
+    left_fallback = (
+        raw.get("supportingLeft")
+        or raw.get("supportLeft")
+        or raw.get("supporting")
+        or raw.get("keywordSecondary")
+        or raw.get("left")
+    )
+    right_fallback = raw.get("supportingRight") or raw.get("supportRight") or raw.get("right")
+    left_text = coerce_supporting(left_fallback)
+    right_text = coerce_supporting(right_fallback)
+
+    if left_text:
+        supporting_texts.setdefault("topLeft", left_text)
+    if right_text:
+        supporting_texts.setdefault("topRight", right_text)
+
+    if supporting_texts:
+        highlight["supportingTexts"] = supporting_texts
+
+    layout_raw = raw.get("layout") or raw.get("arrangement") or raw.get("alignment")
+    layout_value: str | None = None
+    if isinstance(layout_raw, str):
+        layout_candidate = layout_raw.strip().lower()
+        if layout_candidate in {"left", "right", "dual", "bottom"}:
+            layout_value = layout_candidate
+        elif layout_candidate in {"pair", "split"}:
+            layout_value = "dual"
+
+    if not layout_value:
+        if "topLeft" in supporting_texts and "topRight" in supporting_texts:
+            layout_value = "dual"
+        elif "topLeft" in supporting_texts:
+            layout_value = "left"
+        elif "topRight" in supporting_texts:
+            layout_value = "right"
+        elif not is_icon_highlight and sanitized_text:
+            layout_value = "bottom"
+
+    if layout_value:
+        highlight["layout"] = layout_value
+        if layout_value in {"left", "right", "dual"} and sanitized_text:
+            highlight["showBottom"] = True
+
+    # Add side alignment (legacy support)
+    side = (raw.get("side") or "").strip().lower()
     if side in {"top", "bottom", "left", "right"}:
         highlight["side"] = side
+
+    if supporting_texts:
+        highlight.setdefault("staggerLeft", 0.0)
+        if "topRight" in supporting_texts:
+            highlight["staggerRight"] = ensure_float(raw.get("staggerRight"), 2.0) or 2.0
+
 
     # Add radius if valid
     radius = raw.get("radius")

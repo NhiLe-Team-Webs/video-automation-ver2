@@ -56,6 +56,10 @@ export const HighlightCallout: React.FC<HighlightCalloutProps> = ({
     exit,
     width,
     height,
+    frame,
+    fps,
+    durationInFrames,
+    appearWindowInFrames: appearFrames,
   });
 
   return content ? <>{content}</> : null;

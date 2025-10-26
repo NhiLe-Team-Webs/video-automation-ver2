@@ -24,6 +24,7 @@ import math
 import sys
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -56,6 +57,261 @@ if nltk is not None:
     ensure_nltk_resource('tokenizers/punkt', 'punkt')
     ensure_nltk_resource('taggers/averaged_perceptron_tagger', 'averaged_perceptron_tagger')
     ensure_nltk_resource('corpora/stopwords', 'stopwords')
+
+_ALLOWED_CONNECTORS = {"OF", "FOR", "AND", "&", "IN", "ON", "VS", "VERSUS", "TO", "WITH"}
+_COMMON_VERB_TOKENS = {
+    "be",
+    "am",
+    "is",
+    "are",
+    "was",
+    "were",
+    "being",
+    "been",
+    "do",
+    "does",
+    "did",
+    "doing",
+    "have",
+    "has",
+    "had",
+    "having",
+    "make",
+    "makes",
+    "making",
+    "made",
+    "watch",
+    "watches",
+    "watching",
+    "interact",
+    "interacts",
+    "interacting",
+    "discuss",
+    "discusses",
+    "discussing",
+    "explain",
+    "explains",
+    "explaining",
+    "stand",
+    "stands",
+    "standing",
+    "tell",
+    "tells",
+    "telling",
+    "catch",
+    "catches",
+    "catching",
+    "let",
+    "lets",
+    "letting",
+    "take",
+    "takes",
+    "taking",
+    "know",
+    "knows",
+    "knowing",
+    "think",
+    "thinks",
+    "thinking",
+    "feel",
+    "feels",
+    "feeling",
+    "see",
+    "sees",
+    "seeing",
+    "talk",
+    "talks",
+    "talking",
+    "say",
+    "says",
+    "saying",
+    "look",
+    "looks",
+    "looking",
+    "get",
+    "gets",
+    "getting",
+    "give",
+    "gives",
+    "giving",
+    "keep",
+    "keeps",
+    "keeping",
+    "want",
+    "wants",
+    "wanting",
+    "need",
+    "needs",
+    "needing",
+    "allow",
+    "allows",
+    "allowing",
+    "may",
+    "might",
+    "should",
+    "could",
+    "would",
+    "will",
+    "can",
+    "now",
+    "today",
+    "tonight",
+    "already",
+    "maybe",
+    "just",
+}
+
+_TOKEN_SANITIZER = re.compile(r"\s+")
+_ALNUM_PATTERN = re.compile(r"[A-Za-z0-9]")
+_COMMON_VERB_TOKENS_LOWER = {token.lower() for token in _COMMON_VERB_TOKENS}
+
+
+@lru_cache(maxsize=1)
+def _ensure_pos_tagger() -> bool:
+    if nltk is None or pos_tag is None:
+        return False
+    resources = [
+        ("taggers/averaged_perceptron_tagger_eng", "averaged_perceptron_tagger_eng"),
+        ("taggers/averaged_perceptron_tagger", "averaged_perceptron_tagger"),
+    ]
+    for resource_path, download_name in resources:
+        try:
+            nltk.data.find(resource_path)  # type: ignore[union-attr]
+            return True
+        except LookupError:
+            try:
+                nltk.download(download_name, quiet=True)  # type: ignore[union-attr]
+                nltk.data.find(resource_path)  # type: ignore[union-attr]
+                return True
+            except Exception:
+                continue
+    return False
+
+
+def _clean_token(token: str) -> str:
+    return _TOKEN_SANITIZER.sub(" ", token.strip())
+
+
+def _trim_edge_connectors(tokens: List[str]) -> List[str]:
+    result = list(tokens)
+    while result and result[0].upper() in _ALLOWED_CONNECTORS:
+        result.pop(0)
+    while result and result[-1].upper() in _ALLOWED_CONNECTORS:
+        result.pop()
+    return result
+
+
+def _has_noun(tag_map: Dict[int, str], indices: range) -> bool:
+    for idx in indices:
+        if tag_map.get(idx, "").startswith("NN"):
+            return True
+    return False
+
+
+def _filter_with_pos(tokens: List[str]) -> List[str]:
+    if not _ensure_pos_tagger():
+        return []
+
+    taggable_indices: List[int] = []
+    taggable_tokens: List[str] = []
+    for idx, token in enumerate(tokens):
+        cleaned = re.sub(r"[^A-Za-z0-9'-]+", "", token)
+        if not cleaned:
+            continue
+        if cleaned.upper() in _ALLOWED_CONNECTORS:
+            continue
+        taggable_indices.append(idx)
+        taggable_tokens.append(cleaned.lower())
+
+    if not taggable_tokens:
+        return []
+
+    tagged = pos_tag(taggable_tokens)
+    index_to_tag = {taggable_indices[i]: tag.upper() for i, (_, tag) in enumerate(tagged)}
+
+    selected: List[str] = []
+    total = len(tokens)
+    for idx, token in enumerate(tokens):
+        normalized = _clean_token(token)
+        if not normalized:
+            continue
+        upper_token = normalized.upper()
+        if upper_token in _ALLOWED_CONNECTORS:
+            if _has_noun(index_to_tag, range(0, idx)) and _has_noun(index_to_tag, range(idx + 1, total)):
+                selected.append(upper_token)
+            continue
+
+        tag = index_to_tag.get(idx, "")
+        if not tag:
+            continue
+        if tag.startswith("NN"):
+            selected.append(normalized)
+        elif tag.startswith("JJ") or tag == "CD":
+            if _has_noun(index_to_tag, range(idx + 1, total)):
+                selected.append(normalized)
+
+    return _trim_edge_connectors(selected)
+
+
+def _fallback_filter(tokens: List[str]) -> List[str]:
+    selected: List[str] = []
+    total = len(tokens)
+
+    def _has_future_content(start: int) -> bool:
+        for future_idx in range(start, total):
+            candidate = tokens[future_idx].strip()
+            if not candidate:
+                continue
+            lower = candidate.lower()
+            if lower in _COMMON_VERB_TOKENS_LOWER:
+                continue
+            if not _ALNUM_PATTERN.search(candidate):
+                continue
+            return True
+        return False
+
+    for idx, token in enumerate(tokens):
+        normalized = _clean_token(token)
+        if not normalized:
+            continue
+        upper_token = normalized.upper()
+        lower_token = normalized.lower()
+        if upper_token in _ALLOWED_CONNECTORS:
+            if selected and _has_future_content(idx + 1):
+                selected.append(upper_token)
+            continue
+        if lower_token in _COMMON_VERB_TOKENS_LOWER:
+            continue
+        if not _ALNUM_PATTERN.search(normalized):
+            continue
+        selected.append(normalized)
+
+    return _trim_edge_connectors(selected)
+
+
+def filter_tokens_to_noun_phrase(tokens: List[str], max_tokens: int | None = None) -> List[str]:
+    cleaned = [_clean_token(token) for token in tokens if _clean_token(token)]
+    if not cleaned:
+        return []
+
+    filtered = _filter_with_pos(cleaned)
+    if not filtered:
+        filtered = _fallback_filter(cleaned)
+    if not filtered:
+        filtered = cleaned
+
+    if max_tokens is not None and max_tokens > 0:
+        limited: List[str] = []
+        content_count = 0
+        for token in filtered:
+            limited.append(token)
+            if token.upper() not in _ALLOWED_CONNECTORS:
+                content_count += 1
+            if content_count >= max_tokens:
+                break
+        filtered = _trim_edge_connectors(limited) or filtered
+
+    return filtered
 
 
 DEFAULT_STOP_WORDS = {
@@ -513,6 +769,13 @@ def sanitize_text(value: Any) -> Optional[str]:
     return text or None
 
 
+def ensure_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
 def derive_duration_seconds(entry: Dict[str, Any], element: Dict[str, Any], fallback: float = 3.0) -> float:
     """
     Resolves a duration in seconds from element or entry metadata, with dynamic adjustments.
@@ -576,7 +839,8 @@ def select_keyword_phrase(
         return None
 
     tokens = re.findall(r"[A-Za-z0-9']+", text)
-    keywords: List[str] = []
+    raw_candidates: List[str] = []
+    seen: set[str] = set()
     for token in tokens:
         normalized = re.sub(r"[^a-z0-9]", "", token.lower())
         if not normalized:
@@ -589,13 +853,22 @@ def select_keyword_phrase(
             continue
         if len(normalized) < MIN_KEYWORD_LENGTH and normalized not in IMPORTANT_SHORT_TOKENS:
             continue
-        candidate = token.upper()
-        if candidate in keywords:
+        candidate_upper = token.upper()
+        if candidate_upper in seen:
             continue
-        keywords.append(candidate)
-        if len(keywords) >= max_tokens:
+        seen.add(candidate_upper)
+        raw_candidates.append(token)
+        if len(raw_candidates) >= max_tokens * 3:
             break
 
+    if not raw_candidates:
+        return None
+
+    filtered_tokens = filter_tokens_to_noun_phrase(raw_candidates, max_tokens=max_tokens)
+    if not filtered_tokens:
+        filtered_tokens = raw_candidates[:max_tokens]
+
+    keywords = [token.upper() for token in filtered_tokens if token]
     if not keywords:
         return None
 
@@ -609,7 +882,7 @@ def select_keyword_phrase(
             return None
 
     if len(phrase) > max_chars:
-        phrase = phrase[: max_chars - 1].rstrip() + "…"
+        phrase = phrase[: max_chars - 1].rstrip() + "..."
     return phrase
 
 
@@ -795,7 +1068,6 @@ def build_highlight_from_overlay(
 
     duration = derive_duration_seconds(entry, element)
 
-    layout: Optional[str] = None
     supporting_final: Dict[str, str] = {}
     left_value = supporting_cleaned.get('topLeft') or supporting_cleaned.get('topCenter')
     right_value = supporting_cleaned.get('topRight') or supporting_cleaned.get('topCenter')
@@ -804,11 +1076,6 @@ def build_highlight_from_overlay(
         supporting_final['topLeft'] = left_value
     if right_value and right_value != left_value:
         supporting_final['topRight'] = right_value
-
-    # Normalize single string content as bottom banner
-    is_primary = isinstance(element.get('content'), str)
-    if is_primary:
-        layout = 'bottom'
 
     main_phrases = extract_meaningful_phrases(main_text, max_phrases=1, max_chars_per_phrase=42)
     if not main_phrases:
@@ -822,37 +1089,29 @@ def build_highlight_from_overlay(
         'type': 'noteBox',
         'start': round(timestamp, 2),
         'duration': round(duration, 2),
+        'position': 'bottom',
+        'layout': 'bottom',
+        'importance': 'primary',
+        'showBottom': True,
+        'safeBottom': 0.18,
+        'safeInsetHorizontal': 0.08,
+        'text': primary_keyword,
+        'keyword': primary_keyword,
     }
 
-    if layout == 'bottom':
-        highlight['text'] = primary_keyword
-        highlight['keyword'] = primary_keyword
-        highlight['layout'] = 'bottom'
-        highlight['importance'] = 'primary'
-        highlight['position'] = 'bottom'
-        highlight['side'] = 'bottom'
-    else:
-        highlight['keyword'] = primary_keyword
-        highlight['importance'] = 'supporting'
-        highlight['position'] = 'top'
-        if supporting_final:
-            highlight['supportingTexts'] = supporting_final
-            if 'topLeft' in supporting_final and 'topRight' in supporting_final:
-                highlight['layout'] = 'dual'
-            elif 'topLeft' in supporting_final:
-                highlight['layout'] = 'left'
-                highlight['side'] = 'left'
-            elif 'topRight' in supporting_final:
-                highlight['layout'] = 'right'
-                highlight['side'] = 'right'
-            else:
-                highlight['layout'] = 'left'
-        else:
-            highlight['layout'] = 'bottom'
-            highlight['importance'] = 'primary'
-            highlight['position'] = 'bottom'
-            highlight['side'] = 'bottom'
-            highlight['text'] = primary_keyword
+    if supporting_final:
+        highlight['supportingTexts'] = supporting_final
+        both_sides = 'topLeft' in supporting_final and 'topRight' in supporting_final
+        if both_sides:
+            highlight['layout'] = 'dual'
+            highlight['staggerLeft'] = 0.0
+            highlight['staggerRight'] = 2.0
+        elif 'topLeft' in supporting_final:
+            highlight['layout'] = 'left'
+            highlight['staggerLeft'] = 0.0
+        elif 'topRight' in supporting_final:
+            highlight['layout'] = 'right'
+            highlight['staggerRight'] = 0.0
 
     return highlight
 
@@ -1018,14 +1277,14 @@ def ensure_broll_from_highlights(
         item = catalog_items.get(broll_id)
         if not item:
             continue
-        mode = "full" if item.get("id") in BROLL_FULL_IDS else "overlay"
+        mode = "full"
         reasons = BROLL_REASONS.get(item.get("id")) or ["Highlight keyword match"]
 
         segment["broll"] = {
             "id": item.get("id"),
             "file": item.get("file"),
             "mode": mode,
-            "confidence": 3.0 if mode == "full" else 2.0,
+            "confidence": 3.0,
             "reasons": reasons,
         }
         notes = [
@@ -1247,32 +1506,49 @@ def augment_highlights_from_catalog(
             if duplicate:
                 continue
 
-            layout = highlight.get('layout')
+            layout = highlight.get('layout') or 'bottom'
+            highlight['position'] = 'bottom'
+            highlight['showBottom'] = True
+            highlight['importance'] = (highlight.get('importance') or 'primary').lower()
 
-            if layout in {'left', 'right'} and isinstance(highlight.get('supportingTexts'), dict):
+            supporting_texts = highlight.get('supportingTexts')
+            if layout in {'left', 'right'} and isinstance(supporting_texts, dict):
                 desired = 'left' if not side_toggle else 'right'
-                texts = highlight['supportingTexts']
-                value = texts.get('topLeft') or texts.get('topRight')
-                if value and desired != layout:
-                    if desired == 'left':
-                        highlight['supportingTexts'] = {'topLeft': value}
-                        highlight['layout'] = 'left'
-                        highlight['side'] = 'left'
-                    else:
-                        highlight['supportingTexts'] = {'topRight': value}
-                        highlight['layout'] = 'right'
-                        highlight['side'] = 'right'
+                value = (
+                    supporting_texts.get('topLeft')
+                    if desired == 'left'
+                    else supporting_texts.get('topRight')
+                )
+                fallback_value = supporting_texts.get('topLeft') or supporting_texts.get('topRight')
+                final_value = value or fallback_value
+                if desired == 'left' and final_value:
+                    highlight['supportingTexts'] = {'topLeft': final_value}
+                    highlight['layout'] = 'left'
+                    highlight['staggerLeft'] = 0.0
+                    highlight.pop('staggerRight', None)
+                elif desired == 'right' and final_value:
+                    highlight['supportingTexts'] = {'topRight': final_value}
+                    highlight['layout'] = 'right'
+                    highlight['staggerRight'] = 0.0
+                    highlight.pop('staggerLeft', None)
                 else:
-                    highlight['side'] = layout
+                    highlight['layout'] = desired
                 side_toggle = not side_toggle
-                highlight.setdefault('position', 'top')
             elif layout == 'dual':
-                highlight.setdefault('position', 'top')
-                highlight.pop('side', None)
-            elif layout == 'bottom':
-                highlight['side'] = 'bottom'
-                highlight['position'] = 'bottom'
+                if isinstance(supporting_texts, dict):
+                    highlight['layout'] = 'dual'
+                    highlight['staggerLeft'] = 0.0
+                    highlight['staggerRight'] = max(
+                        2.0,
+                        ensure_float(highlight.get('staggerRight'), 2.0),
+                    )
+            else:
+                highlight['layout'] = 'bottom'
+                highlight.pop('supportingTexts', None)
+                highlight.pop('staggerLeft', None)
+                highlight.pop('staggerRight', None)
 
+            highlight.pop('side', None)
             highlights.append(highlight)
             injected.append(highlight)
             existing_starts.append(start_time)
@@ -1296,10 +1572,14 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'text': 'EPSTEIN-BARR VIRUS',
             'keyword': 'EPSTEIN-BARR VIRUS',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': 'EPSTEIN-BARR VIRUS',
                 'topRight': right,
@@ -1311,10 +1591,14 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'text': 'UNKNOWN CAUSE',
             'keyword': 'UNKNOWN CAUSE',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': 'UNKNOWN CAUSE',
                 'topRight': 'HARD TO TREAT',
@@ -1326,10 +1610,16 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
-            'importance': 'supporting',
-            'position': 'top',
+            'importance': 'primary',
+            'position': 'bottom',
             'layout': 'dual',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
+            'text': '10 MILLION PEOPLE',
             'keyword': '10 MILLION PEOPLE',
+            'showBottom': True,
+            'staggerLeft': 0.0,
+            'staggerRight': 2.0,
             'supportingTexts': {
                 'topLeft': '10 MILLION PEOPLE',
                 'topRight': '20 YEARS',
@@ -1343,10 +1633,12 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'duration': round(duration, 2),
             'importance': 'primary',
             'position': 'bottom',
-            'side': 'bottom',
             'layout': 'bottom',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
             'text': 'DIRECT LINK: EBV ? MS',
             'keyword': 'DIRECT LINK: EBV ? MS',
+            'showBottom': True,
         }
     if 'multiple sclerosis' in text_lower and '32' in text_lower:
         return {
@@ -1356,10 +1648,12 @@ def build_highlight_override(entry: Dict[str, Any], text_lower: str, start: floa
             'duration': round(duration, 2),
             'importance': 'primary',
             'position': 'bottom',
-            'side': 'bottom',
             'layout': 'bottom',
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
             'text': '32X MS RISK',
             'keyword': '32X MS RISK',
+            'showBottom': True,
         }
     return None
 def augment_highlights_from_srt(
@@ -1374,28 +1668,29 @@ def augment_highlights_from_srt(
     highlights = plan.setdefault('highlights', [])
     highlights.sort(key=lambda h: h.get('start', 0.0))
 
-    existing_starts = [
-        h.get('start')
-        for h in highlights
-        if isinstance(h.get('start'), (int, float))
-    ]
+    def has_conflict(start_time: float, duration_time: float) -> bool:
+        end_time = start_time + duration_time
+        for existing in highlights:
+            existing_start = existing.get('start')
+            existing_duration = existing.get('duration') or 0.0
+            if not isinstance(existing_start, (int, float)):
+                continue
+            existing_end = existing_start + float(existing_duration)
+            if overlap_seconds(start_time, end_time, existing_start, existing_end) > 0.0:
+                return True
+            if abs(existing_start - start_time) <= min_gap:
+                return True
+        return False
 
     injected: List[Dict[str, Any]] = []
     side_toggle = False
-    bottom_cooldown = 0
     recent_phrases: set[str] = set()
 
     for entry in entries:
         start = max(0.0, entry['start'])
         duration = derive_duration_seconds(entry, entry)
 
-        if start < 0.6:
-            continue
-
-        if any(
-            overlap_seconds(start, start + duration, existing, existing + (h.get('duration') or 0.0)) > 0.0
-            for existing, h in zip(existing_starts, highlights)
-        ):
+        if start < 0.6 or has_conflict(start, duration):
             continue
 
         raw_text = entry['text']
@@ -1418,13 +1713,11 @@ def augment_highlights_from_srt(
             if ensure_highlight_keyword(override):
                 highlights.append(override)
                 injected.append(override)
-                existing_starts.append(start)
-                bottom_cooldown = 0
-                side_toggle = False
             continue
 
-        full_phrase = normalize_phrase(words, max_words=min(8, len(words)), max_chars=52)
-        primary_text = normalize_phrase(words, max_words=4, max_chars=36)
+        primary_text = normalize_phrase(words, max_words=4, max_chars=40)
+        if not primary_text or not keyword_is_meaningful(primary_text):
+            continue
 
         left_words, right_words = split_words_for_supporting(words)
         left_text = normalize_phrase(left_words, max_words=4, max_chars=32)
@@ -1435,111 +1728,57 @@ def augment_highlights_from_srt(
             'type': 'noteBox',
             'start': round(start, 2),
             'duration': round(duration, 2),
+            'position': 'bottom',
+            'layout': 'bottom',
+            'importance': 'primary',
+            'showBottom': True,
+            'safeBottom': 0.18,
+            'safeInsetHorizontal': 0.08,
+            'text': primary_text,
+            'keyword': primary_text,
         }
 
-        def adjust_start_for_midpoint(hl: Dict[str, Any]) -> float:
-            hl_duration = float(hl.get("duration", duration) or duration)
-            if hl_duration <= 0:
-                return start
-            window_end = start + duration
-            if window_end <= start:
-                return start
-            desired = start + duration * 0.55
-            max_start = max(start, window_end - hl_duration)
-            adjusted = min(max(desired, start), max_start)
-            hl["start"] = round(adjusted, 2)
-            return adjusted
+        supporting_candidates: List[Tuple[str, str]] = []
+        if left_text and keyword_is_meaningful(left_text) and left_text != primary_text:
+            supporting_candidates.append(('left', left_text))
+        if right_text and keyword_is_meaningful(right_text) and right_text not in {primary_text, left_text}:
+            supporting_candidates.append(('right', right_text))
 
-        contains_number = any(any(ch.isdigit() for ch in token) for token in words)
-        contains_question = '?' in raw_text
-
-        should_bottom = contains_number or contains_question or len(words) <= 4 or bottom_cooldown >= 2
-        if not should_bottom and (len(left_text) < 3 or left_text == right_text):
-            should_bottom = True
-
-        if should_bottom:
-            focus_text = full_phrase.strip()
-            if not focus_text or not keyword_is_meaningful(focus_text):
-                continue
-            if len(focus_text) > 42:
-                focus_text = focus_text[:41].rstrip() + "…"
-            highlight.update(
-                {
-                    'layout': 'bottom',
-                    'importance': 'primary',
-                    'position': 'bottom',
-                    'side': 'bottom',
-                    'text': focus_text,
-                    'keyword': focus_text,
-                }
-            )
-            if not ensure_highlight_keyword(highlight):
-                continue
-            bottom_cooldown = 0
-        else:
-            primary_focus = primary_text.strip()
-            if not primary_focus or not keyword_is_meaningful(primary_focus):
-                bottom_cooldown = 0
-                continue
-            if len(primary_focus) > 36:
-                primary_focus = primary_focus[:35].rstrip() + "…"
-            highlight['importance'] = 'supporting'
-            highlight['position'] = 'top'
-            highlight['keyword'] = primary_focus
-
-            supporting: Dict[str, str] = {}
-            if left_text and keyword_is_meaningful(left_text):
-                value = left_text
-                if len(value) > 32:
-                    value = value[:31].rstrip() + "…"
-                key = 'topLeft' if not side_toggle else 'topRight'
-                supporting[key] = value
-                highlight['side'] = 'left' if key == 'topLeft' else 'right'
-                if key != 'topLeft':
-                    side_toggle = not side_toggle
-            if right_text and keyword_is_meaningful(right_text):
-                value = right_text
-                if len(value) > 32:
-                    value = value[:31].rstrip() + "…"
-                supporting['topRight'] = value
-
-            if supporting:
-                highlight['supportingTexts'] = supporting
-                if 'topLeft' in supporting and 'topRight' in supporting:
-                    highlight['layout'] = 'dual'
-                    highlight.pop('side', None)
-                elif 'topLeft' in supporting:
-                    highlight['layout'] = 'left'
-                    highlight['side'] = 'left'
-                else:
-                    highlight['layout'] = 'right'
-                    highlight['side'] = 'right'
+        supporting_texts: Dict[str, str] = {}
+        if len(supporting_candidates) >= 2:
+            supporting_texts['topLeft'] = supporting_candidates[0][1]
+            supporting_texts['topRight'] = supporting_candidates[1][1]
+            highlight['layout'] = 'dual'
+            highlight['staggerLeft'] = 0.0
+            highlight['staggerRight'] = 2.0
+        elif len(supporting_candidates) == 1:
+            desired_side = 'left' if not side_toggle else 'right'
+            _, phrase = supporting_candidates[0]
+            final_side = desired_side
+            if final_side == 'left':
+                supporting_texts['topLeft'] = phrase
+                highlight['layout'] = 'left'
+                highlight['staggerLeft'] = 0.0
             else:
-                highlight['layout'] = 'bottom'
-                highlight['importance'] = 'primary'
-                highlight['position'] = 'bottom'
-                highlight['side'] = 'bottom'
-                highlight['text'] = primary_focus
-                if not ensure_highlight_keyword(highlight):
-                    bottom_cooldown = 0
-                    continue
-                bottom_cooldown = 0
-                adjusted_start = adjust_start_for_midpoint(highlight)
-                highlights.append(highlight)
-                injected.append(highlight)
-                existing_starts.append(adjusted_start)
-                continue
+                supporting_texts['topRight'] = phrase
+                highlight['layout'] = 'right'
+                highlight['staggerRight'] = 0.0
+            side_toggle = not side_toggle
 
-            bottom_cooldown += 1
+        if supporting_texts:
+            highlight['supportingTexts'] = supporting_texts
 
-            if not ensure_highlight_keyword(highlight):
-                bottom_cooldown = 0
-                continue
+        if not ensure_highlight_keyword(highlight):
+            continue
 
-        adjusted_start = adjust_start_for_midpoint(highlight)
+        hl_duration = float(highlight.get('duration', duration) or duration)
+        window_end = start + duration
+        max_start = max(start, window_end - hl_duration)
+        desired = start + duration * 0.55
+        highlight['start'] = round(min(max(desired, start), max_start), 2)
+
         highlights.append(highlight)
         injected.append(highlight)
-        existing_starts.append(adjusted_start)
 
     if injected:
         highlights.sort(key=lambda item: item.get('start', 0.0) or 0.0)
@@ -1885,7 +2124,7 @@ def enrich_plan(
                 segment["broll"] = {
                     "id": broll["id"],
                     "file": broll["file"],
-                    "mode": "overlay" if scene_summary.highlight_score < 0.85 else "full",
+                    "mode": "full",
                     "confidence": broll["confidence"],
                     "reasons": broll["reasons"],
                 }
@@ -2071,3 +2310,5 @@ def main(argv: List[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+

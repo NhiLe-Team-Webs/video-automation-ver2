@@ -12,21 +12,25 @@ interface HighlightRenderContext {
   theme?: HighlightTheme;
   width: number;
   height: number;
+  frame: number;
+  fps: number;
+  durationInFrames: number;
+  appearWindowInFrames: number;
 }
 
 type HighlightRenderer = (context: HighlightRenderContext) => ReactNode;
 
-type CornerLayout = 'none' | 'left' | 'right' | 'dual' | 'bottom';
+type CornerLayout = 'none' | 'left' | 'right' | 'dual';
 
 const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
 const clampTo = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
 const DEFAULT_SAFE_HORIZONTAL = 0.08;
-const DEFAULT_SAFE_VERTICAL = 0.1;
-const DEFAULT_SAFE_BOTTOM = 0.12;
-const DEFAULT_STAGGER_LEFT = 0;
-const DEFAULT_STAGGER_RIGHT = 0.22;
+const DEFAULT_SAFE_BOTTOM = 0.08;
+const DEFAULT_SAFE_TOP = 0.18;
+const DEFAULT_STAGGER_LEFT_SECONDS = 0;
+const DEFAULT_STAGGER_RIGHT_SECONDS = 2;
 
 const toPercent = (value: unknown, fallback: number) => {
   if (typeof value === 'number' && Number.isFinite(value)) {
@@ -38,15 +42,41 @@ const toPercent = (value: unknown, fallback: number) => {
   return `${(fallback * 100).toFixed(2)}%`;
 };
 
-const normalizeDelay = (value: unknown, fallback: number) => {
+const resolveDelaySeconds = (
+  value: unknown,
+  fallbackSeconds: number,
+  appearWindowInSeconds: number
+) => {
   if (typeof value === 'number' && Number.isFinite(value)) {
-    if (value > 1) {
-      // Treat values > 1 as seconds relative to a 1s window
-      return clampTo(value / 5, 0, 0.9);
+    if (value <= 1) {
+      return clampTo(value, 0, 0.9) * appearWindowInSeconds;
     }
-    return clampTo(value, 0, 0.9);
+    return clampTo(value, 0, 10);
   }
-  return fallback;
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return fallbackSeconds;
+    }
+
+    if (trimmed.endsWith('s')) {
+      const numericPortion = Number(trimmed.slice(0, -1));
+      if (Number.isFinite(numericPortion)) {
+        return clampTo(numericPortion, 0, 10);
+      }
+    }
+
+    const numeric = Number(trimmed);
+    if (Number.isFinite(numeric)) {
+      if (numeric <= 1) {
+        return clampTo(numeric, 0, 0.9) * appearWindowInSeconds;
+      }
+      return clampTo(numeric, 0, 10);
+    }
+  }
+
+  return fallbackSeconds;
 };
 
 const withAlpha = (color: string | undefined, alpha: number, fallback: string) => {
@@ -95,19 +125,218 @@ const pickString = (record: Record<string, unknown>, keys: string[]): string | u
   return undefined;
 };
 
-const extractCornerTexts = (highlight: HighlightPlan) => {
+const VERB_LIKE_WORDS = new Set(
+  [
+    'be',
+    'am',
+    'is',
+    'are',
+    'was',
+    'were',
+    'being',
+    'been',
+    'do',
+    'does',
+    'did',
+    'doing',
+    'have',
+    'has',
+    'had',
+    'having',
+    'make',
+    'makes',
+    'making',
+    'watch',
+    'watches',
+    'watching',
+    'interact',
+    'interacts',
+    'interacting',
+    'discuss',
+    'discusses',
+    'discussing',
+    'explain',
+    'explains',
+    'explaining',
+    'stand',
+    'stands',
+    'standing',
+    'tell',
+    'tells',
+    'telling',
+    'catch',
+    'catches',
+    'catching',
+    'let',
+    'lets',
+    'letting',
+    'take',
+    'takes',
+    'taking',
+    'know',
+    'knows',
+    'knowing',
+    'think',
+    'thinks',
+    'thinking',
+    'feel',
+    'feels',
+    'feeling',
+    'see',
+    'sees',
+    'seeing',
+    'talk',
+    'talks',
+    'talking',
+    'say',
+    'says',
+    'saying',
+    'look',
+    'looks',
+    'looking',
+    'get',
+    'gets',
+    'getting',
+    'give',
+    'gives',
+    'giving',
+    'keep',
+    'keeps',
+    'keeping',
+    'want',
+    'wants',
+    'wanting',
+    'need',
+    'needs',
+    'needing',
+    'allow',
+    'allows',
+    'allowing',
+    'may',
+    'might',
+    'should',
+    'could',
+    'would',
+    'will',
+    'can',
+    'today',
+    'tonight',
+    'now',
+  ].map((token) => token.toLowerCase())
+);
+
+const normalizeForComparison = (value: string | undefined): string => {
+  if (!value) {
+    return '';
+  }
+  return value
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+const tokenizeNormalized = (value: string | undefined): string[] => {
+  const normalized = normalizeForComparison(value);
+  return normalized ? normalized.split(' ') : [];
+};
+
+const preparePhrase = (value: string | undefined, wordLimit: number): string | undefined => {
+  if (!value) {
+    return undefined;
+  }
+  const tokens = value.split(/\s+/).filter(Boolean);
+  if (!tokens.length) {
+    return undefined;
+  }
+  const filtered = tokens.filter((token) => !VERB_LIKE_WORDS.has(token.toLowerCase()));
+  const selected = (filtered.length ? filtered : tokens).slice(0, Math.max(1, wordLimit));
+  if (!selected.length) {
+    return undefined;
+  }
+  return selected.join(' ');
+};
+
+const preparePrimaryPhrase = (value: string | undefined) => preparePhrase(value, 5);
+const prepareSupportingPhrase = (value: string | undefined) => preparePhrase(value, 3);
+
+const sanitizeCornerTexts = (
+  primaryText: string | undefined,
+  corners: {left?: string; right?: string}
+) => {
+  const primaryTokens = new Set(tokenizeNormalized(primaryText));
+
+  const sanitize = (value: string | undefined) => {
+    if (!value) {
+      return undefined;
+    }
+    const prepared = prepareSupportingPhrase(value);
+    const normalized = normalizeForComparison(prepared);
+    if (!normalized) {
+      return undefined;
+    }
+    const preparedTokens = prepared?.split(/\s+/).filter(Boolean) ?? [];
+    const normalizedTokens = preparedTokens.map((token) =>
+      normalizeForComparison(token).replace(/\s+/g, '')
+    );
+    if (!preparedTokens.length || !normalizedTokens.length) {
+      return undefined;
+    }
+    const filteredTokens = preparedTokens.filter((token, index) => {
+      const normalizedToken = normalizedTokens[index];
+      if (!normalizedToken) {
+        return false;
+      }
+      if (primaryTokens.has(normalizedToken)) {
+        return false;
+      }
+      return true;
+    });
+
+    const finalTokens = filteredTokens.length ? filteredTokens : preparedTokens;
+    const containsNewInformation = finalTokens.some((token) => {
+      const normalizedToken = normalizeForComparison(token).replace(/\s+/g, '');
+      return normalizedToken && !primaryTokens.has(normalizedToken);
+    });
+
+    if (!containsNewInformation) {
+      return undefined;
+    }
+    return finalTokens.join(' ');
+  };
+
+  let left = sanitize(corners.left);
+  let right = sanitize(corners.right);
+
+  if (left && right && normalizeForComparison(left) === normalizeForComparison(right)) {
+    right = undefined;
+  }
+
+  return {left, right};
+};
+
+const extractCornerTexts = (
+  highlight: HighlightPlan,
+  primaryText: string | undefined
+): {left?: string; right?: string} => {
   const result: {left?: string; right?: string} = {};
   const asRecord = highlight as Record<string, unknown>;
 
   const rawContent = asRecord.content;
   if (rawContent && typeof rawContent === 'object' && !Array.isArray(rawContent)) {
     const record = rawContent as Record<string, unknown>;
-    result.left = pickString(record, ['top_left', 'topLeft', 'left', 'primary']);
-    result.right = pickString(record, ['top_right', 'topRight', 'right', 'secondary']);
+    result.left = prepareSupportingPhrase(
+      pickString(record, ['top_left', 'topLeft', 'left', 'primary'])
+    );
+    result.right = prepareSupportingPhrase(
+      pickString(record, ['top_right', 'topRight', 'right', 'secondary'])
+    );
 
     if (!result.left && Array.isArray(record.items)) {
-      result.left = coerceText(record.items[0]);
-      result.right = result.right ?? coerceText(record.items[1]);
+      result.left = prepareSupportingPhrase(coerceText(record.items[0]));
+      result.right = result.right ?? prepareSupportingPhrase(coerceText(record.items[1]));
     }
   }
 
@@ -115,74 +344,121 @@ const extractCornerTexts = (highlight: HighlightPlan) => {
   if (supporting) {
     result.left =
       result.left ??
-      pickString(supporting, ['topLeft', 'top_left', 'left', 'primary', 'top_center', 'topCenter']);
+      prepareSupportingPhrase(
+        pickString(supporting, ['topLeft', 'top_left', 'left', 'primary', 'top_center', 'topCenter'])
+      );
     result.right =
       result.right ??
-      pickString(supporting, ['topRight', 'top_right', 'right', 'secondary', 'top_center', 'topCenter']);
+      prepareSupportingPhrase(
+        pickString(supporting, ['topRight', 'top_right', 'right', 'secondary', 'top_center', 'topCenter'])
+      );
   }
 
   result.left =
-    result.left ?? pickString(asRecord, ['supportingLeft', 'supportLeft', 'supporting', 'keyword']);
+    result.left ??
+    prepareSupportingPhrase(
+      pickString(asRecord, ['supportingLeft', 'supportLeft', 'supporting', 'keyword'])
+    );
   result.right =
-    result.right ?? pickString(asRecord, ['supportingRight', 'supportRight', 'secondary']);
+    result.right ??
+    prepareSupportingPhrase(pickString(asRecord, ['supportingRight', 'supportRight', 'secondary']));
 
   const metadata = asRecord.metadata;
   if (metadata && typeof metadata === 'object' && !Array.isArray(metadata)) {
     const metadataRecord = metadata as Record<string, unknown>;
-    result.left = result.left ?? pickString(metadataRecord, ['top_left', 'topLeft', 'left']);
-    result.right = result.right ?? pickString(metadataRecord, ['top_right', 'topRight', 'right']);
+    result.left =
+      result.left ?? prepareSupportingPhrase(pickString(metadataRecord, ['top_left', 'topLeft', 'left']));
+    result.right =
+      result.right ?? prepareSupportingPhrase(pickString(metadataRecord, ['top_right', 'topRight', 'right']));
   }
 
-  return result;
+  return sanitizeCornerTexts(primaryText, result);
 };
 
 const resolvePrimaryText = (highlight: HighlightPlan): string | undefined =>
-  coerceText(highlight.keyword) ??
-  coerceText(highlight.text) ??
-  coerceText(highlight.title) ??
-  coerceText(highlight.subtitle);
+  preparePrimaryPhrase(coerceText(highlight.keyword)) ??
+  preparePrimaryPhrase(coerceText(highlight.text)) ??
+  preparePrimaryPhrase(coerceText(highlight.title)) ??
+  preparePrimaryPhrase(coerceText(highlight.subtitle));
 
-const determineLayout = (
+interface HighlightPlacements {
+  corners: CornerLayout;
+  showBottom: boolean;
+}
+
+const determinePlacements = (
   highlight: HighlightPlan,
   corners: {left?: string; right?: string},
   primaryText: string | undefined
-): CornerLayout => {
-  const explicit = coerceText((highlight as Record<string, unknown>).layout) as CornerLayout | undefined;
-  if (explicit && explicit !== 'auto') {
-    return explicit;
+): HighlightPlacements => {
+  const asRecord = highlight as Record<string, unknown>;
+  const rawLayout = coerceText(asRecord.layout)?.toLowerCase() as
+    | 'auto'
+    | 'left'
+    | 'right'
+    | 'dual'
+    | 'bottom'
+    | 'none'
+    | undefined;
+
+  const hidePrimary = asRecord.hidePrimary === true;
+  const hasPrimary = Boolean(primaryText) && !hidePrimary;
+  const explicitShowBottom =
+    typeof asRecord.showBottom === 'boolean'
+      ? (asRecord.showBottom as boolean)
+      : typeof asRecord.showPrimary === 'boolean'
+        ? (asRecord.showPrimary as boolean)
+        : undefined;
+
+  if (rawLayout && rawLayout !== 'auto') {
+    if (rawLayout === 'bottom') {
+      const showBottom =
+        hasPrimary && (explicitShowBottom !== undefined ? explicitShowBottom : true);
+      return {corners: 'none', showBottom};
+    }
+    if (rawLayout === 'none') {
+      const showBottom =
+        hasPrimary && (explicitShowBottom !== undefined ? explicitShowBottom : false);
+      return {corners: 'none', showBottom};
+    }
+    if (rawLayout === 'left' || rawLayout === 'right' || rawLayout === 'dual') {
+      const showBottom =
+        hasPrimary && (explicitShowBottom !== undefined ? explicitShowBottom : true);
+      return {corners: rawLayout, showBottom};
+    }
   }
 
-  const importance = coerceText((highlight as Record<string, unknown>).importance);
-  if (importance === 'primary' || (highlight.position ?? '').toLowerCase() === 'bottom') {
-    return primaryText ? 'bottom' : corners.left || corners.right ? 'dual' : 'none';
+  const hasLeft = Boolean(corners.left);
+  const hasRight = Boolean(corners.right);
+
+  let cornerLayout: CornerLayout = 'none';
+  if (hasLeft && hasRight) {
+    cornerLayout = 'dual';
+  } else if (hasLeft) {
+    cornerLayout = 'left';
+  } else if (hasRight) {
+    cornerLayout = 'right';
   }
 
-  if (primaryText && (highlight.position ?? '').toLowerCase() === 'bottom') {
-    return 'bottom';
+  let showBottom = hasPrimary;
+  if (hasPrimary) {
+    showBottom = explicitShowBottom !== undefined ? explicitShowBottom : true;
   }
 
-  if (corners.left && corners.right) {
-    return 'dual';
-  }
-
-  if (corners.left) {
-    return 'left';
-  }
-
-  if (corners.right) {
-    return 'right';
-  }
-
-  return primaryText ? 'bottom' : 'none';
+  return {corners: cornerLayout, showBottom};
 };
 
 const renderCornerLayout = (
-  {highlight, appear, exit, theme}: HighlightRenderContext,
+  {highlight, exit, theme, frame, fps, appearWindowInFrames, height}: HighlightRenderContext,
   layout: CornerLayout,
   corners: {left?: string; right?: string}
 ) => {
-  const baseAppear = clamp01(appear);
-  const eased = ease(baseAppear);
+  const inferredAppearWindow =
+    Number.isFinite(appearWindowInFrames) && appearWindowInFrames > 0
+      ? Math.round(appearWindowInFrames)
+      : Math.round(Math.max(1, fps) * 0.3);
+  const appearWindow = Math.max(1, inferredAppearWindow);
+  const appearWindowSeconds = appearWindow / Math.max(1, fps);
   const exitEased = clamp01(exit);
   const exitProgress = 1 - exitEased;
   const asRecord = highlight as Record<string, unknown>;
@@ -192,30 +468,34 @@ const renderCornerLayout = (
       ? (asRecord.stagger as Record<string, unknown>)
       : undefined) ?? {};
 
-  const leftDelay = normalizeDelay(
+  const rightDefaultDelay =
+    layout === 'dual' && corners.left && corners.right ? DEFAULT_STAGGER_RIGHT_SECONDS : 0;
+
+  const leftDelaySeconds = resolveDelaySeconds(
     asRecord.staggerLeft ?? staggerRecord.left,
-    DEFAULT_STAGGER_LEFT
+    DEFAULT_STAGGER_LEFT_SECONDS,
+    appearWindowSeconds
   );
-  const rightDelay = normalizeDelay(
+  const rightDelaySeconds = resolveDelaySeconds(
     asRecord.staggerRight ?? staggerRecord.right,
-    DEFAULT_STAGGER_RIGHT
+    rightDefaultDelay,
+    appearWindowSeconds
   );
 
-  const progressForSide = (side: 'left' | 'right') => {
-    const delay = side === 'left' ? leftDelay : rightDelay;
-    if (delay <= 0) {
-      return ease(baseAppear);
-    }
-    const denominator = 1 - delay;
-    if (denominator <= 0) {
-      return ease(1);
-    }
-    const adjusted = (baseAppear - delay) / denominator;
-    return ease(clamp01(adjusted));
+  const normalizedFrame = Math.max(0, frame);
+
+  const progressForDelay = (delaySeconds: number) => {
+    const delayFrames = Math.round(delaySeconds * fps);
+    const localProgress = (normalizedFrame - Math.max(0, delayFrames)) / appearWindow;
+    return ease(clamp01(localProgress));
   };
 
-  const leftProgress = progressForSide('left');
-  const rightProgress = progressForSide('right');
+  const leftProgress = progressForDelay(leftDelaySeconds);
+  const effectiveRightDelaySeconds =
+    layout === 'dual' && corners.right
+      ? Math.max(rightDelaySeconds, leftDelaySeconds + DEFAULT_STAGGER_RIGHT_SECONDS)
+      : rightDelaySeconds;
+  const rightProgress = progressForDelay(effectiveRightDelaySeconds);
 
   const fontSize =
     typeof highlight.fontSize === 'number' || typeof highlight.fontSize === 'string'
@@ -238,7 +518,6 @@ const renderCornerLayout = (
     asRecord.safeInset ?? asRecord.safeInsetHorizontal ?? asRecord.safeMargin,
     DEFAULT_SAFE_HORIZONTAL
   );
-  const topInset = toPercent(asRecord.safeTop ?? asRecord.safeInsetVertical, DEFAULT_SAFE_VERTICAL);
   const maxWidthValue =
     typeof asRecord.maxWidth === 'string'
       ? asRecord.maxWidth
@@ -246,12 +525,22 @@ const renderCornerLayout = (
         ? `${clampTo(asRecord.maxWidth, 0.22, 0.5) * 100}%`
         : 'clamp(18%, 28vw, 34%)';
 
+  const topInset = toPercent(
+    asRecord.safeTop ?? asRecord.safeInsetVertical ?? asRecord.safeMarginVertical,
+    DEFAULT_SAFE_TOP
+  );
+  const verticalOffsetPx = 0;
+
   const buildSpanStyle = (side: 'left' | 'right', progress: number): CSSProperties => {
     const direction = side === 'left' ? -1 : 1;
     const appearShift = (1 - progress) * 32 * direction;
     const exitShift = exitProgress * 22 * direction;
     const verticalShift = (1 - progress) * 18 + exitProgress * 20;
     const scale = clampTo(1 + (1 - progress) * 0.02 - exitProgress * 0.04, 0.94, 1.08);
+    const transforms = [
+      `translate(${(appearShift + exitShift).toFixed(2)}px, ${(verticalShift + verticalOffsetPx).toFixed(2)}px)`,
+      `scale(${scale})`,
+    ];
     return {
       position: 'absolute',
       top: topInset,
@@ -268,7 +557,7 @@ const renderCornerLayout = (
       whiteSpace: 'pre-wrap',
       textRendering: 'geometricPrecision',
       opacity: Math.min(1, progress) * exitEased,
-      transform: `translate(${appearShift + exitShift}px, ${verticalShift}px) scale(${scale})`,
+      transform: transforms.join(' '),
     };
   };
 
@@ -319,40 +608,37 @@ const renderBottomBanner = (
   );
 
   const color = theme?.textColor ?? BRAND.white;
+  const scale = clampTo(1 + exitProgress * 0.04, 0.94, 1.08);
 
   return (
-    <AbsoluteFill
-      style={{
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingBottom: bottomInset,
-        paddingLeft: horizontalInset,
-        paddingRight: horizontalInset,
-        opacity: exitEased,
-      }}
-    >
+    <AbsoluteFill style={{pointerEvents: 'none', opacity: exitEased}}>
       <div
         style={{
-          fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
-          fontSize,
-          fontWeight,
-          letterSpacing,
-          textTransform,
-          color,
-          textAlign: 'center',
-          whiteSpace: 'pre-wrap',
-          textRendering: 'geometricPrecision',
-          transform: `translateY(${(1 - eased) * 60 + exitProgress * 40}px) scale(${clampTo(
-            1 + exitProgress * 0.04,
-            0.94,
-            1.08
-          )})`,
-          opacity: Math.min(1, eased) * exitEased,
+          position: 'absolute',
+          left: horizontalInset,
+          right: horizontalInset,
+          bottom: bottomInset,
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        {text}
+        <div
+          style={{
+            fontFamily: theme?.fontFamily ?? BRAND.fonts.heading,
+            fontSize,
+            fontWeight,
+            letterSpacing,
+            textTransform,
+            color,
+            textAlign: 'center',
+            whiteSpace: 'pre-wrap',
+            textRendering: 'geometricPrecision',
+            transform: `translateY(${(1 - eased) * 60 + exitProgress * 40}px) scale(${scale})`,
+            opacity: Math.min(1, eased) * exitEased,
+          }}
+        >
+          {text}
+        </div>
       </div>
     </AbsoluteFill>
   );
@@ -360,19 +646,24 @@ const renderBottomBanner = (
 
 const renderTextHighlight: HighlightRenderer = (context) => {
   const {highlight} = context;
-  const corners = extractCornerTexts(highlight);
   const primaryText = resolvePrimaryText(highlight);
-  const layout = determineLayout(highlight, corners, primaryText);
+  const corners = extractCornerTexts(highlight, primaryText);
+  const placements = determinePlacements(highlight, corners, primaryText);
+  const elements: ReactNode[] = [];
 
-  if (layout === 'none') {
+  if (placements.showBottom && primaryText) {
+    elements.push(renderBottomBanner(context, primaryText));
+  }
+
+  if (placements.corners !== 'none') {
+    elements.push(renderCornerLayout(context, placements.corners, corners));
+  }
+
+  if (!elements.length) {
     return null;
   }
 
-  if (layout === 'bottom' && primaryText) {
-    return renderBottomBanner(context, primaryText);
-  }
-
-  return renderCornerLayout(context, layout, corners);
+  return <>{elements}</>;
 };
 
 const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme}) => {
@@ -390,6 +681,11 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
   const eased = ease(clamp01(appear));
   const exitEased = clamp01(exit);
   const scale = 1 + (1 - exitEased) * 0.015 + (1 - eased) * 0.015;
+  const asRecord = highlight as Record<string, unknown>;
+  const horizontalInset = toPercent(
+    asRecord.safeInset ?? asRecord.safeInsetHorizontal ?? asRecord.safeMargin,
+    DEFAULT_SAFE_HORIZONTAL
+  );
 
   const accent = highlight.accentColor ?? theme?.accentColor ?? BRAND.primary;
   const accentSoft = withAlpha(accent, 0.28, 'rgba(255, 255, 255, 0.25)');
@@ -407,11 +703,13 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
     opacity: exitEased,
     textAlign: 'center',
     boxShadow: '0 24px 120px rgba(12,12,12,0.32)',
-    padding: '0 12%',
+    paddingLeft: horizontalInset,
+    paddingRight: horizontalInset,
     pointerEvents: 'none',
     borderRadius: '1rem',
     overflow: 'hidden',
     fontFamily: BRAND.fonts.heading,
+    gap: '1rem',
   };
 
   return (
@@ -457,6 +755,7 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
             textTransform: 'uppercase',
             opacity: 0.75 * exitEased,
             fontFamily: BRAND.fonts.body,
+            marginBottom: '0.4rem',
           }}
         >
           {highlight.badge}
@@ -470,6 +769,8 @@ const renderSectionTitle: HighlightRenderer = ({highlight, appear, exit, theme})
           textTransform: 'uppercase',
           color: theme?.textColor ?? BRAND.white,
           textShadow: '0 16px 40px rgba(12,12,12,0.38)',
+          lineHeight: 0.94,
+          maxWidth: '80%',
         }}
       >
         {title}
