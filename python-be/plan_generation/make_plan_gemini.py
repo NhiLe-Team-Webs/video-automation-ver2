@@ -28,148 +28,146 @@ MAX_BROLL_SUMMARY_ITEMS = 20
 MAX_SFX_ITEMS_PER_CATEGORY = 5
 
 HIGHLIGHT_STOPWORDS = {
-    "am",
-    "are",
-    "is",
-    "was",
-    "were",
-    "be",
-    "been",
-    "being",
-    "do",
-    "does",
-    "did",
-    "doing",
-    "have",
-    "has",
-    "had",
-    "having",
-    "will",
-    "would",
-    "shall",
-    "should",
-    "can",
-    "could",
-    "may",
-    "might",
-    "must",
-    "need",
-    "learn",
-    "think",
-    "get",
-    "got",
-    "gets",
-    "make",
-    "makes",
-    "made",
-    "show",
-    "shows",
-    "showing",
-    "build",
-    "builds",
-    "building",
-    "drive",
-    "drives",
-    "driving",
-    "improve",
-    "improves",
-    "improving",
-    "increase",
-    "increases",
-    "increasing",
-    "reduce",
-    "reduces",
-    "reducing",
-    "create",
-    "creates",
-    "creating",
-    "deliver",
-    "delivers",
-    "delivering",
-    "discover",
-    "discovers",
-    "discovering",
-    "enable",
-    "enables",
-    "enabling",
-    "align",
-    "aligns",
-    "aligning",
-    "drive",
-    "driven",
-    "driving",
-    "go",
-    "goes",
-    "going",
-    "unlock",
-    "unlocks",
-    "unlocking",
-    "boost",
-    "boosts",
-    "boosting",
-    "simplify",
-    "simplifies",
-    "simplifying",
-    "provide",
-    "provides",
-    "providing",
-    "ensure",
-    "ensures",
-    "ensuring",
-    "achieve",
-    "achieves",
-    "achieving",
-    "optimize",
-    "optimizes",
-    "optimizing",
-    "with",
-    "and",
-    "or",
-    "to",
-    "for",
-    "of",
-    "the",
     "a",
     "an",
-    "that",
-    "this",
-    "these",
-    "those",
-    "into",
-    "on",
+    "the",
+    "and",
+    "or",
+    "but",
+    "so",
+    "yet",
+    "nor",
+    "to",
+    "of",
     "in",
-    "by",
+    "on",
     "at",
+    "by",
+    "for",
     "from",
+    "with",
+    "without",
+    "into",
+    "onto",
+    "about",
+    "around",
     "over",
     "under",
-    "about",
-    "how",
-    "why",
+    "after",
+    "before",
+    "between",
+    "among",
+    "through",
+    "during",
+    "within",
+    "across",
+    "against",
+    "toward",
+    "towards",
+    "upon",
+    "via",
+    "this",
+    "that",
+    "these",
+    "those",
+    "there",
+    "here",
+    "then",
+    "than",
     "when",
     "where",
-    "who",
-    "whom",
-    "which",
     "while",
-    "during",
-    "across",
-    "through",
-    "every",
+    "because",
+    "since",
+    "if",
+    "though",
+    "although",
+    "unless",
+    "until",
+    "very",
+    "really",
+    "just",
+    "maybe",
+    "perhaps",
+    "quite",
+    "rather",
+    "some",
+    "any",
     "each",
-    "your",
-    "you",
-    "we",
-    "they",
-    "our",
-    "their",
+    "every",
+    "either",
+    "neither",
+    "both",
+    "many",
+    "much",
+    "few",
+    "little",
+    "more",
+    "most",
+    "less",
+    "least",
+    "own",
+    "same",
+    "such",
+    "i",
+    "me",
     "my",
     "mine",
-    "yours",
+    "myself",
+    "we",
+    "us",
+    "our",
     "ours",
-    "theirs",
-    "it's",
+    "ourselves",
+    "you",
+    "your",
+    "yours",
+    "yourself",
+    "yourselves",
+    "he",
+    "him",
+    "his",
+    "himself",
+    "she",
+    "her",
+    "hers",
+    "herself",
+    "it",
     "its",
+    "itself",
+    "they",
+    "them",
+    "their",
+    "theirs",
+    "themselves",
+    "who",
+    "whom",
+    "whose",
+    "which",
+    "what",
+    "whatever",
+    "whoever",
+    "whichever",
+    "someone",
+    "something",
+    "anyone",
+    "anything",
+    "everyone",
+    "everything",
+    "not",
+    "no",
+    "yes",
+    "ok",
+    "okay",
+    "uh",
+    "um",
+    "hmm",
+    "ve",
+    "re",
+    "ll",
+    "d",
+    "s",
+    "m",
 }
 
 _ALLOWED_CONNECTORS = {"of", "for", "and", "&", "in", "on", "vs", "versus", "to", "with"}
@@ -190,94 +188,50 @@ _COMMON_VERB_TOKENS = {
     "has",
     "had",
     "having",
-    "make",
-    "makes",
-    "making",
-    "made",
-    "watch",
-    "watches",
-    "watching",
-    "interact",
-    "interacts",
-    "interacting",
-    "discuss",
-    "discusses",
-    "discussing",
-    "explain",
-    "explains",
-    "explaining",
-    "stand",
-    "stands",
-    "standing",
-    "tell",
-    "tells",
-    "telling",
-    "catch",
-    "catches",
-    "catching",
-    "let",
-    "lets",
-    "letting",
-    "take",
-    "takes",
-    "taking",
-    "know",
-    "knows",
-    "knowing",
-    "think",
-    "thinks",
-    "thinking",
-    "feel",
-    "feels",
-    "feeling",
-    "see",
-    "sees",
-    "seeing",
-    "talk",
-    "talks",
-    "talking",
-    "say",
-    "says",
-    "saying",
-    "look",
-    "looks",
-    "looking",
-    "get",
-    "gets",
-    "getting",
-    "give",
-    "gives",
-    "giving",
-    "keep",
-    "keeps",
-    "keeping",
-    "want",
-    "wants",
-    "wanting",
-    "need",
-    "needs",
-    "needing",
-    "allow",
-    "allows",
-    "allowing",
+    "will",
+    "would",
+    "shall",
+    "should",
+    "can",
+    "could",
     "may",
     "might",
-    "should",
-    "could",
-    "would",
-    "will",
-    "can",
-    "now",
-    "today",
-    "tonight",
-    "already",
-    "maybe",
-    "just",
+    "must",
+    "need",
 }
 
 _TOKEN_SANITIZER = re.compile(r"\s+")
 _ALNUM_PATTERN = re.compile(r"[A-Za-z0-9]")
 _COMMON_VERB_TOKENS_LOWER = {token.lower() for token in _COMMON_VERB_TOKENS}
+SRT_HIGHLIGHT_ID_RE = re.compile(r"^srt-(\d+)$", re.IGNORECASE)
+SECTION_TITLE_SUFFIXES: tuple[str, ...] = (
+    "Overview",
+    "Insights",
+    "Focus",
+    "Spotlight",
+    "Framework",
+    "Recap",
+    "Summary",
+)
+
+
+def format_section_title(highlight_id: str, base_phrase: str, *, fallback: str = "Key Theme") -> tuple[str, str]:
+    """
+    Returns a tuple of (display_text, keyword) for section titles, ensuring the visible
+    text includes a descriptor so it will not mirror B-roll labels verbatim.
+    """
+    sanitized = sanitize_highlight_text(base_phrase) if base_phrase else ""
+    if not sanitized:
+        sanitized = fallback
+    suffix_index = sum(ord(ch) for ch in highlight_id) if highlight_id else 0
+    suffix = SECTION_TITLE_SUFFIXES[suffix_index % len(SECTION_TITLE_SUFFIXES)]
+    lower_phrase = sanitized.lower()
+    if suffix.lower() not in lower_phrase:
+        display = f"{sanitized} {suffix}"
+    else:
+        display = sanitized
+    keyword = display.upper()
+    return display, keyword
 
 
 def _clean_token(token: str) -> str:
@@ -397,26 +351,48 @@ def sanitize_highlight_text(value: str) -> str:
     if not value:
         return value
 
-    tokens = re.findall(r"[A-Za-z0-9\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF']+", value)
+    original = " ".join(value.strip().split())
+    if not original:
+        return original
+
+    tokens = re.findall(r"[A-Za-z0-9\u00C0-\u017F]+", original)
     if not tokens:
-        return value.strip()
+        return original
 
     filtered = [token for token in tokens if token.lower() not in HIGHLIGHT_STOPWORDS]
     candidate_tokens = filtered if filtered else tokens
-    noun_tokens = filter_tokens_to_noun_phrase(candidate_tokens, max_tokens=5)
+    noun_tokens = filter_tokens_to_noun_phrase(candidate_tokens, max_tokens=6)
     if noun_tokens:
         candidate_tokens = noun_tokens
 
+    if len(candidate_tokens) < 2 and tokens:
+        fallback_tokens = [
+            token for token in tokens if token.lower() not in {"uh", "um", "ok", "okay", "hmm"}
+        ]
+        if len(fallback_tokens) >= 2:
+            candidate_tokens = fallback_tokens[:4]
+        elif tokens:
+            candidate_tokens = tokens[:4]
+
     phrase = " ".join(candidate_tokens).strip()
+    if not phrase:
+        phrase = original
+
     if not phrase:
         return value.strip()
 
     # Keep original casing for acronyms, otherwise title-case for readability
     if phrase.isupper():
         return phrase
-    return " ".join(
-        word if word.isupper() else word.capitalize() for word in phrase.split()
-    )
+
+    words = phrase.split()
+    normalized = " ".join(word if word.isupper() else word.capitalize() for word in words)
+    if len(normalized) <= 1:
+        return original
+    if len(normalized.split()) == 1 and len(original.split()) >= 2:
+        fallback = " ".join(token.capitalize() for token in tokens[:2])
+        return fallback or normalized
+    return normalized
 
 
 def _safe_float(value: Any, default: float = 0.0) -> float:
@@ -542,7 +518,7 @@ HIGHLIGHT_ANIMATIONS = [
     "pop",
 ]
 HIGHLIGHT_VARIANTS = ["callout", "blurred", "brand", "cutaway", "typewriter"]
-MAX_HIGHLIGHTS = 6
+MAX_HIGHLIGHTS = 18
 DEFAULT_HIGHLIGHT_DURATION = 2.6
 
 
@@ -904,15 +880,23 @@ def build_prompt(
         "- `segments` describe consecutive portions of the trimmed video with `sourceStart` (seconds) and `duration`. Use `label` for short context if helpful.",
         f"- `transitionIn`/`transitionOut` types may be: {transition_types}; slides can add `direction` ({transition_directions}); zoom/scale/rotate/blur may include `intensity` between 0.1 and 0.35.",
         "- Trim or merge sentences when silence exceeds ~0.7s unless a pause is intentionally required.",
-        f"- Emit at most {MAX_HIGHLIGHTS} standout highlights; keep each roughly 2-4 seconds.",
+        f"- Aim for up to {MAX_HIGHLIGHTS} standout highlights; keep each roughly 2-4 seconds and anchor every one to a crisp verb-free noun phrase from the transcript.",
+        "- Maintain breathing room—skip filler chatter, but don't hesitate to capture each meaningful beat the speaker emphasises.",
         f"- Populate `highlights` with `type` (noteBox/typewriter/sectionTitle/icon/etc.), `text`, `start`, `duration`, plus `position` ({highlight_positions}) and `animation` ({highlight_animations}). Icons may sit centre; all large text callouts stay `position: \"bottom\"`.",
         "- Keep highlight placements to three slots: a bold bottom banner for the key noun phrase, plus optional concise supporting phrases at `supportingTexts.topLeft` and `supportingTexts.topRight`.",
-        "- For textual highlights, keep `text`/`keyword` to a meaningful noun phrase (no verbs, no conjunction lists). Always anchor the main phrase at the bottom centre using `layout: \"bottom\"` (or set `layout` to `left`/`right`/`dual` with `supportingTexts.topLeft`/`supportingTexts.topRight` while keeping the bottom text).",
+        "- For textual highlights, keep `text`/`keyword` to a meaningful noun phrase (no verbs, no conjunction lists). Favour compact 2-3 word noun clusters; if you cannot form one, skip the highlight. Always anchor the main phrase at the bottom centre using `layout: \"bottom\"` (or set `layout` to `left`/`right`/`dual` with `supportingTexts.topLeft`/`supportingTexts.topRight` while keeping the bottom text).",
+        "- When emitting `sectionTitle` entries, append a high-level descriptor (Overview/Insights/Focus/etc.) so the visible text never duplicates a raw clip name or B-roll label.",
+        "- Only surface language that actually appears in the transcript (allowing singular/plural variations); extract noun phrases from the spoken sentence and avoid invented wording.",
+        "- If you cannot find a clear noun phrase for a candidate moment, skip the highlight instead of forcing one.",
+        "- Align every highlight `start` and `duration` to the transcript timestamps—snap to the underlying SRT entries and leave at least 0.2s between independent highlights so different positions never overlap simultaneously.",
         "- When both left and right supporting texts are present, ensure the right side appears second by leaving the left stagger at 0 and adding `staggerRight: 2` (seconds).",
+        "- Insert centre-screen `sectionTitle` cards at major topic shifts (roughly every big idea). Give them an `overlay` tint (for example `{ \"tint\": \"#030303\", \"opacity\": 0.72 }`) and a short SFX accent from the catalog.",
+        "- Provide `motionCue` (zoomIn/zoomOut) on segments that carry high-impact numbers, definitions, or section cards so the camera reinforces emphasis.",
         "- For `type: \"icon\"` include `name` (short label) and optional icon/colors/animation; attach SFX when it enhances energy.",
         "- When assigning B-roll, set `mode: \"full\"` so footage fills the frame beneath overlays and animations.",
         f"- Always pick SFX from `assets/sfx` with relative paths (for example assets/sfx/ui/pop.mp3). Available options: {sfx_names}. Key notes: {sfx_notes}.",
         "- When highlights include SFX, align `start` with the moment and set `volume` between 0-1 if needed.",
+        "- Match B-roll subjects to the spoken context. Favour catalog IDs where keywords overlap the transcript tokens inside the same time range.",
         "- Segments must touch end-to-start with no gaps in the source timeline.",
         "- Respond with JSON inside a single fenced code block.",
     ]
@@ -1223,7 +1207,11 @@ def normalize_transition(value: Any) -> Dict[str, Any] | None:
     return transition
 
 
-def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] | None:
+def normalize_highlight_item(
+    raw: Dict[str, Any],
+    index: int,
+    srt_lookup: Dict[int, SrtEntry] | None = None,
+) -> Dict[str, Any] | None:
     """
     Normalizes a raw highlight item definition into a structured dictionary.
     Handles various input formats for type, text, timing, position, animation, and other properties.
@@ -1231,12 +1219,15 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     Args:
         raw: The raw highlight item dictionary.
         index: The index of the highlight, used for generating a default ID.
+        srt_lookup: Optional mapping of SRT indices to entries for snapping timing/text.
 
     Returns:
         A dictionary representing the normalized highlight item, or None if the input is invalid.
     """
     if not isinstance(raw, dict):
         return None
+
+    highlight_id = str(raw.get("id") or f"highlight-{index + 1:02d}")
 
     highlight_type_raw = raw.get("type") or raw.get("kind")
     highlight_type: str | None = None
@@ -1267,13 +1258,28 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     name_raw = (raw.get("name") or raw.get("label") or "").strip()
     icon_value = (raw.get("icon") or raw.get("iconName") or "").strip()
 
+    srt_entry: SrtEntry | None = None
+    if srt_lookup:
+        match = SRT_HIGHLIGHT_ID_RE.match(highlight_id.lower())
+        if match:
+            try:
+                srt_idx = int(match.group(1))
+            except ValueError:
+                srt_idx = None
+            if srt_idx is not None:
+                srt_entry = srt_lookup.get(srt_idx)
+
+    srt_text = srt_entry.text_one_line.strip() if srt_entry else ""
+
     # Determine if it's an icon type if not explicitly set
     has_icon_marker = bool(icon_value or (name_raw and not highlight_type))
     resolved_highlight_type = highlight_type or ("icon" if has_icon_marker else None)
 
     # If no content is provided, this is not a valid highlight
-    if not any([text_raw, title_raw, subtitle_raw, badge_raw, name_raw, icon_value]):
+    if not any([text_raw, title_raw, subtitle_raw, badge_raw, name_raw, icon_value, srt_text]):
         return None
+    if not text_raw and srt_text:
+        text_raw = srt_text
 
     # Normalize start time
     start = ensure_float(raw.get("start", raw.get("time", 0.0)), 0.0)
@@ -1288,6 +1294,16 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     if duration <= 0:
         duration = DEFAULT_HIGHLIGHT_DURATION
     duration = max(1.5, min(duration, 5.0))
+
+    if srt_entry:
+        srt_start = seconds_from_timecode(srt_entry.start)
+        srt_end = seconds_from_timecode(srt_entry.end)
+        srt_duration = max(0.0, srt_end - srt_start)
+        if srt_duration > 0:
+            start = srt_start
+            duration = srt_duration
+            duration = max(1.5, min(duration, 5.0))
+    start = max(0.0, start)
 
     # Determine highlight positioning defaults
     is_icon_highlight = resolved_highlight_type == "icon"
@@ -1319,9 +1335,12 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     # Construct the base highlight dictionary
     sanitized_text = ""
     if not is_icon_highlight:
+        keyword_raw = raw.get("keyword")
+        keyword_text = keyword_raw.strip() if isinstance(keyword_raw, str) else ""
         primary_candidates = [
             text_raw,
-            raw.get("keyword", "").strip() if isinstance(raw.get("keyword"), str) else "",
+            srt_text,
+            keyword_text,
             title_raw,
             subtitle_raw,
         ]
@@ -1334,7 +1353,7 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
                 break
 
     highlight: Dict[str, Any] = {
-        "id": str(raw.get("id") or f"highlight-{index + 1:02d}"),
+        "id": highlight_id,
         "start": round(start, 3),
         "duration": round(duration, 3),
         "position": position,
@@ -1364,6 +1383,11 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
         highlight["showBottom"] = True
         highlight.setdefault("safeBottom", 0.18)
         highlight.setdefault("safeInsetHorizontal", 0.08)
+    elif assigned_type == "sectionTitle":
+        base_phrase = title_raw or text_raw or keyword_text or sanitized_text or srt_text
+        display_text, keyword_value = format_section_title(highlight_id, base_phrase or "")
+        highlight["text"] = display_text
+        highlight["keyword"] = keyword_value
     elif assigned_type == "icon" and text_raw:
         highlight["text"] = text_raw
 
@@ -1544,13 +1568,18 @@ def normalize_highlight_item(raw: Dict[str, Any], index: int) -> Dict[str, Any] 
     return highlight
 
 
-def normalize_plan(plan: Dict[str, Any]) -> Dict[str, Any]:
+def normalize_plan(
+    plan: Dict[str, Any],
+    *,
+    srt_entries: Iterable[SrtEntry] | None = None,
+) -> Dict[str, Any]:
     """
     Normalizes the entire plan dictionary, processing segments and highlights.
     This function ensures consistency and applies default values where necessary.
 
     Args:
         plan: The raw plan dictionary from the LLM.
+        srt_entries: Optional collection of parsed SRT entries used for snapping highlight timing.
 
     Returns:
         A normalized plan dictionary.
@@ -1560,6 +1589,14 @@ def normalize_plan(plan: Dict[str, Any]) -> Dict[str, Any]:
     """
     if not isinstance(plan, dict):
         raise ValueError("Plan must be a JSON object.")
+
+    srt_lookup: Dict[int, SrtEntry] = {}
+    if srt_entries:
+        srt_lookup = {
+            entry.index: entry
+            for entry in srt_entries
+            if isinstance(entry, SrtEntry)
+        }
 
     segment_items: List[tuple[float, Dict[str, Any]]] = []
     raw_segments = plan.get("segments")
@@ -1697,7 +1734,7 @@ def normalize_plan(plan: Dict[str, Any]) -> Dict[str, Any]:
 
     normalized_highlights: List[Dict[str, Any]] = []
     for idx, raw_highlight in enumerate(raw_highlights):
-        normalized = normalize_highlight_item(raw_highlight, idx)
+        normalized = normalize_highlight_item(raw_highlight, idx, srt_lookup=srt_lookup)
         if normalized:
             normalized_highlights.append(normalized)
         if len(normalized_highlights) >= MAX_HIGHLIGHTS:
@@ -1834,21 +1871,56 @@ def main(argv: List[str] | None = None) -> int:
         except Exception as exc:
             print(f"[WARN] Could not initialize KnowledgeService: {exc}", file=sys.stderr)
 
-    # Build the prompt for the LLM
-    prompt = build_prompt(
+    base_include_scene_map = bool(scene_map_data)
+    has_catalogs = any([broll_catalog, sfx_catalog, motion_rules])
+    base_include_catalogs = has_catalogs
+
+    # Build the default prompt for dry-run or first attempt
+    prompt_cache: Dict[tuple[int, bool, bool], str] = {}
+    base_key = (len(entries), base_include_scene_map, base_include_catalogs)
+    prompt_cache[base_key] = build_prompt(
         entries,
         extra_instructions=args.extra_instructions,
-        scene_map=scene_map_data,
-        broll_catalog=broll_catalog,
-        sfx_catalog=sfx_catalog,
-        motion_rules=motion_rules,
-        knowledge_service=knowledge_service, # Pass the initialized service
+        scene_map=scene_map_data if base_include_scene_map else None,
+        broll_catalog=broll_catalog if base_include_catalogs else None,
+        sfx_catalog=sfx_catalog if base_include_catalogs else None,
+        motion_rules=motion_rules if base_include_catalogs else None,
+        knowledge_service=knowledge_service,
     )
 
     # If dry-run, print prompt and exit
     if args.dry_run:
-        print(prompt)
+        print(prompt_cache[base_key])
         return 0
+
+    # Prepare fallback configurations to mitigate Gemini timeouts
+    configs: List[Dict[str, Any]] = []
+    seen_configs: set[tuple[int, bool, bool]] = set()
+
+    def register_config(limit: int, include_scene: bool, include_catalogs: bool, label: str) -> None:
+        limit = max(1, min(limit, len(entries)))
+        include_scene = include_scene and base_include_scene_map
+        include_catalogs_flag = include_catalogs and base_include_catalogs
+        key = (limit, include_scene, include_catalogs_flag)
+        if key in seen_configs:
+            return
+        seen_configs.add(key)
+        configs.append(
+            {
+                "limit": limit,
+                "include_scene_map": include_scene,
+                "include_catalogs": include_catalogs_flag,
+                "label": label,
+            }
+        )
+
+    register_config(len(entries), True, True, "full prompt")
+    if len(entries) > 140:
+        register_config(140, True, True, "140 entries")
+    if len(entries) > 120:
+        register_config(120, True, True, "120 entries")
+    register_config(min(len(entries), 90), False, True, "no scene map")
+    register_config(min(len(entries), 70), False, False, "minimal context")
 
     # Configure Gemini client
     try:
@@ -1857,27 +1929,73 @@ def main(argv: List[str] | None = None) -> int:
         print(f"[ERROR] {exc}")
         return 1
 
-    # Generate content from Gemini
-    try:
-        response = model.generate_content(prompt)
-    except Exception as exc:  # noqa: BLE001 - Gemini client may raise many types
-        print(f"[ERROR] Gemini request failed: {exc}")
-        return 1
+    raw_text: Optional[str] = None
+    used_entries: List[SrtEntry] = entries
+    last_error: Optional[Exception] = None
 
-    raw_text = getattr(response, "text", None)
-    if not raw_text:
-        print("[ERROR] Empty response from Gemini")
+    for config in configs:
+        entry_limit = config["limit"]
+        include_scene_map = config["include_scene_map"]
+        include_catalogs_flag = config["include_catalogs"]
+        label = config["label"]
+
+        subset_entries = entries[:entry_limit]
+        cache_key = (entry_limit, include_scene_map, include_catalogs_flag)
+        if cache_key not in prompt_cache:
+            prompt_cache[cache_key] = build_prompt(
+                subset_entries,
+                extra_instructions=args.extra_instructions,
+                scene_map=scene_map_data if include_scene_map else None,
+                broll_catalog=broll_catalog if include_catalogs_flag else None,
+                sfx_catalog=sfx_catalog if include_catalogs_flag else None,
+                motion_rules=motion_rules if include_catalogs_flag else None,
+                knowledge_service=knowledge_service,
+            )
+        attempt_prompt = prompt_cache[cache_key]
+
+        try:
+            response = model.generate_content(attempt_prompt)
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            error_text = str(exc)
+            print(
+                f"[WARN] Gemini attempt failed ({label}, entries={entry_limit}): {error_text}"
+            )
+            error_text_lower = error_text.lower()
+            if "deadline" in error_text_lower or "504" in error_text_lower:
+                continue
+            break
+
+        raw_text = getattr(response, "text", None)
+        if not raw_text:
+            last_error = RuntimeError("Empty response from Gemini")  # type: ignore[assignment]
+            print(f"[WARN] Empty response from Gemini ({label})")
+            raw_text = None
+            continue
+
+        used_entries = subset_entries
+        break
+
+    if raw_text is None:
+        if last_error is not None:
+            print(f"[ERROR] Gemini request failed after retries: {last_error}")
+        else:
+            print("[ERROR] Gemini request failed: unknown error")
         return 1
 
     # Extract and normalize the plan from LLM response
     try:
         plan = extract_plan_json(raw_text)
-        plan = normalize_plan(plan)
+        plan = normalize_plan(plan, srt_entries=used_entries)
     except ValueError as exc:
         print(f"[ERROR] {exc}")
-        print("--- Gemini response ---")
-        print(raw_text)
-        print("--- end response ---")
+        debug_path = args.output_plan.parent / f"{args.output_plan.stem}.raw_response.txt"
+        try:
+            debug_path.parent.mkdir(parents=True, exist_ok=True)
+            debug_path.write_text(raw_text, encoding="utf-8")
+            print(f"[INFO] Raw Gemini response saved to {debug_path}")
+        except OSError as write_exc:
+            print(f"[WARN] Could not persist Gemini response for inspection: {write_exc}", file=sys.stderr)
         return 1
 
     # Dump the final plan to output file

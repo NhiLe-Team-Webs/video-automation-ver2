@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2025-10-26T07:35:36.444674+00:00",
+  "generatedAt": "2025-10-26T09:01:37.976416+00:00",
   "fps": 30.0,
   "motionRules": {
     "parallax": true,
@@ -55,10 +55,10 @@
     {
       "id": 2,
       "start": 3.24,
-      "end": 4.9,
-      "duration": 1.6600000000000001,
+      "end": 4.92,
+      "duration": 1.6799999999999997,
       "startFrame": 97,
-      "endFrame": 147,
+      "endFrame": 148,
       "text": "and watching you interact with each other.",
       "textOneLine": "and watching you interact with each other.",
       "tokens": [
@@ -93,11 +93,11 @@
     },
     {
       "id": 3,
-      "start": 4.9,
-      "end": 7.92,
-      "duration": 3.0199999999999996,
-      "startFrame": 147,
-      "endFrame": 238,
+      "start": 4.92,
+      "end": 7.88,
+      "duration": 2.96,
+      "startFrame": 148,
+      "endFrame": 236,
       "text": "And I think it's fair to say already",
       "textOneLine": "And I think it's fair to say already",
       "tokens": [
@@ -136,10 +136,10 @@
     },
     {
       "id": 4,
-      "start": 7.92,
+      "start": 7.88,
       "end": 15.64,
-      "duration": 7.720000000000001,
-      "startFrame": 238,
+      "duration": 7.760000000000001,
+      "startFrame": 236,
       "endFrame": 469,
       "text": "that there are 47 people in this audience at this moment",
       "textOneLine": "that there are 47 people in this audience at this moment",
@@ -274,12 +274,12 @@
     {
       "id": 8,
       "start": 25.6,
-      "end": 29.4,
-      "duration": 3.799999999999997,
+      "end": 27.64,
+      "duration": 2.039999999999999,
       "startFrame": 768,
-      "endFrame": 882,
-      "text": "But instead of pointing at you, which would be gratuitous",
-      "textOneLine": "But instead of pointing at you, which would be gratuitous",
+      "endFrame": 829,
+      "text": "But instead of pointing at you, which",
+      "textOneLine": "But instead of pointing at you, which",
       "tokens": [
         "but",
         "instead",
@@ -287,10 +287,7 @@
         "pointing",
         "at",
         "you",
-        "which",
-        "would",
-        "be",
-        "gratuitous"
+        "which"
       ],
       "topics": [],
       "topicScores": {},
@@ -305,26 +302,23 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 57
+      "rawTextLength": 37
     },
     {
       "id": 9,
-      "start": 29.4,
-      "end": 32.2,
-      "duration": 2.8000000000000043,
-      "startFrame": 882,
-      "endFrame": 966,
-      "text": "and intrusive, I thought I would tell you",
-      "textOneLine": "and intrusive, I thought I would tell you",
+      "start": 27.64,
+      "end": 31.08,
+      "duration": 3.4399999999999977,
+      "startFrame": 829,
+      "endFrame": 932,
+      "text": "would be gratuitous and intrusive,",
+      "textOneLine": "would be gratuitous and intrusive,",
       "tokens": [
-        "and",
-        "intrusive",
-        "i",
-        "thought",
-        "i",
         "would",
-        "tell",
-        "you"
+        "be",
+        "gratuitous",
+        "and",
+        "intrusive"
       ],
       "topics": [],
       "topicScores": {},
@@ -337,26 +331,31 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 41
+      "rawTextLength": 34
     },
     {
       "id": 10,
-      "start": 32.2,
-      "end": 34.56,
-      "duration": 2.3599999999999994,
-      "startFrame": 966,
-      "endFrame": 1037,
-      "text": "a few facts and stories in which you",
-      "textOneLine": "a few facts and stories in which you",
+      "start": 31.08,
+      "end": 34.4,
+      "duration": 3.3200000000000003,
+      "startFrame": 932,
+      "endFrame": 1032,
+      "text": "I thought I would tell you a few facts and stories in which",
+      "textOneLine": "I thought I would tell you a few facts and stories in which",
       "tokens": [
+        "i",
+        "thought",
+        "i",
+        "would",
+        "tell",
+        "you",
         "a",
         "few",
         "facts",
         "and",
         "stories",
         "in",
-        "which",
-        "you"
+        "which"
       ],
       "topics": [],
       "topicScores": {},
@@ -369,18 +368,19 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 36
+      "rawTextLength": 59
     },
     {
       "id": 11,
-      "start": 34.56,
+      "start": 34.4,
       "end": 38.32,
-      "duration": 3.759999999999998,
-      "startFrame": 1037,
+      "duration": 3.9200000000000017,
+      "startFrame": 1032,
       "endFrame": 1150,
-      "text": "may catch a glimpse of yourself.",
-      "textOneLine": "may catch a glimpse of yourself.",
+      "text": "you may catch a glimpse of yourself.",
+      "textOneLine": "you may catch a glimpse of yourself.",
       "tokens": [
+        "you",
         "may",
         "catch",
         "a",
@@ -399,7 +399,7 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 32
+      "rawTextLength": 36
     },
     {
       "id": 12,
@@ -444,10 +444,10 @@
     {
       "id": 13,
       "start": 40.48,
-      "end": 42.76,
-      "duration": 2.280000000000001,
+      "end": 42.72,
+      "duration": 2.240000000000002,
       "startFrame": 1214,
-      "endFrame": 1283,
+      "endFrame": 1282,
       "text": "as personality psychology, which is",
       "textOneLine": "as personality psychology, which is",
       "tokens": [
@@ -472,11 +472,11 @@
     },
     {
       "id": 14,
-      "start": 42.76,
-      "end": 46.24,
+      "start": 42.72,
+      "end": 46.2,
       "duration": 3.480000000000004,
-      "startFrame": 1283,
-      "endFrame": 1387,
+      "startFrame": 1282,
+      "endFrame": 1386,
       "text": "part of a larger personality science which",
       "textOneLine": "part of a larger personality science which",
       "tokens": [
@@ -503,11 +503,11 @@
     },
     {
       "id": 15,
-      "start": 46.24,
-      "end": 51.6,
+      "start": 46.2,
+      "end": 51.56,
       "duration": 5.359999999999999,
-      "startFrame": 1387,
-      "endFrame": 1548,
+      "startFrame": 1386,
+      "endFrame": 1547,
       "text": "spans the full spectrum from neurons to narratives.",
       "textOneLine": "spans the full spectrum from neurons to narratives.",
       "tokens": [
@@ -535,11 +535,11 @@
     },
     {
       "id": 16,
-      "start": 51.6,
-      "end": 55.44,
+      "start": 51.56,
+      "end": 55.4,
       "duration": 3.8399999999999963,
-      "startFrame": 1548,
-      "endFrame": 1663,
+      "startFrame": 1547,
+      "endFrame": 1662,
       "text": "And what we try to do in our own way",
       "textOneLine": "And what we try to do in our own way",
       "tokens": [
@@ -569,11 +569,11 @@
     },
     {
       "id": 17,
-      "start": 55.44,
-      "end": 60.68,
+      "start": 55.4,
+      "end": 60.64,
       "duration": 5.240000000000002,
-      "startFrame": 1663,
-      "endFrame": 1820,
+      "startFrame": 1662,
+      "endFrame": 1819,
       "text": "is to make sense of how each of us, each of you,",
       "textOneLine": "is to make sense of how each of us, each of you,",
       "tokens": [
@@ -605,10 +605,10 @@
     },
     {
       "id": 18,
-      "start": 60.68,
+      "start": 60.64,
       "end": 65.2,
-      "duration": 4.520000000000003,
-      "startFrame": 1820,
+      "duration": 4.560000000000002,
+      "startFrame": 1819,
       "endFrame": 1956,
       "text": "is in certain respects like all other people,",
       "textOneLine": "is in certain respects like all other people,",
@@ -640,10 +640,10 @@
     {
       "id": 19,
       "start": 65.2,
-      "end": 70.8,
-      "duration": 5.599999999999994,
+      "end": 70.76,
+      "duration": 5.560000000000002,
       "startFrame": 1956,
-      "endFrame": 2124,
+      "endFrame": 2123,
       "text": "like some other people, and like no other person.",
       "textOneLine": "like some other people, and like no other person.",
       "tokens": [
@@ -672,13 +672,13 @@
     },
     {
       "id": 20,
-      "start": 70.8,
-      "end": 73.88,
+      "start": 70.76,
+      "end": 73.84,
       "duration": 3.0799999999999983,
-      "startFrame": 2124,
-      "endFrame": 2216,
-      "text": "Now already you may be saying of yourself,",
-      "textOneLine": "Now already you may be saying of yourself,",
+      "startFrame": 2123,
+      "endFrame": 2215,
+      "text": "Now already you may be saying, of yourself,",
+      "textOneLine": "Now already you may be saying, of yourself,",
       "tokens": [
         "now",
         "already",
@@ -700,15 +700,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 42
+      "rawTextLength": 43
     },
     {
       "id": 21,
-      "start": 73.88,
-      "end": 77.2,
-      "duration": 3.3200000000000074,
-      "startFrame": 2216,
-      "endFrame": 2316,
+      "start": 73.84,
+      "end": 77.16,
+      "duration": 3.319999999999993,
+      "startFrame": 2215,
+      "endFrame": 2315,
       "text": "I'm not intriguing.",
       "textOneLine": "I'm not intriguing.",
       "tokens": [
@@ -732,11 +732,11 @@
     },
     {
       "id": 22,
-      "start": 77.2,
-      "end": 83.48,
+      "start": 77.16,
+      "end": 83.44,
       "duration": 6.280000000000001,
-      "startFrame": 2316,
-      "endFrame": 2504,
+      "startFrame": 2315,
+      "endFrame": 2503,
       "text": "I am the 46th most boring person in the Western hemisphere.",
       "textOneLine": "I am the 46th most boring person in the Western hemisphere.",
       "tokens": [
@@ -767,13 +767,13 @@
     },
     {
       "id": 23,
-      "start": 83.48,
+      "start": 83.44,
       "end": 88.8,
-      "duration": 5.319999999999993,
-      "startFrame": 2504,
+      "duration": 5.359999999999999,
+      "startFrame": 2503,
       "endFrame": 2664,
-      "text": "Or you may say of yourself, I am intriguing.",
-      "textOneLine": "Or you may say of yourself, I am intriguing.",
+      "text": "Or you may say of yourself, I am intriguing,",
+      "textOneLine": "Or you may say of yourself, I am intriguing,",
       "tokens": [
         "or",
         "you",
@@ -801,12 +801,12 @@
     {
       "id": 24,
       "start": 88.8,
-      "end": 90.72,
-      "duration": 1.9200000000000017,
+      "end": 92.12,
+      "duration": 3.3200000000000074,
       "startFrame": 2664,
-      "endFrame": 2722,
-      "text": "Even if I am regarded by most people",
-      "textOneLine": "Even if I am regarded by most people",
+      "endFrame": 2764,
+      "text": "even if I am regarded by most people as a great thundering",
+      "textOneLine": "even if I am regarded by most people as a great thundering",
       "tokens": [
         "even",
         "if",
@@ -815,7 +815,11 @@
         "regarded",
         "by",
         "most",
-        "people"
+        "people",
+        "as",
+        "a",
+        "great",
+        "thundering"
       ],
       "topics": [],
       "topicScores": {},
@@ -828,22 +832,18 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 36
+      "rawTextLength": 58
     },
     {
       "id": 25,
-      "start": 90.72,
+      "start": 92.12,
       "end": 93.96,
-      "duration": 3.239999999999995,
-      "startFrame": 2722,
+      "duration": 1.8399999999999892,
+      "startFrame": 2764,
       "endFrame": 2819,
-      "text": "as a great thundering twit.",
-      "textOneLine": "as a great thundering twit.",
+      "text": "twit.",
+      "textOneLine": "twit.",
       "tokens": [
-        "as",
-        "a",
-        "great",
-        "thundering",
         "twit"
       ],
       "topics": [],
@@ -857,15 +857,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 27
+      "rawTextLength": 5
     },
     {
       "id": 26,
       "start": 93.96,
-      "end": 97.52,
-      "duration": 3.5600000000000023,
+      "end": 97.48,
+      "duration": 3.5200000000000102,
       "startFrame": 2819,
-      "endFrame": 2926,
+      "endFrame": 2924,
       "text": "But it is your self-diagnosed boringness",
       "textOneLine": "But it is your self-diagnosed boringness",
       "tokens": [
@@ -902,10 +902,10 @@
     },
     {
       "id": 27,
-      "start": 97.52,
+      "start": 97.48,
       "end": 100.04,
-      "duration": 2.5200000000000102,
-      "startFrame": 2926,
+      "duration": 2.5600000000000023,
+      "startFrame": 2924,
       "endFrame": 3001,
       "text": "and your inherent twittiness that",
       "textOneLine": "and your inherent twittiness that",
@@ -1103,20 +1103,19 @@
     {
       "id": 33,
       "start": 116.84,
-      "end": 123.08,
-      "duration": 6.239999999999995,
+      "end": 122.44,
+      "duration": 5.599999999999994,
       "startFrame": 3505,
-      "endFrame": 3692,
-      "text": "are normally distributed that describe universally held",
-      "textOneLine": "are normally distributed that describe universally held",
+      "endFrame": 3673,
+      "text": "are normally distributed that describe universally",
+      "textOneLine": "are normally distributed that describe universally",
       "tokens": [
         "are",
         "normally",
         "distributed",
         "that",
         "describe",
-        "universally",
-        "held"
+        "universally"
       ],
       "topics": [],
       "topicScores": {},
@@ -1131,18 +1130,19 @@
       ],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 55
+      "rawTextLength": 50
     },
     {
       "id": 34,
-      "start": 123.08,
+      "start": 122.44,
       "end": 127.16,
-      "duration": 4.079999999999998,
-      "startFrame": 3692,
+      "duration": 4.719999999999999,
+      "startFrame": 3673,
       "endFrame": 3815,
-      "text": "aspects of difference between people.",
-      "textOneLine": "aspects of difference between people.",
+      "text": "held aspects of difference between people.",
+      "textOneLine": "held aspects of difference between people.",
       "tokens": [
+        "held",
         "aspects",
         "of",
         "difference",
@@ -1160,7 +1160,7 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 37
+      "rawTextLength": 42
     },
     {
       "id": 35,
@@ -1681,10 +1681,10 @@
     {
       "id": 51,
       "start": 177.16,
-      "end": 181.56,
-      "duration": 4.400000000000006,
+      "end": 181.6,
+      "duration": 4.439999999999998,
       "startFrame": 5315,
-      "endFrame": 5447,
+      "endFrame": 5448,
       "text": "through being audacious and occasionally odd.",
       "textOneLine": "through being audacious and occasionally odd.",
       "tokens": [
@@ -1710,11 +1710,11 @@
     },
     {
       "id": 52,
-      "start": 181.56,
-      "end": 183.56,
+      "start": 181.6,
+      "end": 183.6,
       "duration": 2.0,
-      "startFrame": 5447,
-      "endFrame": 5507,
+      "startFrame": 5448,
+      "endFrame": 5508,
       "text": "The conscientious people achieve it",
       "textOneLine": "The conscientious people achieve it",
       "tokens": [
@@ -1747,10 +1747,10 @@
     },
     {
       "id": 53,
-      "start": 183.56,
+      "start": 183.6,
       "end": 187.84,
-      "duration": 4.280000000000001,
-      "startFrame": 5507,
+      "duration": 4.240000000000009,
+      "startFrame": 5508,
       "endFrame": 5635,
       "text": "through sticking to deadlines, to persevering,",
       "textOneLine": "through sticking to deadlines, to persevering,",
@@ -2341,8 +2341,8 @@
       "duration": 3.039999999999992,
       "startFrame": 7192,
       "endFrame": 7283,
-      "text": "because it's consequential, and it's intriguing,",
-      "textOneLine": "because it's consequential, and it's intriguing,",
+      "text": "because it's consequential and it's intriguing.",
+      "textOneLine": "because it's consequential and it's intriguing.",
       "tokens": [
         "because",
         "it",
@@ -2372,7 +2372,7 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 48
+      "rawTextLength": 47
     },
     {
       "id": 71,
@@ -2381,8 +2381,8 @@
       "duration": 3.4399999999999977,
       "startFrame": 7283,
       "endFrame": 7386,
-      "text": "and it helps us understand what I call our three natures.",
-      "textOneLine": "and it helps us understand what I call our three natures.",
+      "text": "And it helps us understand what I call our three natures.",
+      "textOneLine": "And it helps us understand what I call our three natures.",
       "tokens": [
         "and",
         "it",
@@ -2558,8 +2558,8 @@
       "duration": 6.8799999999999955,
       "startFrame": 7703,
       "endFrame": 7909,
-      "text": "And third, what makes you individually you?",
-      "textOneLine": "And third, what makes you individually you?",
+      "text": "And third, what makes you, individually, you,",
+      "textOneLine": "And third, what makes you, individually, you,",
       "tokens": [
         "and",
         "third",
@@ -2579,10 +2579,8 @@
       "ctaTriggers": [],
       "motionCandidates": [],
       "parallaxEligible": false,
-      "sfxHints": [
-        "question"
-      ],
-      "rawTextLength": 43
+      "sfxHints": [],
+      "rawTextLength": 45
     },
     {
       "id": 77,
@@ -2591,15 +2589,16 @@
       "duration": 4.720000000000027,
       "startFrame": 7909,
       "endFrame": 8051,
-      "text": "Ideosyncratic, what I call your ideogenic nature.",
-      "textOneLine": "Ideosyncratic, what I call your ideogenic nature.",
+      "text": "idiosyncratic, what I call your idio-genic nature?",
+      "textOneLine": "idiosyncratic, what I call your idio-genic nature?",
       "tokens": [
-        "ideosyncratic",
+        "idiosyncratic",
         "what",
         "i",
         "call",
         "your",
-        "ideogenic",
+        "idio",
+        "genic",
         "nature"
       ],
       "topics": [
@@ -2620,8 +2619,10 @@
       "ctaTriggers": [],
       "motionCandidates": [],
       "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 49
+      "sfxHints": [
+        "question"
+      ],
+      "rawTextLength": 50
     },
     {
       "id": 78,
@@ -2686,19 +2687,16 @@
     {
       "id": 80,
       "start": 272.72,
-      "end": 275.8,
-      "duration": 3.079999999999984,
+      "end": 274.72,
+      "duration": 2.0,
       "startFrame": 8182,
-      "endFrame": 8274,
-      "text": "is they need stimulation, and that stimulation",
-      "textOneLine": "is they need stimulation, and that stimulation",
+      "endFrame": 8242,
+      "text": "is they need stimulation.",
+      "textOneLine": "is they need stimulation.",
       "tokens": [
         "is",
         "they",
         "need",
-        "stimulation",
-        "and",
-        "that",
         "stimulation"
       ],
       "topics": [],
@@ -2712,28 +2710,27 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 46
+      "rawTextLength": 25
     },
     {
       "id": 81,
-      "start": 275.8,
-      "end": 279.8,
-      "duration": 4.0,
-      "startFrame": 8274,
-      "endFrame": 8394,
-      "text": "can be achieved by finding things that are exciting, loud,",
-      "textOneLine": "can be achieved by finding things that are exciting, loud,",
+      "start": 274.72,
+      "end": 278.64,
+      "duration": 3.919999999999959,
+      "startFrame": 8242,
+      "endFrame": 8359,
+      "text": "And that stimulation can be achieved by finding things",
+      "textOneLine": "And that stimulation can be achieved by finding things",
       "tokens": [
+        "and",
+        "that",
+        "stimulation",
         "can",
         "be",
         "achieved",
         "by",
         "finding",
-        "things",
-        "that",
-        "are",
-        "exciting",
-        "loud"
+        "things"
       ],
       "topics": [],
       "topicScores": {},
@@ -2746,18 +2743,46 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 58
+      "rawTextLength": 54
     },
     {
       "id": 82,
-      "start": 279.8,
-      "end": 283.52,
-      "duration": 3.7199999999999704,
-      "startFrame": 8394,
-      "endFrame": 8506,
-      "text": "noises, parties, and social events here at TED.",
-      "textOneLine": "noises, parties, and social events here at TED.",
+      "start": 278.64,
+      "end": 279.44,
+      "duration": 0.8000000000000114,
+      "startFrame": 8359,
+      "endFrame": 8383,
+      "text": "that are exciting.",
+      "textOneLine": "that are exciting.",
       "tokens": [
+        "that",
+        "are",
+        "exciting"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 18
+    },
+    {
+      "id": 83,
+      "start": 279.44,
+      "end": 283.56,
+      "duration": 4.1200000000000045,
+      "startFrame": 8383,
+      "endFrame": 8507,
+      "text": "Loud noises, parties, and social events here at TED.",
+      "textOneLine": "Loud noises, parties, and social events here at TED.",
+      "tokens": [
+        "loud",
         "noises",
         "parties",
         "and",
@@ -2778,15 +2803,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 47
+      "rawTextLength": 52
     },
     {
-      "id": 83,
-      "start": 283.52,
-      "end": 286.68,
+      "id": 84,
+      "start": 283.56,
+      "end": 286.72,
       "duration": 3.160000000000025,
-      "startFrame": 8506,
-      "endFrame": 8600,
+      "startFrame": 8507,
+      "endFrame": 8602,
       "text": "You see the extroverts forming a magnetic core,",
       "textOneLine": "You see the extroverts forming a magnetic core,",
       "tokens": [
@@ -2813,20 +2838,44 @@
       "rawTextLength": 47
     },
     {
-      "id": 84,
-      "start": 286.68,
-      "end": 289.84,
-      "duration": 3.159999999999968,
-      "startFrame": 8600,
-      "endFrame": 8695,
-      "text": "and they all gather together, and I've seen you.",
-      "textOneLine": "and they all gather together, and I've seen you.",
+      "id": 85,
+      "start": 286.72,
+      "end": 288.44,
+      "duration": 1.7199999999999704,
+      "startFrame": 8602,
+      "endFrame": 8653,
+      "text": "and they all gather together.",
+      "textOneLine": "and they all gather together.",
       "tokens": [
         "and",
         "they",
         "all",
         "gather",
-        "together",
+        "together"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 29
+    },
+    {
+      "id": 86,
+      "start": 288.44,
+      "end": 289.88,
+      "duration": 1.4399999999999977,
+      "startFrame": 8653,
+      "endFrame": 8696,
+      "text": "And I've seen you.",
+      "textOneLine": "And I've seen you.",
+      "tokens": [
         "and",
         "i",
         "ve",
@@ -2844,15 +2893,15 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 48
+      "rawTextLength": 18
     },
     {
-      "id": 85,
-      "start": 289.84,
-      "end": 291.88,
+      "id": 87,
+      "start": 289.88,
+      "end": 291.92,
       "duration": 2.0400000000000205,
-      "startFrame": 8695,
-      "endFrame": 8756,
+      "startFrame": 8696,
+      "endFrame": 8758,
       "text": "The introverts are more likely to spend time",
       "textOneLine": "The introverts are more likely to spend time",
       "tokens": [
@@ -2879,12 +2928,12 @@
       "rawTextLength": 44
     },
     {
-      "id": 86,
-      "start": 291.88,
-      "end": 295.2,
+      "id": 88,
+      "start": 291.92,
+      "end": 295.24,
       "duration": 3.319999999999993,
-      "startFrame": 8756,
-      "endFrame": 8856,
+      "startFrame": 8758,
+      "endFrame": 8857,
       "text": "in the quiet spaces up on the second floor, where",
       "textOneLine": "in the quiet spaces up on the second floor, where",
       "tokens": [
@@ -2926,12 +2975,12 @@
       "rawTextLength": 49
     },
     {
-      "id": 87,
-      "start": 295.2,
-      "end": 298.84,
+      "id": 89,
+      "start": 295.24,
+      "end": 298.88,
       "duration": 3.6399999999999864,
-      "startFrame": 8856,
-      "endFrame": 8965,
+      "startFrame": 8857,
+      "endFrame": 8966,
       "text": "they are able to reduce stimulation,",
       "textOneLine": "they are able to reduce stimulation,",
       "tokens": [
@@ -2956,12 +3005,12 @@
       "rawTextLength": 36
     },
     {
-      "id": 88,
-      "start": 298.84,
-      "end": 302.8,
-      "duration": 3.9600000000000364,
-      "startFrame": 8965,
-      "endFrame": 9084,
+      "id": 90,
+      "start": 298.88,
+      "end": 302.84,
+      "duration": 3.9599999999999795,
+      "startFrame": 8966,
+      "endFrame": 9085,
       "text": "and maybe misconstrued as being antisocial.",
       "textOneLine": "and maybe misconstrued as being antisocial.",
       "tokens": [
@@ -2986,11 +3035,11 @@
       "rawTextLength": 43
     },
     {
-      "id": 89,
-      "start": 302.8,
+      "id": 91,
+      "start": 302.84,
       "end": 307.08,
-      "duration": 4.279999999999973,
-      "startFrame": 9084,
+      "duration": 4.240000000000009,
+      "startFrame": 9085,
       "endFrame": 9212,
       "text": "But you're not necessarily antisocial.",
       "textOneLine": "But you're not necessarily antisocial.",
@@ -3018,7 +3067,7 @@
       "rawTextLength": 38
     },
     {
-      "id": 90,
+      "id": 92,
       "start": 307.08,
       "end": 311.2,
       "duration": 4.1200000000000045,
@@ -3061,7 +3110,7 @@
       "rawTextLength": 52
     },
     {
-      "id": 91,
+      "id": 93,
       "start": 311.2,
       "end": 316.76,
       "duration": 5.560000000000002,
@@ -3096,7 +3145,7 @@
       "rawTextLength": 58
     },
     {
-      "id": 92,
+      "id": 94,
       "start": 316.76,
       "end": 320.84,
       "duration": 4.079999999999984,
@@ -3137,7 +3186,7 @@
       "rawTextLength": 52
     },
     {
-      "id": 93,
+      "id": 95,
       "start": 320.84,
       "end": 324.24,
       "duration": 3.400000000000034,
@@ -3177,7 +3226,7 @@
       "rawTextLength": 56
     },
     {
-      "id": 94,
+      "id": 96,
       "start": 324.24,
       "end": 325.84,
       "duration": 1.599999999999966,
@@ -3213,7 +3262,7 @@
       "rawTextLength": 24
     },
     {
-      "id": 95,
+      "id": 97,
       "start": 325.84,
       "end": 328.2,
       "duration": 2.3600000000000136,
@@ -3261,7 +3310,7 @@
       "rawTextLength": 49
     },
     {
-      "id": 96,
+      "id": 98,
       "start": 328.2,
       "end": 331.96,
       "duration": 3.759999999999991,
@@ -3297,7 +3346,7 @@
       "rawTextLength": 54
     },
     {
-      "id": 97,
+      "id": 99,
       "start": 331.96,
       "end": 333.16,
       "duration": 1.2000000000000455,
@@ -3325,7 +3374,7 @@
       "rawTextLength": 20
     },
     {
-      "id": 98,
+      "id": 100,
       "start": 333.16,
       "end": 335.32,
       "duration": 2.159999999999968,
@@ -3352,7 +3401,7 @@
       "rawTextLength": 15
     },
     {
-      "id": 99,
+      "id": 101,
       "start": 335.32,
       "end": 337.84,
       "duration": 2.519999999999982,
@@ -3383,7 +3432,7 @@
       "rawTextLength": 42
     },
     {
-      "id": 100,
+      "id": 102,
       "start": 337.84,
       "end": 340.68,
       "duration": 2.840000000000032,
@@ -3414,7 +3463,7 @@
       "rawTextLength": 32
     },
     {
-      "id": 101,
+      "id": 103,
       "start": 340.68,
       "end": 342.2,
       "duration": 1.5199999999999818,
@@ -3444,14 +3493,14 @@
       "rawTextLength": 28
     },
     {
-      "id": 102,
+      "id": 104,
       "start": 342.2,
       "end": 346.32,
       "duration": 4.1200000000000045,
       "startFrame": 10266,
       "endFrame": 10390,
-      "text": "If those tasks are speeded and if they're quantitative,",
-      "textOneLine": "If those tasks are speeded and if they're quantitative,",
+      "text": "If those tasks are speeded, and if they're quantitative,",
+      "textOneLine": "If those tasks are speeded, and if they're quantitative,",
       "tokens": [
         "if",
         "those",
@@ -3475,10 +3524,10 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 55
+      "rawTextLength": 56
     },
     {
-      "id": 103,
+      "id": 105,
       "start": 346.32,
       "end": 348.64,
       "duration": 2.319999999999993,
@@ -3507,14 +3556,14 @@
       "rawTextLength": 34
     },
     {
-      "id": 104,
+      "id": 106,
       "start": 348.64,
       "end": 351.32,
       "duration": 2.680000000000007,
       "startFrame": 10459,
       "endFrame": 10540,
-      "text": "of not being particularly quantitative,",
-      "textOneLine": "of not being particularly quantitative,",
+      "text": "of not being particularly quantitative.",
+      "textOneLine": "of not being particularly quantitative.",
       "tokens": [
         "of",
         "not",
@@ -3536,14 +3585,14 @@
       "rawTextLength": 39
     },
     {
-      "id": 105,
+      "id": 107,
       "start": 351.32,
       "end": 353.04,
       "duration": 1.7200000000000273,
       "startFrame": 10540,
       "endFrame": 10591,
-      "text": "but it's a misconstrual.",
-      "textOneLine": "but it's a misconstrual.",
+      "text": "But it's a misconstrual.",
+      "textOneLine": "But it's a misconstrual.",
       "tokens": [
         "but",
         "it",
@@ -3575,7 +3624,7 @@
       "rawTextLength": 24
     },
     {
-      "id": 106,
+      "id": 108,
       "start": 353.04,
       "end": 356.08,
       "duration": 3.0399999999999636,
@@ -3609,7 +3658,7 @@
       "rawTextLength": 62
     },
     {
-      "id": 107,
+      "id": 109,
       "start": 356.08,
       "end": 358.16,
       "duration": 2.080000000000041,
@@ -3642,7 +3691,7 @@
       "rawTextLength": 36
     },
     {
-      "id": 108,
+      "id": 110,
       "start": 358.16,
       "end": 362.0,
       "duration": 3.839999999999975,
@@ -3676,7 +3725,7 @@
       "rawTextLength": 35
     },
     {
-      "id": 109,
+      "id": 111,
       "start": 362.0,
       "end": 364.2,
       "duration": 2.1999999999999886,
@@ -3707,7 +3756,7 @@
       "rawTextLength": 37
     },
     {
-      "id": 110,
+      "id": 112,
       "start": 364.2,
       "end": 367.24,
       "duration": 3.0400000000000205,
@@ -3735,21 +3784,29 @@
       "rawTextLength": 35
     },
     {
-      "id": 111,
+      "id": 113,
       "start": 367.24,
-      "end": 369.36,
-      "duration": 2.1200000000000045,
+      "end": 372.2,
+      "duration": 4.9599999999999795,
       "startFrame": 11017,
-      "endFrame": 11081,
-      "text": "Although I may not have time.",
-      "textOneLine": "Although I may not have time.",
+      "endFrame": 11166,
+      "text": "Although I may not have time, and so if you would like me to,",
+      "textOneLine": "Although I may not have time, and so if you would like me to,",
       "tokens": [
         "although",
         "i",
         "may",
         "not",
         "have",
-        "time"
+        "time",
+        "and",
+        "so",
+        "if",
+        "you",
+        "would",
+        "like",
+        "me",
+        "to"
       ],
       "topics": [],
       "topicScores": {},
@@ -3762,26 +3819,18 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 29
+      "rawTextLength": 61
     },
     {
-      "id": 112,
-      "start": 369.36,
+      "id": 114,
+      "start": 372.2,
       "end": 372.96,
-      "duration": 3.599999999999966,
-      "startFrame": 11081,
+      "duration": 0.7599999999999909,
+      "startFrame": 11166,
       "endFrame": 11189,
-      "text": "And so if you would like me to, yes, you would.",
-      "textOneLine": "And so if you would like me to, yes, you would.",
+      "text": "yes, you would.",
+      "textOneLine": "yes, you would.",
       "tokens": [
-        "and",
-        "so",
-        "if",
-        "you",
-        "would",
-        "like",
-        "me",
-        "to",
         "yes",
         "you",
         "would"
@@ -3797,10 +3846,10 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 47
+      "rawTextLength": 15
     },
     {
-      "id": 113,
+      "id": 115,
       "start": 372.96,
       "end": 375.68,
       "duration": 2.7200000000000273,
@@ -3825,7 +3874,7 @@
       "rawTextLength": 3
     },
     {
-      "id": 114,
+      "id": 116,
       "start": 375.68,
       "end": 377.44,
       "duration": 1.759999999999991,
@@ -3869,7 +3918,7 @@
       "rawTextLength": 39
     },
     {
-      "id": 115,
+      "id": 117,
       "start": 377.44,
       "end": 383.2,
       "duration": 5.759999999999991,
@@ -3909,7 +3958,7 @@
       "rawTextLength": 50
     },
     {
-      "id": 116,
+      "id": 118,
       "start": 383.2,
       "end": 386.88,
       "duration": 3.680000000000007,
@@ -3941,7 +3990,7 @@
       "rawTextLength": 53
     },
     {
-      "id": 117,
+      "id": 119,
       "start": 386.88,
       "end": 390.64,
       "duration": 3.759999999999991,
@@ -3976,7 +4025,7 @@
       "rawTextLength": 40
     },
     {
-      "id": 118,
+      "id": 120,
       "start": 390.64,
       "end": 391.32,
       "duration": 0.6800000000000068,
@@ -4004,7 +4053,7 @@
       "rawTextLength": 14
     },
     {
-      "id": 119,
+      "id": 121,
       "start": 391.32,
       "end": 392.24,
       "duration": 0.9200000000000159,
@@ -4041,14 +4090,14 @@
       "rawTextLength": 21
     },
     {
-      "id": 120,
-      "start": 394.72,
-      "end": 401.44,
-      "duration": 6.71999999999997,
-      "startFrame": 11842,
-      "endFrame": 12043,
-      "text": "How many times per month do introverted men",
-      "textOneLine": "How many times per month do introverted men",
+      "id": 122,
+      "start": 395.2,
+      "end": 404.2,
+      "duration": 9.0,
+      "startFrame": 11856,
+      "endFrame": 12126,
+      "text": "How many times per month do introverted men engage in the act?",
+      "textOneLine": "How many times per month do introverted men engage in the act?",
       "tokens": [
         "how",
         "many",
@@ -4057,31 +4106,7 @@
         "month",
         "do",
         "introverted",
-        "men"
-      ],
-      "topics": [],
-      "topicScores": {},
-      "emotion": "neutral",
-      "emotionTriggers": [],
-      "highlightScore": 0.0,
-      "highlightTriggers": [],
-      "cta": false,
-      "ctaTriggers": [],
-      "motionCandidates": [],
-      "parallaxEligible": false,
-      "sfxHints": [],
-      "rawTextLength": 43
-    },
-    {
-      "id": 121,
-      "start": 401.44,
-      "end": 404.32,
-      "duration": 2.8799999999999955,
-      "startFrame": 12043,
-      "endFrame": 12130,
-      "text": "engage in the act?",
-      "textOneLine": "engage in the act?",
-      "tokens": [
+        "men",
         "engage",
         "in",
         "the",
@@ -4100,15 +4125,15 @@
       "sfxHints": [
         "question"
       ],
-      "rawTextLength": 18
+      "rawTextLength": 62
     },
     {
-      "id": 122,
-      "start": 404.32,
-      "end": 405.68,
-      "duration": 1.3600000000000136,
-      "startFrame": 12130,
-      "endFrame": 12170,
+      "id": 123,
+      "start": 404.2,
+      "end": 405.64,
+      "duration": 1.4399999999999977,
+      "startFrame": 12126,
+      "endFrame": 12169,
       "text": "3.0.",
       "textOneLine": "3.0.",
       "tokens": [
@@ -4131,12 +4156,12 @@
       "rawTextLength": 4
     },
     {
-      "id": 123,
-      "start": 405.68,
-      "end": 407.28,
-      "duration": 1.599999999999966,
-      "startFrame": 12170,
-      "endFrame": 12218,
+      "id": 124,
+      "start": 405.64,
+      "end": 407.24,
+      "duration": 1.6000000000000227,
+      "startFrame": 12169,
+      "endFrame": 12217,
       "text": "Extroverted men?",
       "textOneLine": "Extroverted men?",
       "tokens": [
@@ -4159,12 +4184,12 @@
       "rawTextLength": 16
     },
     {
-      "id": 124,
-      "start": 407.28,
-      "end": 409.4,
+      "id": 125,
+      "start": 407.24,
+      "end": 409.36,
       "duration": 2.1200000000000045,
-      "startFrame": 12218,
-      "endFrame": 12282,
+      "startFrame": 12217,
+      "endFrame": 12281,
       "text": "More or less?",
       "textOneLine": "More or less?",
       "tokens": [
@@ -4188,12 +4213,12 @@
       "rawTextLength": 13
     },
     {
-      "id": 125,
-      "start": 409.4,
-      "end": 411.36,
-      "duration": 1.9600000000000364,
-      "startFrame": 12282,
-      "endFrame": 12341,
+      "id": 126,
+      "start": 409.36,
+      "end": 411.32,
+      "duration": 1.9599999999999795,
+      "startFrame": 12281,
+      "endFrame": 12340,
       "text": "Yes, more.",
       "textOneLine": "Yes, more.",
       "tokens": [
@@ -4214,12 +4239,12 @@
       "rawTextLength": 10
     },
     {
-      "id": 126,
-      "start": 411.36,
-      "end": 414.92,
+      "id": 127,
+      "start": 411.32,
+      "end": 414.88,
       "duration": 3.5600000000000023,
-      "startFrame": 12341,
-      "endFrame": 12448,
+      "startFrame": 12340,
+      "endFrame": 12446,
       "text": "5.5, almost twice as much.",
       "textOneLine": "5.5, almost twice as much.",
       "tokens": [
@@ -4246,12 +4271,12 @@
       "rawTextLength": 26
     },
     {
-      "id": 127,
-      "start": 414.92,
-      "end": 417.48,
+      "id": 128,
+      "start": 414.88,
+      "end": 417.44,
       "duration": 2.5600000000000023,
-      "startFrame": 12448,
-      "endFrame": 12524,
+      "startFrame": 12446,
+      "endFrame": 12523,
       "text": "Introverted women, 3.1.",
       "textOneLine": "Introverted women, 3.1.",
       "tokens": [
@@ -4276,12 +4301,12 @@
       "rawTextLength": 23
     },
     {
-      "id": 128,
-      "start": 417.48,
-      "end": 420.32,
+      "id": 129,
+      "start": 417.44,
+      "end": 420.28,
       "duration": 2.839999999999975,
-      "startFrame": 12524,
-      "endFrame": 12610,
+      "startFrame": 12523,
+      "endFrame": 12608,
       "text": "Extroverted women, frankly, speaking",
       "textOneLine": "Extroverted women, frankly, speaking",
       "tokens": [
@@ -4304,12 +4329,12 @@
       "rawTextLength": 36
     },
     {
-      "id": 129,
-      "start": 420.32,
-      "end": 424.2,
-      "duration": 3.8799999999999955,
-      "startFrame": 12610,
-      "endFrame": 12726,
+      "id": 130,
+      "start": 420.28,
+      "end": 424.16,
+      "duration": 3.8800000000000523,
+      "startFrame": 12608,
+      "endFrame": 12725,
       "text": "as an introverted male, which I will explain later,",
       "textOneLine": "as an introverted male, which I will explain later,",
       "tokens": [
@@ -4339,12 +4364,12 @@
       "rawTextLength": 51
     },
     {
-      "id": 130,
-      "start": 424.2,
-      "end": 426.52,
+      "id": 131,
+      "start": 424.16,
+      "end": 426.48,
       "duration": 2.319999999999993,
-      "startFrame": 12726,
-      "endFrame": 12796,
+      "startFrame": 12725,
+      "endFrame": 12794,
       "text": "they are heroic.",
       "textOneLine": "they are heroic.",
       "tokens": [
@@ -4366,12 +4391,12 @@
       "rawTextLength": 16
     },
     {
-      "id": 131,
-      "start": 426.52,
-      "end": 431.68,
-      "duration": 5.160000000000025,
-      "startFrame": 12796,
-      "endFrame": 12950,
+      "id": 132,
+      "start": 426.48,
+      "end": 431.64,
+      "duration": 5.159999999999968,
+      "startFrame": 12794,
+      "endFrame": 12949,
       "text": "7.5, they not only handle all the male extroverts,",
       "textOneLine": "7.5, they not only handle all the male extroverts,",
       "tokens": [
@@ -4402,12 +4427,12 @@
       "rawTextLength": 50
     },
     {
-      "id": 132,
-      "start": 431.68,
-      "end": 433.68,
+      "id": 133,
+      "start": 431.64,
+      "end": 433.64,
       "duration": 2.0,
-      "startFrame": 12950,
-      "endFrame": 13010,
+      "startFrame": 12949,
+      "endFrame": 13009,
       "text": "they pick up a few introverts as well.",
       "textOneLine": "they pick up a few introverts as well.",
       "tokens": [
@@ -4434,11 +4459,11 @@
       "rawTextLength": 38
     },
     {
-      "id": 133,
-      "start": 442.16,
+      "id": 134,
+      "start": 442.12,
       "end": 447.96,
-      "duration": 5.7999999999999545,
-      "startFrame": 13265,
+      "duration": 5.839999999999975,
+      "startFrame": 13264,
       "endFrame": 13439,
       "text": "We communicate differently, extroverts and introverts.",
       "textOneLine": "We communicate differently, extroverts and introverts.",
@@ -4464,7 +4489,7 @@
       "rawTextLength": 54
     },
     {
-      "id": 134,
+      "id": 135,
       "start": 447.96,
       "end": 449.32,
       "duration": 1.3600000000000136,
@@ -4493,7 +4518,7 @@
       "rawTextLength": 36
     },
     {
-      "id": 135,
+      "id": 136,
       "start": 449.32,
       "end": 453.8,
       "duration": 4.480000000000018,
@@ -4526,16 +4551,17 @@
       "rawTextLength": 57
     },
     {
-      "id": 136,
-      "start": 453.8,
-      "end": 457.84,
-      "duration": 4.039999999999964,
-      "startFrame": 13614,
-      "endFrame": 13735,
-      "text": "They like to stand close for comfortable communication.",
-      "textOneLine": "They like to stand close for comfortable communication.",
+      "id": 137,
+      "start": 453.84,
+      "end": 457.88,
+      "duration": 4.0400000000000205,
+      "startFrame": 13615,
+      "endFrame": 13736,
+      "text": "They'd like to stand close for comfortable communication.",
+      "textOneLine": "They'd like to stand close for comfortable communication.",
       "tokens": [
         "they",
+        "d",
         "like",
         "to",
         "stand",
@@ -4559,19 +4585,20 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 55
+      "rawTextLength": 57
     },
     {
-      "id": 137,
-      "start": 457.84,
-      "end": 462.56,
+      "id": 138,
+      "start": 457.88,
+      "end": 462.6,
       "duration": 4.720000000000027,
-      "startFrame": 13735,
-      "endFrame": 13877,
-      "text": "They like to have a lot of eye contact or mutual gaze.",
-      "textOneLine": "They like to have a lot of eye contact or mutual gaze.",
+      "startFrame": 13736,
+      "endFrame": 13878,
+      "text": "They'd like to have a lot of eye contact or mutual gaze.",
+      "textOneLine": "They'd like to have a lot of eye contact or mutual gaze.",
       "tokens": [
         "they",
+        "d",
         "like",
         "to",
         "have",
@@ -4595,14 +4622,14 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 54
+      "rawTextLength": 56
     },
     {
-      "id": 138,
-      "start": 462.56,
+      "id": 139,
+      "start": 462.6,
       "end": 464.04,
-      "duration": 1.4800000000000182,
-      "startFrame": 13877,
+      "duration": 1.4399999999999977,
+      "startFrame": 13878,
       "endFrame": 13921,
       "text": "We found in some research that they",
       "textOneLine": "We found in some research that they",
@@ -4637,12 +4664,12 @@
       "rawTextLength": 35
     },
     {
-      "id": 139,
+      "id": 140,
       "start": 464.04,
-      "end": 467.2,
-      "duration": 3.159999999999968,
+      "end": 467.24,
+      "duration": 3.1999999999999886,
       "startFrame": 13921,
-      "endFrame": 14016,
+      "endFrame": 14017,
       "text": "use more diminutive terms when they meet somebody.",
       "textOneLine": "use more diminutive terms when they meet somebody.",
       "tokens": [
@@ -4669,14 +4696,14 @@
       "rawTextLength": 50
     },
     {
-      "id": 140,
-      "start": 467.2,
-      "end": 470.68,
-      "duration": 3.480000000000018,
-      "startFrame": 14016,
-      "endFrame": 14120,
-      "text": "So when an extrovert meets a male,",
-      "textOneLine": "So when an extrovert meets a male,",
+      "id": 141,
+      "start": 467.24,
+      "end": 470.84,
+      "duration": 3.599999999999966,
+      "startFrame": 14017,
+      "endFrame": 14125,
+      "text": "So when an extrovert meets a male extrovert,",
+      "textOneLine": "So when an extrovert meets a male extrovert,",
       "tokens": [
         "so",
         "when",
@@ -4684,7 +4711,8 @@
         "extrovert",
         "meets",
         "a",
-        "male"
+        "male",
+        "extrovert"
       ],
       "topics": [],
       "topicScores": {},
@@ -4697,12 +4725,47 @@
       "motionCandidates": [],
       "parallaxEligible": false,
       "sfxHints": [],
-      "rawTextLength": 34
+      "rawTextLength": 44
+    },
+    {
+      "id": 142,
+      "start": 470.84,
+      "end": 475.4,
+      "duration": 4.560000000000002,
+      "startFrame": 14125,
+      "endFrame": 14262,
+      "text": "they want to have a lot of social encounter punctuated by",
+      "textOneLine": "they want to have a lot of social encounter punctuated by",
+      "tokens": [
+        "they",
+        "want",
+        "to",
+        "have",
+        "a",
+        "lot",
+        "of",
+        "social",
+        "encounter",
+        "punctuated",
+        "by"
+      ],
+      "topics": [],
+      "topicScores": {},
+      "emotion": "neutral",
+      "emotionTriggers": [],
+      "highlightScore": 0.0,
+      "highlightTriggers": [],
+      "cta": false,
+      "ctaTriggers": [],
+      "motionCandidates": [],
+      "parallaxEligible": false,
+      "sfxHints": [],
+      "rawTextLength": 57
     }
   ],
   "summary": {
-    "totalSegments": 140,
-    "estimatedDurationSeconds": 470.68,
+    "totalSegments": 142,
+    "estimatedDurationSeconds": 475.4,
     "highlightSegments": 0,
     "ctaSegments": 0,
     "motionFrequencyConfig": 0.45,

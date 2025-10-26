@@ -489,7 +489,18 @@ FILLER_PHRASES = {
     "oh okay",
 }
 MIN_KEYWORD_LENGTH = 3
-MAX_KEYWORD_TOKENS = 2
+MAX_KEYWORD_TOKENS = 3
+MAX_SRT_AUTO_HIGHLIGHTS = 6
+MAX_TOTAL_HIGHLIGHTS = 20
+SECTION_TITLE_SUFFIXES: tuple[str, ...] = (
+    "Overview",
+    "Insights",
+    "Focus",
+    "Spotlight",
+    "Framework",
+    "Recap",
+    "Summary",
+)
 GENERIC_SKIP_TOKENS = {
     "GET",
     "WANT",
@@ -647,6 +658,46 @@ GENERIC_SKIP_TOKENS = {
     "TAKES",
     "TAKEN",
 }
+
+PRONOUN_TOKENS = {
+    "I",
+    "YOU",
+    "WE",
+    "THEY",
+    "HE",
+    "SHE",
+    "IT",
+    "ME",
+    "HIM",
+    "HER",
+    "THEM",
+    "US",
+    "YOUR",
+    "OUR",
+    "THEIR",
+    "MY",
+    "YOURSELF",
+    "OURSELVES",
+    "THEMSELVES",
+}
+
+ADJECTIVE_SUFFIXES = (
+    "IVE",
+    "OUS",
+    "FUL",
+    "LESS",
+    "ING",
+    "ED",
+    "ABLE",
+    "IBLE",
+    "ANT",
+    "ENT",
+    "LIKE",
+    "ISH",
+    "AL",
+    "ARY",
+    "ERY",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -827,6 +878,11 @@ def keyword_is_meaningful(text: str) -> bool:
         return False
     if all(token in GENERIC_SKIP_TOKENS for token in tokens):
         return False
+    if any(token.lower() in _COMMON_VERB_TOKENS_LOWER for token in tokens):
+        return False
+    content_tokens = [token for token in tokens if token.upper() not in _ALLOWED_CONNECTORS]
+    if len(content_tokens) == 1 and len(content_tokens[0]) < 5:
+        return False
     return True
 
 
@@ -926,6 +982,473 @@ def split_words_for_supporting(words: List[str]) -> Tuple[List[str], List[str]]:
 
     midpoint = max(2, len(words) // 2)
     return words[:midpoint], words[midpoint:]
+
+
+def collect_scene_window(
+    scene_segments: Iterable[Dict[str, Any]],
+    start: float,
+    end: float,
+    *,
+    min_overlap: float = 0.06,
+) -> List[Dict[str, Any]]:
+    """
+    Return transcript entries overlapping the given time window.
+    """
+    window: List[Dict[str, Any]] = []
+    for entry in scene_segments:
+        seg_start = float(entry.get("start", 0.0))
+        seg_end = float(entry.get("end", seg_start))
+        if seg_end <= seg_start:
+            continue
+        if overlap_seconds(start, end, seg_start, seg_end) >= min_overlap:
+            window.append(entry)
+    window.sort(key=lambda item: float(item.get("start", 0.0)))
+    return window
+
+
+def derive_phrase_from_window(
+    window: List[Dict[str, Any]],
+    *,
+    max_tokens: int = MAX_KEYWORD_TOKENS + 2,
+) -> Optional[str]:
+    """
+    Build a noun phrase from a transcript window.
+    """
+    if not window:
+        return None
+
+    text_parts: List[str] = []
+    tokens: List[str] = []
+    for entry in window:
+        text_value = entry.get("textOneLine") or entry.get("text") or ""
+        if text_value:
+            text_parts.append(str(text_value))
+        segment_tokens = entry.get("tokens") or []
+        if isinstance(segment_tokens, list):
+            tokens.extend(str(token) for token in segment_tokens if token)
+
+    blob = " ".join(part.strip() for part in text_parts if part).strip()
+    if blob:
+        phrase = select_keyword_phrase(blob, max_tokens=max_tokens, max_chars=48)
+        if phrase:
+            return phrase
+
+    if tokens:
+        filtered_tokens = filter_tokens_to_noun_phrase(tokens, max_tokens=max_tokens)
+        if filtered_tokens:
+            fallback_phrase = " ".join(token.upper() for token in filtered_tokens if token)
+            if keyword_is_meaningful(fallback_phrase):
+                return fallback_phrase
+
+    return None
+
+
+def snap_highlights_to_transcript(
+    plan: Dict[str, Any],
+    scene_segments: Iterable[Dict[str, Any]],
+    *,
+    min_overlap: float = 0.06,
+    min_duration: float = 0.6,
+) -> Dict[int, List[Dict[str, Any]]]:
+    """
+    Snap highlights to the transcript timeline and return the windows used.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return {}
+
+    scene_segments_list = list(scene_segments)
+    if not scene_segments_list:
+        return {}
+
+    highlight_windows: Dict[int, List[Dict[str, Any]]] = {}
+
+    for idx, highlight in enumerate(highlights):
+        start = highlight.get("start")
+        duration = highlight.get("duration")
+        if not isinstance(start, (int, float)) or not isinstance(duration, (int, float)):
+            continue
+
+        start = float(start)
+        duration = float(duration) if duration else min_duration
+        if duration <= 0:
+            duration = min_duration
+        end = start + duration
+        if end <= start:
+            end = start + min_duration
+
+        window = collect_scene_window(scene_segments_list, start, end, min_overlap=min_overlap)
+        if not window:
+            best_entry: Optional[Dict[str, Any]] = None
+            best_overlap = 0.0
+            for entry in scene_segments_list:
+                seg_start = float(entry.get("start", 0.0))
+                seg_end = float(entry.get("end", seg_start))
+                if seg_end <= seg_start:
+                    continue
+                ov = overlap_seconds(start, end, seg_start, seg_end)
+                if ov > best_overlap:
+                    best_overlap = ov
+                    best_entry = entry
+            if best_entry:
+                window = [best_entry]
+
+        if not window:
+            continue
+
+        snapped_start = float(window[0].get("start", start))
+        snapped_end = float(window[-1].get("end", end))
+        if snapped_end <= snapped_start:
+            continue
+
+        highlight["start"] = round(snapped_start, 2)
+        highlight["duration"] = round(max(min_duration, snapped_end - snapped_start), 2)
+        highlight_windows[idx] = window
+
+    if highlight_windows:
+        plan["highlights"] = sorted(highlights, key=lambda item: item.get("start", 0.0) or 0.0)
+
+    return highlight_windows
+
+
+def refresh_highlight_phrases(
+    plan: Dict[str, Any],
+    highlight_windows: Dict[int, List[Dict[str, Any]]],
+) -> None:
+    """
+    Replace highlight keyword/text with transcript-derived noun phrases when needed.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights or not highlight_windows:
+        return
+
+    refreshed: List[Dict[str, Any]] = []
+
+    for idx, highlight in enumerate(highlights):
+        window = highlight_windows.get(idx)
+        if not window:
+            highlight_type = (highlight.get("type") or "").lower()
+            if highlight_type == "sectiontitle" or keyword_is_meaningful(str(highlight.get("keyword") or highlight.get("text") or "")):
+                refreshed.append(highlight)
+            continue
+        highlight_id = str(highlight.get("id") or "")
+        if highlight_id.startswith("cta_"):
+            refreshed.append(highlight)
+            continue
+
+        candidate_phrase = derive_phrase_from_window(window)
+        if not candidate_phrase:
+            if (highlight.get("type") or "").lower() == "sectiontitle":
+                refreshed.append(highlight)
+            elif keyword_is_meaningful(str(highlight.get("keyword") or "")) or keyword_is_meaningful(str(highlight.get("text") or "")):
+                refreshed.append(highlight)
+            continue
+
+        transcript_tokens = {
+            token.upper()
+            for entry in window
+            for token in entry.get("tokens") or []
+            if isinstance(token, str) and token
+        }
+
+        def needs_override(value: Any) -> bool:
+            if not isinstance(value, str) or not value.strip():
+                return True
+            words = {token.upper() for token in re.findall(r"[A-Za-z0-9']+", value)}
+            if not words:
+                return True
+            if transcript_tokens and not words.issubset(transcript_tokens):
+                return True
+            return False
+
+        highlight_type = (highlight.get("type") or "").lower()
+        if highlight_type == "icon":
+            continue
+
+        if needs_override(highlight.get("keyword")):
+            highlight["keyword"] = candidate_phrase
+        if highlight_type == "sectiontitle":
+            if needs_override(highlight.get("text")):
+                highlight["text"] = candidate_phrase.title()
+        else:
+            if needs_override(highlight.get("text")):
+                highlight["text"] = candidate_phrase
+
+        keyword_value = highlight.get("keyword") or highlight.get("text")
+        if not isinstance(keyword_value, str) or not keyword_is_meaningful(keyword_value):
+            continue
+
+        refreshed.append(highlight)
+
+    plan["highlights"] = refreshed
+
+
+def decorate_section_highlights(plan: Dict[str, Any]) -> None:
+    """
+    Ensures sectionTitle highlights present a decorated phrase so their text
+    never mirrors raw B-roll labels or plain transcript snippets.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    used_texts: set[str] = set()
+    suffix_count = len(SECTION_TITLE_SUFFIXES)
+    if suffix_count == 0:
+        return
+
+    for highlight in highlights:
+        if (highlight.get("type") or "").lower() != "sectiontitle":
+            continue
+        base_source = (
+            highlight.get("keyword")
+            or highlight.get("text")
+            or ""
+        )
+        base_phrase = (
+            select_keyword_phrase(str(base_source), max_tokens=MAX_KEYWORD_TOKENS + 1, max_chars=48)
+            or condense_text(str(base_source), max_words=MAX_KEYWORD_TOKENS + 1, max_chars=48)
+            or "Key Theme"
+        )
+        highlight_id = str(highlight.get("id") or "")
+        seed = sum(ord(ch) for ch in highlight_id)
+        base_title = base_phrase.title()
+
+        attempt = 0
+        chosen_text = ""
+        while attempt < suffix_count * 2:
+            suffix = SECTION_TITLE_SUFFIXES[(seed + attempt) % suffix_count]
+            if suffix.lower() in base_title.lower():
+                candidate = base_title
+            else:
+                candidate = f"{base_title} {suffix}"
+            normalized = candidate.strip()
+            if normalized.lower() not in used_texts:
+                chosen_text = normalized
+                break
+            attempt += 1
+        if not chosen_text:
+            chosen_text = base_title.strip() or "Key Theme Overview"
+
+        highlight["text"] = chosen_text
+        highlight["keyword"] = chosen_text.upper()
+        used_texts.add(chosen_text.lower())
+
+
+def enforce_highlight_spacing(
+    plan: Dict[str, Any],
+    *,
+    min_gap: float = 0.2,
+    min_duration: float = 0.6,
+) -> None:
+    """
+    Prevent overlapping highlight windows by trimming or prioritising key beats.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights:
+        return
+
+    ordered = sorted(highlights, key=lambda item: item.get("start", 0.0) or 0.0)
+    filtered: List[Dict[str, Any]] = []
+
+    for current in ordered:
+        start = current.get("start")
+        duration = current.get("duration")
+        if not isinstance(start, (int, float)) or not isinstance(duration, (int, float)):
+            continue
+        start = float(start)
+        duration = max(min_duration, float(duration))
+
+        while filtered:
+            previous = filtered[-1]
+            prev_start = float(previous.get("start", 0.0))
+            prev_duration = max(min_duration, float(previous.get("duration", min_duration)))
+            prev_end = prev_start + prev_duration
+            if start >= prev_end + min_gap:
+                break
+
+            available = start - min_gap - prev_start
+            current_is_section = (current.get("type") or "").lower() == "sectiontitle"
+            previous_is_section = (previous.get("type") or "").lower() == "sectiontitle"
+
+            if available >= min_duration:
+                previous["duration"] = round(available, 2)
+                break
+
+            if current_is_section and not previous_is_section:
+                filtered.pop()
+                continue
+
+            if not current_is_section and previous_is_section:
+                break
+
+            if available > 0.4:
+                previous["duration"] = round(max(min_duration, available), 2)
+                break
+
+            if duration > prev_duration:
+                filtered.pop()
+                continue
+
+            break  # drop current highlight
+
+        if filtered:
+            prev_last = filtered[-1]
+            prev_end = float(prev_last.get("start", 0.0)) + float(prev_last.get("duration", min_duration))
+            if start < prev_end + min_gap:
+                continue
+
+        current["start"] = round(start, 2)
+        current["duration"] = round(duration, 2)
+        filtered.append(current)
+
+    plan["highlights"] = filtered
+
+
+def prune_highlights(
+    plan: Dict[str, Any],
+    *,
+    max_total: int = MAX_TOTAL_HIGHLIGHTS,
+) -> None:
+    """
+    Reduces highlight count to a manageable number, preferring noun-rich,
+    numerically significant, or section-title moments.
+    """
+    highlights = plan.get("highlights", [])
+    if not highlights or len(highlights) <= max_total:
+        return
+
+    def score_highlight(item: Dict[str, Any]) -> float:
+        base = 0.0
+        h_type = (item.get("type") or "").lower()
+        if h_type == "sectiontitle":
+            base += 120
+        elif h_type == "icon":
+            base += 40
+        elif h_type == "cta":
+            base += 80
+
+        if (item.get("importance") or "").lower() == "primary":
+            base += 12
+
+        text = str(item.get("keyword") or item.get("text") or "")
+        tokens = re.findall(r"[A-Za-z0-9]+", text)
+        if not tokens:
+            return base - 25.0
+        content_tokens = [token for token in tokens if token.upper() not in _ALLOWED_CONNECTORS]
+        noun_like = sum(1 for token in content_tokens if token.lower() not in _COMMON_VERB_TOKENS_LOWER)
+        base += min(noun_like * 4, 20)
+
+        if any(char.isdigit() for char in text):
+            base += 10
+
+        duration = float(item.get("duration") or 0.0)
+        base += min(duration, 5.0)
+
+        start = float(item.get("start") or 0.0)
+        # Slight preference for earlier highlights to maintain pacing
+        base += max(0.0, 8.0 - start * 0.05)
+
+        # Reward compact multi-word noun clusters; penalize single short words
+        if len(content_tokens) >= 2:
+            base += 10
+        elif len(content_tokens) == 1:
+            if len(content_tokens[0]) >= 6:
+                base += 2
+            else:
+                base -= 12
+
+        return base
+
+    scored = [
+        (score_highlight(item), float(item.get("start") or 0.0), idx, item)
+        for idx, item in enumerate(highlights)
+    ]
+    scored.sort(key=lambda entry: (-entry[0], entry[1], entry[2]))
+    retained = {entry[3].get("id") for entry in scored[:max_total]}
+
+    plan["highlights"] = [item for item in highlights if item.get("id") in retained]
+    plan["highlights"].sort(key=lambda item: item.get("start", 0.0) or 0.0)
+
+
+def inject_section_cards(
+    plan: Dict[str, Any],
+    segment_summaries: Iterable[Tuple[Dict[str, Any], SceneSummary]],
+    scene_segments: Iterable[Dict[str, Any]],
+    *,
+    max_cards: int = 4,
+    min_gap_seconds: float = 18.0,
+) -> List[Dict[str, Any]]:
+    """
+    Inject centred sectionTitle highlights for major topic pivots.
+    """
+    segment_summaries = list(segment_summaries)
+    if not segment_summaries:
+        return []
+
+    highlights = plan.setdefault("highlights", [])
+    existing_sections = [
+        float(item.get("start", 0.0))
+        for item in highlights
+        if isinstance(item, dict) and (item.get("type") or "").lower() == "sectiontitle"
+    ]
+    existing_sections.sort()
+
+    inserted: List[Dict[str, Any]] = []
+    last_section = existing_sections[-1] if existing_sections else -float("inf")
+
+    for segment, summary in segment_summaries:
+        if len(inserted) >= max_cards:
+            break
+        if summary.highlight_score < 0.65:
+            continue
+        if summary.duration < 3.0:
+            continue
+        start_time = float(summary.start)
+        if start_time < 5.0:
+            continue
+        if start_time < last_section + min_gap_seconds:
+            continue
+        if any(abs(start_time - existing) < min_gap_seconds * 0.5 for existing in existing_sections):
+            continue
+
+        window = collect_scene_window(scene_segments, summary.start, summary.end, min_overlap=0.4)
+        if not window:
+            continue
+
+        phrase = derive_phrase_from_window(window, max_tokens=MAX_KEYWORD_TOKENS + 2)
+        if not phrase:
+            continue
+
+        raw_id = segment.get("id") or f"{len(highlights) + len(inserted)}"
+        highlight_id = f"section_{raw_id}"
+
+        section_highlight = {
+            "id": highlight_id,
+            "type": "sectionTitle",
+            "start": round(float(window[0].get("start", summary.start)), 2),
+            "duration": round(min(max(summary.duration, 3.2), 5.2), 2),
+            "text": phrase.title(),
+            "keyword": phrase,
+            "position": "center",
+            "animation": "float",
+            "variant": "brand",
+            "overlay": {"tint": "#050607", "opacity": 0.72, "blendMode": "multiply"},
+            "sfx": "assets/sfx/ui/swipe.mp3",
+            "volume": 0.55,
+            "importance": "primary",
+        }
+
+        highlights.append(section_highlight)
+        inserted.append(section_highlight)
+        existing_sections.append(section_highlight["start"])
+        existing_sections.sort()
+        last_section = section_highlight["start"]
+
+    if inserted:
+        highlights.sort(key=lambda item: item.get("start", 0.0) or 0.0)
+
+    return inserted
 
 
 def parse_srt_timestamp(value: str) -> Optional[float]:
@@ -1146,6 +1669,9 @@ BROLL_RULES: List[Tuple[set[str], str]] = [
     (set(["consistency", "consistent"]), "office_motion"),
     (set(["mail room", "mailroom"]), "modern_office"),
     (set(["industry", "business owner", "company"]), "modern_office"),
+    (set(["personality", "psychology", "traits", "introvert", "extrovert"]), "education_training"),
+    (set(["mind", "brain", "thought", "thinking"]), "ai_brain"),
+    (set(["people", "audience", "social", "crowd", "group"]), "teamwork_meeting"),
 ]
 
 BROLL_NOTES = {
@@ -1687,6 +2213,11 @@ def augment_highlights_from_srt(
     recent_phrases: set[str] = set()
 
     for entry in entries:
+        if len(injected) >= MAX_SRT_AUTO_HIGHLIGHTS:
+            break
+        if len(highlights) >= MAX_TOTAL_HIGHLIGHTS:
+            break
+
         start = max(0.0, entry['start'])
         duration = derive_duration_seconds(entry, entry)
 
@@ -2097,13 +2628,14 @@ def enrich_plan(
     broll_threshold: float = 1.5,
 ) -> Tuple[Dict[str, Any], List[str]]:
     segments = plan.get("segments") or []
-    scene_segments = scene_map.get("segments") or []
+    scene_segments = list(scene_map.get("segments") or [])
     motion_rules = motion_rules or {}
 
     total_segments = len(segments)
     assigned_motion = 0
     cta_candidates: List[Tuple[Dict[str, Any], SceneSummary]] = []
     warnings: List[str] = []
+    segment_summary_pairs: List[Tuple[Dict[str, Any], SceneSummary]] = []
 
     for segment in segments:
         segment.setdefault("kind", "normal")
@@ -2154,7 +2686,17 @@ def enrich_plan(
         if notes:
             segment.setdefault("notes", []).extend(notes)
 
+        segment_summary_pairs.append((segment, scene_summary))
+
     ensure_cta_highlight(plan, cta_candidates, sfx_catalog)
+    inserted_sections = inject_section_cards(plan, segment_summary_pairs, scene_segments)
+    if inserted_sections:
+        meta = plan.setdefault("meta", {})
+        generated = meta.setdefault("generatedSections", 0)
+        try:
+            meta["generatedSections"] = int(generated) + len(inserted_sections)
+        except Exception:
+            meta["generatedSections"] = len(inserted_sections)
 
     warnings.extend(compute_timing_warnings(segments))
     if warnings:
@@ -2290,6 +2832,15 @@ def main(argv: List[str] | None = None) -> int:
                 f"[INFO] Injected {len(injected_srt)} SRT highlight(s) from {highlight_srt_path}"
             )
 
+    scene_segments_for_alignment = list(scene_map.get("segments") or [])
+    highlight_windows = snap_highlights_to_transcript(
+        enriched_plan,
+        scene_segments_for_alignment,
+    )
+    refresh_highlight_phrases(enriched_plan, highlight_windows)
+    decorate_section_highlights(enriched_plan)
+    enforce_highlight_spacing(enriched_plan)
+    prune_highlights(enriched_plan)
     trim_highlights_to_segments(enriched_plan)
     ensure_broll_from_highlights(enriched_plan, broll_catalog)
     ensure_motion_from_highlights(enriched_plan, motion_rules)
