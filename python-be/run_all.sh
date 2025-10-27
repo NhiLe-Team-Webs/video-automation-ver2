@@ -76,6 +76,15 @@ if [[ ! -f "$WHISPER_SRT" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
+# Upload transcript to Google Sheets
+# ---------------------------------------------------------------------------
+echo "[STEP] Upload transcript to Google Sheet"
+if ! $PYTHON -m data_processing.upload_transcript "$WHISPER_SRT"; then
+  echo "[ERROR] Transcript upload failed." >&2
+  exit 1
+fi
+
+# ---------------------------------------------------------------------------
 # Derive scene map + training windows
 # ---------------------------------------------------------------------------
 echo "[STEP] Scene map => $SCENE_MAP"
