@@ -83,6 +83,7 @@ const computeBrollWindows = (
 
 export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => {
   const highlights = plan.highlights ?? [];
+  const usedBrollAssets = new Set<string>();
 
   return (
     <AbsoluteFill
@@ -120,6 +121,15 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
           if (!assetPath) {
             return null;
           }
+
+          if (usedBrollAssets.has(assetPath)) {
+            if (process.env.NODE_ENV !== 'production') {
+              console.warn(`Skipping duplicate b-roll asset: ${assetPath}`);
+            }
+            return null;
+          }
+
+          usedBrollAssets.add(assetPath);
 
           return windows.map((window, windowIndex) => {
             const plannedFrames =

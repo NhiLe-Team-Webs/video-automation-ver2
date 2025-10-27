@@ -203,6 +203,37 @@ const computeMotionCueTransforms = (
   const eased = easeInOut(progress);
 
   switch (cue) {
+    case 'zoomIn': {
+      const startScale = 1;
+      const endScale = 1.08;
+      const scale = startScale + (endScale - startScale) * eased;
+      return [`scale(${scale.toFixed(4)})`];
+    }
+    case 'zoomOut': {
+      const startScale = 1.08;
+      const endScale = 1;
+      const scale = startScale + (endScale - startScale) * eased;
+      return [`scale(${scale.toFixed(4)})`];
+    }
+    case 'pan': {
+      const drift = 120;
+      const offset = (eased - 0.5) * 2 * drift;
+      return [`translateX(${offset.toFixed(2)}px)`];
+    }
+    case 'tiltUp':
+    case 'tiltDown': {
+      const travel = 90;
+      const direction = cue === 'tiltUp' ? -1 : 1;
+      const offset = direction * eased * travel;
+      const rotation = direction * eased * 4;
+      return [`translateY(${offset.toFixed(2)}px)`, `rotateX(${rotation.toFixed(3)}deg)`];
+    }
+    case 'shake': {
+      const intensity = 12 * (1 - eased);
+      const offsetX = Math.sin(frame * 0.8) * intensity;
+      const offsetY = Math.cos(frame * 0.95) * intensity * 0.6;
+      return [`translateX(${offsetX.toFixed(2)}px)`, `translateY(${offsetY.toFixed(2)}px)`];
+    }
     default:
       return [];
   }
