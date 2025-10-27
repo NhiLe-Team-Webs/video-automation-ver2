@@ -143,6 +143,7 @@ const brollPlanSchema: z.ZodType<SegmentBrollPlan> = z
     reasons: z.array(z.string()).optional(),
     startAt: z.number().min(0).optional(),
     playbackRate: z.number().positive().optional(),
+    duration: z.number().positive().optional(),
   })
   .passthrough()
   .transform((broll) => ({

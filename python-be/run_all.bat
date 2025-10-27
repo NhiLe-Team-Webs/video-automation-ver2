@@ -79,6 +79,16 @@ if not exist "%WHISPER_SRT%" (
   exit /b 1
 )
 
+REM ---------------------------------------------------------------------------
+REM Upload transcript to Google Sheets
+REM ---------------------------------------------------------------------------
+echo [STEP] Upload transcript to Google Sheet
+%PYTHON% -m data_processing.upload_transcript "%WHISPER_SRT%"
+if errorlevel 1 (
+  echo [ERROR] Transcript upload failed.
+  exit /b 1
+)
+
 if defined HIGHLIGHT_CATALOG (
   if not exist "%HIGHLIGHT_CATALOG%" set "HIGHLIGHT_CATALOG="
 )

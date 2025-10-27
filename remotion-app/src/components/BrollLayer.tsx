@@ -121,17 +121,31 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
             return null;
           }
 
-          return windows.map((window, windowIndex) => (
+          return windows.map((window, windowIndex) => {
+            const plannedFrames =
+              typeof plannedBroll.duration === 'number'
+                ? Math.max(1, Math.round(plannedBroll.duration * fps))
+                : null;
+            const effectiveDurationFrames = plannedFrames
+              ? Math.min(window.duration, plannedFrames)
+              : window.duration;
+            const startFrameInClip = plannedBroll.startAt
+              ? Math.max(0, Math.round(plannedBroll.startAt * fps))
+              : 0;
+            const videoEndFrame = startFrameInClip + effectiveDurationFrames;
+
+            return (
             <Sequence
               key={`broll-${segment.segment.id}-${index}-${windowIndex}`}
               from={window.from}
-              durationInFrames={window.duration}
+              durationInFrames={effectiveDurationFrames}
             >
               <AbsoluteFill>
                 {mediaType === 'video' ? (
                   <Video
                     src={staticFile(assetPath)}
-                    startFrom={plannedBroll.startAt ? plannedBroll.startAt * fps : 0}
+                    startFrom={startFrameInClip}
+                    endAt={videoEndFrame}
                     playbackRate={plannedBroll.playbackRate ?? 1}
                     style={{
                       width: '100%',
@@ -156,7 +170,8 @@ export const BrollLayer: React.FC<BrollLayerProps> = ({plan, timeline, fps}) => 
                 )}
               </AbsoluteFill>
             </Sequence>
-          ));
+            );
+          });
         } else if (plannedBroll) {
           // Render placeholder if broll is planned but file is missing or not full screen
           const windows = computeBrollWindows(segment, highlights, fps);

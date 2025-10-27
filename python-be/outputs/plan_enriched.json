@@ -1,58 +1,68 @@
 {
   "segments": [
     {
-      "id": "segment_1",
+      "id": "segment_01",
       "sourceStart": 0.0,
-      "duration": 4.92,
-      "label": "Intro / Conversations",
+      "duration": 14.64,
+      "label": "Waste Years / 30 Days Intro",
       "silenceAfter": false,
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "motionCue": "zoomOut",
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_2",
-      "sourceStart": 4.92,
-      "duration": 2.96,
-      "label": "Fair to say",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "tech"
+        "B-roll: teamwork_meeting spotlights established clientele.",
+        "Motion cue: zoomIn emphasises \"PEOPLE YEARS\".",
+        "Motion cue: zoomOut emphasises \"REGRET TRUTH LIFE DAYS\"."
       ],
+      "broll": {
+        "id": "teamwork_meeting",
+        "file": "assets/broll/teamwork_meeting.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Team huddle echoes long-term client relationships."
+        ],
+        "duration": 7.0
+      }
+    },
+    {
+      "id": "segment_02",
+      "sourceStart": 14.64,
+      "duration": 11.44,
+      "label": "30 Days Necessity",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "right"
+      },
+      "kind": "normal",
+      "motionCue": "zoomIn",
       "notes": [
         "No B-roll match above threshold.",
-        "SFX hints propagated: tech"
+        "Motion cue: zoomIn emphasises \"DAYS SINGLE CHANCES\"."
       ]
     },
     {
-      "id": "segment_3",
-      "sourceStart": 7.88,
-      "duration": 10.02,
-      "label": "Psychological Symptoms",
+      "id": "segment_03",
+      "sourceStart": 26.08,
+      "duration": 11.28,
+      "label": "Daily Work for 30 Days",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "left"
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -62,18 +72,19 @@
       ]
     },
     {
-      "id": "segment_4",
-      "sourceStart": 17.9,
-      "duration": 3.26,
-      "label": "Discuss Today",
+      "id": "segment_04",
+      "sourceStart": 37.36,
+      "duration": 9.76,
+      "label": "Accomplish Your Goal",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "zoom",
+        "duration": 0.5,
+        "intensity": 0.3
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -83,18 +94,19 @@
       ]
     },
     {
-      "id": "segment_5",
-      "sourceStart": 21.16,
-      "duration": 4.44,
-      "label": "Know Who You Are",
+      "id": "segment_05",
+      "sourceStart": 47.12,
+      "duration": 10.96,
+      "label": "Start Today",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "zoom",
+        "duration": 0.5,
+        "intensity": 0.3
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -104,39 +116,19 @@
       ]
     },
     {
-      "id": "segment_6",
-      "sourceStart": 25.6,
-      "duration": 5.48,
-      "label": "Avoid Intrusion",
+      "id": "segment_06",
+      "sourceStart": 58.08,
+      "duration": 6.72,
+      "label": "Week Progress",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "segment_7",
-      "sourceStart": 31.08,
-      "duration": 7.24,
-      "label": "Facts and Stories",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "up"
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -146,18 +138,19 @@
       ]
     },
     {
-      "id": "segment_8",
-      "sourceStart": 38.32,
-      "duration": 7.88,
-      "label": "Personality Science Intro",
+      "id": "segment_07",
+      "sourceStart": 64.8,
+      "duration": 6.96,
+      "label": "First Seven Days",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "down"
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -167,18 +160,47 @@
       ]
     },
     {
-      "id": "segment_9",
-      "sourceStart": 46.2,
-      "duration": 5.36,
-      "label": "Neurons to Narratives",
+      "id": "segment_08",
+      "sourceStart": 71.76,
+      "duration": 6.56,
+      "label": "Falling Apart after Day 3",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "notes": [
+        "Motion cue assigned: zoomOut",
+        "B-roll: teamwork_meeting spotlights established clientele."
+      ],
+      "broll": {
+        "id": "teamwork_meeting",
+        "file": "assets/broll/teamwork_meeting.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Team huddle echoes long-term client relationships."
+        ],
+        "duration": 6.56
+      }
+    },
+    {
+      "id": "segment_09",
+      "sourceStart": 78.32,
+      "duration": 5.52,
+      "label": "Initial Motivation",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "motionCue": "zoomOut",
@@ -189,271 +211,264 @@
     },
     {
       "id": "segment_10",
-      "sourceStart": 51.56,
-      "duration": 3.84,
-      "label": "Our Own Way",
+      "sourceStart": 83.84,
+      "duration": 3.76,
+      "label": "Second Day Action",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_11",
-      "sourceStart": 55.4,
-      "duration": 5.24,
-      "label": "Make Sense of Selves",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_12",
-      "sourceStart": 60.64,
-      "duration": 10.12,
-      "label": "Like No Other",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "segment_13",
-      "sourceStart": 70.76,
-      "duration": 6.4,
-      "label": "Not Intriguing",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_14",
-      "sourceStart": 77.16,
-      "duration": 6.28,
-      "label": "Most Boring Person",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_15",
-      "sourceStart": 83.44,
-      "duration": 10.52,
-      "label": "Great Thundering Twit",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_16",
-      "sourceStart": 93.96,
-      "duration": 10.76,
-      "label": "Psychologist Fascinated",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "segment_17",
-      "sourceStart": 104.72,
-      "duration": 5.32,
-      "label": "Explain Approach",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "segment_18",
-      "sourceStart": 110.04,
-      "duration": 3.48,
-      "label": "Trait Psychology Intro",
-      "silenceAfter": false,
-      "transitionIn": {
         "type": "slide",
         "duration": 0.5,
         "direction": "right"
       },
-      "transitionOut": {
+      "kind": "normal",
+      "motionCue": "zoomOut",
+      "sfxHints": [
+        "whoosh"
+      ],
+      "notes": [
+        "No B-roll match above threshold.",
+        "Motion cue assigned: zoomOut",
+        "SFX hints propagated: whoosh"
+      ]
+    },
+    {
+      "id": "segment_11",
+      "sourceStart": 87.6,
+      "duration": 7.76,
+      "label": "Third Day Completion",
+      "silenceAfter": false,
+      "transitionIn": {
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
       },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
       "kind": "normal",
-      "motionCue": "zoomIn",
       "sfxHints": [
-        "tech"
+        "whoosh"
       ],
       "notes": [
-        "SFX hints propagated: tech",
-        "B-roll injected via highlight keyword: business_strategy",
-        "Motion cue: zoomIn emphasises \"Personality Science Trait Psychology Framework\"."
+        "SFX hints propagated: whoosh",
+        "B-roll: office_motion underscores consistent client relationships."
       ],
       "broll": {
-        "id": "business_strategy",
-        "file": "assets/broll/business_strategy.jpg",
+        "id": "office_motion",
+        "file": "assets/broll/office_motion.mp4",
         "mode": "full",
         "confidence": 3.0,
         "reasons": [
-          "Highlight keyword match"
-        ]
+          "Office walkthrough mirrors consistent client presence."
+        ],
+        "duration": 7.0
       }
     },
     {
-      "id": "segment_19",
-      "sourceStart": 113.52,
-      "duration": 3.32,
-      "label": "Five Dimensions",
+      "id": "segment_12",
+      "sourceStart": 95.36,
+      "duration": 6.16,
+      "label": "Consistency Achieved",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "zoom",
+        "duration": 0.5,
+        "intensity": 0.3
+      },
+      "kind": "normal",
+      "notes": [
+        "B-roll: office_motion underscores consistent client relationships."
+      ],
+      "broll": {
+        "id": "office_motion",
+        "file": "assets/broll/office_motion.mp4",
+        "mode": "full",
+        "confidence": 3.0,
+        "reasons": [
+          "Office walkthrough mirrors consistent client presence."
+        ],
+        "duration": 6.16
+      }
+    },
+    {
+      "id": "segment_13",
+      "sourceStart": 101.52,
+      "duration": 3.6,
+      "label": "Where Things Change",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "zoom",
+        "duration": 0.5,
+        "intensity": 0.3
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_14",
+      "sourceStart": 105.12,
+      "duration": 9.36,
+      "label": "Finish the Full 30",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "up"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_15",
+      "sourceStart": 114.48,
+      "duration": 5.92,
+      "label": "Become Better",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "down"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_16",
+      "sourceStart": 120.4,
+      "duration": 6.64,
+      "label": "Accomplish Goals",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "cut"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_17",
+      "sourceStart": 127.04,
+      "duration": 6.4,
+      "label": "Make Today The First Day",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_18",
+      "sourceStart": 133.44,
+      "duration": 5.84,
+      "label": "New Skills Today",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "right"
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
+      ]
+    },
+    {
+      "id": "segment_19",
+      "sourceStart": 139.28,
+      "duration": 4.56,
+      "label": "No Tomorrow",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "left"
+      },
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      },
+      "kind": "normal",
+      "notes": [
+        "No B-roll match above threshold."
       ]
     },
     {
       "id": "segment_20",
-      "sourceStart": 116.84,
-      "duration": 10.32,
-      "label": "Differences Between People",
+      "sourceStart": 143.84,
+      "duration": 7.84,
+      "label": "Action in the Present",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "blur",
+        "duration": 0.5,
+        "intensity": 0.2
       },
       "kind": "normal",
-      "motionCue": "zoomOut",
       "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue: zoomOut emphasises \"OCEAN Acronym\"."
+        "No B-roll match above threshold."
       ]
     },
     {
       "id": "segment_21",
-      "sourceStart": 127.16,
-      "duration": 2.48,
-      "label": "OCEAN Acronym",
+      "sourceStart": 151.68,
+      "duration": 7.28,
+      "label": "Daily Belief",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
+        "type": "blur",
+        "duration": 0.5,
+        "intensity": 0.2
       },
       "transitionOut": {
         "type": "crossfade",
-        "duration": 0.5
+        "duration": 0.6
       },
       "kind": "normal",
       "notes": [
@@ -462,1120 +477,13 @@
     },
     {
       "id": "segment_22",
-      "sourceStart": 129.64,
-      "duration": 5.48,
-      "label": "O - Openness",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_23",
-      "sourceStart": 135.12,
-      "duration": 6.84,
-      "label": "C - Conscientiousness",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: tech",
-        "B-roll injected via highlight keyword: education_training"
-      ],
-      "broll": {
-        "id": "education_training",
-        "file": "assets/broll/education_training.jpg",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "segment_24",
-      "sourceStart": 141.96,
-      "duration": 4.72,
-      "label": "E - Extroversion",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_25",
-      "sourceStart": 146.68,
-      "duration": 6.52,
-      "label": "A - Agreeableness",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_26",
-      "sourceStart": 153.2,
-      "duration": 6.64,
-      "label": "N - Neuroticism",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_27",
-      "sourceStart": 159.84,
-      "duration": 6.56,
-      "label": "Implications for Well-being",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_28",
-      "sourceStart": 166.4,
-      "duration": 8.0,
-      "label": "Predictors of Success",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_29",
-      "sourceStart": 174.4,
-      "duration": 7.2,
-      "label": "Audacious and Odd",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "segment_30",
-      "sourceStart": 181.6,
-      "duration": 9.64,
-      "label": "Conscientious Traits",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_31",
-      "sourceStart": 191.24,
-      "duration": 7.24,
-      "label": "Working Well with People",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_32",
-      "sourceStart": 198.48,
-      "duration": 9.48,
-      "label": "Extroverts in Class",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_33",
-      "sourceStart": 207.96,
-      "duration": 10.16,
-      "label": "Elbow Challenge Setup",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_34",
-      "sourceStart": 218.12,
-      "duration": 2.6,
-      "label": "Did You Know?",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "segment_35",
-      "sourceStart": 220.72,
-      "duration": 4.16,
-      "label": "Attempted Lick",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut"
-      ]
-    },
-    {
-      "id": "segment_36",
-      "sourceStart": 224.88,
-      "duration": 9.4,
-      "label": "Extrovert Elbow Lick",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "pan",
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: pan"
-      ]
-    },
-    {
-      "id": "segment_37",
-      "sourceStart": 234.28,
-      "duration": 2.04,
-      "label": "Identify Extroverts",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_38",
-      "sourceStart": 236.32,
-      "duration": 6.44,
-      "label": "Extroversion Detail",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "motionCue": "zoomOut",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "Motion cue assigned: zoomOut",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "segment_39",
-      "sourceStart": 242.76,
-      "duration": 3.44,
-      "label": "Three Natures Intro",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_40",
-      "sourceStart": 246.2,
-      "duration": 3.76,
-      "label": "Biogenic Nature",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_41",
-      "sourceStart": 249.96,
-      "duration": 6.8,
-      "label": "Sociogenic Nature",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "B-roll: teamwork_meeting spotlights established clientele."
-      ],
-      "broll": {
-        "id": "teamwork_meeting",
-        "file": "assets/broll/teamwork_meeting.mp4",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Team huddle echoes long-term client relationships."
-        ]
-      }
-    },
-    {
-      "id": "segment_42",
-      "sourceStart": 256.76,
-      "duration": 11.6,
-      "label": "Idio-genic Nature",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "segment_43",
-      "sourceStart": 268.36,
-      "duration": 2.28,
-      "label": "Explain Natures",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "segment_44",
-      "sourceStart": 270.64,
-      "duration": 4.08,
-      "label": "Extrovert Stimulation",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_45",
-      "sourceStart": 274.72,
-      "duration": 4.72,
-      "label": "Exciting Stimulation",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_46",
-      "sourceStart": 279.44,
-      "duration": 4.12,
-      "label": "TED Social Events",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_47",
-      "sourceStart": 283.56,
-      "duration": 4.88,
-      "label": "Extrovert Magnetic Core",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_48",
-      "sourceStart": 288.44,
-      "duration": 1.44,
-      "label": "I've Seen You",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_49",
-      "sourceStart": 289.88,
-      "duration": 5.36,
-      "label": "Introvert Quiet Spaces",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_50",
-      "sourceStart": 295.24,
-      "duration": 11.84,
-      "label": "Not Antisocial",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_51",
-      "sourceStart": 307.08,
-      "duration": 9.68,
-      "label": "Lower Stimulation",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_52",
-      "sourceStart": 316.76,
-      "duration": 4.08,
-      "label": "Internal Stimulant",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_53",
-      "sourceStart": 320.84,
-      "duration": 5.0,
-      "label": "Caffeine for Extroverts",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_54",
-      "sourceStart": 325.84,
-      "duration": 9.48,
-      "label": "Coffee Need",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_55",
-      "sourceStart": 335.32,
-      "duration": 6.88,
-      "label": "Introvert Coffee Effect",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_56",
-      "sourceStart": 342.2,
-      "duration": 9.12,
-      "label": "Quantitative Tasks",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_57",
-      "sourceStart": 351.32,
-      "duration": 1.72,
-      "label": "Misconstrual",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_58",
-      "sourceStart": 353.04,
-      "duration": 8.96,
-      "label": "Intriguing Consequences",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "B-roll injected via highlight keyword: education_training"
-      ],
-      "broll": {
-        "id": "education_training",
-        "file": "assets/broll/education_training.jpg",
-        "mode": "full",
-        "confidence": 3.0,
-        "reasons": [
-          "Highlight keyword match"
-        ]
-      }
-    },
-    {
-      "id": "segment_59",
-      "sourceStart": 362.0,
-      "duration": 5.24,
-      "label": "Sexual Intercourse Intro",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
-      },
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "left"
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_60",
-      "sourceStart": 367.24,
-      "duration": 8.44,
-      "label": "Audience Agrees",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_61",
-      "sourceStart": 375.68,
-      "duration": 11.2,
-      "label": "Conjugal Act Studies",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_62",
-      "sourceStart": 386.88,
-      "duration": 5.36,
-      "label": "Rat Study Joke",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "segment_63",
-      "sourceStart": 395.2,
-      "duration": 9.0,
-      "label": "Introverted Men Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "segment_64",
-      "sourceStart": 404.2,
-      "duration": 1.44,
-      "label": "Introverted Men Stat",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_65",
-      "sourceStart": 405.64,
-      "duration": 5.68,
-      "label": "Extroverted Men Question",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "question"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: question"
-      ]
-    },
-    {
-      "id": "segment_66",
-      "sourceStart": 411.32,
-      "duration": 3.56,
-      "label": "Extroverted Men Stat",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_67",
-      "sourceStart": 414.88,
-      "duration": 2.56,
-      "label": "Introverted Women Stat",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_68",
-      "sourceStart": 417.44,
-      "duration": 9.04,
-      "label": "Extroverted Women Heroic",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "sfxHints": [
-        "tech"
-      ],
-      "notes": [
-        "No B-roll match above threshold.",
-        "SFX hints propagated: tech"
-      ]
-    },
-    {
-      "id": "segment_69",
-      "sourceStart": 426.48,
-      "duration": 7.16,
-      "label": "Extroverted Women Stat Full",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_70",
-      "sourceStart": 442.12,
-      "duration": 5.84,
-      "label": "Communication Differences Intro",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_71",
-      "sourceStart": 447.96,
-      "duration": 5.84,
-      "label": "Extrovert Social Encounter",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_72",
-      "sourceStart": 453.84,
-      "duration": 4.04,
-      "label": "Close Communication",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_73",
-      "sourceStart": 457.88,
-      "duration": 4.72,
-      "label": "Eye Contact",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_74",
-      "sourceStart": 462.6,
+      "sourceStart": 158.96,
       "duration": 4.64,
-      "label": "Diminutive Terms",
+      "label": "Future Transformation",
       "silenceAfter": false,
       "transitionIn": {
         "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "kind": "normal",
-      "notes": [
-        "No B-roll match above threshold."
-      ]
-    },
-    {
-      "id": "segment_75",
-      "sourceStart": 467.24,
-      "duration": 8.16,
-      "label": "Extrovert Engagement",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.5
-      },
-      "transitionOut": {
-        "type": "cut"
+        "duration": 0.6
       },
       "kind": "normal",
       "notes": [
@@ -1585,133 +493,14 @@
   ],
   "highlights": [
     {
-      "id": "highlight_1",
-      "start": 110.04,
-      "duration": 3.48,
+      "id": "h1_wasted_years",
+      "start": 0.0,
+      "duration": 13.2,
       "position": "bottom",
       "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Personality Science Trait Psychology Framework",
-      "keyword": "PERSONALITY SCIENCE TRAIT PSYCHOLOGY FRAMEWORK",
-      "sfx": "assets/sfx/whoosh/woosh.mp3",
-      "layout": "bottom",
-      "volume": 0.7
-    },
-    {
-      "id": "highlight_2",
-      "start": 127.16,
-      "duration": 2.28,
-      "position": "bottom",
-      "animation": "zoom",
       "type": "noteBox",
-      "text": "OCEAN Acronym",
-      "keyword": "OCEAN Acronym",
-      "importance": "primary",
-      "showBottom": true,
-      "safeBottom": 0.18,
-      "safeInsetHorizontal": 0.08,
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "highlight_3",
-      "start": 129.64,
-      "duration": 5.28,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "O",
-        "topRight": "Closed"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "EXPERIENCE",
-      "text": "EXPERIENCE"
-    },
-    {
-      "id": "highlight_4",
-      "start": 135.12,
-      "duration": 6.64,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "C",
-        "topRight": "Lackadaisical"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "CONSCIENTIOUSNESS CONTRAST LACKADAISICAL APPROA...",
-      "text": "CONSCIENTIOUSNESS CONTRAST LACKADAISICAL APPROA..."
-    },
-    {
-      "id": "highlight_5",
-      "start": 141.96,
-      "duration": 4.52,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "E",
-        "topRight": "Introverted"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "EXTROVERSION CONTRAST INTROVERTED PEOPLE",
-      "text": "EXTROVERSION CONTRAST INTROVERTED PEOPLE"
-    },
-    {
-      "id": "highlight_6",
-      "start": 146.68,
-      "duration": 6.32,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "A",
-        "topRight": "Disagreeable"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "AGREEABLE INDIVIDUALS",
-      "text": "AGREEABLE INDIVIDUALS"
-    },
-    {
-      "id": "highlight_7",
-      "start": 153.2,
-      "duration": 6.64,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "N",
-        "topRight": "Emotional Stability"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "NEUROTIC INDIVIDUALS",
-      "text": "NEUROTIC INDIVIDUALS"
-    },
-    {
-      "id": "highlight_8",
-      "start": 169.16,
-      "duration": 5.24,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "noteBox",
-      "text": "Life Success",
-      "keyword": "Life Success",
+      "text": "PEOPLE YEARS",
+      "keyword": "PEOPLE YEARS",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
@@ -1720,167 +509,287 @@
       "volume": 0.7
     },
     {
-      "id": "highlight_9",
-      "start": 242.76,
-      "duration": 3.24,
+      "id": "h2_30_days_challenge",
+      "start": 14.64,
+      "duration": 10.96,
       "position": "bottom",
-      "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Natures Recap",
-      "keyword": "NATURES RECAP",
-      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "REGRET TRUTH LIFE DAYS",
+      "keyword": "REGRET TRUTH LIFE DAYS",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
       "layout": "bottom",
       "volume": 0.7
     },
     {
-      "id": "highlight_10",
-      "start": 246.2,
+      "id": "h3_daily_effort",
+      "start": 26.08,
+      "duration": 11.08,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "noteBox",
+      "text": "DAYS SINGLE CHANCES",
+      "keyword": "DAYS SINGLE CHANCES",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h4_goal_accomplishment",
+      "start": 37.36,
+      "duration": 9.56,
+      "position": "bottom",
+      "animation": "bounce",
+      "type": "noteBox",
+      "text": "ACCOMPLISH GOAL SINGLE WHATEVER",
+      "keyword": "ACCOMPLISH GOAL SINGLE WHATEVER",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h6_one_week_milestone",
+      "start": 58.08,
+      "duration": 6.52,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "DAYS WEEK",
+      "keyword": "DAYS WEEK",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "srt-0007",
+      "type": "noteBox",
+      "start": 64.8,
+      "duration": 6.76,
+      "position": "bottom",
+      "layout": "dual",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "text": "WEEK MONTH SEVEN",
+      "keyword": "WEEK MONTH SEVEN",
+      "staggerLeft": 0.0,
+      "staggerRight": 2.0,
+      "supportingTexts": {
+        "topLeft": "WEEK MONTH",
+        "topRight": "SEVEN DAYS"
+      }
+    },
+    {
+      "id": "h7_third_day_setback",
+      "start": 71.76,
+      "duration": 5.68,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "noteBox",
+      "text": "PEOPLE",
+      "keyword": "PEOPLE",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h8_initial_drive",
+      "start": 78.32,
+      "duration": 4.88,
+      "position": "bottom",
+      "animation": "bounce",
+      "type": "noteBox",
+      "text": "HOPEFUL YOU'VE",
+      "keyword": "HOPEFUL YOU'VE",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "srt-0010",
+      "type": "noteBox",
+      "start": 83.84,
       "duration": 3.56,
       "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "1st",
-        "topRight": "Neurophysiology"
-      },
       "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "BIOGENIC NATURE NEUROPHYSIOLOGY",
-      "text": "BIOGENIC NATURE NEUROPHYSIOLOGY"
-    },
-    {
-      "id": "highlight_11",
-      "start": 249.96,
-      "duration": 6.24,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "2nd",
-        "topRight": "Cultural Social"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "staggerRight": 0.5,
-      "keyword": "SOCIOGENIC NATURE CULTURAL SOCIAL ASPECTS",
-      "text": "SOCIOGENIC NATURE CULTURAL SOCIAL ASPECTS"
-    },
-    {
-      "id": "highlight_12",
-      "start": 263.64,
-      "duration": 4.72,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "text",
-      "supportingTexts": {
-        "topLeft": "3rd"
-      },
-      "layout": "dual",
-      "showBottom": true,
-      "staggerLeft": 0.0,
-      "keyword": "IDIOSYNCRATIC CALL IDIO GENIC NATURE",
-      "text": "IDIOSYNCRATIC CALL IDIO GENIC NATURE"
-    },
-    {
-      "id": "highlight_13",
-      "start": 272.72,
-      "duration": 2.0,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "noteBox",
-      "text": "STIMULATION",
-      "keyword": "STIMULATION",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
-      "layout": "bottom"
+      "text": "WORK MATH PHYSICS",
+      "keyword": "WORK MATH PHYSICS",
+      "staggerLeft": 0.0,
+      "staggerRight": 2.0,
+      "supportingTexts": {
+        "topLeft": "WORK MATH",
+        "topRight": "PHYSICS"
+      }
     },
     {
-      "id": "highlight_14",
-      "start": 362.0,
-      "duration": 5.24,
+      "id": "h10_daily_consistency",
+      "start": 95.36,
+      "duration": 5.2,
       "position": "bottom",
-      "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Sexual Intercourse Overview",
-      "keyword": "SEXUAL INTERCOURSE OVERVIEW",
-      "sfx": "assets/sfx/whoosh/woosh.mp3",
+      "animation": "pulse",
+      "type": "noteBox",
+      "text": "CONSISTENT FOURTH FIFTH",
+      "keyword": "CONSISTENT FOURTH FIFTH",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
       "layout": "bottom",
       "volume": 0.7
     },
     {
-      "id": "highlight_15",
-      "start": 404.2,
-      "duration": 3.04,
+      "id": "h11_moment_of_difficulty",
+      "start": 101.52,
+      "duration": 3.4,
       "position": "bottom",
-      "animation": "pop",
+      "animation": "zoom",
       "type": "noteBox",
-      "text": "3 0 MEN",
-      "keyword": "3 0 MEN",
+      "text": "CHANGE",
+      "keyword": "CHANGE",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "volume": 0.75
+      "volume": 0.7
     },
     {
-      "id": "highlight_16",
-      "start": 411.32,
-      "duration": 3.36,
+      "id": "h12_30_day_completion",
+      "start": 105.12,
+      "duration": 9.16,
       "position": "bottom",
-      "animation": "pop",
+      "animation": "fade",
       "type": "noteBox",
-      "text": "ALMOST TWICE MUCH",
-      "keyword": "ALMOST TWICE MUCH",
+      "text": "SEVEN DAYS CHANCES ABLE FINISH",
+      "keyword": "SEVEN DAYS CHANCES ABLE FINISH",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "volume": 0.75
+      "volume": 0.7
     },
     {
-      "id": "highlight_17",
-      "start": 414.88,
-      "duration": 2.56,
+      "id": "h13_personal_growth",
+      "start": 114.48,
+      "duration": 5.92,
       "position": "bottom",
-      "animation": "pop",
+      "animation": "bounce",
       "type": "noteBox",
-      "text": "Introverted Women 3 1",
-      "keyword": "Introverted Women 3 1",
+      "text": "DAYS MATTER",
+      "keyword": "DAYS MATTER",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "volume": 0.75
+      "volume": 0.7
     },
     {
-      "id": "highlight_18",
-      "start": 426.48,
-      "duration": 5.16,
+      "id": "h14_new_beginning",
+      "start": 127.04,
+      "duration": 6.2,
       "position": "bottom",
-      "animation": "pop",
+      "animation": "pulse",
       "type": "noteBox",
-      "text": "MALE EXTROVERTS",
-      "keyword": "MALE EXTROVERTS",
+      "text": "New Beginning",
+      "keyword": "New Beginning",
       "importance": "primary",
       "showBottom": true,
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
       "layout": "bottom",
-      "volume": 0.75
+      "volume": 0.7
+    },
+    {
+      "id": "h15_skill_acquisition",
+      "start": 133.44,
+      "duration": 5.64,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "noteBox",
+      "text": "START SHAPE PHYSICS",
+      "keyword": "START SHAPE PHYSICS",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h16_present_focus",
+      "start": 139.28,
+      "duration": 4.36,
+      "position": "bottom",
+      "animation": "fade",
+      "type": "noteBox",
+      "text": "TOMORROW PLACE ACTION",
+      "keyword": "TOMORROW PLACE ACTION",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h17_action_now",
+      "start": 143.84,
+      "duration": 7.84,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "PRESENT FRIENDS",
+      "keyword": "PRESENT FRIENDS",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "h18_future_transformation",
+      "start": 158.96,
+      "duration": 4.64,
+      "position": "bottom",
+      "animation": "pulse",
+      "type": "noteBox",
+      "text": "WON'T STAY",
+      "keyword": "WON'T STAY",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "layout": "bottom",
+      "volume": 0.7
     }
   ],
   "meta": {
-    "warnings": [
-      "Gap of 2.96s between segment_62 and segment_63; consider extending previous duration.",
-      "Gap of 8.48s between segment_69 and segment_70; consider extending previous duration."
-    ]
+    "highlightSrt": "D:\\Projects\\Crownmercado\\video-automation\\python-be\\outputs\\stage1_cut.srt"
   }
 }

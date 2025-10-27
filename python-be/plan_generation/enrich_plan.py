@@ -1641,36 +1641,39 @@ def build_highlight_from_overlay(
 
 
 
+DEFAULT_BROLL_DURATION = 6.0
+
 BROLL_RULES: List[Tuple[set[str], str]] = [
-    (set(["digital marketing", "marketing", "online marketing"]), "marketing_automation"),
-    (set(["strategy", "tactics", "plan", "framework"]), "business_strategy"),
-    (set(["seo", "search engine optimization"]), "data_visualization"),
-    (set(["social media", "facebook", "instagram", "linkedin"]), "digital_network"),
-    (set(["ppc", "paid ads", "google ads"]), "data_visualization"),
-    (set(["email marketing", "email campaigns"]), "digital_network"),
-    (set(["web optimization", "website", "landing page"]), "digital_transformation"),
-    (set(["audience", "segmentation", "target", "customer"]), "ai_brain"),
-    (set(["learning", "education", "course", "training"]), "education_training"),
-    (set(["career", "job", "growth", "specialise"]), "modern_office"),
-    (set(["credibility", "authority", "expert"]), "innovation_lightbulb"),
-    (set(["data", "analytics", "metrics", "insights"]), "data_visualization"),
-    (set(["content", "blog", "video", "post"]), "digital_network"),
-    (set(["organic", "paid", "promotion"]), "data_visualization"),
-    (set(["brand awareness", "direct response"]), "business_strategy"),
-    (set(["products", "services"]), "modern_office"),
-    (set(["b2b", "b2c", "business to business", "business to consumer"]), "business_strategy"),
+    (set(["digital marketing", "marketing", "online marketing"]), "creative_brainstorm"),
+    (set(["strategy", "tactics", "plan", "framework"]), "presentation_speaker"),
+    (set(["seo", "search engine optimization"]), "data_analysis"),
+    (set(["social media", "facebook", "instagram", "linkedin"]), "remote_call"),
+    (set(["ppc", "paid ads", "google ads"]), "data_analysis"),
+    (set(["email marketing", "email campaigns"]), "typing_laptop"),
+    (set(["web optimization", "website", "landing page"]), "coding_screen"),
+    (set(["audience", "segmentation", "target", "customer"]), "teamwork_meeting"),
+    (set(["learning", "education", "course", "training"]), "training_workshop"),
+    (set(["caffeine", "coffee", "cup of coffee"]), "typing_laptop"),
+    (set(["career", "job", "growth", "specialise"]), "office_motion"),
+    (set(["credibility", "authority", "expert"]), "presentation_speaker"),
+    (set(["data", "analytics", "metrics", "insights"]), "data_analysis"),
+    (set(["content", "blog", "video", "post"]), "creative_brainstorm"),
+    (set(["organic", "paid", "promotion"]), "data_analysis"),
+    (set(["brand awareness", "direct response"]), "presentation_speaker"),
+    (set(["products", "services"]), "office_motion"),
+    (set(["b2b", "b2c", "business to business", "business to consumer"]), "teamwork_meeting"),
     (set(["loyal", "loyalty", "loyal clients"]), "handshake_success"),
     (set(["sweet", "honest", "heartwarming"]), "celebration_success"),
     (set(["favorite memory", "favourite memory", "memory", "family", "grandkids"]), "celebration_success"),
     (set(["high school", "sweetheart", "sweethearts"]), "training_workshop"),
     (set(["clientele", "clients", "client"]), "teamwork_meeting"),
-    (set(["partnership", "still with", "day one"]), "modern_office"),
+    (set(["partnership", "still with", "day one"]), "office_motion"),
     (set(["relationship", "relationships", "friendships"]), "startup_team"),
     (set(["consistency", "consistent"]), "office_motion"),
-    (set(["mail room", "mailroom"]), "modern_office"),
-    (set(["industry", "business owner", "company"]), "modern_office"),
-    (set(["personality", "psychology", "traits", "introvert", "extrovert"]), "education_training"),
-    (set(["mind", "brain", "thought", "thinking"]), "ai_brain"),
+    (set(["mail room", "mailroom"]), "office_motion"),
+    (set(["industry", "business owner", "company"]), "startup_team"),
+    (set(["personality", "psychology", "traits", "introvert", "extrovert"]), "training_workshop"),
+    (set(["mind", "brain", "thought", "thinking"]), "digital_brain"),
     (set(["people", "audience", "social", "crowd", "group"]), "teamwork_meeting"),
 ]
 
@@ -1679,7 +1682,13 @@ BROLL_NOTES = {
     "celebration_success": "B-roll: celebration_success adds warmth during character description.",
     "training_workshop": "B-roll: training_workshop illustrates the high-school group setup.",
     "teamwork_meeting": "B-roll: teamwork_meeting spotlights established clientele.",
-    "modern_office": "B-roll: modern_office reinforces lasting client partnership.",
+    "presentation_speaker": "B-roll: presentation_speaker fits the talk-style explanation.",
+    "creative_brainstorm": "B-roll: creative_brainstorm adds energetic collaboration context.",
+    "data_analysis": "B-roll: data_analysis visualises metric-heavy commentary.",
+    "remote_call": "B-roll: remote_call reinforces digital social interaction.",
+    "typing_laptop": "B-roll: typing_laptop underscores analytical focus.",
+    "coding_screen": "B-roll: coding_screen mirrors technical optimisation themes.",
+    "digital_brain": "B-roll: digital_brain supports references to cognitive science.",
     "startup_team": "B-roll: startup_team reinforces loyal friendships with clients.",
     "office_motion": "B-roll: office_motion underscores consistent client relationships.",
 }
@@ -1689,7 +1698,13 @@ BROLL_REASONS = {
     "celebration_success": ["Celebration visual supports the heartfelt moment."],
     "training_workshop": ["Group setting mirrors the meeting story energy."],
     "teamwork_meeting": ["Team huddle echoes long-term client relationships."],
-    "modern_office": ["Modern office still pairs with enduring partnerships."],
+    "presentation_speaker": ["Stage speaker visual reinforces the narrated insight."],
+    "creative_brainstorm": ["Creative session footage keeps the discussion lively."],
+    "data_analysis": ["Analytics dashboard imagery matches the metric-focused commentary."],
+    "remote_call": ["Video call vignette highlights social/audience engagement."],
+    "typing_laptop": ["Typing closeup mirrors detailed analytical thinking."],
+    "coding_screen": ["Code view emphasises technical problem solving."],
+    "digital_brain": ["Digital brain animation echoes cognitive references in the script."],
     "startup_team": ["Collaborative workspace visualises loyal friendships with clients."],
     "office_motion": ["Office walkthrough mirrors consistent client presence."],
 }
@@ -1699,9 +1714,15 @@ BROLL_FULL_IDS = {
     "celebration_success",
     "training_workshop",
     "teamwork_meeting",
-    "modern_office",
     "startup_team",
     "office_motion",
+    "presentation_speaker",
+    "creative_brainstorm",
+    "data_analysis",
+    "remote_call",
+    "typing_laptop",
+    "coding_screen",
+    "digital_brain",
 }
 
 MAX_BROLL_REUSE = 2
@@ -1740,12 +1761,13 @@ HIGHLIGHT_SFX_RULES = [
 ]
 
 
-def match_broll_id(text: str) -> Optional[str]:
+def match_broll_candidates(text: str) -> List[str]:
     lowered = text.lower()
+    matches: List[str] = []
     for keywords, broll_id in BROLL_RULES:
         if any(keyword in lowered for keyword in keywords):
-            return broll_id
-    return None
+            matches.append(broll_id)
+    return matches
 
 
 def ensure_broll_from_highlights(
@@ -1775,8 +1797,16 @@ def ensure_broll_from_highlights(
         return None
 
     assigned_counts: defaultdict[str, int] = defaultdict(int)
-
-    last_motion: Optional[str] = None
+    section_locked_segments: set[str] = set()
+    for highlight in highlights:
+        if (highlight.get("type") or "").lower() != "sectiontitle":
+            continue
+        start = highlight.get("start")
+        if not isinstance(start, (int, float)):
+            continue
+        segment = locate_segment(start)
+        if segment and segment.get("id"):
+            section_locked_segments.add(segment["id"])
 
     for highlight in highlights:
         start = highlight.get("start")
@@ -1786,43 +1816,75 @@ def ensure_broll_from_highlights(
         segment = locate_segment(start)
         if not segment or segment.get("broll"):
             continue
+        segment_id = segment.get("id")
+        if isinstance(segment_id, str) and segment_id in section_locked_segments:
+            continue
+
+        highlight_type = (highlight.get("type") or "").lower()
+        if highlight_type == "sectiontitle":
+            continue
 
         text_sources = [highlight.get("keyword") or ""]
         supporting = highlight.get("supportingTexts") or {}
         text_sources.extend(supporting.values())
+        label = segment.get("label") or segment.get("title")
+        if label:
+            text_sources.append(label)
         full_text = " ".join(filter(None, text_sources))
         if not full_text:
             continue
 
-        broll_id = match_broll_id(full_text)
-        if not broll_id:
-            continue
-        if assigned_counts[broll_id] >= MAX_BROLL_REUSE:
+        candidates = match_broll_candidates(full_text)
+        if not candidates:
             continue
 
-        item = catalog_items.get(broll_id)
-        if not item:
+        chosen_item = None
+        chosen_id = None
+        for candidate_id in sorted(candidates, key=lambda cid: (assigned_counts[cid], cid)):
+            item = catalog_items.get(candidate_id)
+            if not item:
+                continue
+            file_path = str(item.get("file") or "")
+            media_type = (item.get("mediaType") or "").lower()
+            if media_type and media_type != "video" and not file_path.lower().endswith((".mp4", ".mov", ".m4v", ".webm", ".mpg", ".mpeg")):
+                continue
+            if assigned_counts[candidate_id] >= MAX_BROLL_REUSE:
+                continue
+            chosen_item = item
+            chosen_id = candidate_id
+            break
+
+        if not chosen_item or not chosen_id:
             continue
+
+        file_path = str(chosen_item.get("file") or "")
+        media_type = (chosen_item.get("mediaType") or "").lower()
+        if media_type and media_type != "video" and not file_path.lower().endswith((".mp4", ".mov", ".m4v", ".webm", ".mpg", ".mpeg")):
+            continue
+
         mode = "full"
-        reasons = BROLL_REASONS.get(item.get("id")) or ["Highlight keyword match"]
+        reasons = BROLL_REASONS.get(chosen_item.get("id")) or ["Highlight keyword match"]
+        duration_hint = float(chosen_item.get("durationHintSeconds") or DEFAULT_BROLL_DURATION)
+        max_duration = round(min(duration_hint, float(segment.get("duration", duration_hint))), 3)
 
         segment["broll"] = {
-            "id": item.get("id"),
-            "file": item.get("file"),
+            "id": chosen_item.get("id"),
+            "file": chosen_item.get("file"),
             "mode": mode,
             "confidence": 3.0,
             "reasons": reasons,
+            "duration": max_duration,
         }
         notes = [
             note
             for note in segment.get("notes", [])
             if not note.lower().startswith("no b-roll match")
         ]
-        note_text = BROLL_NOTES.get(item.get("id")) or f"B-roll injected via highlight keyword: {item.get('id')}"
+        note_text = BROLL_NOTES.get(chosen_item.get("id")) or f"B-roll injected via highlight keyword: {chosen_item.get('id')}"
         if note_text not in notes:
             notes.append(note_text)
         segment["notes"] = notes
-        assigned_counts[broll_id] += 1
+        assigned_counts[chosen_id] += 1
 
 
 def ensure_motion_from_highlights(

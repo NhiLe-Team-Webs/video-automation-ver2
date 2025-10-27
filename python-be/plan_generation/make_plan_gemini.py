@@ -995,7 +995,15 @@ def extract_plan_json(text: str) -> dict:
             except json.JSONDecodeError as exc:
                 last_error = exc
                 continue
-    raise ValueError(f"Could not parse JSON from LLM response: {last_error}")
+    # Strip markdown code block delimiters
+    if text.startswith("```json"):
+        text = text[7:]
+    if text.endswith("```"):
+        text = text[:-3]
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Could not parse JSON from LLM response: {exc}")
 
 
 def ensure_float(value: Any, default: float = 0.0) -> float:

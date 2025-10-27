@@ -61,6 +61,7 @@ export interface SegmentBrollPlan {
   reasons?: string[];
   startAt?: number;
   playbackRate?: number;
+  duration?: number;
 }
 
 export interface SegmentPlan {
