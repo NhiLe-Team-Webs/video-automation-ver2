@@ -11,6 +11,7 @@ describe('Logger', () => {
     process.env.YOUTUBE_CLIENT_ID = 'test-client-id';
     process.env.YOUTUBE_CLIENT_SECRET = 'test-client-secret';
     process.env.YOUTUBE_REDIRECT_URI = 'http://localhost:3000/oauth/callback';
+    // Notification endpoint is optional
     process.env.NOTIFICATION_ENDPOINT = 'http://test-webhook.com';
   });
 

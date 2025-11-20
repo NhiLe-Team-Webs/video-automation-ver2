@@ -81,8 +81,8 @@ export const config: SystemConfig = {
     redirectUri: getEnvVar('YOUTUBE_REDIRECT_URI'),
   },
   notifications: {
-    method: (getEnvVar('NOTIFICATION_METHOD', 'webhook') as 'email' | 'webhook' | 'sms'),
-    endpoint: getEnvVar('NOTIFICATION_ENDPOINT'),
+    method: (process.env.NOTIFICATION_METHOD || 'webhook') as 'email' | 'webhook' | 'sms',
+    endpoint: process.env.NOTIFICATION_ENDPOINT || '',
     operatorEmail: process.env.NOTIFICATION_OPERATOR_EMAIL,
   },
   storage: {

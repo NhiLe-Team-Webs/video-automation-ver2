@@ -38,18 +38,23 @@ pip install -U openai-whisper auto-editor
 
 2. **Tạo file .env:**
 ```bash
-cp .env.example .env
+# Dùng file local đơn giản cho development
+cp .env.local.example .env
 ```
 
 3. **Cấu hình API keys:**
 
 📖 **Xem hướng dẫn chi tiết từng bước:** [docs/HUONG_DAN_ENV.md](docs/HUONG_DAN_ENV.md)
 
-Các API keys cần thiết:
-- Gemini API (AI editing plan)
-- Pexels API (B-roll footage)
-- Google Sheets API (lưu transcript)
-- YouTube API (upload video)
+**5 API keys bắt buộc:**
+- ✅ Gemini API (AI editing plan)
+- ✅ Pexels API (B-roll footage)
+- ✅ Google Sheets API (lưu transcript)
+- ✅ YouTube API (upload video)
+- ✅ Whisper (local, không cần API key)
+
+**Optional (có thể bỏ qua khi dev local):**
+- ⚪ Notifications (Discord/Slack webhooks)
 
 4. **Cài đặt Redis:**
 ```bash

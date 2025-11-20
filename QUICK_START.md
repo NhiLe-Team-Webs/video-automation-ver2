@@ -26,10 +26,11 @@ docker run -d -p 6379:6379 --name redis redis:7-alpine
 ## Bước 2: Tạo File .env (2 phút)
 
 ```bash
-cp .env.example .env
+# Dùng file local đơn giản hơn
+cp .env.local.example .env
 ```
 
-Mở `.env` và điền **TỐI THIỂU** các thông tin này:
+Mở `.env` và điền **5 API KEYS BẮT BUỘC**:
 
 ```bash
 # 1. Gemini API (MIỄN PHÍ)
@@ -51,14 +52,13 @@ YOUTUBE_CLIENT_ID=123456789-xxx.apps.googleusercontent.com
 YOUTUBE_CLIENT_SECRET=GOCSPX-xxx
 YOUTUBE_REDIRECT_URI=http://localhost:3000/oauth/callback
 
-# 5. Notification (TÙY CHỌN - có thể bỏ qua)
-NOTIFICATION_METHOD=webhook
-NOTIFICATION_ENDPOINT=https://discord.com/api/webhooks/xxx
-
-# Các biến khác để mặc định
+# Các biến khác (Redis, Storage, Server) đã có giá trị mặc định
 ```
 
-**⚠️ Lưu ý:** Google Sheets và YouTube cần setup phức tạp hơn. Xem hướng dẫn chi tiết tại [docs/HUONG_DAN_ENV.md](docs/HUONG_DAN_ENV.md)
+**⚠️ Lưu ý:** 
+- Google Sheets và YouTube cần setup phức tạp hơn
+- Xem hướng dẫn chi tiết: [docs/HUONG_DAN_ENV.md](docs/HUONG_DAN_ENV.md)
+- Notifications là OPTIONAL, có thể bỏ qua khi dev local
 
 ## Bước 3: Chạy (1 phút)
 
