@@ -1,0 +1,23 @@
+Tôi đang xây dựng một hệ thống edit video dài tự động trên YouTube. 
+
+Mục tiêu: khi người dùng upload video lên hệ thống -> ra được video YT được edit chuyên nghiệp. 
+
+Hệ thống được deploy và chạy được trên cloud.
+
+Pipeline mong muốn: 
+- Video thô đầu vào -> qua auto editor để được cắt các đoạn dư thừa cơ bản -> qua whisper để lấy transcript -> Gửi về GG Sheet để lưu trữ
+-> dùng công nghệ highlight detection để tìm ra các điểm cần highlight -> LLM (Gemini) để tạo kế hoạch gắn highlights + animation + transitions -> gắn vào remotion để ra final video -> upload lên YT để lấy link -> gửi về cho user xem.
+
+Không build lại từ đầu mà học từ những công nghệ có sẵn: 
+reference\auto-editor: tự động cắt fillers của video. 
+reference\MoneyPrinterTurbo: học logic để gọi API để chèn broll vào video cho YT một cách hợp lý. 
+reference\effect: các hiệu ứng cho video, dùng công nghệ của opensource reference\animation\remotion
+- reference\animation\remotion-templates: những templates effect có sẵn, chỉ cần lấy về và xài vào source code, ko code lại từ đầu. 
+- reference\animation\animation-css: những animation cơ bản cho effect, đem vào dùng lại, ko code lại từ đầu
+reference\highligh-detection: dùng công nghệ để dựa vào file srt từ whisper trích xuất ra để tìm highlights làm input cho LLM tạo plan. 
+
+Checklist cần hoàn thiện trong version đầu tiên: 
+- Cấu trúc source code đơn giản, cơ bản, chỉ xào nấu lại các stack đã có sẵn, ko build lại từ đầu. 
+- Có thể deploy, có tài liệu deploy, hệ thống chạy được ổn định. 
+- Video final cần được cắt fillers + thêm broll + animation cơ bản. 
+- Có file env để thêm API LLM, LLM được train cơ bản để dùng các stack có sẵn để build video. 

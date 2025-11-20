@@ -75,7 +75,7 @@ describe('SheetsStorageService', () => {
 
     // Get mock sheets instance
     const { google } = await import('googleapis');
-    mockSheets = google.sheets({ version: 'v4', auth: {} });
+    mockSheets = google.sheets('v4');
   });
 
   describe('saveTranscript', () => {
