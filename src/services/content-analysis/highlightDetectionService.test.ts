@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import fs from 'fs/promises';
 import path from 'path';
-import { HighlightDetectionService } from './highlightDetectionService';
+import { HighlightDetectionService } from '../content-analysis/highlightDetectionService';
 
 describe('HighlightDetectionService', () => {
   let service: HighlightDetectionService;

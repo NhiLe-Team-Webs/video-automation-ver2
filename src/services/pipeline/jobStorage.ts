@@ -1,6 +1,6 @@
-import { Job, StageResult, ErrorInfo, VideoMetadata } from '../models/job';
-import { PipelineStage } from '../utils/errors';
-import { createLogger } from '../utils/logger';
+import { Job, StageResult, ErrorInfo, VideoMetadata } from '../../models/job';
+import { PipelineStage } from '../../utils/errors';
+import { createLogger } from '../../utils/logger';
 
 const logger = createLogger('JobStorage');
 

@@ -4,18 +4,18 @@ import fs from 'fs/promises';
 import crypto from 'crypto';
 import ffmpeg from 'fluent-ffmpeg';
 import { promisify } from 'util';
-import { config } from '../config';
-import { createLogger } from '../utils/logger';
-import { ValidationError } from '../utils/errors';
+import { config } from '../../config';
+import { createLogger } from '../../utils/logger';
+import { ValidationError } from '../../utils/errors';
 import {
   VideoMetadata,
   ValidationResult,
   UploadResult,
   Job,
   StageResult,
-} from '../models/job';
-import * as jobStorage from './jobStorage';
-import { addVideoJob } from './queue';
+} from '../../models/job';
+import * as jobStorage from '../pipeline/jobStorage';
+import { addVideoJob } from '../pipeline/queue';
 
 const logger = createLogger('VideoUploadHandler');
 

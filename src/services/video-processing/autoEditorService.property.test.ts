@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import * as fc from 'fast-check';
-import { AutoEditorService } from './autoEditorService';
+import { AutoEditorService } from '../video-processing/autoEditorService';
 import { spawn } from 'child_process';
 import ffmpeg from 'fluent-ffmpeg';
 
 // Mock dependencies
 vi.mock('child_process');
 vi.mock('fluent-ffmpeg');
-vi.mock('../config', () => ({
+vi.mock('../../config', () => ({
   config: {
     autoEditor: {
       margin: '0.2sec',

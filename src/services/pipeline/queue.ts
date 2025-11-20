@@ -1,8 +1,8 @@
 import { Queue, Worker, Job as BullJob, QueueEvents } from 'bullmq';
 import IORedis from 'ioredis';
-import { config } from '../config';
-import { createLogger } from '../utils/logger';
-import { Job } from '../models/job';
+import { config } from '../../config';
+import { createLogger } from '../../utils/logger';
+import { Job } from '../../models/job';
 
 const logger = createLogger('Queue');
 

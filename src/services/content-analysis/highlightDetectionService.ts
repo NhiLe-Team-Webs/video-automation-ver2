@@ -1,8 +1,8 @@
 import { spawn } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
-import { createLogger } from '../utils/logger';
-import { ProcessingError } from '../utils/errors';
+import { createLogger } from '../../utils/logger';
+import { ProcessingError } from '../../utils/errors';
 
 const logger = createLogger('HighlightDetectionService');
 

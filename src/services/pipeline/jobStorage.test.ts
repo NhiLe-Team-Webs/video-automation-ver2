@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import * as jobStorage from './jobStorage';
-import { VideoMetadata } from '../models/job';
+import * as jobStorage from '../pipeline/jobStorage';
+import { VideoMetadata } from '../../models/job';
 
 describe('Job Storage Service', () => {
   const mockMetadata: VideoMetadata = {

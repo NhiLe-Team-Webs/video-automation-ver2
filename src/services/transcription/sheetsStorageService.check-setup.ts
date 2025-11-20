@@ -9,7 +9,7 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import { config } from '../config';
+import { config } from '../../config';
 
 async function checkSetup() {
   console.log('=== Kiểm Tra Setup Google Sheets API ===\n');

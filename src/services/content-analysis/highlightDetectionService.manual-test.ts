@@ -6,7 +6,7 @@
  */
 
 import path from 'path';
-import { HighlightDetectionService } from './highlightDetectionService';
+import { HighlightDetectionService } from '../content-analysis/highlightDetectionService';
 
 async function testHighlightDetection() {
   console.log('=== Highlight Detection Service Manual Test ===\n');

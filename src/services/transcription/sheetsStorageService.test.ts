@@ -3,7 +3,7 @@ import { SheetsStorageService } from './sheetsStorageService';
 import { TranscriptSegment } from './transcriptionService';
 
 // Mock logger
-vi.mock('../utils/logger', () => ({
+vi.mock('../../utils/logger', () => ({
   createLogger: vi.fn(() => ({
     info: vi.fn(),
     warn: vi.fn(),
@@ -41,7 +41,7 @@ vi.mock('fs/promises', () => {
 });
 
 // Mock config
-vi.mock('../config', () => ({
+vi.mock('../../config', () => ({
   config: {
     googleSheets: {
       spreadsheetId: 'test-spreadsheet-id',

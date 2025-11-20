@@ -3,7 +3,7 @@ import * as fc from 'fast-check';
 import { TranscriptionService, TranscriptSegment } from './transcriptionService';
 import fs from 'fs/promises';
 import path from 'path';
-import { config } from '../config';
+import { config } from '../../config';
 
 /**
  * Feature: youtube-video-automation, Property 7: SRT file validity

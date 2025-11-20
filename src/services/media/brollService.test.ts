@@ -5,7 +5,7 @@ import brollService from './brollService';
 
 vi.mock('axios');
 vi.mock('fs/promises');
-vi.mock('../utils/logger', () => ({
+vi.mock('../../utils/logger', () => ({
   default: {
     info: vi.fn(),
     warn: vi.fn(),

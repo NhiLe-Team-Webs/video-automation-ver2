@@ -7,20 +7,48 @@ Automated YouTube video editing system that transforms raw video uploads into pr
 ```
 .
 ├── src/
-│   ├── config/          # Configuration management
-│   ├── utils/           # Utility functions (logging, errors)
-│   ├── server.ts        # API server entry point
-│   └── worker.ts        # Worker node entry point
-├── dist/                # Compiled TypeScript output
-├── temp/                # Temporary file storage
-├── cache/               # Cached resources
-├── logs/                # Application logs
-├── Dockerfile.api       # API server Docker configuration
-├── Dockerfile.worker    # Worker node Docker configuration
-├── docker-compose.yml   # Local development setup
-└── .env.example         # Environment variable template
-
+│   ├── api/                    # REST API routes
+│   ├── config/                 # Configuration management
+│   ├── models/                 # Data models
+│   ├── utils/                  # Utility functions (logging, errors)
+│   ├── remotion/               # Video rendering templates & animations
+│   ├── services/               # Business logic services (organized by domain)
+│   │   ├── video-processing/   # Auto Editor service
+│   │   ├── transcription/      # Whisper & Google Sheets storage
+│   │   ├── content-analysis/   # Highlight detection & LLM editing plan
+│   │   ├── media/              # B-roll service
+│   │   ├── upload/             # Video upload handler
+│   │   └── pipeline/           # Pipeline orchestration & job management
+│   ├── server.ts               # API server entry point
+│   └── worker.ts               # Worker node entry point
+├── scripts/                    # Utility scripts
+├── docs/                       # Documentation
+├── dist/                       # Compiled TypeScript output
+├── temp/                       # Temporary file storage
+├── cache/                      # Cached resources (B-roll, etc.)
+├── logs/                       # Application logs
+├── Dockerfile.api              # API server Docker configuration
+├── Dockerfile.worker           # Worker node Docker configuration
+├── docker-compose.yml          # Local development setup
+└── .env.example                # Environment variable template
 ```
+
+### Services Architecture
+
+Services are organized by domain for better maintainability:
+
+- **video-processing**: Auto Editor integration for removing silence/filler
+- **transcription**: Whisper transcription + Google Sheets storage
+- **content-analysis**: Highlight detection + Gemini LLM editing plan generation
+- **media**: B-roll footage search and download (Pexels API)
+- **upload**: Video upload handling and validation
+- **pipeline**: Job orchestration, queue management, and status tracking
+
+Each service folder contains:
+- Main service implementation
+- Unit tests
+- Property-based tests (where applicable)
+- Example/manual test files
 
 ## Setup
 

@@ -1,8 +1,8 @@
-import { PipelineStage } from '../utils/errors';
-import { createLogger } from '../utils/logger';
-import * as jobStorage from './jobStorage';
-import { Job } from '../models/job';
-import { AutoEditorService } from './autoEditorService';
+import { PipelineStage } from '../../utils/errors';
+import { createLogger } from '../../utils/logger';
+import * as jobStorage from '../pipeline/jobStorage';
+import { Job } from '../../models/job';
+import { AutoEditorService } from '../video-processing/autoEditorService';
 
 const logger = createLogger('PipelineOrchestrator');
 

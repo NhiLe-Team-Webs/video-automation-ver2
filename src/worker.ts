@@ -2,8 +2,8 @@ import { Worker, Job as BullJob } from 'bullmq';
 import IORedis from 'ioredis';
 import { config } from './config';
 import { createLogger } from './utils/logger';
-import { VideoProcessingJobData } from './services/queue';
-import { processVideo } from './services/pipelineOrchestrator';
+import { VideoProcessingJobData } from './services/pipeline/queue';
+import { processVideo } from './services/pipeline/pipelineOrchestrator';
 
 const logger = createLogger('Worker');
 

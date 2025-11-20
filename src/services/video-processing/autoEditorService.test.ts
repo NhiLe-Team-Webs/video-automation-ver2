@@ -1,16 +1,16 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { AutoEditorService } from './autoEditorService';
+import { AutoEditorService } from '../video-processing/autoEditorService';
 import { spawn } from 'child_process';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs/promises';
 import path from 'path';
-import { ProcessingError } from '../utils/errors';
+import { ProcessingError } from '../../utils/errors';
 
 // Mock dependencies
 vi.mock('child_process');
 vi.mock('fluent-ffmpeg');
 vi.mock('fs/promises');
-vi.mock('../config', () => ({
+vi.mock('../../config', () => ({
   config: {
     autoEditor: {
       margin: '0.2sec',

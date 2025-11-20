@@ -1,9 +1,9 @@
 import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
 import fs from 'fs/promises';
-import { config } from '../config';
-import { createLogger } from '../utils/logger';
-import { ProcessingError } from '../utils/errors';
+import { config } from '../../config';
+import { createLogger } from '../../utils/logger';
+import { ProcessingError } from '../../utils/errors';
 import { TranscriptSegment } from './transcriptionService';
 
 const logger = createLogger('SheetsStorageService');

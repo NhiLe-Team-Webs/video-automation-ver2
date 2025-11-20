@@ -13,8 +13,8 @@
 import fs from 'fs/promises';
 import path from 'path';
 import brollService from './brollService';
-import { HighlightDetectionService } from './highlightDetectionService';
-import { createLogger } from '../utils/logger';
+import { HighlightDetectionService } from '../content-analysis/highlightDetectionService';
+import { createLogger } from '../../utils/logger';
 
 const logger = createLogger('BrollManualTest');
 const highlightDetectionService = new HighlightDetectionService();

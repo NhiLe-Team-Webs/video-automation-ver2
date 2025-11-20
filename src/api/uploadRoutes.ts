@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
 import os from 'os';
-import { VideoUploadHandler } from '../services/videoUploadHandler';
+import { VideoUploadHandler } from '../services/upload/videoUploadHandler';
 import { createLogger } from '../utils/logger';
 import { ValidationError } from '../utils/errors';
-import * as jobStorage from '../services/jobStorage';
-import { getStatus } from '../services/pipelineOrchestrator';
+import * as jobStorage from '../services/pipeline/jobStorage';
+import { getStatus } from '../services/pipeline/pipelineOrchestrator';
 
 const logger = createLogger('UploadRoutes');
 

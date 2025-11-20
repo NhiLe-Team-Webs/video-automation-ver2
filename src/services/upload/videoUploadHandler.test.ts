@@ -9,7 +9,7 @@ vi.mock('fluent-ffmpeg', () => ({
   },
 }));
 
-vi.mock('../config', () => ({
+vi.mock('../../config', () => ({
   config: {
     storage: {
       tempDir: './temp-test',
@@ -26,7 +26,7 @@ vi.mock('../config', () => ({
   },
 }));
 
-vi.mock('../utils/logger', () => ({
+vi.mock('../../utils/logger', () => ({
   createLogger: () => ({
     info: vi.fn(),
     error: vi.fn(),
@@ -35,11 +35,11 @@ vi.mock('../utils/logger', () => ({
   }),
 }));
 
-vi.mock('./queue', () => ({
+vi.mock('../pipeline/queue', () => ({
   addVideoJob: vi.fn().mockResolvedValue('mock-bull-job-id'),
 }));
 
-vi.mock('./jobStorage', () => ({
+vi.mock('../pipeline/jobStorage', () => ({
   createJob: vi.fn().mockReturnValue({
     id: 'mock-job-id',
     userId: 'test-user',

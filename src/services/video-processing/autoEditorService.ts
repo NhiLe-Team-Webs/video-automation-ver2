@@ -2,9 +2,9 @@ import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs/promises';
 import ffmpeg from 'fluent-ffmpeg';
-import { config } from '../config';
-import { createLogger } from '../utils/logger';
-import { ProcessingError } from '../utils/errors';
+import { config } from '../../config';
+import { createLogger } from '../../utils/logger';
+import { ProcessingError } from '../../utils/errors';
 
 const logger = createLogger('AutoEditorService');
 

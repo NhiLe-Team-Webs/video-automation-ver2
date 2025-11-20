@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { processVideo, getStatus, getNextStage, isValidStage } from './pipelineOrchestrator';
-import * as jobStorage from './jobStorage';
-import { VideoMetadata } from '../models/job';
+import * as jobStorage from '../pipeline/jobStorage';
+import { VideoMetadata } from '../../models/job';
 
 describe('Pipeline Orchestrator', () => {
   const mockMetadata: VideoMetadata = {

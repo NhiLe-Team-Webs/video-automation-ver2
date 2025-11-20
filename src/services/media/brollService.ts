@@ -2,8 +2,8 @@ import axios from 'axios';
 import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
-import { config } from '../config';
-import { createLogger } from '../utils/logger';
+import { config } from '../../config';
+import { createLogger } from '../../utils/logger';
 
 const logger = createLogger('BrollService');
 
