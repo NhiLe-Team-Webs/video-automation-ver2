@@ -140,7 +140,10 @@
   - **Property 9: Timestamp synchronization**
   - **Validates: Requirements 3.5**
 
-- [-] 7. Implement highlight detection service
+- [x] 7. Implement highlight detection service
+
+
+
 
 
   - Integrate highlight detection technology from reference implementation
@@ -179,7 +182,7 @@
   - Add video caching to avoid re-downloads
   - Implement graceful handling for missing B-roll
   - Add transition generation for B-roll segments
-  - _Requirements: 7.1, 7.3, 7.4_
+  - _Requirements: 7.1, 7.3, 7.4, 7.5_
 
 - [ ]* 9.1 Write property test for B-roll insertion timestamps
   - **Property 15: B-roll insertion at correct timestamps**

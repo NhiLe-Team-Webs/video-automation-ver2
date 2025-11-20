@@ -109,6 +109,7 @@ This document specifies requirements for an automated YouTube video editing syst
 2. WHEN inserting B-roll THEN the System SHALL follow the API calling logic from MoneyPrinterTurbo reference implementation
 3. WHEN B-roll is inserted THEN the System SHALL ensure smooth transitions between main content and B-roll footage
 4. WHEN B-roll footage is unavailable THEN the System SHALL proceed without B-roll and log the missing resource
+5. Read the source code to learn how it works: planning\reference\MoneyPrinterTurbo
 
 ### Requirement 8
 
