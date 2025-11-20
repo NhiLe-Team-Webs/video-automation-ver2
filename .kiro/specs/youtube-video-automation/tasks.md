@@ -115,14 +115,24 @@
   - **Property 20: Retry with exponential backoff**
   - **Validates: Requirements 3.4, 5.4, 8.4**
 
-- [ ] 6. Implement Google Sheets storage service
+- [x] 6. Implement Google Sheets storage service
+
+
+
+
+
   - Set up Google Sheets API authentication
   - Implement transcript storage with job ID indexing
   - Implement transcript retrieval by job ID
   - Add timestamp validation for stored segments
   - _Requirements: 3.3, 3.5_
 
-- [ ]* 6.1 Write property test for transcript storage round-trip
+- [x] 6.1 Write property test for transcript storage round-trip
+
+
+
+
+
   - **Property 8: Transcript storage round-trip**
   - **Validates: Requirements 3.3**
 
@@ -130,12 +140,14 @@
   - **Property 9: Timestamp synchronization**
   - **Validates: Requirements 3.5**
 
-- [ ] 7. Implement highlight detection service
+- [-] 7. Implement highlight detection service
+
+
   - Integrate highlight detection technology from reference implementation
   - Implement SRT analysis for keyword and sentiment detection
   - Create highlight timestamp extraction and validation
   - Implement default parameter handling for empty highlights
-  - _Requirements: 4.1, 4.2, 4.3, 4.4_
+  - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
 - [ ]* 7.1 Write property test for highlight timestamp validity
   - **Property 10: Highlight timestamp validity**

@@ -73,6 +73,7 @@ This document specifies requirements for an automated YouTube video editing syst
 2. WHEN Highlight Detection completes THEN the System SHALL produce a list of timestamp ranges identifying highlight moments
 3. WHEN highlights are identified THEN the System SHALL validate that each highlight has valid start and end timestamps
 4. WHEN no highlights are detected THEN the System SHALL proceed with default editing parameters
+5. Use technology in planning\reference\highligh-detection to use.
 
 ### Requirement 5
 
