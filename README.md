@@ -51,65 +51,29 @@ Each service folder contains:
 - Example/manual test files
 
 ## Setup
-
-### Quick Start (5 phút)
-
-Xem hướng dẫn nhanh: [QUICK_START.md](QUICK_START.md)
-
-### Hướng Dẫn Đầy Đủ
-
-1. **Cài đặt dependencies:**
+1. **Install dependencies:**
 ```bash
 npm install
 pip install -U openai-whisper auto-editor
 ```
 
-2. **Tạo file .env:**
+2. **Create file .env:**
 ```bash
 # Dùng file local đơn giản cho development
 cp .env.local.example .env
 ```
 
-3. **Cấu hình API keys:**
-
-📖 **Xem hướng dẫn chi tiết từng bước:** [docs/HUONG_DAN_ENV.md](docs/HUONG_DAN_ENV.md)
-
-**5 API keys bắt buộc:**
+3. **Config API keys:**
+   
+**5 Required Stacks:**
 - ✅ Gemini API (AI editing plan)
 - ✅ Pexels API (B-roll footage)
 - ✅ Google Sheets API (lưu transcript)
 - ✅ YouTube API (upload video)
-- ✅ Whisper (local, không cần API key)
-
-**Optional (có thể bỏ qua khi dev local):**
-- ⚪ Notifications (Discord/Slack webhooks)
-
-4. **Cài đặt Redis:**
-```bash
-# Dùng Docker (khuyến nghị)
-docker run -d -p 6379:6379 --name redis redis:7-alpine
-```
-
-### 📚 Tài Liệu (Tiếng Việt)
-
-**❓ Không biết bắt đầu từ đâu?** → [BAT_DAU_O_DAU.md](BAT_DAU_O_DAU.md) ⭐
-
-**Bắt đầu tại đây:**
-- 🚀 [Quick Start](QUICK_START.md) - Setup trong 5 phút
-- ✅ [Checklist Setup](CHECKLIST_SETUP.md) - Track progress từng bước
-
-**Hướng dẫn chi tiết:**
-- 📖 [Hướng dẫn đầy đủ](HUONG_DAN.md) - Hướng dẫn toàn diện bằng tiếng Việt
-- 🔧 [Cấu hình .env](docs/HUONG_DAN_ENV.md) - Setup từng biến môi trường ⭐
-- 🎤 [Setup Whisper](docs/WHISPER_SETUP.md) - Cài đặt và tối ưu Whisper
-
-**Tài nguyên:**
-- 🔗 [Links Hữu Ích](docs/LINKS_HUU_ICH.md) - 100+ links API, tools, tutorials
-- 📑 [Chỉ Mục Docs](docs/INDEX.md) - Navigate tất cả tài liệu
-- 📊 [Tổng Quan](TAI_LIEU_OVERVIEW.md) - Overview tất cả docs
+- ✅ Whisper (local)
 
 **Technical:**
-- 🏗️ [Setup Info](SETUP.md) - Thông tin kỹ thuật về project structure
+- 🏗️ [Setup Info](SETUP_INSTRUCTION.md) - Technical instructions
 
 ## Development
 
@@ -174,3 +138,4 @@ Available Whisper models:
 - `small` - Better accuracy (~2GB)
 - `medium` - High accuracy (~5GB)
 - `large` - Best accuracy (~10GB)
+
