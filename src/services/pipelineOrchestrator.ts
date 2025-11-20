@@ -115,12 +115,13 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       stack: errorStack,
     });
 
-    // Update job with error
+    // Update job with error if job exists
     const job = jobStorage.getJob(jobId);
-    const currentStage = job ? getCurrentStage(job) : 'uploaded';
-    
-    jobStorage.setJobError(jobId, currentStage, errorMessage, errorStack);
-    jobStorage.updateJobStatus(jobId, 'failed');
+    if (job) {
+      const currentStage = getCurrentStage(job);
+      jobStorage.setJobError(jobId, currentStage, errorMessage, errorStack);
+      jobStorage.updateJobStatus(jobId, 'failed');
+    }
 
     return {
       jobId,

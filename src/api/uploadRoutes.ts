@@ -1,10 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import path from 'path';
 import os from 'os';
 import { VideoUploadHandler } from '../services/videoUploadHandler';
 import { createLogger } from '../utils/logger';
 import { ValidationError } from '../utils/errors';
+import * as jobStorage from '../services/jobStorage';
+import { getStatus } from '../services/pipelineOrchestrator';
 
 const logger = createLogger('UploadRoutes');
 
@@ -65,7 +66,7 @@ uploadRouter.get(
     try {
       const { jobId } = req.params;
 
-      const job = videoUploadHandler.getJob(jobId);
+      const job = jobStorage.getJob(jobId);
 
       if (!job) {
         return res.status(404).json({
@@ -74,13 +75,16 @@ uploadRouter.get(
         });
       }
 
+      // Get detailed status from pipeline orchestrator
+      const status = getStatus(jobId);
+
       res.status(200).json({
         success: true,
         data: {
           jobId: job.id,
           status: job.status,
-          currentStage: job.processingStages[job.processingStages.length - 1]?.stage,
-          progress: calculateProgress(job.processingStages),
+          currentStage: status.currentStage,
+          progress: status.progress,
           createdAt: job.createdAt,
           updatedAt: job.updatedAt,
           youtubeUrl: job.finalYoutubeUrl,
@@ -92,15 +96,6 @@ uploadRouter.get(
     }
   }
 );
-
-/**
- * Calculate processing progress based on completed stages
- */
-function calculateProgress(stages: any[]): number {
-  const totalStages = 9; // Total number of pipeline stages
-  const completedStages = stages.filter((s) => s.status === 'completed').length;
-  return Math.round((completedStages / totalStages) * 100);
-}
 
 /**
  * Error handling middleware

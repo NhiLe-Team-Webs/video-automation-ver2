@@ -1,7 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { VideoUploadHandler } from './videoUploadHandler';
-import { ValidationError } from '../utils/errors';
-import path from 'path';
 import fs from 'fs/promises';
 
 // Mock dependencies
@@ -21,6 +19,10 @@ vi.mock('../config', () => ({
       env: 'test',
       port: 3000,
     },
+    redis: {
+      host: 'localhost',
+      port: 6379,
+    },
   },
 }));
 
@@ -31,6 +33,23 @@ vi.mock('../utils/logger', () => ({
     warn: vi.fn(),
     debug: vi.fn(),
   }),
+}));
+
+vi.mock('./queue', () => ({
+  addVideoJob: vi.fn().mockResolvedValue('mock-bull-job-id'),
+}));
+
+vi.mock('./jobStorage', () => ({
+  createJob: vi.fn().mockReturnValue({
+    id: 'mock-job-id',
+    userId: 'test-user',
+    status: 'queued',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    videoMetadata: {},
+    processingStages: [],
+  }),
+  updateStage: vi.fn(),
 }));
 
 describe('VideoUploadHandler', () => {
@@ -140,109 +159,5 @@ describe('VideoUploadHandler', () => {
     });
   });
 
-  describe('createJob', () => {
-    it('should create a job with correct initial state', () => {
-      const jobId = 'test-job-id';
-      const userId = 'test-user';
-      const videoPath = '/tmp/test.mp4';
-      const metadata = {
-        duration: 10,
-        resolution: { width: 1920, height: 1080 },
-        format: 'mp4',
-        fileSize: 1000,
-        checksum: 'abc123',
-      };
 
-      const job = (handler as any).createJob(jobId, userId, videoPath, metadata);
-
-      expect(job.id).toBe(jobId);
-      expect(job.userId).toBe(userId);
-      expect(job.status).toBe('queued');
-      expect(job.videoMetadata).toEqual(metadata);
-      expect(job.processingStages).toHaveLength(1);
-      expect(job.processingStages[0].stage).toBe('uploaded');
-      expect(job.processingStages[0].status).toBe('completed');
-    });
-  });
-
-  describe('getJob and updateJob', () => {
-    it('should store and retrieve jobs', async () => {
-      const mockFile = {
-        originalname: 'test.mp4',
-        path: '/tmp/test.mp4',
-        size: 1000,
-      } as Express.Multer.File;
-
-      // Mock all dependencies for upload
-      const ffmpeg = await import('fluent-ffmpeg');
-      vi.mocked(ffmpeg.default.ffprobe).mockImplementation(
-        (filePath: string, callback: any) => {
-          callback(null, {
-            format: {
-              format_name: 'mp4',
-              duration: 10,
-              size: 1000,
-            },
-            streams: [
-              {
-                codec_type: 'video',
-                width: 1920,
-                height: 1080,
-              },
-            ],
-          });
-        }
-      );
-
-      vi.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from('test'));
-      vi.spyOn(fs, 'mkdir').mockResolvedValue(undefined);
-      vi.spyOn(fs, 'rename').mockResolvedValue(undefined);
-
-      const result = await handler.uploadVideo(mockFile, 'test-user');
-      const job = handler.getJob(result.jobId);
-
-      expect(job).toBeDefined();
-      expect(job?.id).toBe(result.jobId);
-      expect(job?.userId).toBe('test-user');
-    });
-
-    it('should update job status', async () => {
-      const mockFile = {
-        originalname: 'test.mp4',
-        path: '/tmp/test.mp4',
-        size: 1000,
-      } as Express.Multer.File;
-
-      const ffmpeg = await import('fluent-ffmpeg');
-      vi.mocked(ffmpeg.default.ffprobe).mockImplementation(
-        (filePath: string, callback: any) => {
-          callback(null, {
-            format: {
-              format_name: 'mp4',
-              duration: 10,
-              size: 1000,
-            },
-            streams: [
-              {
-                codec_type: 'video',
-                width: 1920,
-                height: 1080,
-              },
-            ],
-          });
-        }
-      );
-
-      vi.spyOn(fs, 'readFile').mockResolvedValue(Buffer.from('test'));
-      vi.spyOn(fs, 'mkdir').mockResolvedValue(undefined);
-      vi.spyOn(fs, 'rename').mockResolvedValue(undefined);
-
-      const result = await handler.uploadVideo(mockFile, 'test-user');
-      
-      handler.updateJob(result.jobId, { status: 'processing' });
-      
-      const job = handler.getJob(result.jobId);
-      expect(job?.status).toBe('processing');
-    });
-  });
 });
