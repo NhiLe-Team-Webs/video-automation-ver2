@@ -273,7 +273,11 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 14. Implement YouTube upload service
+- [x] 14. Implement YouTube upload service
+
+
+
+
   - Set up YouTube Data API v3 integration
   - Implement OAuth2 authentication flow
   - Create video upload with metadata

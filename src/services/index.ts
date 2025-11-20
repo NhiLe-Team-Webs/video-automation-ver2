@@ -30,3 +30,6 @@ export * from './preview';
 
 // Rendering
 export * from './rendering';
+
+// YouTube
+export * from './youtube';
