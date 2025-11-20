@@ -58,7 +58,11 @@
   - **Property 21: Concurrent job isolation**
   - **Validates: Requirements 9.4**
 
-- [-] 4. Implement Auto Editor service integration
+- [x] 4. Implement Auto Editor service integration
+
+
+
+
 
 
   - Create Python CLI wrapper for Auto Editor
@@ -68,7 +72,10 @@
   - Add error handling and logging for Auto Editor failures
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [ ]* 4.1 Write property test for Auto Editor output duration
+- [-] 4.1 Write property test for Auto Editor output duration
+
+
+
   - **Property 5: Auto Editor output is shorter**
   - **Validates: Requirements 2.2**
 

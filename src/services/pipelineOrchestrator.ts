@@ -2,6 +2,7 @@ import { PipelineStage } from '../utils/errors';
 import { createLogger } from '../utils/logger';
 import * as jobStorage from './jobStorage';
 import { Job } from '../models/job';
+import { AutoEditorService } from './autoEditorService';
 
 const logger = createLogger('PipelineOrchestrator');
 
@@ -87,13 +88,55 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
     // Mark uploaded stage as completed
     jobStorage.updateStage(jobId, 'uploaded', 'completed');
 
-    // TODO: Execute each pipeline stage
+    // Stage 1: Auto Editor - Remove silence and filler content
+    logger.info('Starting Auto Editor stage', { jobId });
+    jobStorage.updateStage(jobId, 'auto-editing', 'in-progress');
+    
+    try {
+      const autoEditorService = new AutoEditorService();
+      const uploadedStage = job.processingStages.find(s => s.stage === 'uploaded');
+      
+      if (!uploadedStage?.outputPath) {
+        throw new Error('No video path found from upload stage');
+      }
+
+      const autoEditorResult = await autoEditorService.processVideo(uploadedStage.outputPath);
+      
+      jobStorage.updateStage(
+        jobId,
+        'auto-editing',
+        'completed',
+        autoEditorResult.outputPath
+      );
+
+      logger.info('Auto Editor stage completed', {
+        jobId,
+        outputPath: autoEditorResult.outputPath,
+        durationReduction: autoEditorResult.inputDuration - autoEditorResult.outputDuration,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorStack = error instanceof Error ? error.stack : undefined;
+
+      logger.error('Auto Editor stage failed', {
+        jobId,
+        error: errorMessage,
+        stack: errorStack,
+      });
+
+      jobStorage.updateStage(jobId, 'auto-editing', 'failed');
+      jobStorage.setJobError(jobId, 'auto-editing', errorMessage, errorStack);
+      jobStorage.updateJobStatus(jobId, 'failed');
+
+      return {
+        jobId,
+        status: 'failed',
+        error: errorMessage,
+      };
+    }
+
+    // TODO: Execute remaining pipeline stages
     // For now, this is a placeholder that will be implemented in later tasks
-    // Each stage will:
-    // 1. Mark stage as 'in-progress'
-    // 2. Execute the stage logic
-    // 3. Mark stage as 'completed' with output path
-    // 4. Handle errors and mark as 'failed' if needed
 
     logger.info('Video processing pipeline initialized', {
       jobId,
