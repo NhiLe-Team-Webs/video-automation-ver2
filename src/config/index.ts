@@ -10,6 +10,7 @@ export interface SystemConfig {
   };
   whisper: {
     model: string;
+    apiKey?: string;
     useLocal: boolean;
   };
   gemini: {
@@ -62,7 +63,8 @@ export const config: SystemConfig = {
   },
   whisper: {
     model: getEnvVar('WHISPER_MODEL', 'base'),
-    useLocal: true,
+    apiKey: process.env.OPENAI_API_KEY,
+    useLocal: process.env.WHISPER_USE_LOCAL === 'true',
   },
   gemini: {
     apiKey: getEnvVar('GEMINI_API_KEY'),

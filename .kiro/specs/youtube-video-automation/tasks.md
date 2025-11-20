@@ -87,15 +87,27 @@
   - **Property 6: Resolution preservation**
   - **Validates: Requirements 2.3**
 
-- [ ] 5. Implement transcription service with Whisper
+- [x] 5. Implement transcription service with Whisper
+
+
+
+
+
   - Create audio extraction from video using FFmpeg
   - Integrate Whisper API for transcription
   - Implement SRT file generation with proper formatting
   - Add SRT validation logic
   - Implement retry logic with exponential backoff
+  - Commit and push
   - _Requirements: 3.1, 3.2, 3.4_
 
-- [ ]* 5.1 Write property test for SRT file validity
+- [x] 5.1 Write property test for SRT file validity
+
+
+
+
+
+
   - **Property 7: SRT file validity**
   - **Validates: Requirements 3.2**
 
