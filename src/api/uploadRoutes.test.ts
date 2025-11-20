@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { ValidationError } from '../../utils/errors';
+import { ValidationError } from '../utils/errors';
 
-vi.mock('../../utils/logger', () => ({
+vi.mock('../utils/logger', () => ({
   createLogger: () => ({
     info: vi.fn(),
     error: vi.fn(),

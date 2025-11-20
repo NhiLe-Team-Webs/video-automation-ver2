@@ -91,14 +91,16 @@ describe('AutoEditorService', () => {
       // Verify spawn was called with correct arguments
       const spawnCalls = vi.mocked(spawn).mock.calls;
       expect(spawnCalls.length).toBe(1);
-      expect(spawnCalls[0][0]).toBe('auto-editor');
-      expect(spawnCalls[0][1][0]).toBe(inputPath);
-      expect(spawnCalls[0][1][1]).toBe('--output');
-      expect(spawnCalls[0][1][2]).toContain('test-video_edited.mp4');
-      expect(spawnCalls[0][1][3]).toBe('--edit');
-      expect(spawnCalls[0][1][4]).toBe('audio:threshold=0.04');
-      expect(spawnCalls[0][1][5]).toBe('--margin');
-      expect(spawnCalls[0][1][6]).toBe('0.2sec');
+      expect(spawnCalls[0][0]).toBe('python');
+      expect(spawnCalls[0][1][0]).toBe('-m');
+      expect(spawnCalls[0][1][1]).toBe('auto_editor');
+      expect(spawnCalls[0][1][2]).toBe(inputPath);
+      expect(spawnCalls[0][1][3]).toBe('--output');
+      expect(spawnCalls[0][1][4]).toContain('test-video_edited.mp4');
+      expect(spawnCalls[0][1][5]).toBe('--edit');
+      expect(spawnCalls[0][1][6]).toBe('audio:threshold=0.04');
+      expect(spawnCalls[0][1][7]).toBe('--margin');
+      expect(spawnCalls[0][1][8]).toBe('0.2sec');
     });
 
     it('should verify output duration is shorter than input', async () => {
@@ -283,14 +285,16 @@ describe('AutoEditorService', () => {
       // Verify spawn was called with correct arguments (platform-independent)
       const spawnCalls = vi.mocked(spawn).mock.calls;
       expect(spawnCalls.length).toBe(1);
-      expect(spawnCalls[0][0]).toBe('auto-editor');
-      expect(spawnCalls[0][1][0]).toBe(inputPath);
-      expect(spawnCalls[0][1][1]).toBe('--output');
-      expect(spawnCalls[0][1][2]).toContain('test-video_edited.mp4');
-      expect(spawnCalls[0][1][3]).toBe('--edit');
-      expect(spawnCalls[0][1][4]).toBe('motion:threshold=0.08');
-      expect(spawnCalls[0][1][5]).toBe('--margin');
-      expect(spawnCalls[0][1][6]).toBe('0.5sec');
+      expect(spawnCalls[0][0]).toBe('python');
+      expect(spawnCalls[0][1][0]).toBe('-m');
+      expect(spawnCalls[0][1][1]).toBe('auto_editor');
+      expect(spawnCalls[0][1][2]).toBe(inputPath);
+      expect(spawnCalls[0][1][3]).toBe('--output');
+      expect(spawnCalls[0][1][4]).toContain('test-video_edited.mp4');
+      expect(spawnCalls[0][1][5]).toBe('--edit');
+      expect(spawnCalls[0][1][6]).toBe('motion:threshold=0.08');
+      expect(spawnCalls[0][1][7]).toBe('--margin');
+      expect(spawnCalls[0][1][8]).toBe('0.5sec');
     });
 
     it('should handle ffprobe error for input video', async () => {

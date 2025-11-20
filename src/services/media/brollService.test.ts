@@ -6,12 +6,12 @@ import brollService from './brollService';
 vi.mock('axios');
 vi.mock('fs/promises');
 vi.mock('../../utils/logger', () => ({
-  default: {
+  createLogger: () => ({
     info: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
     debug: vi.fn(),
-  },
+  }),
 }));
 
 describe('BrollService', () => {

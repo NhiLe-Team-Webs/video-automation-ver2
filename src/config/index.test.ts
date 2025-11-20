@@ -32,7 +32,8 @@ describe('Configuration', () => {
     expect(config.autoEditor.threshold).toBe(0.04);
     expect(config.whisper.model).toBe('base');
     expect(config.whisper.useLocal).toBe(true);
-    expect(config.gemini.model).toBe('gemini-pro');
+    // Note: GEMINI_MODEL is set in .env file to 'gemini-2.5-flash'
+    expect(config.gemini.model).toBe('gemini-2.5-flash');
   });
 
   it('should configure redis connection', async () => {
