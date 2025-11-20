@@ -27,3 +27,6 @@ export * from './pipeline';
 
 // Preview
 export * from './preview';
+
+// Rendering
+export * from './rendering';

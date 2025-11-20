@@ -17,6 +17,9 @@ export * from './animations/css-animations';
 // Transitions
 export * from './transitions';
 
+// Composition
+export * from './VideoComposition';
+
 // Helper function to generate complete resource list for LLM
 import { TemplateLoader } from './templateLoader';
 import { generateCSSAnimationListForLLM } from './animations/css-animations';
