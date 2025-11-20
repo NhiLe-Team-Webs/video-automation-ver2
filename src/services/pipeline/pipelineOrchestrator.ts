@@ -10,6 +10,7 @@ import { EditingPlanService } from '../content-analysis/editingPlanService';
 import brollService from '../media/brollService';
 import remotionRenderingService from '../rendering/remotionRenderingService';
 import { YouTubeUploadService } from '../youtube/youtubeUploadService';
+import { notificationService } from '../notification';
 import path from 'path';
 
 const logger = createLogger('PipelineOrchestrator');
@@ -44,13 +45,14 @@ const PIPELINE_STAGES: PipelineStage[] = [
 ];
 
 /**
- * Handle stage error - log, update job, and return error result
+ * Handle stage error - log, update job, send notifications, and return error result
  */
-function handleStageError(
+async function handleStageError(
   jobId: string,
   stage: PipelineStage,
-  error: unknown
-): ProcessingResult {
+  error: unknown,
+  userId?: string
+): Promise<ProcessingResult> {
   const errorMessage = error instanceof Error ? error.message : String(error);
   const errorStack = error instanceof Error ? error.stack : undefined;
 
@@ -64,6 +66,39 @@ function handleStageError(
   jobStorage.updateStage(jobId, stage, 'failed');
   jobStorage.setJobError(jobId, stage, errorMessage, errorStack);
   jobStorage.updateJobStatus(jobId, 'failed');
+
+  // Send operator alert for processing errors
+  try {
+    await notificationService.notifyOperator({
+      severity: 'error',
+      jobId,
+      stage,
+      message: `Pipeline stage failed: ${errorMessage}`,
+      timestamp: new Date(),
+    });
+  } catch (notifError) {
+    logger.error('Failed to send operator alert', {
+      jobId,
+      stage,
+      error: notifError instanceof Error ? notifError.message : String(notifError),
+    });
+  }
+
+  // Send user notification about error
+  if (userId) {
+    try {
+      await notificationService.notifyUser(userId, {
+        type: 'error',
+        jobId,
+        message: `Video processing failed at ${stage} stage: ${errorMessage}`,
+      });
+    } catch (notifError) {
+      logger.error('Failed to send user error notification', {
+        jobId,
+        error: notifError instanceof Error ? notifError.message : String(notifError),
+      });
+    }
+  }
 
   return {
     jobId,
@@ -154,7 +189,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         durationReduction: autoEditorResult.inputDuration - autoEditorResult.outputDuration,
       });
     } catch (error) {
-      return handleStageError(jobId, 'auto-editing', error);
+      return await handleStageError(jobId, 'auto-editing', error, job.userId);
     }
 
     // Stage 2: Transcription - Extract audio and generate transcript
@@ -187,7 +222,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         segmentCount: transcriptSegments.length,
       });
     } catch (error) {
-      return handleStageError(jobId, 'transcribing', error);
+      return await handleStageError(jobId, 'transcribing', error, job.userId);
     }
 
     // Stage 3: Store Transcript - Save to Google Sheets
@@ -212,7 +247,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         sheetRange,
       });
     } catch (error) {
-      return handleStageError(jobId, 'storing-transcript', error);
+      return await handleStageError(jobId, 'storing-transcript', error, job.userId);
     }
 
     // Stage 4: Highlight Detection - Identify key moments
@@ -236,7 +271,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         highlightCount: highlights.length,
       });
     } catch (error) {
-      return handleStageError(jobId, 'detecting-highlights', error);
+      return await handleStageError(jobId, 'detecting-highlights', error, job.userId);
     }
 
     // Stage 5: Generate Editing Plan - Use LLM to create plan
@@ -280,7 +315,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         brollPlacements: editingPlan.brollPlacements.length,
       });
     } catch (error) {
-      return handleStageError(jobId, 'generating-plan', error);
+      return await handleStageError(jobId, 'generating-plan', error, job.userId);
     }
 
     // Stage 6: Download B-roll - Get supplementary footage
@@ -380,7 +415,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         fileSize: renderResult.fileSize,
       });
     } catch (error) {
-      return handleStageError(jobId, 'rendering', error);
+      return await handleStageError(jobId, 'rendering', error, job.userId);
     }
 
     // Stage 8: YouTube Upload - Upload final video
@@ -424,7 +459,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         youtubeUrl,
       });
     } catch (error) {
-      return handleStageError(jobId, 'uploading', error);
+      return await handleStageError(jobId, 'uploading', error, job.userId);
     }
 
     // Mark job as completed
@@ -435,6 +470,22 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       jobId,
       youtubeUrl,
     });
+
+    // Send completion notification to user
+    try {
+      await notificationService.notifyUser(job.userId, {
+        type: 'completion',
+        jobId,
+        youtubeUrl,
+        message: `Your video has been successfully processed and uploaded to YouTube!`,
+      });
+    } catch (notifError) {
+      logger.error('Failed to send completion notification', {
+        jobId,
+        error: notifError instanceof Error ? notifError.message : String(notifError),
+      });
+      // Don't fail the job if notification fails
+    }
 
     return {
       jobId,

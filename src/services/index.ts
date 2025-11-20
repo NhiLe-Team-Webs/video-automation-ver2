@@ -33,3 +33,6 @@ export * from './rendering';
 
 // YouTube
 export * from './youtube';
+
+// Notification
+export * from './notification';

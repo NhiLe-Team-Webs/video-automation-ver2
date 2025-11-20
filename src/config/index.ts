@@ -30,9 +30,13 @@ export interface SystemConfig {
     redirectUri: string;
   };
   notifications: {
-    method: 'email' | 'webhook' | 'sms';
+    method: 'email' | 'webhook' | 'sms' | 'telegram';
     endpoint: string;
     operatorEmail?: string;
+    telegram?: {
+      botToken: string;
+      chatId: string;
+    };
   };
   storage: {
     tempDir: string;
@@ -83,9 +87,15 @@ export const config: SystemConfig = {
     redirectUri: getEnvVar('YOUTUBE_REDIRECT_URI'),
   },
   notifications: {
-    method: (process.env.NOTIFICATION_METHOD || 'webhook') as 'email' | 'webhook' | 'sms',
+    method: (process.env.NOTIFICATION_METHOD || 'webhook') as 'email' | 'webhook' | 'sms' | 'telegram',
     endpoint: process.env.NOTIFICATION_ENDPOINT || '',
     operatorEmail: process.env.NOTIFICATION_OPERATOR_EMAIL,
+    telegram: process.env.TELEGRAM_BOT_TOKEN
+      ? {
+          botToken: process.env.TELEGRAM_BOT_TOKEN,
+          chatId: getEnvVar('TELEGRAM_CHAT_ID'),
+        }
+      : undefined,
   },
   storage: {
     tempDir: path.resolve(getEnvVar('TEMP_DIR', './temp')),
