@@ -137,7 +137,9 @@ export class AutoEditorService {
     const editMode = options?.editMode || 'audio';
 
     // Build Auto Editor command
+    // Use python -m auto_editor for better Windows compatibility
     const args = [
+      '-m', 'auto_editor',
       inputPath,
       '--output', outputPath,
       '--edit', `${editMode}:threshold=${threshold}`,
@@ -145,12 +147,12 @@ export class AutoEditorService {
     ];
 
     logger.info('Running Auto Editor command', {
-      command: 'auto-editor',
+      command: 'python',
       args,
     });
 
     return new Promise((resolve, reject) => {
-      const process = spawn('auto-editor', args);
+      const process = spawn('python', args);
 
       let stdout = '';
       let stderr = '';

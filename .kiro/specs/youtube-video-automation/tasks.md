@@ -78,6 +78,8 @@
 
 
 
+
+
   - **Property 5: Auto Editor output is shorter**
   - **Validates: Requirements 2.2**
 
