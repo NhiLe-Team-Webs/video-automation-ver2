@@ -38,7 +38,10 @@
   - **Property 2: Video format validation**
   - **Validates: Requirements 1.2, 1.3**
 
-- [ ] 3. Set up job queue and pipeline orchestrator
+- [-] 3. Set up job queue and pipeline orchestrator
+
+
+
   - Integrate Bull/BullMQ for job queue management
   - Implement pipeline orchestrator with stage sequencing
   - Create job status tracking and retrieval

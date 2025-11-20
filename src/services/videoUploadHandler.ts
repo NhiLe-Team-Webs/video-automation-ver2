@@ -14,13 +14,14 @@ import {
   Job,
   StageResult,
 } from '../models/job';
+import * as jobStorage from './jobStorage';
+import { addVideoJob } from './queue';
 
 const logger = createLogger('VideoUploadHandler');
 
 const SUPPORTED_FORMATS = ['mp4', 'mov', 'avi', 'mkv'];
 
 export class VideoUploadHandler {
-  private jobStore: Map<string, Job> = new Map();
 
   /**
    * Upload and validate a video file
@@ -53,11 +54,20 @@ export class VideoUploadHandler {
       // Move file to permanent storage
       const videoPath = await this.storeVideo(file, jobId);
 
-      // Create job record
-      const job = this.createJob(jobId, userId, videoPath, validationResult.metadata!);
-      this.jobStore.set(jobId, job);
+      // Create job record in storage
+      const job = jobStorage.createJob(jobId, userId, validationResult.metadata!);
+      
+      // Mark uploaded stage as completed
+      jobStorage.updateStage(jobId, 'uploaded', 'completed', videoPath);
 
-      logger.info('Video uploaded successfully', {
+      // Add job to processing queue
+      await addVideoJob({
+        jobId,
+        userId,
+        videoPath,
+      });
+
+      logger.info('Video uploaded successfully and queued for processing', {
         jobId,
         videoPath,
         metadata: validationResult.metadata,
@@ -214,51 +224,4 @@ export class VideoUploadHandler {
     return destPath;
   }
 
-  /**
-   * Create a new job record
-   */
-  private createJob(
-    jobId: string,
-    userId: string,
-    videoPath: string,
-    metadata: VideoMetadata
-  ): Job {
-    const now = new Date();
-    
-    const initialStage: StageResult = {
-      stage: 'uploaded',
-      status: 'completed',
-      startTime: now,
-      endTime: now,
-      outputPath: videoPath,
-    };
-
-    return {
-      id: jobId,
-      userId,
-      status: 'queued',
-      createdAt: now,
-      updatedAt: now,
-      videoMetadata: metadata,
-      processingStages: [initialStage],
-    };
-  }
-
-  /**
-   * Get job by ID
-   */
-  getJob(jobId: string): Job | undefined {
-    return this.jobStore.get(jobId);
-  }
-
-  /**
-   * Update job status
-   */
-  updateJob(jobId: string, updates: Partial<Job>): void {
-    const job = this.jobStore.get(jobId);
-    if (job) {
-      Object.assign(job, updates, { updatedAt: new Date() });
-      this.jobStore.set(jobId, job);
-    }
-  }
 }
