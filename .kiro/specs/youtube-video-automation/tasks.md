@@ -72,7 +72,9 @@
   - Add error handling and logging for Auto Editor failures
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [-] 4.1 Write property test for Auto Editor output duration
+- [x] 4.1 Write property test for Auto Editor output duration
+
+
 
 
 
