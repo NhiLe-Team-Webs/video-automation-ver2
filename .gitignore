@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 planning/
+google-credentials.json
+
 # Build output
 dist/
 
