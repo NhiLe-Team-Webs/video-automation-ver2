@@ -6,6 +6,7 @@
  */
 
 import { random, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
 
 interface SoundWaveProps {
   barCount?: number;

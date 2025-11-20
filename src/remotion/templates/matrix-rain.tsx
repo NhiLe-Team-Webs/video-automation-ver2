@@ -6,6 +6,7 @@
  */
 
 import { random, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
 
 export function MatrixRain() {
   const frame = useCurrentFrame();

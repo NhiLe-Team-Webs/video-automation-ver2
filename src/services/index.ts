@@ -24,3 +24,6 @@ export * from './upload';
 
 // Pipeline
 export * from './pipeline';
+
+// Preview
+export * from './preview';

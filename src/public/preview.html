@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Preview Interface</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #1a1a1a;
+      color: #e0e0e0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #fff;
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #333;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab:hover {
+      color: #fff;
+    }
+
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #4CAF50;
+    }
+
+    .tab-content {
+      display: none;
+      background: #2a2a2a;
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ccc;
+      font-weight: 500;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 120px;
+      font-family: 'Courier New', monospace;
+    }
+
+    button {
+      padding: 12px 24px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    button:disabled {
+      background: #666;
+      cursor: not-allowed;
+    }
+
+    .preview-result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .preview-result.show {
+      display: block;
+    }
+
+    .preview-video {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .preview-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .info-item {
+      padding: 15px;
+      background: #2a2a2a;
+      border-radius: 4px;
+    }
+
+    .info-label {
+      color: #888;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .info-value {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .error {
+      padding: 15px;
+      background: #d32f2f;
+      color: white;
+      border-radius: 4px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .error.show {
+      display: block;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #4CAF50;
+    }
+
+    .loading.show {
+      display: block;
+    }
+
+    .spinner {
+      border: 3px solid #333;
+      border-top: 3px solid #4CAF50;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .template-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .template-card {
+      padding: 15px;
+      background: #1a1a1a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .template-card:hover {
+      border-color: #4CAF50;
+      transform: translateY(-2px);
+    }
+
+    .template-name {
+      font-weight: 600;
+      color: #4CAF50;
+      margin-bottom: 5px;
+    }
+
+    .template-desc {
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Video Preview Interface</h1>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="animation">Animation</button>
+      <button class="tab" data-tab="transition">Transition</button>
+      <button class="tab" data-tab="effect">Effect</button>
+      <button class="tab" data-tab="full-video">Full Video</button>
+    </div>
+
+    <!-- Animation Tab -->
+    <div class="tab-content active" id="animation-tab">
+      <h2>Preview Animation Template</h2>
+      <form id="animation-form">
+        <div class="form-group">
+          <label for="animation-template">Template</label>
+          <select id="animation-template" required>
+            <option value="">Loading templates...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="animation-params">Parameters (JSON)</label>
+          <textarea id="animation-params" placeholder='{"text": "Hello World", "color": "#4CAF50"}'>{}</textarea>
+        </div>
+        <button type="submit">Generate Preview</button>
+      </form>
+    </div>
+
+    <!-- Transition Tab -->
+    <div class="tab-content" id="transition-tab">
+      <h2>Preview Transition</h2>
+      <form id="transition-form">
+        <div class="form-group">
+          <label for="transition-type">Transition Type</label>
+          <select id="transition-type" required>
+            <option value="">Loading transitions...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="transition-segments">Video Segments (JSON)</label>
+          <textarea id="transition-segments" placeholder='[{"videoPath": "/path/to/video1.mp4", "startTime": 0, "endTime": 5}, ...]'>[]</textarea>
+        </div>
+        <button type="submit">Generate Preview</button>
+      </form>
+    </div>
+
+    <!-- Effect Tab -->
+    <div class="tab-content" id="effect-tab">
+      <h2>Preview Effect</h2>
+      <form id="effect-form">
+        <div class="form-group">
+          <label for="effect-type">Effect Type</label>
+          <select id="effect-type" required>
+            <option value="zoom">Zoom</option>
+            <option value="highlight-box">Highlight Box</option>
+            <option value="text-overlay">Text Overlay</option>
+            <option value="color-grade">Color Grade</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="effect-video">Video Path</label>
+          <input type="text" id="effect-video" placeholder="/path/to/video.mp4" required>
+        </div>
+        <div class="form-group">
+          <label for="effect-params">Effect Parameters (JSON)</label>
+          <textarea id="effect-params" placeholder='{"intensity": 1.5, "duration": 2}'>{}</textarea>
+        </div>
+        <button type="submit">Generate Preview</button>
+      </form>
+    </div>
+
+    <!-- Full Video Tab -->
+    <div class="tab-content" id="full-video-tab">
+      <h2>Preview Full Video</h2>
+      <form id="full-video-form">
+        <div class="form-group">
+          <label for="full-video-path">Video Path</label>
+          <input type="text" id="full-video-path" placeholder="/path/to/video.mp4" required>
+        </div>
+        <div class="form-group">
+          <label for="editing-plan">Editing Plan (JSON)</label>
+          <textarea id="editing-plan" placeholder='{"highlights": [], "animations": [], "transitions": [], "brollPlacements": []}'>{}</textarea>
+        </div>
+        <button type="submit">Generate Preview</button>
+      </form>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Generating preview...</p>
+    </div>
+
+    <!-- Error Display -->
+    <div class="error" id="error"></div>
+
+    <!-- Preview Result -->
+    <div class="preview-result" id="preview-result">
+      <h3>Preview Result</h3>
+      <video class="preview-video" id="preview-video" controls></video>
+      <div class="preview-info">
+        <div class="info-item">
+          <div class="info-label">Duration</div>
+          <div class="info-value" id="preview-duration">-</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Preview URL</div>
+          <div class="info-value" id="preview-url">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        tab.classList.add('active');
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+        
+        hideResult();
+      });
+    });
+
+    // Load templates and transitions
+    async function loadResources() {
+      try {
+        // Load templates
+        console.log('Loading templates from /api/preview/templates...');
+        const templatesRes = await fetch('/api/preview/templates');
+        
+        if (!templatesRes.ok) {
+          throw new Error(`Failed to load templates: ${templatesRes.status} ${templatesRes.statusText}`);
+        }
+        
+        const templatesData = await templatesRes.json();
+        console.log('Templates loaded:', templatesData);
+        
+        if (templatesData.success && templatesData.data) {
+          const templateSelect = document.getElementById('animation-template');
+          // Clear loading message
+          templateSelect.innerHTML = '<option value="">Select a template...</option>';
+          
+          Object.entries(templatesData.data).forEach(([key, info]) => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${key} - ${info.description}`;
+            templateSelect.appendChild(option);
+          });
+          console.log(`Loaded ${Object.keys(templatesData.data).length} templates`);
+        } else {
+          console.error('Invalid templates response:', templatesData);
+          const templateSelect = document.getElementById('animation-template');
+          templateSelect.innerHTML = '<option value="">Failed to load templates</option>';
+        }
+
+        // Load transitions
+        console.log('Loading transitions from /api/preview/transitions...');
+        const transitionsRes = await fetch('/api/preview/transitions');
+        
+        if (!transitionsRes.ok) {
+          throw new Error(`Failed to load transitions: ${transitionsRes.status} ${transitionsRes.statusText}`);
+        }
+        
+        const transitionsData = await transitionsRes.json();
+        console.log('Transitions loaded:', transitionsData);
+        
+        if (transitionsData.success && transitionsData.data) {
+          const transitionSelect = document.getElementById('transition-type');
+          // Clear loading message
+          transitionSelect.innerHTML = '<option value="">Select a transition...</option>';
+          
+          Object.entries(transitionsData.data).forEach(([key, info]) => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = `${key} - ${info.description}`;
+            transitionSelect.appendChild(option);
+          });
+          console.log(`Loaded ${Object.keys(transitionsData.data).length} transitions`);
+        } else {
+          console.error('Invalid transitions response:', transitionsData);
+          const transitionSelect = document.getElementById('transition-type');
+          transitionSelect.innerHTML = '<option value="">Failed to load transitions</option>';
+        }
+      } catch (error) {
+        console.error('Failed to load resources:', error);
+        showError(`Failed to load resources: ${error.message}. Make sure the server is running.`);
+        
+        // Update select boxes to show error
+        const templateSelect = document.getElementById('animation-template');
+        const transitionSelect = document.getElementById('transition-type');
+        
+        if (templateSelect.options.length === 1 && templateSelect.options[0].value === '') {
+          templateSelect.innerHTML = '<option value="">Failed to load templates</option>';
+        }
+        
+        if (transitionSelect.options.length === 1 && transitionSelect.options[0].value === '') {
+          transitionSelect.innerHTML = '<option value="">Failed to load transitions</option>';
+        }
+      }
+    }
+
+    // Form handlers
+    document.getElementById('animation-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const template = document.getElementById('animation-template').value;
+      const params = document.getElementById('animation-params').value;
+      
+      try {
+        const parameters = JSON.parse(params);
+        await generatePreview('/api/preview/animation', { template, parameters });
+      } catch (error) {
+        showError('Invalid JSON parameters');
+      }
+    });
+
+    document.getElementById('transition-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const type = document.getElementById('transition-type').value;
+      const segments = document.getElementById('transition-segments').value;
+      
+      try {
+        const videoSegments = JSON.parse(segments);
+        await generatePreview('/api/preview/transition', { type, videoSegments });
+      } catch (error) {
+        showError('Invalid JSON segments');
+      }
+    });
+
+    document.getElementById('effect-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const effectType = document.getElementById('effect-type').value;
+      const videoPath = document.getElementById('effect-video').value;
+      const params = document.getElementById('effect-params').value;
+      
+      try {
+        const parameters = JSON.parse(params);
+        const effect = {
+          type: effectType,
+          parameters,
+          startTime: 0,
+          duration: 5
+        };
+        await generatePreview('/api/preview/effect', { effect, videoPath });
+      } catch (error) {
+        showError('Invalid JSON parameters');
+      }
+    });
+
+    document.getElementById('full-video-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const videoPath = document.getElementById('full-video-path').value;
+      const plan = document.getElementById('editing-plan').value;
+      
+      try {
+        const editingPlan = JSON.parse(plan);
+        await generatePreview('/api/preview/full-video', { editingPlan, videoPath });
+      } catch (error) {
+        showError('Invalid JSON editing plan');
+      }
+    });
+
+    async function generatePreview(endpoint, data) {
+      showLoading();
+      hideError();
+      hideResult();
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || 'Failed to generate preview');
+        }
+
+        showResult(result.data);
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        hideLoading();
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loading').classList.add('show');
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').classList.remove('show');
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById('error');
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
+    }
+
+    function hideError() {
+      document.getElementById('error').classList.remove('show');
+    }
+
+    function showResult(data) {
+      document.getElementById('preview-video').src = data.previewUrl;
+      document.getElementById('preview-duration').textContent = `${data.duration.toFixed(2)}s`;
+      document.getElementById('preview-url').textContent = data.previewUrl;
+      document.getElementById('preview-result').classList.add('show');
+    }
+
+    function hideResult() {
+      document.getElementById('preview-result').classList.remove('show');
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Page loaded, initializing...');
+      loadResources();
+    });
+  </script>
+</body>
+</html>

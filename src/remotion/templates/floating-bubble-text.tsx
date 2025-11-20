@@ -6,6 +6,7 @@
  */
 
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
 
 interface FloatingBubbleTextProps {
   text?: string;

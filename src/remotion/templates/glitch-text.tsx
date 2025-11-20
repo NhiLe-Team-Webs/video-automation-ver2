@@ -6,6 +6,7 @@
  */
 
 import { useCurrentFrame } from "remotion";
+import React from 'react';
 
 interface GlitchTextProps {
   text?: string;

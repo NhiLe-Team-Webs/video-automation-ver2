@@ -6,6 +6,7 @@
  */
 
 import { useCurrentFrame, useVideoConfig } from "remotion";
+import React from 'react';
 
 interface LiquidWaveProps {
   numberOfPoints?: number;
