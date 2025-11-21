@@ -102,7 +102,7 @@ export class RemotionRenderingService {
       const composition = await selectComposition({
         serveUrl: bundleLocation,
         id: 'VideoComposition',
-        inputProps: compositionData,
+        inputProps: compositionData as unknown as Record<string, unknown>,
       });
 
       // Ensure output directory exists
@@ -122,7 +122,7 @@ export class RemotionRenderingService {
         serveUrl: bundleLocation,
         codec: 'h264',
         outputLocation: input.outputPath,
-        inputProps: compositionData,
+        inputProps: compositionData as unknown as Record<string, unknown>,
         onProgress: ({ progress, renderedFrames, encodedFrames }) => {
           if (renderedFrames % 30 === 0) {
             logger.debug('Rendering progress', {
@@ -165,7 +165,7 @@ export class RemotionRenderingService {
       throw new ProcessingError(`Video rendering failed: ${errorMessage}`, {
         jobId,
         stage: 'rendering',
-        originalError: error,
+        attemptNumber: 1,
       });
     }
   }

@@ -21,12 +21,18 @@ async function startServer() {
     app.use(express.urlencoded({ extended: true }));
 
     // Routes - Define specific routes BEFORE static file serving
-    app.use('/api', uploadRouter);
-    app.use('/api/preview', previewRouter);
+    // IMPORTANT: More specific routes must come BEFORE general routes
+    app.use('/api/preview', previewRouter, previewErrorHandler);
+    app.use('/api', uploadRouter, errorHandler);
 
     // Health check endpoint
     app.get('/health', (_req, res) => {
       res.status(200).json({ status: 'ok' });
+    });
+
+    // Upload interface (main UI)
+    app.get('/', (_req, res) => {
+      res.sendFile(path.join(process.cwd(), 'src', 'public', 'upload.html'));
     });
 
     // Preview interface
@@ -42,10 +48,6 @@ async function startServer() {
     // Serve static files for preview interface (after specific routes)
     app.use('/static', express.static(path.join(process.cwd(), 'src', 'public')));
     app.use('/previews', express.static(path.join(process.cwd(), 'temp', 'previews')));
-
-    // Error handling
-    app.use(previewErrorHandler);
-    app.use(errorHandler);
 
     // Start server
     app.listen(config.server.port, () => {

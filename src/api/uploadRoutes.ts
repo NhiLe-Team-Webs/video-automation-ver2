@@ -1,18 +1,25 @@
 import express, { Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import os from 'os';
+import path from 'path';
 import fs from 'fs';
 import { VideoUploadHandler } from '../services/upload/videoUploadHandler';
 import { createLogger } from '../utils/logger';
 import { ValidationError } from '../utils/errors';
 import * as jobStorage from '../services/pipeline/jobStorage';
 import { getStatus } from '../services/pipeline/pipelineOrchestrator';
+import { config } from '../config';
 
 const logger = createLogger('UploadRoutes');
 
+// Ensure upload directory exists
+const uploadDir = path.join(config.storage.tempDir, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 // Configure multer for file uploads
 const upload = multer({
-  dest: os.tmpdir(),
+  dest: uploadDir,
   limits: {
     fileSize: 5 * 1024 * 1024 * 1024, // 5GB max file size
   },
