@@ -20,11 +20,12 @@ vi.mock('../../config', () => ({
   },
 }));
 vi.mock('../../utils/logger', () => ({
-  logger: {
+  createLogger: () => ({
     info: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
-  },
+    debug: vi.fn(),
+  }),
 }));
 
 describe('NotificationService', () => {
