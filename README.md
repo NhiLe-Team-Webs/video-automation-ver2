@@ -51,29 +51,41 @@ Each service folder contains:
 - Example/manual test files
 
 ## Setup
+
+### Quick Start
+
 1. **Install dependencies:**
 ```bash
 npm install
 pip install -U openai-whisper auto-editor
 ```
 
-2. **Create file .env:**
+2. **Create environment file:**
 ```bash
-# Dùng file local đơn giản cho development
 cp .env.local.example .env
 ```
 
-3. **Config API keys:**
-   
-**5 Required Stacks:**
+3. **Configure API keys:**
+
+**5 Required Services:**
 - ✅ Gemini API (AI editing plan)
 - ✅ Pexels API (B-roll footage)
-- ✅ Google Sheets API (lưu transcript)
-- ✅ YouTube API (upload video)
-- ✅ Whisper (local)
+- ✅ Google Sheets API (transcript storage)
+- ✅ YouTube API (video upload)
+- ✅ Whisper (local transcription)
 
-**Technical:**
-- 🏗️ [Setup Info](SETUP_INSTRUCTION.md) - Technical instructions
+**Documentation:**
+- 📖 [Local Testing Guide](docs/LOCAL_TESTING_GUIDE.md) - Complete setup and testing instructions
+- 🔧 [Setup Instructions](docs/SETUP_INSTRUCTION.md) - Detailed API configuration
+- 🧪 [Testing Pipeline Stages](docs/TESTING_PIPELINE_STAGES.md) - Test individual components
+
+### Detailed Setup
+
+See [docs/LOCAL_TESTING_GUIDE.md](docs/LOCAL_TESTING_GUIDE.md) for:
+- Step-by-step API key acquisition
+- Environment configuration
+- Testing individual pipeline stages
+- Troubleshooting common issues
 
 ## Development
 
@@ -91,6 +103,64 @@ Run tests:
 ```bash
 npm test
 ```
+
+## 🚀 Quick Start - Chạy Pipeline Hoàn Chỉnh
+
+### Cách Nhanh Nhất (1 lệnh)
+
+**Windows:**
+```bash
+start-all.bat
+```
+
+**macOS/Linux:**
+```bash
+./start-all.sh
+```
+
+Script sẽ tự động:
+1. ✅ Start Redis
+2. ✅ Build project
+3. ✅ Start API Server
+4. ✅ Start Worker
+5. ✅ Mở web interface
+
+### Hoặc Chạy Thủ Công (3 terminals)
+
+**Terminal 1 - Redis:**
+```bash
+docker run -d -p 6379:6379 redis:7-alpine
+```
+
+**Terminal 2 - API Server:**
+```bash
+npm run dev
+```
+
+**Terminal 3 - Worker:**
+```bash
+npm run worker
+```
+
+### Upload Video
+
+Mở browser: **http://localhost:3000/upload.html**
+
+1. Chọn video file (mp4, mov, avi, mkv)
+2. Click "Upload Video"
+3. Đợi pipeline xử lý (5-15 phút)
+4. Nhận YouTube link + download video final
+
+### Xem Hướng Dẫn Chi Tiết
+
+📖 **[Hướng Dẫn Chạy Pipeline (Tiếng Việt)](docs/HUONG_DAN_CHAY_PIPELINE.md)**
+
+Bao gồm:
+- ✅ Hướng dẫn từng bước chi tiết
+- ✅ Xử lý lỗi thường gặp
+- ✅ Monitor và debug
+- ✅ Tùy chỉnh pipeline
+- ✅ Tips & tricks
 
 ## Docker Deployment
 

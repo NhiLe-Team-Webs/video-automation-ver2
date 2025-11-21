@@ -118,6 +118,17 @@ export class TranscriptionService {
           attempt,
           segmentCount: result.segments.length,
         });
+        
+        // Log sample transcript segments for visibility
+        if (result.segments.length > 0) {
+          logger.info('📝 Sample transcript:', {
+            totalSegments: result.segments.length,
+            samples: result.segments.slice(0, 3).map(s => ({
+              time: `${s.start.toFixed(1)}s - ${s.end.toFixed(1)}s`,
+              text: s.text.substring(0, 80) + (s.text.length > 80 ? '...' : '')
+            }))
+          });
+        }
 
         return result;
       } catch (error) {

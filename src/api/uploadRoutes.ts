@@ -17,9 +17,21 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Configure multer for file uploads
+// Configure multer for file uploads with proper filename
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    // Keep original extension
+    const ext = path.extname(file.originalname);
+    const filename = `${Date.now()}-${Math.random().toString(36).substring(7)}${ext}`;
+    cb(null, filename);
+  },
+});
+
 const upload = multer({
-  dest: uploadDir,
+  storage,
   limits: {
     fileSize: 5 * 1024 * 1024 * 1024, // 5GB max file size
   },
@@ -58,6 +70,11 @@ uploadRouter.post(
         data: result,
         message: 'Video uploaded successfully and queued for processing',
       });
+      
+      logger.info('Upload response sent', {
+        jobId: result.jobId,
+        status: result.status,
+      });
     } catch (error) {
       next(error);
     }
@@ -74,7 +91,7 @@ uploadRouter.get(
     try {
       const { jobId } = req.params;
 
-      const job = jobStorage.getJob(jobId);
+      const job = await jobStorage.getJob(jobId);
 
       if (!job) {
         return res.status(404).json({
@@ -84,7 +101,7 @@ uploadRouter.get(
       }
 
       // Get detailed status from pipeline orchestrator
-      const status = getStatus(jobId);
+      const status = await getStatus(jobId);
 
       res.status(200).json({
         success: true,
@@ -117,7 +134,7 @@ uploadRouter.get(
     try {
       const { jobId } = req.params;
 
-      const job = jobStorage.getJob(jobId);
+      const job = await jobStorage.getJob(jobId);
 
       if (!job) {
         return res.status(404).json({
@@ -127,7 +144,7 @@ uploadRouter.get(
       }
 
       // Get detailed status from pipeline orchestrator
-      const status = getStatus(jobId);
+      const status = await getStatus(jobId);
 
       // Calculate estimated time remaining
       // Based on elapsed time and progress percentage
@@ -170,7 +187,7 @@ uploadRouter.get(
     try {
       const { jobId } = req.params;
 
-      const job = jobStorage.getJob(jobId);
+      const job = await jobStorage.getJob(jobId);
 
       if (!job) {
         return res.status(404).json({

@@ -55,10 +55,10 @@ export class VideoUploadHandler {
       const videoPath = await this.storeVideo(file, jobId);
 
       // Create job record in storage
-      const job = jobStorage.createJob(jobId, userId, validationResult.metadata!);
+      const job = await jobStorage.createJob(jobId, userId, validationResult.metadata!);
       
       // Mark uploaded stage as completed
-      jobStorage.updateStage(jobId, 'uploaded', 'completed', videoPath);
+      await jobStorage.updateStage(jobId, 'uploaded', 'completed', videoPath);
 
       // Add job to processing queue
       await addVideoJob({

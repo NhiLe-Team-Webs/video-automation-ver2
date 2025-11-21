@@ -31,14 +31,24 @@ async function startWorker() {
           jobId: job.data.jobId,
           userId: job.data.userId,
           bullJobId: job.id,
+          jobName: job.name,
         });
 
         try {
           // Update progress to indicate processing started
           await job.updateProgress(0);
 
+          logger.info('Starting pipeline processing', {
+            jobId: job.data.jobId,
+          });
+
           // Process the video through the pipeline
           const result = await processVideo(job.data.jobId);
+
+          logger.info('Pipeline processing completed', {
+            jobId: job.data.jobId,
+            status: result.status,
+          });
 
           // Update progress to 100% on completion
           await job.updateProgress(100);
@@ -60,14 +70,27 @@ async function startWorker() {
       },
       {
         connection,
-        concurrency: 5, // Process up to 5 jobs concurrently
+        concurrency: 1, // Process 1 job at a time to avoid resource contention
       }
     );
 
     // Worker event handlers
+    worker.on('ready', () => {
+      logger.info('Worker ready and listening for jobs');
+    });
+
+    worker.on('active', (job) => {
+      logger.info('Job started processing', {
+        jobId: job.id,
+        jobName: job.name,
+        data: job.data,
+      });
+    });
+
     worker.on('completed', (job) => {
       logger.info('Job completed', {
         jobId: job.id,
+        jobName: job.name,
         data: job.data,
       });
     });
@@ -75,6 +98,7 @@ async function startWorker() {
     worker.on('failed', (job, err) => {
       logger.error('Job failed', {
         jobId: job?.id,
+        jobName: job?.name,
         error: err.message,
         stack: err.stack,
       });
@@ -85,6 +109,10 @@ async function startWorker() {
         error: err.message,
         stack: err.stack,
       });
+    });
+
+    worker.on('stalled', (jobId) => {
+      logger.warn('Job stalled', { jobId });
     });
 
     logger.info('Worker node started successfully');

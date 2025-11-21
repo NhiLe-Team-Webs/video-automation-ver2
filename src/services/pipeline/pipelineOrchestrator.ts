@@ -63,9 +63,9 @@ async function handleStageError(
     stack: errorStack,
   });
 
-  jobStorage.updateStage(jobId, stage, 'failed');
-  jobStorage.setJobError(jobId, stage, errorMessage, errorStack);
-  jobStorage.updateJobStatus(jobId, 'failed');
+  await jobStorage.updateStage(jobId, stage, 'failed');
+  await jobStorage.setJobError(jobId, stage, errorMessage, errorStack);
+  await jobStorage.updateJobStatus(jobId, 'failed');
 
   // Send operator alert for processing errors
   try {
@@ -142,27 +142,27 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
   logger.info('Starting video processing', { jobId });
 
   try {
-    const job = jobStorage.getJob(jobId);
+    const job = await jobStorage.getJob(jobId);
     if (!job) {
       throw new Error(`Job ${jobId} not found`);
     }
 
     // Update job status to processing
-    jobStorage.updateJobStatus(jobId, 'processing');
+    await jobStorage.updateJobStatus(jobId, 'processing');
 
     // Initialize all stages as pending
     for (const stage of PIPELINE_STAGES) {
       if (stage !== 'uploaded' && stage !== 'completed' && stage !== 'failed') {
-        jobStorage.updateStage(jobId, stage, 'pending');
+        await jobStorage.updateStage(jobId, stage, 'pending');
       }
     }
 
     // Mark uploaded stage as completed
-    jobStorage.updateStage(jobId, 'uploaded', 'completed');
+    await jobStorage.updateStage(jobId, 'uploaded', 'completed');
 
     // Stage 1: Auto Editor - Remove silence and filler content
-    logger.info('Starting Auto Editor stage', { jobId });
-    jobStorage.updateStage(jobId, 'auto-editing', 'in-progress');
+    logger.info('✂️ Starting Auto Editor stage', { jobId });
+    await jobStorage.updateStage(jobId, 'auto-editing', 'in-progress');
     
     let autoEditedVideoPath: string;
     try {
@@ -173,28 +173,37 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         throw new Error('No video path found from upload stage');
       }
 
+      logger.info('🎬 Processing video to remove silence and filler...', { 
+        jobId,
+        inputPath: uploadedStage.outputPath 
+      });
+      
       const autoEditorResult = await autoEditorService.processVideo(uploadedStage.outputPath);
       autoEditedVideoPath = autoEditorResult.outputPath;
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'auto-editing',
         'completed',
         autoEditedVideoPath
       );
 
-      logger.info('Auto Editor stage completed', {
+      const reductionPercent = ((autoEditorResult.inputDuration - autoEditorResult.outputDuration) / autoEditorResult.inputDuration * 100).toFixed(1);
+      
+      logger.info('✅ Auto Editor stage completed', {
         jobId,
         outputPath: autoEditedVideoPath,
-        durationReduction: autoEditorResult.inputDuration - autoEditorResult.outputDuration,
+        inputDuration: `${autoEditorResult.inputDuration.toFixed(1)}s`,
+        outputDuration: `${autoEditorResult.outputDuration.toFixed(1)}s`,
+        removed: `${(autoEditorResult.inputDuration - autoEditorResult.outputDuration).toFixed(1)}s (${reductionPercent}%)`,
       });
     } catch (error) {
       return await handleStageError(jobId, 'auto-editing', error, job.userId);
     }
 
     // Stage 2: Transcription - Extract audio and generate transcript
-    logger.info('Starting Transcription stage', { jobId });
-    jobStorage.updateStage(jobId, 'transcribing', 'in-progress');
+    logger.info('🎤 Starting Transcription stage', { jobId });
+    await jobStorage.updateStage(jobId, 'transcribing', 'in-progress');
     
     let srtPath: string;
     let transcriptSegments: any[];
@@ -202,81 +211,97 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       const transcriptionService = new TranscriptionService();
       
       // Extract audio from video
+      logger.info('🔊 Extracting audio from video...', { jobId });
       const audioPath = await transcriptionService.extractAudio(autoEditedVideoPath);
+      logger.info('✅ Audio extracted successfully', { jobId, audioPath });
       
       // Transcribe audio to SRT
+      logger.info('📝 Transcribing audio to text...', { jobId });
       const transcriptResult = await transcriptionService.transcribe(audioPath);
       srtPath = transcriptResult.srtPath;
       transcriptSegments = transcriptResult.segments;
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'transcribing',
         'completed',
         srtPath
       );
 
-      logger.info('Transcription stage completed', {
+      logger.info('✅ Transcription stage completed', {
         jobId,
         srtPath,
         segmentCount: transcriptSegments.length,
+        totalDuration: transcriptSegments.length > 0 ? transcriptSegments[transcriptSegments.length - 1].end : 0
       });
     } catch (error) {
       return await handleStageError(jobId, 'transcribing', error, job.userId);
     }
 
     // Stage 3: Store Transcript - Save to Google Sheets
-    logger.info('Starting Store Transcript stage', { jobId });
-    jobStorage.updateStage(jobId, 'storing-transcript', 'in-progress');
+    logger.info('💾 Starting Store Transcript stage', { jobId });
+    await jobStorage.updateStage(jobId, 'storing-transcript', 'in-progress');
     
     try {
       const sheetsService = new SheetsStorageService();
+      logger.info('🔗 Connecting to Google Sheets...', { jobId });
       await sheetsService.initialize();
       
+      logger.info('📊 Saving transcript to Google Sheets...', { 
+        jobId,
+        segmentCount: transcriptSegments.length 
+      });
       const sheetRange = await sheetsService.saveTranscript(jobId, transcriptSegments);
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'storing-transcript',
         'completed',
         sheetRange
       );
 
-      logger.info('Store Transcript stage completed', {
+      logger.info('✅ Store Transcript stage completed', {
         jobId,
         sheetRange,
+        rowsSaved: transcriptSegments.length
       });
     } catch (error) {
       return await handleStageError(jobId, 'storing-transcript', error, job.userId);
     }
 
     // Stage 4: Highlight Detection - Identify key moments
-    logger.info('Starting Highlight Detection stage', { jobId });
-    jobStorage.updateStage(jobId, 'detecting-highlights', 'in-progress');
+    logger.info('⭐ Starting Highlight Detection stage', { jobId });
+    await jobStorage.updateStage(jobId, 'detecting-highlights', 'in-progress');
     
     let highlights: any[];
     try {
       const highlightService = new HighlightDetectionService();
+      logger.info('🔍 Analyzing transcript for highlight moments...', { jobId });
       highlights = await highlightService.detectHighlights(srtPath);
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'detecting-highlights',
         'completed',
         JSON.stringify({ highlightCount: highlights.length })
       );
 
-      logger.info('Highlight Detection stage completed', {
+      logger.info('✅ Highlight Detection stage completed', {
         jobId,
         highlightCount: highlights.length,
+        highlights: highlights.slice(0, 3).map(h => ({
+          time: `${h.startTime.toFixed(1)}s - ${h.endTime.toFixed(1)}s`,
+          confidence: h.confidence,
+          reason: h.reason
+        }))
       });
     } catch (error) {
       return await handleStageError(jobId, 'detecting-highlights', error, job.userId);
     }
 
     // Stage 5: Generate Editing Plan - Use LLM to create plan
-    logger.info('Starting Generate Editing Plan stage', { jobId });
-    jobStorage.updateStage(jobId, 'generating-plan', 'in-progress');
+    logger.info('🎬 Starting Generate Editing Plan stage', { jobId });
+    await jobStorage.updateStage(jobId, 'generating-plan', 'in-progress');
     
     let editingPlan: any;
     let videoDuration: number;
@@ -287,6 +312,13 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       videoDuration = transcriptSegments.length > 0 
         ? Math.max(...transcriptSegments.map((s: any) => s.end))
         : 0;
+      
+      logger.info('🤖 Sending data to AI (Gemini) for editing plan generation...', {
+        jobId,
+        videoDuration: `${videoDuration.toFixed(1)}s`,
+        transcriptSegments: transcriptSegments.length,
+        highlights: highlights.length
+      });
       
       editingPlan = await editingPlanService.generatePlan({
         transcript: transcriptSegments,
@@ -301,30 +333,38 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       );
       await editingPlanService.savePlanToFile(editingPlan, planPath);
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'generating-plan',
         'completed',
         planPath
       );
 
-      logger.info('Generate Editing Plan stage completed', {
+      logger.info('✅ Generate Editing Plan stage completed', {
         jobId,
         planPath,
         animations: editingPlan.animations.length,
+        transitions: editingPlan.transitions.length,
         brollPlacements: editingPlan.brollPlacements.length,
+        highlightEffects: editingPlan.highlights.length
       });
     } catch (error) {
       return await handleStageError(jobId, 'generating-plan', error, job.userId);
     }
 
     // Stage 6: Download B-roll - Get supplementary footage
-    logger.info('Starting B-roll Download stage', { jobId });
+    logger.info('🎥 Starting B-roll Download stage', { jobId });
     
     let brollVideos: any[] = [];
     try {
       if (editingPlan.brollPlacements && editingPlan.brollPlacements.length > 0) {
         const searchTerms = editingPlan.brollPlacements.map((b: any) => b.searchTerm);
+        
+        logger.info('🔍 Searching for B-roll footage...', {
+          jobId,
+          searchTerms: searchTerms.slice(0, 3),
+          totalSearches: searchTerms.length
+        });
         
         try {
           const downloadedBroll = await brollService.downloadMultipleVideos(searchTerms, {
@@ -339,13 +379,14 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
             videoPath: downloadedBroll[index % downloadedBroll.length]?.localPath || '',
           })).filter((b: any) => b.videoPath);
           
-          logger.info('B-roll downloaded successfully', {
+          logger.info('✅ B-roll downloaded successfully', {
             jobId,
             brollCount: brollVideos.length,
+            totalDuration: brollVideos.reduce((sum, b) => sum + b.duration, 0).toFixed(1) + 's'
           });
         } catch (brollError) {
           // Handle missing B-roll gracefully
-          logger.warn('B-roll download failed, continuing without B-roll', {
+          logger.warn('⚠️ B-roll download failed, trying fallback...', {
             jobId,
             error: brollError instanceof Error ? brollError.message : String(brollError),
           });
@@ -360,30 +401,32 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
                 videoPath: fallbackBroll[index % fallbackBroll.length]?.localPath || '',
               })).filter((b: any) => b.videoPath);
               
-              logger.info('Fallback B-roll downloaded', {
+              logger.info('✅ Fallback B-roll downloaded', {
                 jobId,
                 brollCount: brollVideos.length,
               });
             }
           } catch (fallbackError) {
-            logger.warn('Fallback B-roll also failed, proceeding without B-roll', {
+            logger.warn('⚠️ Fallback B-roll also failed, proceeding without B-roll', {
               jobId,
               error: fallbackError instanceof Error ? fallbackError.message : String(fallbackError),
             });
           }
         }
+      } else {
+        logger.info('ℹ️ No B-roll placements in editing plan, skipping B-roll download', { jobId });
       }
     } catch (error) {
       // B-roll is optional, log but don't fail
-      logger.warn('B-roll stage encountered error, continuing', {
+      logger.warn('⚠️ B-roll stage encountered error, continuing', {
         jobId,
         error: error instanceof Error ? error.message : String(error),
       });
     }
 
     // Stage 7: Rendering - Apply animations and effects
-    logger.info('Starting Rendering stage', { jobId });
-    jobStorage.updateStage(jobId, 'rendering', 'in-progress');
+    logger.info('🎨 Starting Rendering stage', { jobId });
+    await jobStorage.updateStage(jobId, 'rendering', 'in-progress');
     
     let finalVideoPath: string;
     try {
@@ -391,6 +434,14 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         path.dirname(autoEditedVideoPath),
         `${jobId}_final.mp4`
       );
+      
+      logger.info('🎬 Rendering final video with Remotion...', {
+        jobId,
+        animations: editingPlan.animations.length,
+        transitions: editingPlan.transitions.length,
+        brollClips: brollVideos.length,
+        subtitles: transcriptSegments.length
+      });
       
       const renderResult = await remotionRenderingService.renderVideo({
         videoPath: autoEditedVideoPath,
@@ -402,25 +453,27 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       
       finalVideoPath = renderResult.outputPath;
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'rendering',
         'completed',
         finalVideoPath
       );
 
-      logger.info('Rendering stage completed', {
+      const fileSizeMB = (renderResult.fileSize / (1024 * 1024)).toFixed(2);
+      logger.info('✅ Rendering stage completed', {
         jobId,
         outputPath: finalVideoPath,
-        fileSize: renderResult.fileSize,
+        fileSize: `${fileSizeMB} MB`,
+        duration: renderResult.duration ? `${renderResult.duration.toFixed(1)}s` : 'unknown'
       });
     } catch (error) {
       return await handleStageError(jobId, 'rendering', error, job.userId);
     }
 
     // Stage 8: YouTube Upload - Upload final video
-    logger.info('Starting YouTube Upload stage', { jobId });
-    jobStorage.updateStage(jobId, 'uploading', 'in-progress');
+    logger.info('📺 Starting YouTube Upload stage', { jobId });
+    await jobStorage.updateStage(jobId, 'uploading', 'in-progress');
     
     let youtubeUrl: string;
     try {
@@ -430,6 +483,11 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       // For now, this will fail if credentials are not set
       // In production, credentials should be managed separately
       
+      logger.info('⬆️ Uploading video to YouTube...', {
+        jobId,
+        videoPath: finalVideoPath
+      });
+      
       const uploadResult = await youtubeService.upload(
         finalVideoPath,
         {
@@ -438,38 +496,51 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
           privacyStatus: 'private',
         },
         (progress) => {
-          logger.debug('Upload progress', {
-            jobId,
-            percentage: progress.percentage,
-          });
+          if (progress.percentage % 10 === 0 || progress.percentage === 100) {
+            logger.info('📤 Upload progress', {
+              jobId,
+              percentage: `${progress.percentage}%`,
+              bytesUploaded: progress.bytesUploaded,
+              totalBytes: progress.totalBytes
+            });
+          }
         }
       );
       
       youtubeUrl = uploadResult.url;
       
-      jobStorage.updateStage(
+      await jobStorage.updateStage(
         jobId,
         'uploading',
         'completed',
         youtubeUrl
       );
 
-      logger.info('YouTube Upload stage completed', {
+      logger.info('✅ YouTube Upload stage completed', {
         jobId,
         youtubeUrl,
+        videoId: uploadResult.videoId
       });
     } catch (error) {
       return await handleStageError(jobId, 'uploading', error, job.userId);
     }
 
     // Mark job as completed
-    jobStorage.updateStage(jobId, 'completed', 'completed');
-    jobStorage.updateJobStatus(jobId, 'completed');
+    await jobStorage.updateStage(jobId, 'completed', 'completed');
+    await jobStorage.updateJobStatus(jobId, 'completed');
 
-    logger.info('Video processing pipeline completed successfully', {
+    logger.info('🎉 Video processing pipeline completed successfully!', {
       jobId,
       youtubeUrl,
+      totalStages: 8,
+      finalVideoPath
     });
+    
+    logger.info('═══════════════════════════════════════════════════════');
+    logger.info('✅ PIPELINE COMPLETE!');
+    logger.info(`📺 YouTube URL: ${youtubeUrl}`);
+    logger.info(`🎬 Job ID: ${jobId}`);
+    logger.info('═══════════════════════════════════════════════════════');
 
     // Send completion notification to user
     try {
@@ -503,11 +574,11 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
     });
 
     // Update job with error if job exists
-    const job = jobStorage.getJob(jobId);
+    const job = await jobStorage.getJob(jobId);
     if (job) {
       const currentStage = getCurrentStage(job);
-      jobStorage.setJobError(jobId, currentStage, errorMessage, errorStack);
-      jobStorage.updateJobStatus(jobId, 'failed');
+      await jobStorage.setJobError(jobId, currentStage, errorMessage, errorStack);
+      await jobStorage.updateJobStatus(jobId, 'failed');
     }
 
     return {
@@ -521,8 +592,8 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
 /**
  * Get job status with progress information
  */
-export function getStatus(jobId: string): JobStatus {
-  const job = jobStorage.getJob(jobId);
+export async function getStatus(jobId: string): Promise<JobStatus> {
+  const job = await jobStorage.getJob(jobId);
   
   if (!job) {
     throw new Error(`Job ${jobId} not found`);

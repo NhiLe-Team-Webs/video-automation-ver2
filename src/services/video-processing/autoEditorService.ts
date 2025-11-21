@@ -160,13 +160,23 @@ export class AutoEditorService {
       process.stdout.on('data', (data) => {
         const output = data.toString();
         stdout += output;
-        logger.debug('Auto Editor stdout', { output });
+        // Log progress information at info level for visibility
+        if (output.includes('%') || output.includes('frame') || output.includes('time=')) {
+          logger.info('Auto Editor progress', { output: output.trim() });
+        } else {
+          logger.debug('Auto Editor stdout', { output: output.trim() });
+        }
       });
 
       process.stderr.on('data', (data) => {
         const output = data.toString();
         stderr += output;
-        logger.debug('Auto Editor stderr', { output });
+        // Auto Editor outputs progress to stderr, log it at info level
+        if (output.includes('%') || output.includes('Analyzing') || output.includes('Cutting')) {
+          logger.info('Auto Editor progress', { output: output.trim() });
+        } else {
+          logger.debug('Auto Editor stderr', { output: output.trim() });
+        }
       });
 
       process.on('close', (code) => {

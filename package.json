@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch src/server.ts",
+    "dev:combined": "tsx watch src/server-with-worker.ts",
     "start": "node dist/server.js",
+    "start:combined": "node dist/server-with-worker.js",
     "worker": "node dist/worker.js",
     "test": "vitest --run",
     "test:watch": "vitest"

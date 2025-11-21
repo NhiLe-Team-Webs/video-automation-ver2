@@ -34,6 +34,27 @@ export const queueEvents = new QueueEvents('video-processing', {
   connection,
 });
 
+// Set up queue event listeners
+queueEvents.on('added', ({ jobId }) => {
+  logger.info('Queue event: Job added', { jobId });
+});
+
+queueEvents.on('active', ({ jobId }) => {
+  logger.info('Queue event: Job active', { jobId });
+});
+
+queueEvents.on('completed', ({ jobId }) => {
+  logger.info('Queue event: Job completed', { jobId });
+});
+
+queueEvents.on('failed', ({ jobId, failedReason }) => {
+  logger.error('Queue event: Job failed', { jobId, failedReason });
+});
+
+queueEvents.on('error', (error) => {
+  logger.error('Queue event error', { error: error.message });
+});
+
 export interface VideoProcessingJobData {
   jobId: string;
   userId: string;
@@ -45,14 +66,22 @@ export interface VideoProcessingJobData {
  */
 export async function addVideoJob(data: VideoProcessingJobData): Promise<string> {
   try {
+    logger.info('Adding video job to queue', {
+      jobId: data.jobId,
+      userId: data.userId,
+      videoPath: data.videoPath,
+    });
+
     const job = await videoQueue.add('process-video', data, {
       jobId: data.jobId,
     });
 
-    logger.info('Video job added to queue', {
+    logger.info('Video job added to queue successfully', {
       jobId: data.jobId,
       userId: data.userId,
       bullJobId: job.id,
+      queueName: 'video-processing',
+      jobName: 'process-video',
     });
 
     return job.id!;
@@ -60,6 +89,7 @@ export async function addVideoJob(data: VideoProcessingJobData): Promise<string>
     logger.error('Failed to add video job to queue', {
       jobId: data.jobId,
       error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
     });
     throw error;
   }
