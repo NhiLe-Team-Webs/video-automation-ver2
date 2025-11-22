@@ -55,14 +55,6 @@ export interface SystemConfig {
   };
 }
 
-function getEnvVar(key: string, defaultValue?: string): string {
-  const value = process.env[key] || defaultValue;
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-  return value;
-}
-
 function getOptionalEnvVar(key: string, defaultValue: string = ''): string {
   return process.env[key] || defaultValue;
 }

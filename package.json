@@ -2,6 +2,7 @@
   "name": "video-automation",
   "version": "1.0.0",
   "description": "Automated video editing system with cloud storage",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
