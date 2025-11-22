@@ -110,13 +110,15 @@ async function handleStageError(
 
 /**
  * Calculate progress percentage based on current stage
+ * Returns progress with 1 decimal place precision (e.g., 45.5%)
  */
 function calculateProgress(stage: PipelineStage): number {
   const stageIndex = PIPELINE_STAGES.indexOf(stage);
   if (stageIndex === -1) return 0;
   
-  // Calculate percentage (0-100)
-  return Math.round((stageIndex / (PIPELINE_STAGES.length - 1)) * 100);
+  // Calculate percentage (0-100) with 1 decimal precision
+  const progress = (stageIndex / (PIPELINE_STAGES.length - 1)) * 100;
+  return Math.round(progress * 10) / 10; // Round to 1 decimal place
 }
 
 /**
