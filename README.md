@@ -89,12 +89,18 @@ See [docs/LOCAL_TESTING_GUIDE.md](docs/LOCAL_TESTING_GUIDE.md) for:
 
 ## Development
 
-Run in development mode:
+### Start API Server
 ```bash
 npm run dev
 ```
 
-Build TypeScript:
+### Preview Animations (Remotion Studio)
+```bash
+npm run preview
+```
+Then open http://localhost:3001 to preview animations, transitions, and effects in real-time.
+
+### Build TypeScript
 ```bash
 npm run build
 ```

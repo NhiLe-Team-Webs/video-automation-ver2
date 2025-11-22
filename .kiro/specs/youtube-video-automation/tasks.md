@@ -439,3 +439,151 @@
   - Verify all monitoring is working
   - Ask the user if questions arise.
 
+## Phase 7: Professional Editing Orchestration
+
+**Note**: All building blocks already exist (Auto Editor, transitions, text templates, animations). This phase focuses on intelligent orchestration through LLM prompt engineering and brand kit integration.
+
+- [x] 31. Implement sound effects service
+
+
+
+
+
+
+  - Integrate Freesound API or Epidemic Sound API
+  - Create sound effect search and download functionality
+  - Implement local caching for downloaded sound effects
+  - Add sound effect categorization (whoosh, pop, transition, zoom, text-appear)
+  - Implement automatic volume adjustment (20-30% of main audio peak)
+  - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5_
+
+- [ ]* 31.1 Write property test for sound effect volume levels
+  - **Property 36: Sound effect volume levels**
+  - **Validates: Requirements 13.5**
+
+- [ ] 32. Implement brand kit and style guide system
+
+  - Create brand kit JSON schema (colors, fonts, animation preferences)
+  - Implement brand kit loader from config file
+  - Add style guide generation based on brand kit + video metadata
+  - Create style consistency validation for editing plans
+  - The effects should be stylesed and professional
+  - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5_
+  - _Note: Uses existing templates/transitions, just enforces consistent selection_
+
+- [ ]* 32.1 Write property test for style guide compliance
+  - **Property 51: Style guide compliance**
+  - **Validates: Requirements 16.5**
+
+- [ ] 33. Implement zoom effects for Remotion
+
+  - Add zoom transform logic to Remotion rendering (scale 1.0 → 1.2 → 1.0)
+  - Configure zoom timing (400ms duration, ease-in-out)
+  - Add zoom effect overlap detection and resolution
+  - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5_
+
+- [ ]* 33.1 Write property test for zoom scale and duration
+  - **Property 43: Zoom scale and duration**
+  - **Validates: Requirements 15.2**
+
+- [ ]* 33.2 Write property test for no overlapping zoom effects
+  - **Property 46: No overlapping zoom effects**
+  - **Validates: Requirements 15.5**
+
+- [ ] 34. Implement FFmpeg cut filters service
+
+  - Create video quality analysis (brightness, color temperature, resolution)
+  - Implement FFmpeg color grading filters
+  - Add exposure correction and contrast/saturation enhancement
+  - Add sharpening filter for videos below 1080p
+  - Implement subtle vignette effect (10-15% edge darkening)
+  - _Requirements: 19.1, 19.2, 19.3, 19.4, 19.5_
+
+- [ ]* 34.1 Write property test for saturation limits
+  - **Property 63: Saturation limits**
+  - **Validates: Requirements 19.3**
+
+- [ ] 35. Update LLM prompt for professional editing orchestration
+
+  - Load brand kit and available templates/transitions into prompt
+  - Add instructions for consistent style selection (one transition type, one animation family)
+  - Add B-roll limits (max 1 per 30 seconds, only at highlights, max 5s duration)
+  - Add zoom effect generation for all highlights
+  - Add sound effect selection for text/zoom/transitions
+  - Add text highlight timing rules (300ms before audio, min 1s duration, 500ms gaps)
+  - Add transition timing rules (300-500ms duration)
+  - Add cut filter settings based on video quality
+  - Validate generated plan against all rules
+  - _Requirements: 12.5, 13.1, 13.2, 13.3, 14.1, 14.2, 14.3, 14.4, 15.1, 16.1, 17.1, 19.1_
+
+- [ ]* 35.1 Write property test for B-roll frequency limit
+  - **Property 37: B-roll frequency limit**
+  - **Validates: Requirements 14.1**
+
+- [ ]* 35.2 Write property test for B-roll duration limit
+  - **Property 39: B-roll duration limit**
+  - **Validates: Requirements 14.3**
+
+- [ ]* 35.3 Write property test for transition duration bounds
+  - **Property 32: Transition duration bounds**
+  - **Validates: Requirements 12.5**
+
+- [ ]* 35.4 Write property test for text appears before audio
+  - **Property 52: Text appears before audio**
+  - **Validates: Requirements 17.1**
+
+- [ ]* 35.5 Write property test for consistent animation style family
+  - **Property 47: Consistent animation style family**
+  - **Validates: Requirements 16.1**
+
+- [ ]* 35.6 Write property test for consistent transition types
+  - **Property 50: Consistent transition types**
+  - **Validates: Requirements 16.4**
+
+- [ ] 36. Update Remotion rendering pipeline
+
+  - Apply zoom effects from editing plan
+  - Integrate sound effects with visual elements (FFmpeg audio mixing)
+  - Apply cut filters during video processing
+  - Render text highlights with early timing (300ms before audio)
+  - Use only text highlights from editing plan (no continuous subtitles)
+  - Apply brand kit styling to all text elements
+  - _Requirements: 12.5, 13.5, 15.4, 16.5, 17.2, 18.1, 18.2, 18.3, 18.4, 19.5_
+
+- [ ]* 36.1 Write property test for no continuous subtitles
+  - **Property 56: No continuous subtitles**
+  - **Validates: Requirements 18.1**
+
+- [ ]* 36.2 Write property test for only highlighted text rendered
+  - **Property 57: Only highlighted text rendered**
+  - **Validates: Requirements 18.2**
+
+- [ ] 37. Checkpoint - Professional editing orchestration complete
+
+  - Test complete pipeline with brand kit
+  - Verify smooth cuts (Auto Editor)
+  - Verify consistent transitions (300-500ms, same type throughout)
+  - Verify sound effects synchronized with visuals
+  - Verify B-roll limited and strategic (max 1 per 30s, at highlights)
+  - Verify zoom effects on all highlights (120%, 400ms)
+  - Verify consistent styling (brand kit applied)
+  - Verify text appears 300ms before audio
+  - Verify no subtitles, only stylized text highlights
+  - Verify professional cut filters applied
+  - Ask the user if questions arise.
+
+- [ ] 38. Update configuration and documentation
+
+  - Add sound effects API configuration to .env
+  - Add brand kit configuration example
+  - Document LLM prompt engineering approach
+  - Document rendering parameters (zoom, text timing, filters)
+  - Create professional editing features guide
+  - _Requirements: 10.2, 10.4_
+
+- [ ] 39. Final checkpoint - Professional YouTube video automation complete
+
+  - Upload test video with brand kit and verify all features
+  - Verify final video is professionally edited with consistent style
+  - Ask the user if questions arise.
+

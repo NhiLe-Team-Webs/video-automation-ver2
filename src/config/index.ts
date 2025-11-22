@@ -24,6 +24,11 @@ export interface SystemConfig {
   pexels: {
     apiKey: string;
   };
+  soundEffects: {
+    apiKey: string;
+    apiProvider: 'pixabay' | 'freesound';
+    cacheEnabled: boolean;
+  };
   youtube: {
     clientId: string;
     clientSecret: string;
@@ -43,6 +48,7 @@ export interface SystemConfig {
   storage: {
     tempDir: string;
     cacheDir: string;
+    sfxCacheDir: string;
   };
   redis: {
     host: string;
@@ -83,6 +89,11 @@ export const config: SystemConfig = {
   pexels: {
     apiKey: getEnvVar('PEXELS_API_KEY'),
   },
+  soundEffects: {
+    apiKey: getEnvVar('PIXABAY_API_KEY'),
+    apiProvider: (process.env.SOUND_EFFECTS_PROVIDER || 'pixabay') as 'pixabay' | 'freesound',
+    cacheEnabled: process.env.SOUND_EFFECTS_CACHE_ENABLED !== 'false',
+  },
   youtube: {
     clientId: getEnvVar('YOUTUBE_CLIENT_ID'),
     clientSecret: getEnvVar('YOUTUBE_CLIENT_SECRET'),
@@ -104,6 +115,7 @@ export const config: SystemConfig = {
   storage: {
     tempDir: path.resolve(getEnvVar('TEMP_DIR', './temp')),
     cacheDir: path.resolve(getEnvVar('CACHE_DIR', './cache')),
+    sfxCacheDir: path.resolve(getEnvVar('SFX_CACHE_DIR', './cache/sfx')),
   },
   redis: {
     host: getEnvVar('REDIS_HOST', 'localhost'),

@@ -25,6 +25,16 @@ This document specifies requirements for an automated YouTube video editing syst
 - **YouTube Upload**: The process of publishing the final video to YouTube platform
 - **SRT File**: SubRip Subtitle file format containing timestamped transcription data
 - **Cloud Deployment**: Running the system on cloud infrastructure for scalability
+- **Sound Effect (SFX)**: Audio elements added to enhance visual effects and transitions
+- **Cut Filter**: Color grading and visual enhancement applied to video segments
+- **Zoom Effect**: Dynamic scaling animation applied to emphasize content
+- **Text Highlight**: Stylized text overlay displaying key phrases from the transcript
+- **Frame Duplication**: Unintended repetition of video frames at cut boundaries
+- **Audio-Video Synchronization**: Alignment of audio and video tracks at precise timestamps
+- **Style Guide**: Defined parameters for consistent visual aesthetics across the video
+- **Easing Function**: Mathematical function controlling animation acceleration and deceleration
+- **Color Grading**: Process of adjusting color temperature, contrast, and saturation
+- **Vignette Effect**: Subtle darkening of image edges to focus attention on center content
 
 ## Requirements
 
@@ -158,3 +168,99 @@ This document specifies requirements for an automated YouTube video editing syst
 3. WHEN a developer applies a transition THEN the System SHALL display a preview showing the transition between video segments
 4. WHEN a developer applies effects THEN the System SHALL display a preview of the effect on the video
 5. THE System SHALL allow developers to preview individual components (animations, transitions, effects) in isolation before applying them to the full video
+
+### Requirement 12
+
+**User Story:** As a content creator, I want smooth transitions between video segments without stuttering or duplicate content, so that the final video flows naturally and professionally.
+
+#### Acceptance Criteria
+
+1. WHEN the System cuts between video segments THEN the System SHALL ensure no frame duplication occurs at cut points
+2. WHEN the System applies transitions between scenes THEN the System SHALL maintain consistent frame timing without stuttering
+3. WHEN the Auto Editor removes segments THEN the System SHALL preserve audio-video synchronization at all cut boundaries
+4. WHEN rendering the final video THEN the System SHALL validate that no repeated words or phrases occur across cut boundaries
+5. WHEN applying scene transitions THEN the System SHALL use smooth transition effects with consistent duration between 300ms and 500ms
+
+### Requirement 13
+
+**User Story:** As a content creator, I want appropriate sound effects synchronized with visual elements, so that the video is more engaging and professional.
+
+#### Acceptance Criteria
+
+1. WHEN the editing plan includes text highlights THEN the System SHALL add synchronized sound effects for text appearance
+2. WHEN the editing plan includes zoom effects THEN the System SHALL add synchronized whoosh or zoom sound effects
+3. WHEN the editing plan includes transitions THEN the System SHALL add appropriate transition sound effects
+4. WHEN selecting sound effects THEN the System SHALL use an API service to access a diverse library of professional sound effects
+5. WHEN applying sound effects THEN the System SHALL ensure sound effect volume does not overpower the main audio track
+
+### Requirement 14
+
+**User Story:** As a content creator, I want B-roll footage inserted only at strategic moments, so that the video remains focused without excessive visual clutter.
+
+#### Acceptance Criteria
+
+1. WHEN the LLM generates an editing plan THEN the System SHALL limit B-roll insertions to a maximum of one per 30 seconds of video
+2. WHEN selecting B-roll placement THEN the System SHALL prioritize moments identified as highlights or key points
+3. WHEN inserting B-roll THEN the System SHALL ensure B-roll duration does not exceed 5 seconds per insertion
+4. WHEN B-roll is inserted THEN the System SHALL apply smooth fade transitions at both entry and exit points
+5. WHEN the video contains multiple topics THEN the System SHALL distribute B-roll placements evenly across different topics
+
+### Requirement 15
+
+**User Story:** As a content creator, I want dynamic zoom effects applied during highlight moments, so that important content receives visual emphasis.
+
+#### Acceptance Criteria
+
+1. WHEN a highlight moment is detected THEN the System SHALL apply a zoom-in effect at the highlight start timestamp
+2. WHEN a zoom-in effect is applied THEN the System SHALL zoom to 120% scale over a duration of 400ms
+3. WHEN a highlight moment ends THEN the System SHALL apply a zoom-out effect returning to 100% scale
+4. WHEN applying zoom effects THEN the System SHALL use smooth easing functions to avoid jarring motion
+5. WHEN multiple highlights occur in sequence THEN the System SHALL ensure zoom effects do not overlap or conflict
+
+### Requirement 16
+
+**User Story:** As a content creator, I want all animations, effects, and transitions to follow a consistent visual style, so that the video appears professionally edited with a cohesive aesthetic.
+
+#### Acceptance Criteria
+
+1. WHEN the LLM generates an editing plan THEN the System SHALL select animations from a single consistent style family
+2. WHEN applying text animations THEN the System SHALL use consistent font, color scheme, and animation timing throughout the video
+3. WHEN applying visual effects THEN the System SHALL maintain consistent effect intensity and duration across all applications
+4. WHEN applying transitions THEN the System SHALL use the same transition type for similar scene changes throughout the video
+5. WHEN rendering the final video THEN the System SHALL validate that all visual elements follow the defined style guide parameters
+
+### Requirement 17
+
+**User Story:** As a content creator, I want text highlights to appear slightly before the corresponding spoken words, so that viewers can read the text as the point is being made.
+
+#### Acceptance Criteria
+
+1. WHEN the editing plan includes text highlights THEN the System SHALL display text 300ms before the corresponding audio timestamp
+2. WHEN text appears on screen THEN the System SHALL maintain the text display for the full duration of the spoken phrase plus 200ms
+3. WHEN multiple text highlights occur in sequence THEN the System SHALL ensure a minimum gap of 500ms between consecutive text displays
+4. WHEN text timing is calculated THEN the System SHALL account for average reading speed to ensure text is readable
+5. WHEN the spoken phrase is very short THEN the System SHALL extend text display duration to a minimum of 1 second
+
+### Requirement 18
+
+**User Story:** As a content creator, I want the final video to exclude full subtitles and only show text highlights with sound effects, so that the video is cleaner and more engaging.
+
+#### Acceptance Criteria
+
+1. WHEN rendering the final video THEN the System SHALL not include continuous subtitle overlays
+2. WHEN the editing plan includes highlights THEN the System SHALL render only highlighted text phrases as visual overlays
+3. WHEN text highlights are rendered THEN the System SHALL apply stylized text effects rather than standard subtitle formatting
+4. WHEN text highlights appear THEN the System SHALL synchronize sound effects with text appearance
+5. WHEN the video contains no highlights THEN the System SHALL render the video without any text overlays
+
+### Requirement 19
+
+**User Story:** As a content creator, I want professional cut filters applied to video segments, so that the final video has a polished, high-quality appearance.
+
+#### Acceptance Criteria
+
+1. WHEN rendering video segments THEN the System SHALL apply color grading filters to maintain consistent color temperature
+2. WHEN the video contains varying lighting conditions THEN the System SHALL apply exposure correction to normalize brightness
+3. WHEN applying filters THEN the System SHALL enhance contrast and saturation within professional limits to avoid oversaturation
+4. WHEN the video resolution is below 1080p THEN the System SHALL apply sharpening filters to improve perceived quality
+5. WHEN rendering the final video THEN the System SHALL apply a subtle vignette effect to focus viewer attention on the center content

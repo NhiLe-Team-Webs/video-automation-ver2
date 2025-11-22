@@ -211,6 +211,15 @@ interface EditingPlanInput {
   transcript: TranscriptSegment[];
   highlights: Highlight[];
   videoDuration: number;
+  videoMetadata: VideoMetadata;
+  stylePreferences?: StylePreferences;
+}
+
+interface StylePreferences {
+  targetAudience: 'professional' | 'casual' | 'educational' | 'entertainment';
+  pacing: 'fast' | 'medium' | 'slow';
+  visualStyle: 'minimal' | 'dynamic' | 'cinematic';
+  maxBrollPerMinute: number; // default: 2
 }
 
 interface EditingPlan {
@@ -218,6 +227,11 @@ interface EditingPlan {
   animations: AnimationEffect[];
   transitions: TransitionEffect[];
   brollPlacements: BrollPlacement[];
+  soundEffects: SoundEffectPlacement[];
+  zoomEffects: ZoomEffect[];
+  textHighlights: TextHighlight[];
+  styleGuide: StyleGuide;
+  cutFilters: CutFilterSettings;
 }
 
 interface HighlightEffect {
@@ -238,13 +252,48 @@ interface AnimationEffect {
 interface TransitionEffect {
   time: number;
   type: 'fade' | 'slide' | 'wipe';
-  duration: number;
+  duration: number; // 300-500ms
+  soundEffect?: string; // SFX ID
 }
 
 interface BrollPlacement {
   startTime: number;
-  duration: number;
+  duration: number; // max 5 seconds
   searchTerm: string;
+  fadeInDuration: number; // milliseconds
+  fadeOutDuration: number; // milliseconds
+}
+
+interface SoundEffectPlacement {
+  timestamp: number;
+  effectType: 'text-appear' | 'zoom' | 'transition' | 'whoosh' | 'pop';
+  soundEffectId: string;
+  volume: number; // 0.0 to 1.0
+}
+
+interface TextHighlight {
+  text: string;
+  startTime: number; // 300ms before audio timestamp
+  duration: number; // minimum 1 second
+  style: TextStyle;
+  soundEffect?: string;
+}
+
+interface TextStyle {
+  fontFamily: string;
+  fontSize: number;
+  fontWeight: number;
+  color: string;
+  backgroundColor?: string;
+  animation: 'fade-in' | 'slide-up' | 'pop' | 'typewriter';
+}
+
+interface CutFilterSettings {
+  colorGrading: ColorGradingSettings;
+  applySharpening: boolean;
+  sharpeningIntensity: number;
+  applyVignette: boolean;
+  vignetteIntensity: number;
 }
 ```
 
@@ -253,6 +302,13 @@ interface BrollPlacement {
 - Prompt includes available animation templates from remotion-templates
 - Implements retry with exponential backoff (3 attempts)
 - Validates that referenced templates exist
+- Enforces B-roll limit: maximum 1 per 30 seconds (2 per minute)
+- Generates style guide based on video content and target audience
+- Ensures text highlights appear 300ms before audio timestamp
+- Selects consistent animation style family for entire video
+- Assigns appropriate sound effects to each visual element
+- Generates zoom effects for all highlight moments
+- Specifies cut filter settings based on video quality analysis
 
 ### 7. B-roll Service
 
@@ -394,6 +450,226 @@ type TransitionType = 'fade' | 'slide' | 'wipe' | 'zoom';
 - Provides HTTP endpoints for web-based preview interface
 - Supports hot-reload when template files change
 
+### 12. Sound Effects Service
+
+**Responsibility**: Retrieve and synchronize sound effects with visual elements
+
+**Interface**:
+```typescript
+interface SoundEffectsService {
+  searchSoundEffect(query: string, duration: number): Promise<SoundEffect>;
+  applySoundEffect(videoPath: string, soundEffect: SoundEffect, timestamp: number): Promise<string>;
+  validateVolumeLevels(mainAudio: AudioTrack, sfxAudio: AudioTrack): VolumeValidation;
+}
+
+interface SoundEffect {
+  id: string;
+  url: string;
+  duration: number;
+  category: 'whoosh' | 'pop' | 'transition' | 'zoom' | 'text-appear';
+  volumeLevel: number; // 0.0 to 1.0
+}
+
+interface AudioTrack {
+  path: string;
+  peakVolume: number;
+  averageVolume: number;
+}
+
+interface VolumeValidation {
+  isValid: boolean;
+  mainAudioPeak: number;
+  sfxPeak: number;
+  recommendedSfxVolume: number;
+}
+```
+
+**Implementation Notes**:
+- Uses Freesound API or Epidemic Sound API for sound effect library
+- Caches downloaded sound effects locally
+- Automatically adjusts SFX volume to 20-30% of main audio peak
+- Supports multiple SFX categories for different visual effects
+
+### 13. Cut Quality (Handled by Auto Editor)
+
+**Responsibility**: Ensure smooth cuts without duplication or stuttering
+
+**Implementation Notes**:
+- Auto Editor service already handles smooth cuts with `--margin` parameter
+- The `--margin 0.2sec` setting prevents frame duplication at cut boundaries
+- Auto Editor maintains audio-video synchronization automatically
+- No additional cut validation service needed - Auto Editor provides this functionality
+- Properties 28-31 validate that Auto Editor produces quality cuts
+
+### 14. Zoom Effects Service
+
+**Responsibility**: Apply dynamic zoom effects during highlight moments
+
+**Interface**:
+```typescript
+interface ZoomEffectsService {
+  applyZoomEffect(config: ZoomConfig): ZoomEffect;
+  validateZoomTiming(effects: ZoomEffect[]): ValidationResult;
+}
+
+interface ZoomConfig {
+  startTime: number;
+  endTime: number;
+  targetScale: number; // e.g., 1.2 for 120%
+  easingFunction: 'ease-in-out' | 'ease-in' | 'ease-out' | 'linear';
+  zoomDuration: number; // milliseconds
+}
+
+interface ZoomEffect {
+  id: string;
+  config: ZoomConfig;
+  soundEffect?: SoundEffect;
+}
+
+interface ValidationResult {
+  isValid: boolean;
+  conflicts: ZoomConflict[];
+}
+
+interface ZoomConflict {
+  effect1: string; // effect ID
+  effect2: string;
+  overlapDuration: number;
+  resolution: 'merge' | 'remove-second' | 'adjust-timing';
+}
+```
+
+**Implementation Notes**:
+- Uses Remotion's transform animations for smooth zoom
+- Default zoom scale: 120% (1.2x)
+- Default zoom duration: 400ms
+- Uses ease-in-out easing for natural motion
+- Automatically detects and resolves overlapping zoom effects
+
+### 15. Style Guide Service
+
+**Responsibility**: Maintain consistent visual styling across all video elements
+
+**Interface**:
+```typescript
+interface StyleGuideService {
+  generateStyleGuide(videoMetadata: VideoMetadata): StyleGuide;
+  validateStyleConsistency(editingPlan: EditingPlan, styleGuide: StyleGuide): StyleValidation;
+  applyStyleGuide(element: VisualElement, styleGuide: StyleGuide): StyledElement;
+}
+
+interface StyleGuide {
+  colorScheme: ColorScheme;
+  typography: Typography;
+  animationTiming: AnimationTiming;
+  transitionStyle: TransitionStyle;
+  effectIntensity: EffectIntensity;
+}
+
+interface ColorScheme {
+  primary: string; // hex color
+  secondary: string;
+  accent: string;
+  textColor: string;
+  backgroundColor: string;
+}
+
+interface Typography {
+  fontFamily: string;
+  fontSize: { small: number; medium: number; large: number };
+  fontWeight: number;
+  lineHeight: number;
+}
+
+interface AnimationTiming {
+  textAppearDuration: number; // milliseconds
+  textDisappearDuration: number;
+  transitionDuration: number;
+  zoomDuration: number;
+}
+
+interface TransitionStyle {
+  type: 'fade' | 'slide' | 'wipe';
+  duration: number;
+  easing: string;
+}
+
+interface EffectIntensity {
+  colorGrading: number; // 0.0 to 1.0
+  contrast: number;
+  saturation: number;
+  sharpness: number;
+  vignette: number;
+}
+
+interface StyleValidation {
+  isConsistent: boolean;
+  violations: StyleViolation[];
+}
+
+interface StyleViolation {
+  element: string;
+  property: string;
+  expected: any;
+  actual: any;
+}
+
+interface VisualElement {
+  type: 'text' | 'animation' | 'transition' | 'effect';
+  properties: Record<string, any>;
+}
+
+interface StyledElement extends VisualElement {
+  appliedStyles: Record<string, any>;
+}
+```
+
+**Implementation Notes**:
+- Generates style guide based on video content and brand guidelines
+- Validates all visual elements against style guide before rendering
+- Automatically corrects style violations
+- Supports custom style guide JSON configuration
+
+### 16. Cut Filters Service
+
+**Responsibility**: Apply professional color grading and visual enhancements
+
+**Interface**:
+```typescript
+interface CutFiltersService {
+  applyColorGrading(videoPath: string, settings: ColorGradingSettings): Promise<string>;
+  applyExposureCorrection(videoPath: string): Promise<string>;
+  applySharpening(videoPath: string, intensity: number): Promise<string>;
+  applyVignette(videoPath: string, intensity: number): Promise<string>;
+  analyzeVideoQuality(videoPath: string): QualityAnalysis;
+}
+
+interface ColorGradingSettings {
+  temperature: number; // -100 to 100
+  tint: number; // -100 to 100
+  contrast: number; // 0.5 to 2.0
+  saturation: number; // 0.5 to 1.5
+  highlights: number; // -100 to 100
+  shadows: number; // -100 to 100
+}
+
+interface QualityAnalysis {
+  resolution: { width: number; height: number };
+  averageBrightness: number;
+  colorTemperature: number;
+  needsSharpening: boolean;
+  needsExposureCorrection: boolean;
+  recommendedSettings: ColorGradingSettings;
+}
+```
+
+**Implementation Notes**:
+- Uses FFmpeg color filters for grading
+- Analyzes video histogram to determine optimal settings
+- Applies consistent color temperature across all segments
+- Limits saturation boost to 1.2x to avoid oversaturation
+- Applies subtle vignette (10-15% edge darkening)
+
 ### 12. Pipeline Orchestrator
 
 **Responsibility**: Coordinate all services in the correct sequence
@@ -489,6 +765,11 @@ interface SystemConfig {
   pexels: {
     apiKey: string;
   };
+  soundEffects: {
+    apiKey: string; // Freesound or Epidemic Sound API key
+    apiProvider: 'freesound' | 'epidemic-sound';
+    cacheEnabled: boolean;
+  };
   youtube: {
     clientId: string;
     clientSecret: string;
@@ -502,6 +783,22 @@ interface SystemConfig {
   storage: {
     tempDir: string;
     cacheDir: string;
+    sfxCacheDir: string;
+  };
+  rendering: {
+    fps: number; // default: 30
+    resolution: { width: number; height: number }; // default: 1920x1080
+    transitionDuration: number; // 300-500ms
+    zoomScale: number; // default: 1.2
+    zoomDuration: number; // default: 400ms
+    textLeadTime: number; // default: 300ms
+    minTextDuration: number; // default: 1000ms
+  };
+  cutFilters: {
+    enabled: boolean;
+    defaultColorGrading: ColorGradingSettings;
+    sharpeningThreshold: { width: number; height: number }; // Apply if below this
+    vignetteIntensity: number; // 0.1-0.15
   };
 }
 ```
@@ -656,6 +953,174 @@ After analyzing all acceptance criteria, several properties can be consolidated 
 *For any* successful preview generation, the preview result should contain a valid URL, positive duration, and valid thumbnail URL.
 **Validates: Requirements 11.1, 11.5**
 
+### Smooth Transitions and Cut Quality Properties
+
+**Property 28: No frame duplication at cuts**
+*For any* video with cut points, analyzing frames at cut boundaries should reveal zero duplicate frames.
+**Validates: Requirements 12.1**
+
+**Property 29: Consistent frame timing in transitions**
+*For any* transition between scenes, the frame timing should maintain consistent intervals without stuttering (frame time variance < 5ms).
+**Validates: Requirements 12.2**
+
+**Property 30: Audio-video sync at cuts**
+*For any* cut boundary in the edited video, the audio-video synchronization offset should be less than 50ms.
+**Validates: Requirements 12.3**
+
+**Property 31: No repeated words at cuts**
+*For any* cut boundary, analyzing the transcript should reveal no repeated words or phrases within 500ms before and after the cut.
+**Validates: Requirements 12.4**
+
+**Property 32: Transition duration bounds**
+*For any* scene transition, the duration should be between 300ms and 500ms inclusive.
+**Validates: Requirements 12.5**
+
+### Sound Effects Properties
+
+**Property 33: Text highlights have sound effects**
+*For any* text highlight in the editing plan, there should be a corresponding sound effect placement within 50ms of the text appearance timestamp.
+**Validates: Requirements 13.1**
+
+**Property 34: Zoom effects have sound effects**
+*For any* zoom effect in the editing plan, there should be a corresponding whoosh or zoom sound effect within 50ms of the zoom start timestamp.
+**Validates: Requirements 13.2**
+
+**Property 35: Transitions have sound effects**
+*For any* transition in the editing plan, there should be a corresponding transition sound effect at the transition timestamp.
+**Validates: Requirements 13.3**
+
+**Property 36: Sound effect volume levels**
+*For any* sound effect placement, the sound effect volume should be between 20% and 30% of the main audio track peak volume.
+**Validates: Requirements 13.5**
+
+### B-roll Placement Properties
+
+**Property 37: B-roll frequency limit**
+*For any* editing plan, the number of B-roll placements divided by video duration in seconds should be at most 1 per 30 seconds (0.0333 per second).
+**Validates: Requirements 14.1**
+
+**Property 38: B-roll at highlights**
+*For any* B-roll placement, there should be at least one highlight whose timestamp range overlaps with or is within 5 seconds of the B-roll timestamp.
+**Validates: Requirements 14.2**
+
+**Property 39: B-roll duration limit**
+*For any* B-roll placement, the duration should be at most 5 seconds.
+**Validates: Requirements 14.3**
+
+**Property 40: B-roll fade transitions**
+*For any* B-roll placement, both fadeInDuration and fadeOutDuration should be greater than 0ms.
+**Validates: Requirements 14.4**
+
+**Property 41: B-roll distribution across topics**
+*For any* video with multiple topics (segments), B-roll placements should be distributed such that each topic segment has at least one B-roll if the segment is longer than 30 seconds.
+**Validates: Requirements 14.5**
+
+### Zoom Effects Properties
+
+**Property 42: Highlights have zoom effects**
+*For any* highlight in the editing plan, there should be a corresponding zoom effect starting at the highlight start timestamp (within 100ms tolerance).
+**Validates: Requirements 15.1**
+
+**Property 43: Zoom scale and duration**
+*For any* zoom effect, the target scale should be 1.2 (120%) and the zoom duration should be 400ms.
+**Validates: Requirements 15.2**
+
+**Property 44: Zoom in-out pairing**
+*For any* zoom-in effect at a highlight start, there should be a corresponding zoom-out effect at the highlight end timestamp returning to scale 1.0.
+**Validates: Requirements 15.3**
+
+**Property 45: Smooth zoom easing**
+*For any* zoom effect, the easing function should be one of: 'ease-in-out', 'ease-in', or 'ease-out' (not 'linear').
+**Validates: Requirements 15.4**
+
+**Property 46: No overlapping zoom effects**
+*For any* pair of zoom effects, their time ranges should not overlap (effect1.endTime <= effect2.startTime or effect2.endTime <= effect1.startTime).
+**Validates: Requirements 15.5**
+
+### Style Consistency Properties
+
+**Property 47: Consistent animation style family**
+*For any* editing plan, all animation templates should belong to the same style family (e.g., all 'modern', all 'minimal', or all 'dynamic').
+**Validates: Requirements 16.1**
+
+**Property 48: Consistent text styling**
+*For any* set of text highlights in an editing plan, all should have the same fontFamily, color scheme (within style guide), and animation timing.
+**Validates: Requirements 16.2**
+
+**Property 49: Consistent effect intensity**
+*For any* set of effects of the same type, the intensity and duration values should be identical or within 10% variance.
+**Validates: Requirements 16.3**
+
+**Property 50: Consistent transition types**
+*For any* editing plan, all transitions should use the same transition type throughout the video.
+**Validates: Requirements 16.4**
+
+**Property 51: Style guide compliance**
+*For any* visual element in the editing plan, validating it against the style guide should return isConsistent: true with zero violations.
+**Validates: Requirements 16.5**
+
+### Text Highlight Timing Properties
+
+**Property 52: Text appears before audio**
+*For any* text highlight, the startTime should be exactly 300ms before the corresponding audio timestamp from the transcript.
+**Validates: Requirements 17.1**
+
+**Property 53: Text display duration**
+*For any* text highlight, the duration should be at least the spoken phrase duration plus 200ms.
+**Validates: Requirements 17.2**
+
+**Property 54: Text highlight gaps**
+*For any* pair of consecutive text highlights, the gap between the first highlight's end and the second highlight's start should be at least 500ms.
+**Validates: Requirements 17.3**
+
+**Property 55: Minimum text duration**
+*For any* text highlight where the spoken phrase is shorter than 800ms, the display duration should be at least 1000ms.
+**Validates: Requirements 17.5**
+
+### Subtitle Exclusion Properties
+
+**Property 56: No continuous subtitles**
+*For any* rendered video, analyzing the video tracks should reveal no continuous subtitle overlay track.
+**Validates: Requirements 18.1**
+
+**Property 57: Only highlighted text rendered**
+*For any* editing plan with highlights, the set of text overlays in the final video should exactly match the set of highlighted phrases (no additional text).
+**Validates: Requirements 18.2**
+
+**Property 58: Stylized text formatting**
+*For any* text highlight, the text style should include custom fontFamily, fontSize, and animation properties (not default subtitle formatting).
+**Validates: Requirements 18.3**
+
+**Property 59: Text-sound synchronization**
+*For any* text highlight, there should be a sound effect placement at the same timestamp (within 50ms).
+**Validates: Requirements 18.4**
+
+**Property 60: No text without highlights**
+*For any* video with zero highlights, the final rendered video should contain zero text overlays.
+**Validates: Requirements 18.5**
+
+### Cut Filters Properties
+
+**Property 61: Consistent color temperature**
+*For any* set of video segments in the final video, the color temperature variance should be less than 10% of the mean color temperature.
+**Validates: Requirements 19.1**
+
+**Property 62: Normalized brightness**
+*For any* video with varying lighting conditions (brightness variance > 20%), the output video should have brightness variance reduced to less than 10%.
+**Validates: Requirements 19.2**
+
+**Property 63: Saturation limits**
+*For any* video with color grading applied, the saturation multiplier should be at most 1.5x and contrast should be between 0.8x and 1.3x.
+**Validates: Requirements 19.3**
+
+**Property 64: Sharpening for low resolution**
+*For any* video with resolution below 1920x1080, the cut filter settings should include applySharpening: true.
+**Validates: Requirements 19.4**
+
+**Property 65: Vignette application**
+*For any* rendered video, the cut filter settings should include applyVignette: true with intensity between 0.1 and 0.15.
+**Validates: Requirements 19.5**
+
 ## Error Handling
 
 ### Error Categories
@@ -771,6 +1236,66 @@ const testConfig = { numRuns: 100 };
    - Generate: Random sets of concurrent jobs
    - Test: No data corruption, all jobs complete
    - Tag: **Feature: youtube-video-automation, Property 21: Concurrent job isolation**
+
+9. **Property 28: No frame duplication at cuts**
+   - Generate: Random videos with cut points
+   - Test: Zero duplicate frames at boundaries
+   - Tag: **Feature: youtube-video-automation, Property 28: No frame duplication at cuts**
+
+10. **Property 32: Transition duration bounds**
+    - Generate: Random scene transitions
+    - Test: All durations between 300-500ms
+    - Tag: **Feature: youtube-video-automation, Property 32: Transition duration bounds**
+
+11. **Property 33: Text highlights have sound effects**
+    - Generate: Random editing plans with text highlights
+    - Test: Each text highlight has corresponding SFX
+    - Tag: **Feature: youtube-video-automation, Property 33: Text highlights have sound effects**
+
+12. **Property 37: B-roll frequency limit**
+    - Generate: Random editing plans with various durations
+    - Test: B-roll rate <= 1 per 30 seconds
+    - Tag: **Feature: youtube-video-automation, Property 37: B-roll frequency limit**
+
+13. **Property 39: B-roll duration limit**
+    - Generate: Random B-roll placements
+    - Test: All durations <= 5 seconds
+    - Tag: **Feature: youtube-video-automation, Property 39: B-roll duration limit**
+
+14. **Property 42: Highlights have zoom effects**
+    - Generate: Random editing plans with highlights
+    - Test: Each highlight has corresponding zoom effect
+    - Tag: **Feature: youtube-video-automation, Property 42: Highlights have zoom effects**
+
+15. **Property 43: Zoom scale and duration**
+    - Generate: Random zoom effects
+    - Test: All have scale=1.2 and duration=400ms
+    - Tag: **Feature: youtube-video-automation, Property 43: Zoom scale and duration**
+
+16. **Property 46: No overlapping zoom effects**
+    - Generate: Random sets of zoom effects
+    - Test: No time range overlaps
+    - Tag: **Feature: youtube-video-automation, Property 46: No overlapping zoom effects**
+
+17. **Property 47: Consistent animation style family**
+    - Generate: Random editing plans
+    - Test: All animations from same style family
+    - Tag: **Feature: youtube-video-automation, Property 47: Consistent animation style family**
+
+18. **Property 52: Text appears before audio**
+    - Generate: Random text highlights with audio timestamps
+    - Test: Text startTime = audioTime - 300ms
+    - Tag: **Feature: youtube-video-automation, Property 52: Text appears before audio**
+
+19. **Property 55: Minimum text duration**
+    - Generate: Random text highlights with short phrases
+    - Test: Duration >= 1000ms for phrases < 800ms
+    - Tag: **Feature: youtube-video-automation, Property 55: Minimum text duration**
+
+20. **Property 63: Saturation limits**
+    - Generate: Random color grading settings
+    - Test: Saturation <= 1.5x, contrast 0.8-1.3x
+    - Tag: **Feature: youtube-video-automation, Property 63: Saturation limits**
 
 ### Integration Testing
 

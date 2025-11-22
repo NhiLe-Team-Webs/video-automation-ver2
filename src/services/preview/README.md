@@ -1,6 +1,39 @@
 # Development Preview Service
 
-The Development Preview Service provides real-time preview capabilities for animations, transitions, effects, and full video compositions during development.
+## ⭐ Recommended: Use Remotion Studio
+
+For the best preview experience, use **Remotion Studio** - the official Remotion preview tool:
+
+```bash
+# Start Remotion Studio on port 3001 (port 3000 is used by API server)
+npx remotion studio src/remotion/index.ts --port 3001
+```
+
+Then open: **http://localhost:3001**
+
+### Why Remotion Studio?
+
+- ✅ **Real-time preview** with instant updates as you edit
+- ✅ **Visual parameter editor** - no need to write JSON
+- ✅ **Timeline scrubbing** and playback controls
+- ✅ **Export to video** directly from the interface
+- ✅ **No additional implementation** needed
+- ✅ **Official Remotion tool** with full feature support
+- ✅ **Hot reload** when you modify template files
+
+### Quick Start
+
+1. Start Remotion Studio: `npx remotion studio src/remotion/index.ts --port 3001`
+2. Open http://localhost:3001 in your browser
+3. Select any animation template from the left sidebar
+4. Edit parameters in the right panel
+5. See changes instantly in the preview window
+
+---
+
+## Alternative: API-based Preview Service
+
+The Development Preview Service provides HTTP API endpoints for programmatic preview generation (used in automated workflows and production).
 
 ## Features
 
