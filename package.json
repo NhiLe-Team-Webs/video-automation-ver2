@@ -2,7 +2,6 @@
   "name": "video-automation",
   "version": "1.0.0",
   "description": "Automated video editing system with cloud storage",
-  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
@@ -52,7 +51,7 @@
     "react-dom": "^19.2.0",
     "remotion": "^4.0.376",
     "remotion-transition-series": "^0.0.10",
-    "uuid": "^13.0.0",
+    "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },
   "devDependencies": {
