@@ -2,22 +2,27 @@
  * Pulsing Text Template
  * Text with pulsing animation effect
  * 
- * Copied from remotion-templates reference
+ * Supports brand kit customization with Crown Mercado defaults
  */
 
 import React from 'react';
 import { interpolate, useCurrentFrame } from "remotion";
+import { CROWN_MERCADO_BRAND } from '../brandConstants';
 
 interface PulsingTextProps {
   text?: string;
   fontSize?: string;
   color?: string;
+  fontFamily?: string;
+  fontWeight?: string | number;
 }
 
 export function PulsingText({ 
   text = "Pulse", 
-  fontSize = "5rem",
-  color = "white"
+  fontSize = CROWN_MERCADO_BRAND.typography.fontSize.subtitle,
+  color = CROWN_MERCADO_BRAND.colors.textPrimary,
+  fontFamily = CROWN_MERCADO_BRAND.typography.headlineFont,
+  fontWeight = CROWN_MERCADO_BRAND.typography.fontWeightBold,
 }: PulsingTextProps) {
   const frame = useCurrentFrame();
 
@@ -63,7 +68,8 @@ export function PulsingText({
             <span
               style={{
                 fontSize,
-                fontWeight: "bold",
+                fontFamily,
+                fontWeight,
                 color,
                 position: "relative",
                 zIndex: 2,

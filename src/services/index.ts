@@ -36,3 +36,30 @@ export * from './youtube';
 
 // Notification
 export * from './notification';
+
+// Style (Brand Kit & Style Guide) - explicit exports to avoid conflicts
+export { BrandKitService } from './style';
+export type {
+  BrandKit,
+  ColorScheme,
+  Typography as BrandTypography,
+  AnimationPreferences,
+  TransitionPreferences,
+  EffectPreferences,
+  StyleGuide,
+  VideoMetadata as BrandVideoMetadata,
+  AnimationTiming,
+  TransitionStyle,
+  EffectIntensity,
+  StyleValidation,
+  StyleViolation,
+  VisualElement,
+} from './style';
+export {
+  crownMercadoBrandKit,
+  getBrandColors,
+  getBrandTypography,
+  getBrandPatterns,
+  getBrandTiming,
+  getCrownMercadoBrand,
+} from './style';

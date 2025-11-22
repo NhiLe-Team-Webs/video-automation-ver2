@@ -2,7 +2,7 @@
  * Slide Text Template
  * Text sliding in from the side with fade effect
  * 
- * Copied from remotion-templates reference
+ * Supports brand kit customization with Crown Mercado defaults
  */
 
 import React from 'react';
@@ -14,13 +14,17 @@ interface SlideTextProps {
   fontSize?: string;
   color?: string;
   direction?: 'left' | 'right';
+  fontFamily?: string;
+  fontWeight?: string | number;
 }
 
 export function SlideText({ 
   text = "Sliding Text!", 
-  fontSize = "4rem",
-  color = "white",
-  direction = 'right'
+  fontSize = CROWN_MERCADO_BRAND.typography.fontSize.subtitle,
+  color = CROWN_MERCADO_BRAND.colors.textPrimary,
+  direction = 'right',
+  fontFamily = CROWN_MERCADO_BRAND.typography.headlineFont,
+  fontWeight = CROWN_MERCADO_BRAND.typography.fontWeightBold,
 }: SlideTextProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -61,7 +65,8 @@ export function SlideText({
           opacity,
           color,
           fontSize,
-          fontWeight: "bold",
+          fontFamily,
+          fontWeight,
         }}
       >
         {text}

@@ -19,6 +19,9 @@ temp/
 cache/
 youtube-tokens.json
 
+# Brand Kit (user-specific configuration)
+brand-kit.json
+
 # IDE
 .vscode/
 .idea/

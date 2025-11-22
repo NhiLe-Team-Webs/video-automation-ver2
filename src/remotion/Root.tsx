@@ -3,10 +3,17 @@ import { Composition } from 'remotion';
 import { VideoComposition } from './VideoComposition';
 import { REMOTION_CONFIG, secondsToFrames } from './config';
 import * as Templates from './templates';
+import { CROWN_MERCADO_BRAND } from './brandConstants';
+import { CSSAnimationPreview, TransitionPreview } from './previews';
 
 /**
  * Remotion Root Component
- * Registers all available compositions including individual templates
+ * Registers all available compositions including:
+ * - Templates (text animations, effects)
+ * - CSS Animations (from Animate.css)
+ * - Transitions (fade, slide, wipe, zoom)
+ * 
+ * All use Crown Mercado brand defaults but can be customized via props
  */
 export const RemotionRoot: React.FC = () => {
   return (
@@ -48,7 +55,7 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
 
-      {/* Individual Template Compositions - standalone previews */}
+      {/* Individual Template Compositions - standalone previews with Crown Mercado branding */}
       <Composition
         id="AnimatedText"
         component={Templates.AnimatedText}
@@ -57,9 +64,12 @@ export const RemotionRoot: React.FC = () => {
         width={REMOTION_CONFIG.width}
         height={REMOTION_CONFIG.height}
         defaultProps={{
-          text: 'Hello World',
-          fontSize: 80,
-          color: '#4CAF50',
+          text: 'Crown Mercado',
+          fontSize: CROWN_MERCADO_BRAND.typography.fontSize.headline,
+          color: CROWN_MERCADO_BRAND.colors.textPrimary,
+          accentColor: CROWN_MERCADO_BRAND.colors.accentRed,
+          fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
+          fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
         }}
       />
 
@@ -85,10 +95,12 @@ export const RemotionRoot: React.FC = () => {
         width={REMOTION_CONFIG.width}
         height={REMOTION_CONFIG.height}
         defaultProps={{
-          text: 'Sliding Text',
-          fontSize: 60,
-          color: '#FF5722',
-          direction: 'left',
+          text: 'Creating Brand Preference',
+          fontSize: CROWN_MERCADO_BRAND.typography.fontSize.subtitle,
+          color: CROWN_MERCADO_BRAND.colors.textPrimary,
+          direction: 'right' as const,
+          fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
+          fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
         }}
       />
 
@@ -100,9 +112,11 @@ export const RemotionRoot: React.FC = () => {
         width={REMOTION_CONFIG.width}
         height={REMOTION_CONFIG.height}
         defaultProps={{
-          text: 'Pulsing Effect',
-          fontSize: 70,
-          color: '#2196F3',
+          text: 'Bold',
+          fontSize: CROWN_MERCADO_BRAND.typography.fontSize.subtitle,
+          color: CROWN_MERCADO_BRAND.colors.textPrimary,
+          fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
+          fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
         }}
       />
 
@@ -178,6 +192,11 @@ export const RemotionRoot: React.FC = () => {
         height={REMOTION_CONFIG.height}
         defaultProps={{
           patternCount: 20,
+          primaryColor: CROWN_MERCADO_BRAND.patterns.triangles.primary.color1,
+          secondaryColor: CROWN_MERCADO_BRAND.patterns.triangles.primary.color2,
+          tertiaryColor: CROWN_MERCADO_BRAND.patterns.triangles.primary.color3,
+          backgroundColor: CROWN_MERCADO_BRAND.colors.charcoal,
+          accentColor: CROWN_MERCADO_BRAND.colors.accentRed,
         }}
       />
 
@@ -242,6 +261,209 @@ export const RemotionRoot: React.FC = () => {
           fontSize: 40,
           color: '#FFFFFF',
           durationInFrames: 180,
+        }}
+      />
+
+      {/* CSS Animations - Popular ones */}
+      <Composition
+        id="CSS-FadeIn"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'fadeIn',
+          text: 'Fade In',
+          backgroundColor: CROWN_MERCADO_BRAND.colors.charcoal,
+          textColor: CROWN_MERCADO_BRAND.colors.textPrimary,
+        }}
+      />
+
+      <Composition
+        id="CSS-BounceIn"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'bounceIn',
+          text: 'Bounce In',
+        }}
+      />
+
+      <Composition
+        id="CSS-SlideInLeft"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'slideInLeft',
+          text: 'Slide In Left',
+        }}
+      />
+
+      <Composition
+        id="CSS-ZoomIn"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'zoomIn',
+          text: 'Zoom In',
+        }}
+      />
+
+      <Composition
+        id="CSS-FlipInX"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'flipInX',
+          text: 'Flip In X',
+        }}
+      />
+
+      <Composition
+        id="CSS-RotateIn"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'rotateIn',
+          text: 'Rotate In',
+        }}
+      />
+
+      <Composition
+        id="CSS-LightSpeedInRight"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'lightSpeedInRight',
+          text: 'Light Speed',
+        }}
+      />
+
+      <Composition
+        id="CSS-RubberBand"
+        component={CSSAnimationPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          animationName: 'rubberBand',
+          text: 'Rubber Band',
+        }}
+      />
+
+      {/* Transitions */}
+      <Composition
+        id="Transition-Fade"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'fade' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-SlideLeft"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'slide' as const,
+          direction: 'left' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-SlideRight"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'slide' as const,
+          direction: 'right' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-SlideUp"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'slide' as const,
+          direction: 'up' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-SlideDown"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'slide' as const,
+          direction: 'down' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-Wipe"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'wipe' as const,
+          duration: 1,
+        }}
+      />
+
+      <Composition
+        id="Transition-Zoom"
+        component={TransitionPreview}
+        durationInFrames={120}
+        fps={REMOTION_CONFIG.fps}
+        width={REMOTION_CONFIG.width}
+        height={REMOTION_CONFIG.height}
+        defaultProps={{
+          transitionType: 'zoom' as const,
+          duration: 1,
         }}
       />
     </>

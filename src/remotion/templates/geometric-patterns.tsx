@@ -3,6 +3,7 @@
  * Animated geometric patterns background with Crown Mercado triangle motifs
  *
  * Layered triangles in red gradients (futuristic + dynamic)
+ * Supports brand kit customization
  */
 
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
@@ -11,10 +12,20 @@ import { CROWN_MERCADO_BRAND } from '../brandConstants';
 
 interface GeometricPatternsProps {
   patternCount?: number;
+  primaryColor?: string;
+  secondaryColor?: string;
+  tertiaryColor?: string;
+  backgroundColor?: string;
+  accentColor?: string;
 }
 
 export function GeometricPatterns({
-  patternCount = 20
+  patternCount = 20,
+  primaryColor = CROWN_MERCADO_BRAND.patterns.triangles.primary.color1,
+  secondaryColor = CROWN_MERCADO_BRAND.patterns.triangles.primary.color2,
+  tertiaryColor = CROWN_MERCADO_BRAND.patterns.triangles.primary.color3,
+  backgroundColor = CROWN_MERCADO_BRAND.colors.charcoal,
+  accentColor = CROWN_MERCADO_BRAND.colors.accentRed,
 }: GeometricPatternsProps) {
   const frame = useCurrentFrame();
   const { width, height } = useVideoConfig();
@@ -51,7 +62,7 @@ export function GeometricPatterns({
       style={{
         width,
         height,
-        background: `linear-gradient(135deg, ${CROWN_MERCADO_BRAND.colors.charcoal}, ${CROWN_MERCADO_BRAND.colors.primaryRed})`,
+        background: `linear-gradient(135deg, ${backgroundColor}, ${primaryColor})`,
         overflow: "hidden",
       }}
     >
@@ -67,10 +78,10 @@ export function GeometricPatterns({
             transform: `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`,
             // Create triangle using clip-path
             clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-            // Apply gradient colors to triangles
-            background: `linear-gradient(45deg, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color1}, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color2}, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color3})`,
+            // Apply gradient colors to triangles (customizable via brand kit)
+            background: `linear-gradient(45deg, ${primaryColor}, ${secondaryColor}, ${tertiaryColor})`,
             opacity: 0.8 + (index % 3) * 0.1, // Varying opacity for depth
-            border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
+            border: `2px solid ${accentColor}`,
           }}
         />
       ))}

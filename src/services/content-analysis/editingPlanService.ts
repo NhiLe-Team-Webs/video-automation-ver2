@@ -54,11 +54,21 @@ export interface BrollPlacement {
   searchTerm: string;
 }
 
+export interface ZoomEffect {
+  id: string;
+  startTime: number;
+  endTime: number;
+  targetScale: number;
+  easingFunction: 'ease-in-out' | 'ease-in' | 'ease-out' | 'linear';
+  zoomDuration: number; // milliseconds
+}
+
 export interface EditingPlan {
   highlights: HighlightEffect[];
   animations: AnimationEffect[];
   transitions: TransitionEffect[];
   brollPlacements: BrollPlacement[];
+  zoomEffects?: ZoomEffect[];
 }
 
 /**
@@ -368,12 +378,125 @@ Return ONLY the JSON object, no additional text.`;
       }
     }
 
+    // Validate zoom effects
+    if (plan.zoomEffects) {
+      for (const zoom of plan.zoomEffects) {
+        if (zoom.startTime < 0 || zoom.endTime > videoDuration) {
+          throw new Error(
+            `Invalid zoom effect timestamp: ${zoom.startTime}s - ${zoom.endTime}s (video duration: ${videoDuration}s)`
+          );
+        }
+        if (zoom.startTime >= zoom.endTime) {
+          throw new Error(
+            `Invalid zoom effect: start time (${zoom.startTime}s) >= end time (${zoom.endTime}s)`
+          );
+        }
+        if (zoom.targetScale <= 0) {
+          throw new Error(`Invalid zoom target scale: ${zoom.targetScale}`);
+        }
+        if (zoom.zoomDuration <= 0) {
+          throw new Error(`Invalid zoom duration: ${zoom.zoomDuration}ms`);
+        }
+        if (!['ease-in-out', 'ease-in', 'ease-out', 'linear'].includes(zoom.easingFunction)) {
+          throw new Error(`Invalid zoom easing function: ${zoom.easingFunction}`);
+        }
+      }
+
+      // Check for overlapping zoom effects
+      const overlaps = this.detectZoomOverlaps(plan.zoomEffects);
+      if (overlaps.length > 0) {
+        logger.warn('Overlapping zoom effects detected', {
+          overlaps: overlaps.length,
+          conflicts: overlaps,
+        });
+        // Resolve overlaps by adjusting timing
+        this.resolveZoomOverlaps(plan.zoomEffects);
+      }
+    }
+
     logger.info('Editing plan validation passed', {
       highlights: plan.highlights.length,
       animations: plan.animations.length,
       transitions: plan.transitions.length,
       brollPlacements: plan.brollPlacements.length,
+      zoomEffects: plan.zoomEffects?.length || 0,
     });
+  }
+
+  /**
+   * Detect overlapping zoom effects
+   */
+  private detectZoomOverlaps(zoomEffects: ZoomEffect[]): Array<{ effect1: string; effect2: string; overlapDuration: number }> {
+    const overlaps: Array<{ effect1: string; effect2: string; overlapDuration: number }> = [];
+
+    for (let i = 0; i < zoomEffects.length; i++) {
+      for (let j = i + 1; j < zoomEffects.length; j++) {
+        const zoom1 = zoomEffects[i];
+        const zoom2 = zoomEffects[j];
+
+        // Check if time ranges overlap
+        const overlap = this.calculateOverlap(
+          zoom1.startTime,
+          zoom1.endTime,
+          zoom2.startTime,
+          zoom2.endTime
+        );
+
+        if (overlap > 0) {
+          overlaps.push({
+            effect1: zoom1.id,
+            effect2: zoom2.id,
+            overlapDuration: overlap,
+          });
+        }
+      }
+    }
+
+    return overlaps;
+  }
+
+  /**
+   * Calculate overlap between two time ranges
+   */
+  private calculateOverlap(
+    start1: number,
+    end1: number,
+    start2: number,
+    end2: number
+  ): number {
+    const overlapStart = Math.max(start1, start2);
+    const overlapEnd = Math.min(end1, end2);
+    return Math.max(0, overlapEnd - overlapStart);
+  }
+
+  /**
+   * Resolve overlapping zoom effects by adjusting timing
+   */
+  private resolveZoomOverlaps(zoomEffects: ZoomEffect[]): void {
+    // Sort by start time
+    zoomEffects.sort((a, b) => a.startTime - b.startTime);
+
+    for (let i = 0; i < zoomEffects.length - 1; i++) {
+      const current = zoomEffects[i];
+      const next = zoomEffects[i + 1];
+
+      // If current overlaps with next, adjust next's start time
+      if (current.endTime > next.startTime) {
+        const gap = 0.1; // 100ms gap between zoom effects
+        const newStartTime = current.endTime + gap;
+        const duration = next.endTime - next.startTime;
+        
+        next.startTime = newStartTime;
+        next.endTime = newStartTime + duration;
+
+        logger.info('Resolved zoom effect overlap', {
+          currentId: current.id,
+          nextId: next.id,
+          newStartTime,
+          newEndTime: next.endTime,
+        });
+      }
+    }
   }
 
   /**

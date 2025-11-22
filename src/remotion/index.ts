@@ -20,6 +20,10 @@ export * from './transitions';
 // Composition
 export * from './VideoComposition';
 
+// Brand Kit
+export * from './brandKitHelper';
+export { CROWN_MERCADO_BRAND } from './brandConstants';
+
 // Register the root component for Remotion
 import { registerRoot } from 'remotion';
 import { RemotionRoot } from './Root';

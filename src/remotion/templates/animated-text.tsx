@@ -2,7 +2,7 @@
  * Animated Text Template
  * Character-by-character animated text with spring physics
  *
- * Crown Mercado branded with bold typography and accent colors
+ * Supports brand kit customization while defaulting to Crown Mercado brand
  */
 
 import React from 'react';
@@ -13,12 +13,18 @@ interface AnimatedTextProps {
   text?: string;
   fontSize?: string;
   color?: string;
+  accentColor?: string;
+  fontFamily?: string;
+  fontWeight?: string | number;
 }
 
 export function AnimatedText({
   text = "Crown Mercado",
   fontSize = CROWN_MERCADO_BRAND.typography.fontSize.headline,
-  color = CROWN_MERCADO_BRAND.colors.textPrimary
+  color = CROWN_MERCADO_BRAND.colors.textPrimary,
+  accentColor = CROWN_MERCADO_BRAND.colors.accentRed,
+  fontFamily = CROWN_MERCADO_BRAND.typography.headlineFont,
+  fontWeight = CROWN_MERCADO_BRAND.typography.fontWeightBold,
 }: AnimatedTextProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -64,7 +70,7 @@ export function AnimatedText({
         });
 
         // Apply accent color to specific characters for emphasis
-        const charColor = i % 7 === 0 ? CROWN_MERCADO_BRAND.colors.accentRed : color;
+        const charColor = i % 7 === 0 ? accentColor : color;
 
         return (
           <span
@@ -74,8 +80,8 @@ export function AnimatedText({
               opacity,
               color: charColor,
               fontSize,
-              fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
-              fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
+              fontFamily,
+              fontWeight,
               transform: `translateY(${y}px) rotate(${rotate}deg)`,
             }}
           >

@@ -8,9 +8,10 @@ import {
   useVideoConfig,
   interpolate,
   staticFile,
+  Easing,
 } from 'remotion';
 import { TemplateLoader } from './templateLoader';
-import { EditingPlan } from '../services/content-analysis/editingPlanService';
+import { EditingPlan, ZoomEffect } from '../services/content-analysis/editingPlanService';
 import { CROWN_MERCADO_BRAND } from './brandConstants';
 
 export interface VideoCompositionProps {
@@ -52,17 +53,33 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
   const { fps } = useVideoConfig();
   const currentTime = frame / fps;
 
+  // Calculate zoom scale based on active zoom effects
+  const zoomScale = calculateZoomScale(currentTime, editingPlan.zoomEffects || [], fps);
+
   return (
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
-      {/* Main video */}
-      <Video
-        src={staticFile(videoPath)}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'contain',
-        }}
-      />
+      {/* Main video with zoom effect */}
+      {videoPath && (
+        <AbsoluteFill
+          style={{
+            transform: `scale(${zoomScale})`,
+            transformOrigin: 'center',
+          }}
+        >
+          <Video
+            src={staticFile(videoPath)}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+            }}
+            onError={(error) => {
+              console.error('Video playback error:', error);
+              // Gracefully handle video errors - don't crash the composition
+            }}
+          />
+        </AbsoluteFill>
+      )}
 
       {/* B-roll overlays */}
       {brollVideos.map((broll, index) => {
@@ -218,6 +235,10 @@ const BrollOverlay: React.FC<{
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+        }}
+        onError={(error) => {
+          console.error('B-roll video playback error:', error);
+          // Gracefully handle B-roll errors
         }}
       />
     </AbsoluteFill>
@@ -393,6 +414,82 @@ const SubtitleOverlay: React.FC<{ text: string }> = ({ text }) => {
     </AbsoluteFill>
   );
 };
+
+/**
+ * Calculate zoom scale based on active zoom effects
+ * Implements smooth zoom in/out with configurable easing
+ */
+function calculateZoomScale(
+  currentTime: number,
+  zoomEffects: ZoomEffect[],
+  fps: number
+): number {
+  // Find active zoom effect at current time
+  const activeZoom = zoomEffects.find(
+    (zoom) => currentTime >= zoom.startTime && currentTime <= zoom.endTime
+  );
+
+  if (!activeZoom) {
+    return 1.0; // No zoom, normal scale
+  }
+
+  const zoomDurationSeconds = activeZoom.zoomDuration / 1000;
+  const effectDuration = activeZoom.endTime - activeZoom.startTime;
+  const timeInEffect = currentTime - activeZoom.startTime;
+
+  // Zoom in phase (first zoomDuration seconds)
+  if (timeInEffect <= zoomDurationSeconds) {
+    const progress = timeInEffect / zoomDurationSeconds;
+    return interpolate(
+      progress,
+      [0, 1],
+      [1.0, activeZoom.targetScale],
+      {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+        easing: getEasingFunction(activeZoom.easingFunction),
+      }
+    );
+  }
+
+  // Hold phase (middle of effect)
+  const zoomOutStartTime = activeZoom.endTime - zoomDurationSeconds;
+  if (currentTime < zoomOutStartTime) {
+    return activeZoom.targetScale; // Hold at target scale
+  }
+
+  // Zoom out phase (last zoomDuration seconds)
+  const timeInZoomOut = currentTime - zoomOutStartTime;
+  const progress = timeInZoomOut / zoomDurationSeconds;
+  return interpolate(
+    progress,
+    [0, 1],
+    [activeZoom.targetScale, 1.0],
+    {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+      easing: getEasingFunction(activeZoom.easingFunction),
+    }
+  );
+}
+
+/**
+ * Get Remotion easing function from string
+ */
+function getEasingFunction(easingName: string): (t: number) => number {
+  switch (easingName) {
+    case 'ease-in-out':
+      return Easing.inOut(Easing.ease);
+    case 'ease-in':
+      return Easing.in(Easing.ease);
+    case 'ease-out':
+      return Easing.out(Easing.ease);
+    case 'linear':
+      return (t) => t;
+    default:
+      return Easing.inOut(Easing.ease);
+  }
+}
 
 /**
  * Get transition for B-roll based on position

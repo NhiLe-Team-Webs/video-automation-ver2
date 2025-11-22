@@ -379,6 +379,68 @@ NODE_ENV=development
 
 ---
 
+### 🎨 10. BRAND KIT (Tùy chọn - Styling nhất quán)
+
+Brand Kit giúp đảm bảo video có style nhất quán theo brand identity.
+
+```bash
+# Không cần environment variable
+# Chỉ cần tạo file brand-kit.json
+```
+
+**Cách setup:**
+
+1. Copy file mẫu:
+```bash
+cp brand-kit.example.json brand-kit.json
+```
+
+2. Chỉnh sửa theo brand của bạn:
+```json
+{
+  "name": "Your Brand Name",
+  "version": "1.0.0",
+  "colors": {
+    "primary": "#2563eb",
+    "secondary": "#1c1c1c",
+    "accent": "#f59e0b",
+    "textColor": "#ffffff",
+    "backgroundColor": "#1f2937"
+  },
+  "animationPreferences": {
+    "styleFamily": "professional",
+    "preferredTemplates": [
+      "animated-text",
+      "slide-text",
+      "pulsing-text"
+    ]
+  }
+}
+```
+
+**Style Families có sẵn:**
+- `professional`: Phù hợp business, công ty (animated-text, slide-text)
+- `modern`: Hiện đại, sạch sẽ (geometric-patterns, liquid-wave)
+- `minimal`: Tối giản, đơn giản (animated-text, pulsing-text)
+- `dynamic`: Năng động, mạnh mẽ (bounce-text, particle-explosion)
+- `playful`: Vui tươi, sáng tạo (bubble-pop-text, floating-bubble-text)
+
+**Crown Mercado Brand:**
+
+Hệ thống đã có sẵn brand kit cho Crown Mercado:
+- Primary Color: Red (#C8102E)
+- Secondary: Charcoal (#1C1C1C)
+- Font: Montserrat (headlines), Open Sans (body)
+- Style: Professional, bold, innovative
+- Motif: Layered triangles (geometric-patterns)
+
+**Lưu ý:**
+- Brand kit là tùy chọn
+- Nếu không có, hệ thống dùng default professional style
+- File `brand-kit.json` không được commit lên Git (đã có trong .gitignore)
+
+---
+
 ## File .env Hoàn Chỉnh
 
 Đây là ví dụ file `.env` đã điền đầy đủ:
