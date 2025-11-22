@@ -594,7 +594,14 @@
 
     function showError(message) {
       progressSection.style.display = 'none';
-      errorMessage.textContent = message;
+      
+      // Handle different error types
+      let errorText = message;
+      if (typeof message === 'object') {
+        errorText = message.message || message.error || JSON.stringify(message);
+      }
+      
+      errorMessage.textContent = errorText;
       errorSection.classList.add('show');
     }
 

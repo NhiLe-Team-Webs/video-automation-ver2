@@ -2,7 +2,6 @@ import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs/promises';
 import ffmpeg from 'fluent-ffmpeg';
-import OpenAI from 'openai';
 import { config } from '../../config';
 import { createLogger } from '../../utils/logger';
 import { ProcessingError } from '../../utils/errors';
@@ -21,15 +20,8 @@ export interface TranscriptResult {
 }
 
 export class TranscriptionService {
-  private openai?: OpenAI;
-
   constructor() {
-    // Initialize OpenAI client if API key is provided
-    if (config.whisper.apiKey && !config.whisper.useLocal) {
-      this.openai = new OpenAI({
-        apiKey: config.whisper.apiKey,
-      });
-    }
+    // Using local Whisper only
   }
 
   /**
@@ -91,10 +83,9 @@ export class TranscriptionService {
   async transcribe(audioPath: string): Promise<TranscriptResult> {
     const jobId = path.basename(audioPath, path.extname(audioPath));
     
-    logger.info('Starting transcription', {
+    logger.info('Starting transcription with local Whisper', {
       jobId,
       audioPath,
-      useLocal: config.whisper.useLocal,
     });
 
     // Retry logic with exponential backoff
@@ -109,9 +100,7 @@ export class TranscriptionService {
           maxAttempts,
         });
 
-        const result = config.whisper.useLocal
-          ? await this.transcribeLocal(audioPath)
-          : await this.transcribeAPI(audioPath);
+        const result = await this.transcribeLocal(audioPath);
 
         logger.info('Transcription completed successfully', {
           jobId,
@@ -167,68 +156,6 @@ export class TranscriptionService {
       stage: 'transcribing',
       attemptNumber: maxAttempts,
     });
-  }
-
-  /**
-   * Transcribe using OpenAI Whisper API
-   */
-  private async transcribeAPI(audioPath: string): Promise<TranscriptResult> {
-    if (!this.openai) {
-      throw new Error('OpenAI client not initialized. Please provide OPENAI_API_KEY.');
-    }
-
-    const jobId = path.basename(audioPath, path.extname(audioPath));
-
-    logger.info('Transcribing with OpenAI Whisper API', {
-      jobId,
-      model: config.whisper.model,
-    });
-
-    // Read audio file
-    const audioFile = await fs.readFile(audioPath);
-    const audioBlob = new File([audioFile], path.basename(audioPath), {
-      type: 'audio/mpeg',
-    });
-
-    // Call Whisper API with verbose_json to get timestamps
-    const response = await this.openai.audio.transcriptions.create({
-      file: audioBlob,
-      model: 'whisper-1',
-      response_format: 'verbose_json',
-      timestamp_granularities: ['segment'],
-    });
-
-    // Parse response to extract segments
-    const segments: TranscriptSegment[] = [];
-    
-    if ('segments' in response && Array.isArray(response.segments)) {
-      for (const segment of response.segments) {
-        segments.push({
-          start: segment.start,
-          end: segment.end,
-          text: segment.text.trim(),
-        });
-      }
-    } else {
-      // Fallback: create single segment if no segments provided
-      segments.push({
-        start: 0,
-        end: 0,
-        text: response.text,
-      });
-    }
-
-    // Generate SRT file
-    const srtPath = this.generateSRTPath(audioPath);
-    await this.writeSRT(srtPath, segments);
-
-    // Validate SRT file
-    await this.validateSRT(srtPath);
-
-    return {
-      srtPath,
-      segments,
-    };
   }
 
   /**
