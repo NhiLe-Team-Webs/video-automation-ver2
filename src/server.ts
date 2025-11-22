@@ -27,19 +27,97 @@ async function startServer() {
       next();
     });
 
-    // Routes - Define specific routes BEFORE static file serving
-    // IMPORTANT: More specific routes must come BEFORE general routes
-    app.use('/api/preview', previewRouter, previewErrorHandler);
-    app.use('/api', uploadRouter, errorHandler);
-
-    // Health check endpoint
+    // Health check endpoint (before other routes)
     app.get('/health', (_req, res) => {
       res.status(200).json({ status: 'ok' });
     });
 
+    // API Routes - Define specific routes BEFORE static file serving
+    // IMPORTANT: More specific routes must come BEFORE general routes
+    app.use('/api/preview', previewRouter);
+    app.use('/api', uploadRouter);
+
     // Upload interface (main UI)
     app.get('/', (_req, res) => {
-      res.sendFile(path.join(process.cwd(), 'src', 'public', 'upload.html'));
+      res.send(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Automation - Upload</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 { color: #333; margin-bottom: 10px; font-size: 32px; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .links { display: flex; flex-direction: column; gap: 15px; }
+    .link-btn {
+      display: block;
+      padding: 15px 30px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    .link-btn:hover { background: #5568d3; transform: translateY(-2px); }
+    .link-btn.secondary { background: #764ba2; }
+    .link-btn.secondary:hover { background: #653a8a; }
+    .status { margin-top: 30px; padding: 15px; background: #f0f0f0; border-radius: 8px; }
+    .status-item { display: flex; justify-content: space-between; padding: 8px 0; }
+    .status-label { color: #666; }
+    .status-value { color: #333; font-weight: 600; }
+    .status-ok { color: #4CAF50; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Video Automation</h1>
+    <p class="subtitle">Automated video editing and processing</p>
+    
+    <div class="links">
+      <a href="/upload" class="link-btn">📤 Upload Video</a>
+      <a href="/preview" class="link-btn secondary">🎨 Preview Templates</a>
+      <a href="/api/preview/list" class="link-btn secondary">📋 View Previews</a>
+    </div>
+
+    <div class="status">
+      <div class="status-item">
+        <span class="status-label">Server Status:</span>
+        <span class="status-value status-ok">✓ Running</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">API Endpoint:</span>
+        <span class="status-value">/api/upload</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Preview Port:</span>
+        <span class="status-value">3001</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+      `);
     });
 
     // Preview interface - redirect to Remotion Studio
@@ -194,6 +272,11 @@ async function startServer() {
       `);
     });
 
+    // Upload page
+    app.get('/upload', (_req, res) => {
+      res.sendFile(path.join(process.cwd(), 'src', 'public', 'upload.html'));
+    });
+
     // Test interface
     app.get('/test-preview', (_req, res) => {
       res.sendFile(path.join(process.cwd(), 'test-preview-interface.html'));
@@ -202,6 +285,10 @@ async function startServer() {
     // Serve static files for preview interface (after specific routes)
     app.use('/static', express.static(path.join(process.cwd(), 'src', 'public')));
     app.use('/previews', express.static(path.join(process.cwd(), 'temp', 'previews')));
+
+    // Error handlers (must be last)
+    app.use(previewErrorHandler);
+    app.use(errorHandler);
 
     // Start server
     app.listen(config.server.port, () => {

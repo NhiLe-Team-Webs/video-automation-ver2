@@ -8,9 +8,6 @@ describe('Logger', () => {
     process.env.GOOGLE_SHEETS_SPREADSHEET_ID = 'test-sheet-id';
     process.env.GOOGLE_SHEETS_CREDENTIALS = 'test-credentials.json';
     process.env.PEXELS_API_KEY = 'test-pexels-key';
-    process.env.YOUTUBE_CLIENT_ID = 'test-client-id';
-    process.env.YOUTUBE_CLIENT_SECRET = 'test-client-secret';
-    process.env.YOUTUBE_REDIRECT_URI = 'http://localhost:3000/oauth/callback';
     // Notification endpoint is optional
     process.env.NOTIFICATION_ENDPOINT = 'http://test-webhook.com';
   });

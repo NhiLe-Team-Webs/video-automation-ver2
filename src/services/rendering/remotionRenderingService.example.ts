@@ -69,8 +69,29 @@ async function exampleRenderVideo() {
         startTime: 6.0,
         duration: 3.0,
         searchTerm: 'nature landscape',
+        fadeInDuration: 0.5,
+        fadeOutDuration: 0.5,
       },
     ],
+    
+    // Required fields
+    zoomEffects: [],
+    soundEffects: [],
+    textHighlights: [],
+    cutFilters: {
+      colorGrading: {
+        temperature: 0,
+        tint: 0,
+        contrast: 0,
+        saturation: 0,
+        highlights: 0,
+        shadows: 0,
+      },
+      applySharpening: false,
+      sharpeningIntensity: 0,
+      applyVignette: false,
+      vignetteIntensity: 0,
+    },
   };
 
   // B-roll video mappings (after downloading from Pexels)
@@ -117,6 +138,23 @@ async function exampleMinimalRender() {
     ],
     transitions: [],
     brollPlacements: [],
+    zoomEffects: [],
+    soundEffects: [],
+    textHighlights: [],
+    cutFilters: {
+      colorGrading: {
+        temperature: 0,
+        tint: 0,
+        contrast: 0,
+        saturation: 0,
+        highlights: 0,
+        shadows: 0,
+      },
+      applySharpening: false,
+      sharpeningIntensity: 0,
+      applyVignette: false,
+      vignetteIntensity: 0,
+    },
   };
 
   try {

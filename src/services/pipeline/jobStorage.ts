@@ -1,45 +1,14 @@
 import { Job, VideoMetadata } from '../../models/job';
 import { PipelineStage } from '../../utils/errors';
 import { createLogger } from '../../utils/logger';
-import IORedis from 'ioredis';
-import { config } from '../../config';
 
 const logger = createLogger('JobStorage');
 
-// Redis connection for persistent job storage
-const redis = new IORedis({
-  host: config.redis.host,
-  port: config.redis.port,
-  maxRetriesPerRequest: null,
-});
+// In-memory job storage (simple Map for single-user MVP)
+// For production with multiple users, consider using a database
+const jobStore = new Map<string, Job>();
 
-const JOB_KEY_PREFIX = 'job:';
 
-/**
- * Serialize job to JSON for storage
- */
-function serializeJob(job: Job): string {
-  return JSON.stringify(job);
-}
-
-/**
- * Deserialize job from JSON
- */
-function deserializeJob(data: string): Job {
-  const parsed = JSON.parse(data);
-  // Convert date strings back to Date objects
-  parsed.createdAt = new Date(parsed.createdAt);
-  parsed.updatedAt = new Date(parsed.updatedAt);
-  if (parsed.error?.timestamp) {
-    parsed.error.timestamp = new Date(parsed.error.timestamp);
-  }
-  parsed.processingStages = parsed.processingStages.map((stage: any) => ({
-    ...stage,
-    startTime: stage.startTime ? new Date(stage.startTime) : undefined,
-    endTime: stage.endTime ? new Date(stage.endTime) : undefined,
-  }));
-  return parsed;
-}
 
 /**
  * Create a new job
@@ -59,7 +28,7 @@ export async function createJob(
     processingStages: [],
   };
 
-  await redis.set(JOB_KEY_PREFIX + id, serializeJob(job));
+  jobStore.set(id, job);
   
   logger.info('Job created', {
     jobId: id,
@@ -73,11 +42,7 @@ export async function createJob(
  * Get a job by ID
  */
 export async function getJob(jobId: string): Promise<Job | undefined> {
-  const data = await redis.get(JOB_KEY_PREFIX + jobId);
-  if (!data) {
-    return undefined;
-  }
-  return deserializeJob(data);
+  return jobStore.get(jobId);
 }
 
 /**
@@ -95,7 +60,7 @@ export async function updateJobStatus(
   job.status = status;
   job.updatedAt = new Date();
   
-  await redis.set(JOB_KEY_PREFIX + jobId, serializeJob(job));
+  jobStore.set(jobId, job);
   
   logger.info('Job status updated', {
     jobId,
@@ -147,7 +112,7 @@ export async function updateStage(
 
   job.updatedAt = new Date();
 
-  await redis.set(JOB_KEY_PREFIX + jobId, serializeJob(job));
+  jobStore.set(jobId, job);
 
   logger.info('Stage updated', {
     jobId,
@@ -179,7 +144,7 @@ export async function setJobError(
   job.status = 'failed';
   job.updatedAt = new Date();
 
-  await redis.set(JOB_KEY_PREFIX + jobId, serializeJob(job));
+  jobStore.set(jobId, job);
 
   logger.error('Job error set', {
     jobId,
@@ -197,10 +162,10 @@ export async function setVideoUrl(jobId: string, url: string): Promise<void> {
     throw new Error(`Job ${jobId} not found`);
   }
 
-  job.finalYoutubeUrl = url; // Keep same field name for backward compatibility
+  job.finalYoutubeUrl = url; // Now stores Wasabi URL instead of YouTube
   job.updatedAt = new Date();
 
-  await redis.set(JOB_KEY_PREFIX + jobId, serializeJob(job));
+  jobStore.set(jobId, job);
 
   logger.info('Video URL set', {
     jobId,
@@ -212,17 +177,7 @@ export async function setVideoUrl(jobId: string, url: string): Promise<void> {
  * Get all jobs (for debugging/monitoring)
  */
 export async function getAllJobs(): Promise<Job[]> {
-  const keys = await redis.keys(JOB_KEY_PREFIX + '*');
-  const jobs: Job[] = [];
-  
-  for (const key of keys) {
-    const data = await redis.get(key);
-    if (data) {
-      jobs.push(deserializeJob(data));
-    }
-  }
-  
-  return jobs;
+  return Array.from(jobStore.values());
 }
 
 /**

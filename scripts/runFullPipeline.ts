@@ -16,8 +16,8 @@ import { HighlightDetectionService } from '../src/services/content-analysis/high
 import { EditingPlanService } from '../src/services/content-analysis/editingPlanService';
 import brollService from '../src/services/media/brollService';
 import remotionRenderingService from '../src/services/rendering/remotionRenderingService';
-import { YouTubeUploadService } from '../src/services/youtube/youtubeUploadService';
 import { notificationService } from '../src/services/notification';
+import { wasabiStorageService } from '../src/services/storage/wasabiStorageService';
 import path from 'path';
 import fs from 'fs/promises';
 
@@ -116,30 +116,26 @@ async function runFullPipeline(videoPath: string, userId: string) {
     await jobStorage.updateStage(jobId, 'rendering', 'completed', outputPath);
     logger.info('Video rendered', { jobId, outputPath });
 
-    // Stage 8: Upload to YouTube
-    logger.info('Stage 8: Uploading to YouTube', { jobId });
+    // Stage 8: Upload to Wasabi
+    logger.info('Stage 8: Uploading to Wasabi', { jobId });
     await jobStorage.updateStage(jobId, 'uploading', 'in-progress');
-    const youtubeService = new YouTubeUploadService();
-    const youtubeResult = await youtubeService.upload(outputPath, {
-      title: `Video ${jobId}`,
-      description: 'Automatically edited video',
-    });
+    const videoUrl = await wasabiStorageService.uploadVideo(outputPath, `final/${jobId}.mp4`);
     await jobStorage.updateStage(jobId, 'uploading', 'completed');
     await jobStorage.updateJobStatus(jobId, 'completed');
-    await jobStorage.setYoutubeUrl(jobId, youtubeResult.url);
-    logger.info('YouTube upload completed', { jobId, youtubeUrl: youtubeResult.url });
+    await jobStorage.setYoutubeUrl(jobId, videoUrl);
+    logger.info('Wasabi upload completed', { jobId, videoUrl });
 
     // Send completion notification
     await notificationService.notifyUser(userId, {
       type: 'completion',
       jobId,
-      youtubeUrl: youtubeResult.url,
-      message: 'Your video has been processed and uploaded to YouTube!',
+      youtubeUrl: videoUrl,
+      message: 'Your video has been processed and uploaded!',
     });
 
-    logger.info('Full pipeline completed successfully', { jobId, youtubeUrl: youtubeResult.url });
+    logger.info('Full pipeline completed successfully', { jobId, videoUrl });
     console.log(`\n✅ Pipeline completed successfully!`);
-    console.log(`📺 YouTube URL: ${youtubeResult.url}`);
+    console.log(`📺 Video URL: ${videoUrl}`);
     console.log(`🆔 Job ID: ${jobId}\n`);
 
   } catch (error) {

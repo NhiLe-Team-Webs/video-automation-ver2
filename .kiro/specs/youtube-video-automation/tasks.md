@@ -33,21 +33,17 @@
   - **Property 2: Video format validation**
   - **Validates: Requirements 1.2, 1.3**
 
-- [x] 3. Set up job queue and pipeline orchestrator
+- [x] 3. Set up pipeline orchestrator (synchronous processing)
 
-  - Integrate Bull/BullMQ for job queue management
   - Implement pipeline orchestrator with stage sequencing
   - Create job status tracking and retrieval
   - Implement progress reporting for each pipeline stage
   - _Requirements: 1.5, 9.4_
+  - _Note: Using synchronous processing instead of queue system for single-user MVP_
 
 - [ ]* 3.1 Write property test for job status tracking
   - **Property 3: Job status tracking**
   - **Validates: Requirements 1.5**
-
-- [ ]* 3.2 Write property test for concurrent job isolation
-  - **Property 21: Concurrent job isolation**
-  - **Validates: Requirements 9.4**
 
 - [x] 4. Implement Auto Editor service integration
 
@@ -350,14 +346,15 @@
 
 ## Phase 5: Serverless/PaaS Deployment Setup
 
-- [ ] 22. Set up object storage (Wasabi - recommended for MVP)
+- [x] 22. Set up object storage (Wasabi - recommended for MVP)
 
   - Create Wasabi account (30-day free trial, 1TB storage, no credit card)
   - Create bucket: `video-automation-bucket` in us-east-1 region
   - Generate access keys (Access Key ID + Secret Access Key)
   - Configure CORS policy for video uploads
   - Implement ObjectStorageService with S3-compatible API (Wasabi uses S3 API)
-  - Test upload/download/signed URL generation
+  - Replace YouTube upload with Wasabi storage upload
+  - Implement B-roll and SFX deduplication tracking on Wasabi
   - Note: After 30-day trial, add credit card for $6.99/month minimum
   - _Requirements: 9.1, 9.7_
 
@@ -369,95 +366,15 @@
   - **Property 80: Signed URL validity**
   - **Validates: Requirements 9.7**
 
-- [ ] 23. Set up Upstash Redis for job queue
+- [x] 23. ~~Set up Upstash Redis for job queue~~ (REMOVED - Single user, no queue needed)
 
-  - Create Upstash account and Redis database (free tier)
-  - Copy REST URL and REST Token
-  - Update queue service to use Upstash Redis REST API
-  - Test job queue operations (enqueue, dequeue, status)
-  - _Requirements: 9.1, 9.4_
+  - _Note: Removed for single-user MVP. Using synchronous processing._
 
-- [ ] 24. Implement API key management service
+- [x] 24. Update video upload/download to use object storage
 
-  - Create ApiKeyService with generate, validate, revoke methods
-  - Implement SHA-256 hashing for key storage
-  - Add API key storage in Google Sheets (new sheet tab)
-  - Implement usage tracking (count, last used timestamp)
-  - Create API endpoints: POST /api/v1/auth/keys, GET /api/v1/auth/keys, DELETE /api/v1/auth/keys/:id
-  - _Requirements: 20.1, 20.2, 20.3, 20.4, 20.5, 23.1, 23.2_
 
-- [ ]* 24.1 Write property test for API key format
-  - **Property 66: API key format**
-  - **Validates: Requirements 20.1**
 
-- [ ]* 24.2 Write property test for API key validation
-  - **Property 67: API key validation**
-  - **Validates: Requirements 20.2, 20.3**
 
-- [ ]* 24.3 Write property test for API key usage tracking
-  - **Property 68: API key usage tracking**
-  - **Validates: Requirements 20.4**
-
-- [ ]* 24.4 Write property test for API key revocation
-  - **Property 69: API key revocation**
-  - **Validates: Requirements 20.5**
-
-- [ ]* 24.5 Write property test for API key storage round-trip
-  - **Property 70: API key storage round-trip**
-  - **Validates: Requirements 23.1, 23.2**
-
-- [ ] 25. Implement rate limiting middleware
-
-  - Create RateLimiter using Upstash Redis
-  - Implement sliding window rate limiting (100 requests/hour per API key)
-  - Add rate limit middleware to API routes
-  - Return HTTP 429 with Retry-After header when exceeded
-  - Exclude health check endpoints from rate limiting
-  - _Requirements: 21.1, 21.2, 21.3, 21.4, 21.5_
-
-- [ ]* 25.1 Write property test for rate limit enforcement
-  - **Property 71: Rate limit enforcement**
-  - **Validates: Requirements 21.1**
-
-- [ ]* 25.2 Write property test for rate limit reset
-  - **Property 72: Rate limit reset**
-  - **Validates: Requirements 21.3**
-
-- [ ]* 25.3 Write property test for independent rate limits
-  - **Property 73: Independent rate limits**
-  - **Validates: Requirements 21.4**
-
-- [ ] 26. Implement webhook service
-
-  - Create WebhookService with register, send, retry methods
-  - Add webhook storage in Google Sheets (new sheet tab)
-  - Implement HMAC-SHA256 signature for webhook security
-  - Add retry logic with exponential backoff (3 attempts)
-  - Create webhook endpoints: POST /api/v1/webhooks, GET /api/v1/webhooks, DELETE /api/v1/webhooks/:id
-  - Integrate webhook notifications into pipeline orchestrator
-  - _Requirements: 22.1, 22.2, 22.3, 22.4, 22.5, 23.3_
-
-- [ ]* 26.1 Write property test for webhook URL validation
-  - **Property 74: Webhook URL validation**
-  - **Validates: Requirements 22.1**
-
-- [ ]* 26.2 Write property test for webhook delivery on completion
-  - **Property 75: Webhook delivery on completion**
-  - **Validates: Requirements 22.2**
-
-- [ ]* 26.3 Write property test for webhook delivery on failure
-  - **Property 76: Webhook delivery on failure**
-  - **Validates: Requirements 22.3**
-
-- [ ]* 26.4 Write property test for webhook retry logic
-  - **Property 77: Webhook retry logic**
-  - **Validates: Requirements 22.4**
-
-- [ ]* 26.5 Write property test for webhook storage round-trip
-  - **Property 78: Webhook storage round-trip**
-  - **Validates: Requirements 23.3**
-
-- [ ] 27. Update video upload/download to use object storage
 
   - Modify upload handler to store videos in Wasabi instead of local filesystem
   - Update all pipeline stages to read/write from Wasabi object storage
@@ -466,7 +383,7 @@
   - Configure lifecycle policies to auto-delete old videos after 30 days
   - _Requirements: 9.7_
 
-- [ ] 28. Create Railway/Render deployment configuration
+- [ ] 25. Create Railway/Render deployment configuration
 
   - Create Dockerfile for API server (optimized for Railway/Render)
   - Create Dockerfile for worker service (with Python + FFmpeg)
@@ -475,7 +392,7 @@
   - Create deployment guide with step-by-step instructions
   - _Requirements: 9.1, 9.5_
 
-- [ ] 29. Create Vercel frontend deployment
+- [ ] 26. Create Vercel frontend deployment
 
   - Create vercel.json with API proxy configuration
   - Configure build settings for static frontend
@@ -483,58 +400,49 @@
   - Test frontend deployment and API proxy
   - _Requirements: 9.1, 9.3_
 
-- [ ] 30. Checkpoint - Deployment infrastructure ready
+- [ ] 27. Checkpoint - Deployment infrastructure ready
 
   - Test object storage upload/download
-  - Test Redis queue operations
-  - Test API key generation and validation
-  - Test rate limiting
-  - Test webhook delivery
   - Ask the user if questions arise.
 
 ## Phase 6: Production Deployment & Monitoring
 
-- [ ] 31. Deploy to Railway/Render
+- [ ] 28. Deploy to Railway/Render
 
   - Connect GitHub repository to Railway/Render
   - Create API service with Dockerfile
-  - Create worker service with Dockerfile
   - Configure environment variables in platform dashboard
-  - Deploy both services and verify health checks
+  - Deploy service and verify health checks
   - _Requirements: 9.1, 9.2_
 
-- [ ] 32. Deploy frontend to Vercel
+- [ ] 29. Deploy frontend to Vercel
 
   - Connect GitHub repository to Vercel
   - Configure vercel.json with production API URL
   - Deploy frontend and test video upload flow
   - _Requirements: 9.1, 9.3_
 
-- [ ] 33. Set up monitoring and alerting
+- [ ] 30. Set up monitoring and alerting
 
   - Configure Railway/Render dashboard monitoring
-  - Set up Upstash Redis monitoring
   - Configure email/Discord/Slack alerts for errors
   - Set up UptimeRobot for uptime monitoring (free tier)
   - Create Google Sheets dashboard for job tracking
   - _Requirements: 9.5_
 
-- [ ]* 33.1 Write property test for free tier quota monitoring
+- [ ]* 30.1 Write property test for free tier quota monitoring
   - **Property 82: Free tier quota monitoring**
   - **Validates: Requirements 9.2, 9.6**
 
-- [ ] 34. Test complete pipeline in production
+- [ ] 31. Test complete pipeline in production
 
   - Upload test video through production UI
   - Verify all pipeline stages execute successfully
-  - Verify YouTube link is generated and accessible
-  - Test API key authentication
-  - Test rate limiting
-  - Test webhook notifications
+  - Verify Wasabi video link is generated and accessible
   - Verify graceful degradation when approaching free tier limits
   - _Requirements: 9.2, 9.6_
 
-- [ ] 35. Create production documentation
+- [ ] 32. Create production documentation
 
   - Document production URLs (frontend, API)
   - Document how to monitor jobs and errors
@@ -543,7 +451,7 @@
   - Document troubleshooting guide for common issues
   - _Requirements: 9.5_
 
-- [ ] 36. Final checkpoint - Production ready
+- [ ] 33. Final checkpoint - Production ready
 
   - Verify all services are running
   - Verify monitoring is working
@@ -554,7 +462,7 @@
 
 **Note**: All building blocks already exist (Auto Editor, transitions, text templates, animations). This phase focuses on intelligent orchestration through LLM prompt engineering and brand kit integration.
 
-- [x] 31. Implement sound effects service
+- [x] 34. Implement sound effects service
 
 
 
@@ -568,11 +476,11 @@
   - Implement automatic volume adjustment (20-30% of main audio peak)
   - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5_
 
-- [ ]* 31.1 Write property test for sound effect volume levels
+- [ ]* 34.1 Write property test for sound effect volume levels
   - **Property 36: Sound effect volume levels**
   - **Validates: Requirements 13.5**
 
-- [x] 32. Implement brand kit and style guide system
+- [x] 35. Implement brand kit and style guide system
 
 
 
@@ -588,11 +496,11 @@
   - _Requirements: 16.1, 16.2, 16.3, 16.4, 16.5_
   - _Note: Uses existing templates/transitions, just enforces consistent selection, and update for more professional and stylished_
 
-- [ ]* 32.1 Write property test for style guide compliance
+- [ ]* 35.1 Write property test for style guide compliance
   - **Property 51: Style guide compliance**
   - **Validates: Requirements 16.5**
 
-- [ ] 33. Implement zoom effects for Remotion
+- [ ] 36. Implement zoom effects for Remotion
 
 
 
@@ -605,15 +513,15 @@
   - Add zoom effect overlap detection and resolution
   - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5_
 
-- [ ]* 33.1 Write property test for zoom scale and duration
+- [ ]* 36.1 Write property test for zoom scale and duration
   - **Property 43: Zoom scale and duration**
   - **Validates: Requirements 15.2**
 
-- [ ]* 33.2 Write property test for no overlapping zoom effects
+- [ ]* 36.2 Write property test for no overlapping zoom effects
   - **Property 46: No overlapping zoom effects**
   - **Validates: Requirements 15.5**
 
-- [ ] 34. Implement FFmpeg cut filters service
+- [ ] 37. Implement FFmpeg cut filters service
 
   - Create video quality analysis (brightness, color temperature, resolution)
   - Implement FFmpeg color grading filters
@@ -622,11 +530,11 @@
   - Implement subtle vignette effect (10-15% edge darkening)
   - _Requirements: 19.1, 19.2, 19.3, 19.4, 19.5_
 
-- [ ]* 34.1 Write property test for saturation limits
+- [ ]* 37.1 Write property test for saturation limits
   - **Property 63: Saturation limits**
   - **Validates: Requirements 19.3**
 
-- [x] 35. Update LLM prompt for professional editing orchestration
+- [x] 38. Update LLM prompt for professional editing orchestration
 
 
 
@@ -644,31 +552,31 @@
   - Validate generated plan against all rules
   - _Requirements: 12.5, 13.1, 13.2, 13.3, 14.1, 14.2, 14.3, 14.4, 15.1, 16.1, 17.1, 19.1_
 
-- [ ]* 35.1 Write property test for B-roll frequency limit
+- [ ]* 38.1 Write property test for B-roll frequency limit
   - **Property 37: B-roll frequency limit**
   - **Validates: Requirements 14.1**
 
-- [ ]* 35.2 Write property test for B-roll duration limit
+- [ ]* 38.2 Write property test for B-roll duration limit
   - **Property 39: B-roll duration limit**
   - **Validates: Requirements 14.3**
 
-- [ ]* 35.3 Write property test for transition duration bounds
+- [ ]* 38.3 Write property test for transition duration bounds
   - **Property 32: Transition duration bounds**
   - **Validates: Requirements 12.5**
 
-- [ ]* 35.4 Write property test for text appears before audio
+- [ ]* 38.4 Write property test for text appears before audio
   - **Property 52: Text appears before audio**
   - **Validates: Requirements 17.1**
 
-- [ ]* 35.5 Write property test for consistent animation style family
+- [ ]* 38.5 Write property test for consistent animation style family
   - **Property 47: Consistent animation style family**
   - **Validates: Requirements 16.1**
 
-- [ ]* 35.6 Write property test for consistent transition types
+- [ ]* 38.6 Write property test for consistent transition types
   - **Property 50: Consistent transition types**
   - **Validates: Requirements 16.4**
 
-- [ ] 36. Update Remotion rendering pipeline
+- [ ] 39. Update Remotion rendering pipeline
 
 
 
@@ -682,15 +590,15 @@
   - Apply brand kit styling to all text elements
   - _Requirements: 12.5, 13.5, 15.4, 16.5, 17.2, 18.1, 18.2, 18.3, 18.4, 19.5_
 
-- [ ]* 36.1 Write property test for no continuous subtitles
+- [ ]* 39.1 Write property test for no continuous subtitles
   - **Property 56: No continuous subtitles**
   - **Validates: Requirements 18.1**
 
-- [ ]* 36.2 Write property test for only highlighted text rendered
+- [ ]* 39.2 Write property test for only highlighted text rendered
   - **Property 57: Only highlighted text rendered**
   - **Validates: Requirements 18.2**
 
-- [ ] 37. Checkpoint - Professional editing orchestration complete
+- [ ] 40. Checkpoint - Professional editing orchestration complete
 
   - Test complete pipeline with brand kit
   - Verify smooth cuts (Auto Editor)
@@ -704,7 +612,7 @@
   - Verify professional cut filters applied
   - Ask the user if questions arise.
 
-- [ ] 38. Update configuration and documentation
+- [ ] 41. Update configuration and documentation
 
   - Add sound effects API configuration to .env
   - Add brand kit configuration example
@@ -713,7 +621,7 @@
   - Create professional editing features guide
   - _Requirements: 10.2, 10.4_
 
-- [ ] 39. Final checkpoint - Professional YouTube video automation complete
+- [ ] 42. Final checkpoint - Professional YouTube video automation complete
 
   - Upload test video with brand kit and verify all features
   - Verify final video is professionally edited with consistent style

@@ -9,6 +9,7 @@ Wasabi là dịch vụ object storage tương thích S3, cung cấp 30 ngày dù
 3. **Bandwidth miễn phí**: Không tính phí download
 4. **S3-compatible**: Dùng AWS SDK
 5. **Đơn giản hơn YouTube**: Không cần OAuth flow phức tạp
+6. **Lưu trữ lâu dài**: Giữ video vĩnh viễn, không tự động xóa
 
 ## Bước 1: Đăng ký tài khoản
 
@@ -135,20 +136,7 @@ video-automation-bucket/
         └── ghi789.mp3
 ```
 
-## Lifecycle Policy (Tự động xóa file cũ)
 
-Để tiết kiệm storage, bạn có thể setup lifecycle policy:
-
-1. Chọn bucket
-2. Click tab "Lifecycle"
-3. Click "Add Rule"
-4. Cấu hình:
-   - **Rule Name**: `delete-old-raw-videos`
-   - **Prefix**: `videos/raw/`
-   - **Expiration**: 30 days
-5. Click "Save"
-
-Điều này sẽ tự động xóa video gốc sau 30 ngày.
 
 ## Chi phí
 
@@ -214,3 +202,50 @@ Sau khi có nhiều user, bạn có thể:
 - Thêm YouTube upload như một option
 - Dùng CDN để tăng tốc download
 - Setup lifecycle policy để tối ưu chi phí
+
+
+## Quản lý Storage (Lưu trữ lâu dài)
+
+Hệ thống được thiết kế để lưu trữ video lâu dài, không tự động xóa.
+
+### Storage Strategy
+
+| File Type | Retention | Lý do |
+|-----------|-----------|-------|
+| Raw videos | Xóa ngay sau xử lý | Tiết kiệm storage, không cần giữ |
+| Edited videos | Xóa ngay sau xử lý | Tiết kiệm storage, không cần giữ |
+| Final videos | **Vĩnh viễn** | Lưu trữ lâu dài cho user |
+| B-roll | **Vĩnh viễn** | Cache để tái sử dụng, tránh tải lại |
+| Sound effects | **Vĩnh viễn** | Cache để tái sử dụng, tránh tải lại |
+
+### Monitoring Storage
+
+Kiểm tra storage usage định kỳ:
+```bash
+# Via Wasabi Console
+https://console.wasabisys.com/ → Buckets → View Usage
+```
+
+### Ước tính chi phí lâu dài
+
+Với lưu trữ vĩnh viễn:
+- **Năm 1**: 100 video × 500MB = 50GB → $6.99/tháng
+- **Năm 2**: 1200 video × 500MB = 600GB → $6.99/tháng (vẫn trong 1TB)
+- **Năm 3**: 2400 video × 500MB = 1.2TB → ~$8.40/tháng
+
+Deduplication giúp giảm ~30% storage cho B-roll và SFX.
+
+### Cleanup thủ công (khi cần)
+
+Nếu storage đầy, bạn có thể xóa thủ công:
+```bash
+# Xem danh sách file
+aws s3 ls s3://video-automation-bucket/videos/final/ \
+  --endpoint-url https://s3.us-east-1.wasabisys.com \
+  --profile wasabi
+
+# Xóa file cụ thể
+aws s3 rm s3://video-automation-bucket/videos/final/old-video.mp4 \
+  --endpoint-url https://s3.us-east-1.wasabisys.com \
+  --profile wasabi
+```

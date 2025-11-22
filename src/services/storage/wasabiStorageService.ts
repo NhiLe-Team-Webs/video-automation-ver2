@@ -212,6 +212,64 @@ export class WasabiStorageService {
   }
 
   /**
+   * Download video from Wasabi to local temp directory
+   */
+  async downloadVideo(urlOrKey: string, jobId: string): Promise<string> {
+    try {
+      // Extract key from URL if needed
+      let key = urlOrKey;
+      if (urlOrKey.startsWith('http')) {
+        const url = new URL(urlOrKey);
+        key = decodeURIComponent(url.pathname.substring(1)); // Remove leading /
+      }
+
+      logger.info('Downloading video from Wasabi', { key, jobId });
+
+      const command = new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: key,
+      });
+
+      const response = await this.s3Client.send(command);
+      
+      if (!response.Body) {
+        throw new Error('No data received from Wasabi');
+      }
+
+      // Create local temp path
+      const ext = path.extname(key) || '.mp4';
+      const localPath = path.join(config.storage.tempDir, `${jobId}-download${ext}`);
+      
+      // Ensure temp directory exists
+      await fs.mkdir(config.storage.tempDir, { recursive: true });
+
+      // Stream to file
+      const chunks: Uint8Array[] = [];
+      for await (const chunk of response.Body as any) {
+        chunks.push(chunk);
+      }
+      const buffer = Buffer.concat(chunks);
+      await fs.writeFile(localPath, buffer);
+
+      logger.info('Video downloaded successfully', {
+        key,
+        jobId,
+        localPath,
+        size: buffer.length,
+      });
+
+      return localPath;
+    } catch (error) {
+      logger.error('Failed to download video from Wasabi', {
+        urlOrKey,
+        jobId,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      throw error;
+    }
+  }
+
+  /**
    * Generate signed URL for downloading file
    */
   async getSignedUrl(key: string, options: SignedUrlOptions = {}): Promise<string> {

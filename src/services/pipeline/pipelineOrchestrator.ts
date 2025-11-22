@@ -12,6 +12,7 @@ import remotionRenderingService from '../rendering/remotionRenderingService';
 import wasabiStorageService from '../storage/wasabiStorageService';
 import { notificationService } from '../notification';
 import path from 'path';
+import fs from 'fs/promises';
 
 const logger = createLogger('PipelineOrchestrator');
 
@@ -173,12 +174,23 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
         throw new Error('No video path found from upload stage');
       }
 
+      // Download video from Wasabi if it's a URL
+      let localVideoPath = uploadedStage.outputPath;
+      if (uploadedStage.outputPath.startsWith('http')) {
+        logger.info('📥 Downloading video from Wasabi for processing...', { 
+          jobId,
+          wasabiUrl: uploadedStage.outputPath 
+        });
+        localVideoPath = await wasabiStorageService.downloadVideo(uploadedStage.outputPath, jobId);
+        logger.info('✅ Video downloaded from Wasabi', { jobId, localPath: localVideoPath });
+      }
+
       logger.info('🎬 Processing video to remove silence and filler...', { 
         jobId,
-        inputPath: uploadedStage.outputPath 
+        inputPath: localVideoPath 
       });
       
-      const autoEditorResult = await autoEditorService.processVideo(uploadedStage.outputPath);
+      const autoEditorResult = await autoEditorService.processVideo(localVideoPath);
       autoEditedVideoPath = autoEditorResult.outputPath;
       
       // Upload edited video to Wasabi
@@ -523,6 +535,40 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       });
     } catch (error) {
       return await handleStageError(jobId, 'uploading', error, job.userId);
+    }
+
+    // Cleanup only temporary processing files (keep final video on Wasabi)
+    logger.info('🧹 Cleaning up temporary local files', { jobId });
+    try {
+      const uploadedStage = job.processingStages.find(s => s.stage === 'uploaded');
+      const filesToCleanup = [
+        uploadedStage?.outputPath, // Raw video (already on Wasabi)
+        autoEditedVideoPath, // Edited video (already on Wasabi)
+        finalVideoPath, // Final video (already on Wasabi, can delete local)
+        srtPath, // SRT file (temporary)
+        path.join(path.dirname(autoEditedVideoPath), `${jobId}_editing_plan.json`), // Editing plan (temporary)
+      ].filter(Boolean) as string[];
+
+      for (const filePath of filesToCleanup) {
+        try {
+          await fs.unlink(filePath);
+          logger.info('Deleted temporary file', { jobId, filePath });
+        } catch (error) {
+          logger.warn('Failed to delete temporary file (non-critical)', {
+            jobId,
+            filePath,
+            error: error instanceof Error ? error.message : String(error),
+          });
+        }
+      }
+
+      // Note: B-roll videos are kept in cache for reuse
+      logger.info('✅ Temporary file cleanup completed (B-roll cached for reuse)', { jobId });
+    } catch (error) {
+      logger.warn('Cleanup encountered errors (non-critical)', {
+        jobId,
+        error: error instanceof Error ? error.message : String(error),
+      });
     }
 
     // Mark job as completed

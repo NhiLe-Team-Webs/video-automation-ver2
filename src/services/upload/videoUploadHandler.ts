@@ -51,27 +51,29 @@ export class VideoUploadHandler {
         );
       }
 
-      // Move file to permanent storage (local temp)
-      const videoPath = await this.storeVideo(file, jobId);
+      // Upload directly to Wasabi storage (primary storage)
+      const wasabiStorageService = (await import('../storage/wasabiStorageService')).default;
+      const uploadResult = await wasabiStorageService.uploadVideo(file.path, jobId, 'raw');
+      const wasabiKey = uploadResult.key;
+      const videoPath = uploadResult.url; // Use Wasabi URL as video path
+      
+      logger.info('Video uploaded to Wasabi storage', {
+        jobId,
+        wasabiKey,
+        size: uploadResult.size,
+        url: videoPath,
+      });
 
-      // Upload to Wasabi storage for backup and tracking
-      let wasabiKey: string | undefined;
+      // Clean up local temp file after successful upload
       try {
-        const wasabiStorageService = (await import('../storage/wasabiStorageService')).default;
-        const uploadResult = await wasabiStorageService.uploadVideo(videoPath, jobId, 'raw');
-        wasabiKey = uploadResult.key;
-        
-        logger.info('Video uploaded to Wasabi storage', {
+        await fs.unlink(file.path);
+        logger.info('Local temp file cleaned up', { jobId, path: file.path });
+      } catch (cleanupError) {
+        logger.warn('Failed to clean up local temp file', {
           jobId,
-          wasabiKey,
-          size: uploadResult.size,
+          path: file.path,
+          error: cleanupError instanceof Error ? cleanupError.message : String(cleanupError),
         });
-      } catch (wasabiError) {
-        logger.warn('Failed to upload video to Wasabi (non-critical)', {
-          jobId,
-          error: wasabiError instanceof Error ? wasabiError.message : String(wasabiError),
-        });
-        // Continue even if Wasabi upload fails - local processing still works
       }
 
       // Create job record in storage

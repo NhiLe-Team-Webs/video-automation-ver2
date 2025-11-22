@@ -15,7 +15,6 @@ import { HighlightDetectionService } from '../src/services/content-analysis/high
 import { EditingPlanService } from '../src/services/content-analysis/editingPlanService';
 import brollService from '../src/services/media/brollService';
 import remotionRenderingService from '../src/services/rendering/remotionRenderingService';
-import { YouTubeUploadService } from '../src/services/youtube/youtubeUploadService';
 import { notificationService } from '../src/services/notification';
 import path from 'path';
 
@@ -60,8 +59,7 @@ async function resumePipeline(jobId: string) {
     console.log('  npm run pipeline:transcribe -- --video <path>');
     console.log('  npm run pipeline:highlights -- --srt <path>');
     console.log('  npm run pipeline:editing-plan -- --srt <path> --duration <seconds>');
-    console.log('  npm run pipeline:render -- --video <path> --plan <path> --output <path>');
-    console.log('  npm run pipeline:upload -- --video <path> --title <title>\n');
+    console.log('  npm run pipeline:render -- --video <path> --plan <path> --output <path>\n');
 
   } catch (error) {
     logger.error('Resume pipeline failed', {
