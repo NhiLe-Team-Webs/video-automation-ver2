@@ -7,6 +7,8 @@ export interface SystemConfig {
   autoEditor: {
     margin: string;
     threshold: number;
+    fastMode: boolean;
+    skipThreshold: number;
   };
   whisper: {
     model: string;
@@ -64,6 +66,8 @@ export const config: SystemConfig = {
   autoEditor: {
     margin: '0.2sec',
     threshold: 0.04,
+    fastMode: false, // Enable fast mode for large files
+    skipThreshold: 300, // Skip auto editing for files longer than 5 minutes
   },
   whisper: {
     model: getEnvVar('WHISPER_MODEL', 'base'),

@@ -350,7 +350,10 @@
 
 ## Phase 5: AWS Deployment Setup
 
-- [ ] 22. Create AWS deployment guide (detailed step-by-step)
+- [-] 22. Create AWS deployment guide (detailed step-by-step)
+
+
+
 
   - Document AWS account setup requirements
   - Create IAM role configuration for EC2/ECS
@@ -360,7 +363,9 @@
   - Create CloudWatch logging configuration
   - _Requirements: 9.1, 9.2, 9.5_
 
+
 - [ ] 22.1 Create AWS infrastructure as code (CloudFormation or Terraform)
+
 
   - Define S3 buckets for raw and processed videos
   - Define IAM roles and policies

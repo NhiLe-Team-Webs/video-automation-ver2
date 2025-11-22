@@ -1,7 +1,7 @@
 import { google, youtube_v3 } from 'googleapis';
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 import { createReadStream } from 'fs';
-import path from 'path';
+import * as path from 'path';
 import { config } from '../../config';
 import { createLogger } from '../../utils/logger';
 import { ProcessingError } from '../../utils/errors';
@@ -40,29 +40,93 @@ export class YouTubeUploadService {
       config.youtube.redirectUri
     );
 
-    // Load credentials from environment if available
-    if (config.youtube.accessToken) {
-      const credentials: any = {
-        access_token: config.youtube.accessToken,
-      };
-      
-      if (config.youtube.refreshToken) {
-        credentials.refresh_token = config.youtube.refreshToken;
-      }
-      
-      this.oauth2Client.setCredentials(credentials);
-      
-      logger.info('Loaded YouTube credentials from environment', {
-        hasAccessToken: !!credentials.access_token,
-        hasRefreshToken: !!credentials.refresh_token,
+    // Set up automatic token refresh
+    this.oauth2Client.on('tokens', async (tokens: any) => {
+      logger.info('OAuth tokens refreshed automatically', {
+        hasAccessToken: !!tokens.access_token,
+        hasRefreshToken: !!tokens.refresh_token,
+        expiryDate: tokens.expiry_date ? new Date(tokens.expiry_date).toISOString() : 'unknown',
       });
-    }
+
+      // Update credentials with new tokens
+      if (tokens.refresh_token) {
+        // If we got a new refresh token, update it
+        this.oauth2Client.setCredentials({
+          ...this.oauth2Client.credentials,
+          ...tokens,
+        });
+      }
+
+      // Save new tokens to file
+      try {
+        const tokensPath = path.join(process.cwd(), 'youtube-tokens.json');
+        await fs.writeFile(tokensPath, JSON.stringify(tokens, null, 2));
+        logger.info('Saved refreshed tokens to file', {
+          tokensPath,
+          hasAccessToken: !!tokens.access_token,
+          hasRefreshToken: !!tokens.refresh_token,
+        });
+      } catch (error) {
+        logger.error('Failed to save refreshed tokens to file', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    });
+
+    // Load credentials (async but we don't want to make constructor async)
+    this.loadCredentials();
 
     // Initialize YouTube API client
     this.youtube = google.youtube({
       version: 'v3',
       auth: this.oauth2Client,
     });
+  }
+
+  /**
+   * Load credentials from file or environment
+   */
+  private async loadCredentials(): Promise<void> {
+    // Try to load credentials from file first, then fallback to environment
+    try {
+      // Check if youtube-tokens.json exists
+      const tokensPath = path.join(process.cwd(), 'youtube-tokens.json');
+      await fs.access(tokensPath);
+      
+      // Load tokens from file
+      const tokensData = await fs.readFile(tokensPath, 'utf-8');
+      const tokens = JSON.parse(tokensData);
+      
+      this.oauth2Client.setCredentials(tokens);
+      
+      logger.info('Loaded YouTube credentials from file', {
+        hasAccessToken: !!tokens.access_token,
+        hasRefreshToken: !!tokens.refresh_token,
+        expiryDate: tokens.expiry_date ? new Date(tokens.expiry_date).toISOString() : 'unknown',
+      });
+    } catch (error) {
+      // File doesn't exist or can't be read, try environment variables
+      logger.info('Could not load tokens from file, trying environment variables', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      
+      if (config.youtube.accessToken) {
+        const credentials: any = {
+          access_token: config.youtube.accessToken,
+        };
+        
+        if (config.youtube.refreshToken) {
+          credentials.refresh_token = config.youtube.refreshToken;
+        }
+        
+        this.oauth2Client.setCredentials(credentials);
+        
+        logger.info('Loaded YouTube credentials from environment', {
+          hasAccessToken: !!credentials.access_token,
+          hasRefreshToken: !!credentials.refresh_token,
+        });
+      }
+    }
   }
 
   /**
@@ -115,6 +179,57 @@ export class YouTubeUploadService {
   }
 
   /**
+   * Ensure we have a valid access token, refresh if needed
+   */
+  private async ensureValidToken(): Promise<void> {
+    const credentials = this.oauth2Client.credentials;
+
+    // Check if we have credentials
+    if (!credentials || !credentials.access_token) {
+      throw new Error('No OAuth credentials available. Please authenticate first.');
+    }
+
+    // Check if token is expired or about to expire (within 5 minutes)
+    const expiryDate = credentials.expiry_date;
+    const now = Date.now();
+    const fiveMinutes = 5 * 60 * 1000;
+
+    if (expiryDate && expiryDate - now < fiveMinutes) {
+      logger.info('Access token expired or expiring soon, refreshing...', {
+        expiryDate: new Date(expiryDate).toISOString(),
+        timeUntilExpiry: Math.round((expiryDate - now) / 1000) + 's',
+      });
+
+      // Check if we have a refresh token
+      if (!credentials.refresh_token) {
+        throw new Error('Access token expired and no refresh token available. Please re-authenticate.');
+      }
+
+      try {
+        // Refresh the token
+        const { credentials: newCredentials } = await this.oauth2Client.refreshAccessToken();
+        this.oauth2Client.setCredentials(newCredentials);
+
+        logger.info('Access token refreshed successfully', {
+          newExpiryDate: newCredentials.expiry_date 
+            ? new Date(newCredentials.expiry_date).toISOString() 
+            : 'unknown',
+        });
+      } catch (error) {
+        logger.error('Failed to refresh access token', {
+          error: error instanceof Error ? error.message : String(error),
+        });
+        throw new Error('Failed to refresh access token. Please re-authenticate.');
+      }
+    } else {
+      logger.debug('Access token is still valid', {
+        expiryDate: expiryDate ? new Date(expiryDate).toISOString() : 'unknown',
+        timeUntilExpiry: expiryDate ? Math.round((expiryDate - now) / 1000) + 's' : 'unknown',
+      });
+    }
+  }
+
+  /**
    * Upload video to YouTube with retry logic
    */
   async upload(
@@ -136,6 +251,20 @@ export class YouTubeUploadService {
     } catch (error) {
       throw new ProcessingError(
         `Video file not found: ${videoPath}`,
+        {
+          jobId,
+          stage: 'uploading',
+          attemptNumber: 0,
+        }
+      );
+    }
+
+    // Ensure we have a valid access token before uploading
+    try {
+      await this.ensureValidToken();
+    } catch (error) {
+      throw new ProcessingError(
+        `OAuth token validation failed: ${error instanceof Error ? error.message : String(error)}`,
         {
           jobId,
           stage: 'uploading',

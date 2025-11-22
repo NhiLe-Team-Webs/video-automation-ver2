@@ -11,6 +11,7 @@ import {
 } from 'remotion';
 import { TemplateLoader } from './templateLoader';
 import { EditingPlan } from '../services/content-analysis/editingPlanService';
+import { CROWN_MERCADO_BRAND } from './brandConstants';
 
 export interface VideoCompositionProps {
   videoPath: string;
@@ -252,9 +253,10 @@ const HighlightEffect: React.FC<{
     return (
       <AbsoluteFill
         style={{
-          border: '4px solid #FFD700',
-          margin: '20px',
+          border: `4px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
+          margin: CROWN_MERCADO_BRAND.layout.margin.medium,
           pointerEvents: 'none',
+          borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.small,
         }}
       />
     );
@@ -271,12 +273,15 @@ const HighlightEffect: React.FC<{
       >
         <div
           style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-            color: 'white',
-            padding: '20px 40px',
-            borderRadius: '10px',
-            fontSize: '32px',
-            fontWeight: 'bold',
+            backgroundColor: 'rgba(28, 16, 46, 0.9)', // Brand charcoal
+            border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
+            padding: `${CROWN_MERCADO_BRAND.layout.padding.large}px ${CROWN_MERCADO_BRAND.layout.padding.large}px`,
+            borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.medium,
+            fontSize: CROWN_MERCADO_BRAND.typography.fontSize.headline,
+            fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
+            fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
+            color: CROWN_MERCADO_BRAND.colors.textPrimary,
+            textAlign: 'center',
           }}
         >
           {parameters.text || 'Highlight'}
@@ -370,14 +375,17 @@ const SubtitleOverlay: React.FC<{ text: string }> = ({ text }) => {
     >
       <div
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          color: 'white',
-          padding: '12px 24px',
-          borderRadius: '4px',
-          fontSize: '28px',
+          backgroundColor: 'rgba(28, 16, 46, 0.9)', // Brand charcoal with opacity
+          border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
+          padding: `${CROWN_MERCADO_BRAND.layout.padding.medium}px ${CROWN_MERCADO_BRAND.layout.padding.large}px`,
+          borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.small,
+          fontSize: CROWN_MERCADO_BRAND.typography.fontSize.body,
           maxWidth: '80%',
           textAlign: 'center',
           lineHeight: '1.4',
+          fontFamily: CROWN_MERCADO_BRAND.typography.bodyFont,
+          fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightSemiBold,
+          color: CROWN_MERCADO_BRAND.colors.textPrimary,
         }}
       >
         {text}

@@ -30,7 +30,7 @@ timeout /t 5 >nul
 
 echo.
 echo [4/5] Starting Worker...
-start "Worker" cmd /k "npm run worker"
+start "Worker" cmd /k "npx tsx src/worker.ts"
 timeout /t 3 >nul
 
 echo.

@@ -17,6 +17,7 @@ logs/
 # Temporary files
 temp/
 cache/
+youtube-tokens.json
 
 # IDE
 .vscode/

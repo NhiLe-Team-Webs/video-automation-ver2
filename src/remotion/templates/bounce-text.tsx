@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { CROWN_MERCADO_BRAND } from '../brandConstants';
 
 interface BounceTextProps {
   title?: string;
@@ -14,10 +15,10 @@ interface BounceTextProps {
   backgroundColor?: string;
 }
 
-export function BounceText({ 
-  title = "Start Building", 
+export function BounceText({
+  title = "Start Building",
   subtitle = "There's never been a better time",
-  backgroundColor = "linear-gradient(45deg, #1e3a8a, #3b82f6)"
+  backgroundColor = `linear-gradient(45deg, ${CROWN_MERCADO_BRAND.colors.primaryRed}, ${CROWN_MERCADO_BRAND.colors.charcoal})`
 }: BounceTextProps) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();

@@ -382,8 +382,9 @@ export class RemotionRenderingService {
 
     await fs.mkdir(bundleDir, { recursive: true });
 
+    // Use .js extension since we're running from compiled dist folder
     const bundleLocation = await bundle({
-      entryPoint: path.join(remotionRoot, 'index.ts'),
+      entryPoint: path.join(remotionRoot, 'index.js'),
       outDir: bundleDir,
       publicDir,
       webpackOverride: (config) => config,

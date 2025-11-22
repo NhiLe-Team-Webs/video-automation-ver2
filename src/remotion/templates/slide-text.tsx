@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { CROWN_MERCADO_BRAND } from '../brandConstants';
 
 interface SlideTextProps {
   text?: string;

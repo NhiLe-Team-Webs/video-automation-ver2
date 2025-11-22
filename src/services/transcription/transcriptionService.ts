@@ -361,8 +361,8 @@ export class TranscriptionService {
       throw new Error('SRT file is empty');
     }
     
-    // Split by double newline to get each subtitle block
-    const blocks = content.trim().split(/\n\s*\n/);
+    // Split by double newline to get each subtitle block (handle both \n and \r\n)
+    const blocks = content.trim().split(/\r?\n\s*\r?\n/);
     
     if (blocks.length === 0) {
       throw new Error('SRT file contains no subtitle blocks');
@@ -371,7 +371,7 @@ export class TranscriptionService {
     // Validate each block
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i].trim();
-      const lines = block.split('\n');
+      const lines = block.split(/\r?\n/).map(line => line.trim());
       
       if (lines.length < 3) {
         throw new Error(`SRT block ${i + 1} has fewer than 3 lines`);
@@ -383,8 +383,8 @@ export class TranscriptionService {
         throw new Error(`SRT block ${i + 1} has invalid sequence number: ${lines[0]}`);
       }
       
-      // Validate timestamp format
-      const timestampPattern = /^\d{2}:\d{2}:\d{2},\d{3}\s*-->\s*\d{2}:\d{2}:\d{2},\d{3}$/;
+      // Validate timestamp format (handle both \r\n and \n line endings)
+      const timestampPattern = /^\d{2}:\d{2}:\d{2}[,\.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,\.]\d{3}$/;
       if (!timestampPattern.test(lines[1])) {
         throw new Error(`SRT block ${i + 1} has invalid timestamp format: ${lines[1]}`);
       }

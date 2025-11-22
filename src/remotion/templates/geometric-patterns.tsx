@@ -1,18 +1,19 @@
 /**
  * Geometric Patterns Template
- * Animated geometric patterns background
- * 
- * Copied from remotion-templates reference
+ * Animated geometric patterns background with Crown Mercado triangle motifs
+ *
+ * Layered triangles in red gradients (futuristic + dynamic)
  */
 
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
 import React from 'react';
+import { CROWN_MERCADO_BRAND } from '../brandConstants';
 
 interface GeometricPatternsProps {
   patternCount?: number;
 }
 
-export function GeometricPatterns({ 
+export function GeometricPatterns({
   patternCount = 20
 }: GeometricPatternsProps) {
   const frame = useCurrentFrame();
@@ -32,10 +33,17 @@ export function GeometricPatterns({
       fps: 30,
       from: 0.5,
       to: 1,
-      config: { damping: 100 },
+      config: CROWN_MERCADO_BRAND.timing.spring,
     });
 
-    return { rotation, scale, index: i };
+    // Create triangle pattern using CSS clip-path
+    const triangleSize = 60 + (i % 3) * 20; // Varying sizes
+    const trianglePosition = {
+      x: 20 + (i % 5) * 15, // Distribute across screen
+      y: 20 + Math.floor(i / 5) * 15, // Distribute down screen
+    };
+
+    return { rotation, scale, index: i, triangleSize, trianglePosition };
   });
 
   return (
@@ -43,22 +51,26 @@ export function GeometricPatterns({
       style={{
         width,
         height,
-        background: "linear-gradient(45deg, #0f172a, #1e293b)",
+        background: `linear-gradient(135deg, ${CROWN_MERCADO_BRAND.colors.charcoal}, ${CROWN_MERCADO_BRAND.colors.primaryRed})`,
         overflow: "hidden",
       }}
     >
-      {patterns.map(({ rotation, scale, index }) => (
+      {patterns.map(({ rotation, scale, index, triangleSize, trianglePosition }) => (
         <div
           key={index}
           style={{
             position: "absolute",
-            left: "50%",
-            top: "50%",
-            width: "100%",
-            height: "100%",
+            left: `${trianglePosition.x}%`,
+            top: `${trianglePosition.y}%`,
+            width: `${triangleSize}px`,
+            height: `${triangleSize}px`,
             transform: `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`,
-            border: "2px solid rgba(255,255,255,0.1)",
-            borderRadius: `${index * 5}%`,
+            // Create triangle using clip-path
+            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+            // Apply gradient colors to triangles
+            background: `linear-gradient(45deg, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color1}, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color2}, ${CROWN_MERCADO_BRAND.patterns.triangles.primary.color3})`,
+            opacity: 0.8 + (index % 3) * 0.1, // Varying opacity for depth
+            border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
           }}
         />
       ))}

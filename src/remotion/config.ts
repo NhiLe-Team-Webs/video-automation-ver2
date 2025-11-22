@@ -1,8 +1,11 @@
 /**
  * Remotion Configuration
- * 
+ *
  * Configuration for video rendering with Remotion
+ * Includes Crown Mercado brand defaults
  */
+
+import { CROWN_MERCADO_BRAND } from './brandConstants';
 
 export const REMOTION_CONFIG = {
   // Video settings
@@ -28,11 +31,19 @@ export const REMOTION_CONFIG = {
     quality: 80,
   },
   
-  // Animation timing
+  // Animation timing (using brand constants)
   timing: {
-    fadeInDuration: 15,  // 0.5 seconds
-    fadeOutDuration: 15, // 0.5 seconds
-    transitionDuration: 30, // 1 second
+    fadeInDuration: CROWN_MERCADO_BRAND.timing.fadeIn,
+    fadeOutDuration: CROWN_MERCADO_BRAND.timing.fadeOut,
+    transitionDuration: CROWN_MERCADO_BRAND.timing.transition,
+  },
+  
+  // Brand defaults
+  brand: {
+    defaultBackgroundColor: CROWN_MERCADO_BRAND.colors.charcoal,
+    defaultAccentColor: CROWN_MERCADO_BRAND.colors.accentRed,
+    defaultTextColor: CROWN_MERCADO_BRAND.colors.textPrimary,
+    defaultFont: CROWN_MERCADO_BRAND.typography.headlineFont,
   }
 } as const;
 

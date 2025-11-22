@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { interpolate, useCurrentFrame } from "remotion";
+import { CROWN_MERCADO_BRAND } from '../brandConstants';
 interface TypewriterSubtitleProps {
   text?: string;
   fontSize?: string;
