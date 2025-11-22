@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages for video processing
-RUN pip3 install --no-cache-dir auto-editor openai
+RUN pip3 install --no-cache-dir --break-system-packages auto-editor openai
 
 # Set Chromium path for Remotion
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
