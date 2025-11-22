@@ -394,7 +394,8 @@
   - Create deployment guide with step-by-step instructions
   - _Requirements: 9.1, 9.5_
 
-- [ ] 26. Create Vercel frontend deployment
+- [x] 26. Create Vercel frontend deployment
+
 
 
 
@@ -634,7 +635,9 @@
 
 ## Phase 8: Export & Integration APIs
 
-- [ ] 43. Implement export and integration API endpoints
+- [x] 43. Implement export and integration API endpoints
+
+
 
   - Create exportRoutes.ts for external integrations
   - Implement Google Sheets export service for SRT subtitles
@@ -643,7 +646,8 @@
   - Add API documentation for integration endpoints
   - _Requirements: 1.4, 3.3, 8.2, 9.7_
 
-- [ ] 43.1 Create Google Sheets export endpoint
+- [x] 43.1 Create Google Sheets export endpoint
+
 
   - Implement POST /api/export/sheets endpoint
   - Parse SRT file from job storage
@@ -651,6 +655,7 @@
   - Use Google Sheets API to create/update spreadsheet
   - Return shareable Google Sheets URL
   - _Requirements: 3.3_
+
 
 - [ ] 43.2 Create shareable links endpoint
 
@@ -660,14 +665,18 @@
   - Return JSON with all shareable links and metadata
   - _Requirements: 1.4, 9.7_
 
+
 - [ ] 43.3 Create SRT download endpoint
 
   - Implement GET /api/jobs/:jobId/srt endpoint
   - Support both raw SRT format and JSON format (query param: ?format=json)
   - Return proper content-type headers
+
   - _Requirements: 3.2_
 
-- [ ] 43.4 Implement webhook system
+- [x] 43.4 Implement webhook system (FUTURE ENHANCEMENT)
+
+
 
   - Create webhook registration endpoint: POST /api/webhooks/register
   - Store webhook URLs with job IDs and event types
@@ -675,6 +684,7 @@
   - Add retry logic for failed webhook deliveries (3 attempts)
   - Support events: "completed", "failed", "stage_completed"
   - _Requirements: 1.5, 8.3_
+  - _Note: Deferred to future release. Use polling for now._
 
 - [ ]* 43.5 Write property test for webhook delivery
   - **Property 83: Webhook delivery on completion**

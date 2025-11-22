@@ -4,6 +4,7 @@ import { config } from './config';
 import { createLogger } from './utils/logger';
 import { uploadRouter, errorHandler } from './api/uploadRoutes';
 import { previewRouter, previewErrorHandler } from './api/previewRoutes';
+import { exportRouter, exportErrorHandler } from './api/exportRoutes';
 
 const logger = createLogger('Server');
 
@@ -35,6 +36,7 @@ async function startServer() {
     // API Routes - Define specific routes BEFORE static file serving
     // IMPORTANT: More specific routes must come BEFORE general routes
     app.use('/api/preview', previewRouter);
+    app.use('/api/export', exportRouter);
     app.use('/api', uploadRouter);
 
     // Upload interface (main UI)
@@ -287,6 +289,7 @@ async function startServer() {
     app.use('/previews', express.static(path.join(process.cwd(), 'temp', 'previews')));
 
     // Error handlers (must be last)
+    app.use(exportErrorHandler);
     app.use(previewErrorHandler);
     app.use(errorHandler);
 
