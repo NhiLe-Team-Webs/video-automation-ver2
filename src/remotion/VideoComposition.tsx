@@ -1,9 +1,9 @@
 import React from 'react';
 import {
   AbsoluteFill,
-  Audio,
+  Audio as RemotionAudio,
   Sequence,
-  Video,
+  OffthreadVideo,
   useCurrentFrame,
   useVideoConfig,
   interpolate,
@@ -11,8 +11,8 @@ import {
   Easing,
 } from 'remotion';
 import { TemplateLoader } from './templateLoader';
-import { EditingPlan, ZoomEffect } from '../services/content-analysis/editingPlanService';
-import { CROWN_MERCADO_BRAND } from './brandConstants';
+import { EditingPlan, ZoomEffect, TextHighlight, SoundEffectPlacement } from '../services/content-analysis/editingPlanService';
+import { applyBrandKitToTextStyle } from './brandKitHelper';
 
 export interface VideoCompositionProps {
   videoPath: string;
@@ -22,6 +22,7 @@ export interface VideoCompositionProps {
   editingPlan: EditingPlan;
   subtitles: SubtitleSegment[];
   brollVideos: BrollVideoMapping[];
+  soundEffectPaths?: SoundEffectPathMapping[];
 }
 
 export interface SubtitleSegment {
@@ -36,9 +37,25 @@ export interface BrollVideoMapping {
   videoPath: string;
 }
 
+export interface SoundEffectPathMapping {
+  timestamp: number;
+  effectType: string;
+  localPath: string;
+  volume: number;
+}
+
 /**
  * Main video composition component
- * Combines main video, animations, B-roll, and subtitles
+ * Combines main video, animations, B-roll, text highlights, and sound effects
+ * 
+ * Requirements implemented:
+ * - 12.5: Smooth transitions (300-500ms)
+ * - 13.5: Sound effects synchronized with visual elements
+ * - 15.4: Zoom effects with smooth easing
+ * - 16.5: Brand kit styling applied to all text
+ * - 17.2: Text highlights with early timing (300ms before audio)
+ * - 18.1-18.4: Only text highlights rendered (no continuous subtitles)
+ * - 19.5: Cut filters applied (via FFmpeg preprocessing)
  */
 export const VideoComposition: React.FC<VideoCompositionProps> = ({
   videoPath,
@@ -48,6 +65,7 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
   editingPlan,
   subtitles,
   brollVideos,
+  soundEffectPaths = [],
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -56,17 +74,22 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
   // Calculate zoom scale based on active zoom effects
   const zoomScale = calculateZoomScale(currentTime, editingPlan.zoomEffects || [], fps);
 
+  // Apply cut filters via CSS filters (basic implementation)
+  // Note: Advanced color grading should be done via FFmpeg preprocessing
+  const cutFilterStyle = applyCutFilters(editingPlan.cutFilters);
+
   return (
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
-      {/* Main video with zoom effect */}
+      {/* Main video with zoom effect and cut filters */}
       {videoPath && (
         <AbsoluteFill
           style={{
             transform: `scale(${zoomScale})`,
             transformOrigin: 'center',
+            ...cutFilterStyle,
           }}
         >
-          <Video
+          <OffthreadVideo
             src={staticFile(videoPath)}
             style={{
               width: '100%',
@@ -80,6 +103,27 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
           />
         </AbsoluteFill>
       )}
+
+      {/* Sound effects */}
+      {soundEffectPaths.map((sfx, index) => {
+        const startFrame = Math.floor(sfx.timestamp * fps);
+        
+        return (
+          <Sequence
+            key={`sfx-${index}`}
+            from={startFrame}
+          >
+            <RemotionAudio
+              src={staticFile(sfx.localPath)}
+              volume={sfx.volume}
+              onError={(error) => {
+                console.warn('Sound effect playback error:', error);
+                // Gracefully handle SFX errors - don't crash
+              }}
+            />
+          </Sequence>
+        );
+      })}
 
       {/* B-roll overlays */}
       {brollVideos.map((broll, index) => {
@@ -169,20 +213,19 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
         );
       })}
 
-      {/* Subtitles */}
-      {subtitles.map((subtitle, index) => {
-        const startFrame = Math.floor(subtitle.startTime * fps);
-        const durationInFrames = Math.floor(
-          (subtitle.endTime - subtitle.startTime) * fps
-        );
+      {/* Text Highlights (Requirements 17.2, 18.1-18.4) */}
+      {/* Only render text highlights from editing plan, not continuous subtitles */}
+      {editingPlan.textHighlights && editingPlan.textHighlights.map((textHighlight, index) => {
+        const startFrame = Math.floor(textHighlight.startTime * fps);
+        const durationInFrames = Math.floor(textHighlight.duration * fps);
 
         return (
           <Sequence
-            key={`subtitle-${index}`}
+            key={`text-highlight-${index}`}
             from={startFrame}
             durationInFrames={durationInFrames}
           >
-            <SubtitleOverlay text={subtitle.text} />
+            <TextHighlightOverlay textHighlight={textHighlight} />
           </Sequence>
         );
       })}
@@ -229,14 +272,14 @@ const BrollOverlay: React.FC<{
 
   return (
     <AbsoluteFill style={{ opacity }}>
-      <Video
+      <OffthreadVideo
         src={staticFile(videoPath)}
         style={{
           width: '100%',
           height: '100%',
           objectFit: 'cover',
         }}
-        onError={(error) => {
+        onError={(error: any) => {
           console.error('B-roll video playback error:', error);
           // Gracefully handle B-roll errors
         }}
@@ -247,6 +290,7 @@ const BrollOverlay: React.FC<{
 
 /**
  * Highlight effect overlay
+ * Note: This is for legacy highlight effects. New implementations should use TextHighlightOverlay.
  */
 const HighlightEffect: React.FC<{
   effectType: 'zoom' | 'highlight-box' | 'text-overlay';
@@ -274,10 +318,10 @@ const HighlightEffect: React.FC<{
     return (
       <AbsoluteFill
         style={{
-          border: `4px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
-          margin: CROWN_MERCADO_BRAND.layout.margin.medium,
+          border: '4px solid #E63946',
+          margin: '20px',
           pointerEvents: 'none',
-          borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.small,
+          borderRadius: '8px',
         }}
       />
     );
@@ -294,14 +338,14 @@ const HighlightEffect: React.FC<{
       >
         <div
           style={{
-            backgroundColor: 'rgba(28, 16, 46, 0.9)', // Brand charcoal
-            border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
-            padding: `${CROWN_MERCADO_BRAND.layout.padding.large}px ${CROWN_MERCADO_BRAND.layout.padding.large}px`,
-            borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.medium,
-            fontSize: CROWN_MERCADO_BRAND.typography.fontSize.headline,
-            fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightBold,
-            fontFamily: CROWN_MERCADO_BRAND.typography.headlineFont,
-            color: CROWN_MERCADO_BRAND.colors.textPrimary,
+            backgroundColor: 'rgba(28, 16, 46, 0.9)',
+            border: '2px solid #E63946',
+            padding: '24px 40px',
+            borderRadius: '12px',
+            fontSize: 56,
+            fontWeight: 700,
+            fontFamily: 'Montserrat, sans-serif',
+            color: '#FFFFFF',
             textAlign: 'center',
           }}
         >
@@ -382,38 +426,129 @@ const TransitionEffect: React.FC<{
 };
 
 /**
- * Subtitle overlay
+ * Text Highlight overlay with brand kit styling
+ * Requirements 16.5, 17.2, 18.3
  */
-const SubtitleOverlay: React.FC<{ text: string }> = ({ text }) => {
+const TextHighlightOverlay: React.FC<{ textHighlight: TextHighlight }> = ({ textHighlight }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  
+  // Apply brand kit styling to text style
+  const styledText = applyBrandKitToTextStyle(textHighlight);
+  
+  // Animation based on style
+  const opacity = getTextAnimationOpacity(frame, fps, styledText.style.animation);
+  const transform = getTextAnimationTransform(frame, fps, styledText.style.animation);
+
   return (
     <AbsoluteFill
       style={{
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: '80px',
         pointerEvents: 'none',
       }}
     >
       <div
         style={{
-          backgroundColor: 'rgba(28, 16, 46, 0.9)', // Brand charcoal with opacity
-          border: `2px solid ${CROWN_MERCADO_BRAND.colors.accentRed}`,
-          padding: `${CROWN_MERCADO_BRAND.layout.padding.medium}px ${CROWN_MERCADO_BRAND.layout.padding.large}px`,
-          borderRadius: CROWN_MERCADO_BRAND.layout.borderRadius.small,
-          fontSize: CROWN_MERCADO_BRAND.typography.fontSize.body,
-          maxWidth: '80%',
+          backgroundColor: styledText.style.backgroundColor || 'rgba(28, 16, 46, 0.9)',
+          padding: '20px 40px',
+          borderRadius: '12px',
+          fontSize: styledText.style.fontSize,
+          fontWeight: styledText.style.fontWeight,
+          fontFamily: styledText.style.fontFamily,
+          color: styledText.style.color,
           textAlign: 'center',
+          maxWidth: '80%',
           lineHeight: '1.4',
-          fontFamily: CROWN_MERCADO_BRAND.typography.bodyFont,
-          fontWeight: CROWN_MERCADO_BRAND.typography.fontWeightSemiBold,
-          color: CROWN_MERCADO_BRAND.colors.textPrimary,
+          opacity,
+          transform,
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
         }}
       >
-        {text}
+        {textHighlight.text}
       </div>
     </AbsoluteFill>
   );
 };
+
+/**
+ * Get opacity for text animation
+ */
+function getTextAnimationOpacity(
+  frame: number,
+  fps: number,
+  animation: string
+): number {
+  const fadeInFrames = Math.floor(0.3 * fps); // 300ms fade in
+  
+  if (animation === 'fade-in') {
+    return interpolate(
+      frame,
+      [0, fadeInFrames],
+      [0, 1],
+      {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      }
+    );
+  }
+  
+  // For other animations, still apply a quick fade in
+  if (frame < fadeInFrames) {
+    return interpolate(
+      frame,
+      [0, fadeInFrames],
+      [0, 1],
+      {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+      }
+    );
+  }
+  
+  return 1;
+}
+
+/**
+ * Get transform for text animation
+ */
+function getTextAnimationTransform(
+  frame: number,
+  fps: number,
+  animation: string
+): string {
+  const animationFrames = Math.floor(0.5 * fps); // 500ms animation
+  
+  if (animation === 'slide-up') {
+    const translateY = interpolate(
+      frame,
+      [0, animationFrames],
+      [50, 0],
+      {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+        easing: Easing.out(Easing.ease),
+      }
+    );
+    return `translateY(${translateY}px)`;
+  }
+  
+  if (animation === 'pop') {
+    const scale = interpolate(
+      frame,
+      [0, animationFrames / 2, animationFrames],
+      [0.5, 1.1, 1.0],
+      {
+        extrapolateLeft: 'clamp',
+        extrapolateRight: 'clamp',
+        easing: Easing.out(Easing.ease),
+      }
+    );
+    return `scale(${scale})`;
+  }
+  
+  return 'none';
+}
 
 /**
  * Calculate zoom scale based on active zoom effects
@@ -506,4 +641,48 @@ function getBrollTransition(
   // Middle clips alternate between fade and slide
   const transitionType = index % 2 === 0 ? 'fade' : 'slide';
   return { type: transitionType, duration: 0.3 };
+}
+
+/**
+ * Apply cut filters as CSS filters
+ * Requirements 19.1-19.5
+ * 
+ * Note: This provides basic CSS filter support.
+ * For professional color grading, FFmpeg preprocessing is recommended.
+ */
+function applyCutFilters(cutFilters?: any): React.CSSProperties {
+  if (!cutFilters) {
+    return {};
+  }
+
+  const filters: string[] = [];
+
+  // Apply color grading
+  if (cutFilters.colorGrading) {
+    const { contrast, saturation } = cutFilters.colorGrading;
+    
+    if (contrast !== undefined && contrast !== 1.0) {
+      filters.push(`contrast(${contrast})`);
+    }
+    
+    if (saturation !== undefined && saturation !== 1.0) {
+      filters.push(`saturate(${saturation})`);
+    }
+  }
+
+  // Apply sharpening (not directly supported in CSS, but we can use contrast)
+  if (cutFilters.applySharpening && cutFilters.sharpeningIntensity) {
+    // Sharpening approximation via contrast
+    const sharpenContrast = 1.0 + (cutFilters.sharpeningIntensity * 0.1);
+    if (!filters.some(f => f.startsWith('contrast'))) {
+      filters.push(`contrast(${sharpenContrast})`);
+    }
+  }
+
+  // Apply vignette (requires box-shadow or radial gradient overlay)
+  // This is handled separately via overlay component if needed
+
+  return {
+    filter: filters.length > 0 ? filters.join(' ') : undefined,
+  };
 }

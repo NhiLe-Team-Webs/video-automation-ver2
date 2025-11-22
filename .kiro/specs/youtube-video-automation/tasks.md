@@ -557,7 +557,10 @@
   - **Property 50: Consistent transition types**
   - **Validates: Requirements 16.4**
 
-- [ ] 36. Update Remotion rendering pipeline
+- [-] 36. Update Remotion rendering pipeline
+
+
+
 
   - Apply zoom effects from editing plan
   - Integrate sound effects with visual elements (FFmpeg audio mixing)

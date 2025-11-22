@@ -111,3 +111,30 @@ export function getCrownMercadoTriangleColors() {
     accentColor: CROWN_MERCADO_BRAND.colors.accentRed,
   };
 }
+
+/**
+ * Apply brand kit styling to text highlights
+ * Requirements 16.5: Apply brand kit styling to all text elements
+ */
+export function applyBrandKitToTextStyle(
+  textHighlight: any,
+  brandKit?: { colors?: BrandKitColors; typography?: BrandKitTypography }
+): any {
+  const colors = getBrandColors(brandKit?.colors);
+  const typography = getBrandTypography(brandKit?.typography);
+
+  // Apply brand kit defaults if not specified
+  const style = {
+    ...textHighlight.style,
+    fontFamily: textHighlight.style?.fontFamily || typography.fontFamily,
+    fontSize: textHighlight.style?.fontSize || typography.fontSize.medium,
+    fontWeight: textHighlight.style?.fontWeight || typography.fontWeight,
+    color: textHighlight.style?.color || colors.textColor,
+    backgroundColor: textHighlight.style?.backgroundColor || `${colors.backgroundColor}E6`, // 90% opacity
+  };
+
+  return {
+    ...textHighlight,
+    style,
+  };
+}

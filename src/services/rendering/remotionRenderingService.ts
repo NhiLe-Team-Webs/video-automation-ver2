@@ -17,6 +17,14 @@ export interface RenderInput {
   outputPath: string;
   srtPath?: string;
   brollVideos?: BrollVideoMapping[];
+  soundEffectPaths?: SoundEffectPathMapping[];
+}
+
+export interface SoundEffectPathMapping {
+  timestamp: number;
+  effectType: string;
+  localPath: string;
+  volume: number;
 }
 
 export interface BrollVideoMapping {
@@ -57,6 +65,9 @@ export class RemotionRenderingService {
       transitions: input.editingPlan.transitions.length,
       brollPlacements: input.editingPlan.brollPlacements.length,
       highlights: input.editingPlan.highlights.length,
+      zoomEffects: input.editingPlan.zoomEffects?.length || 0,
+      soundEffects: input.editingPlan.soundEffects?.length || 0,
+      textHighlights: input.editingPlan.textHighlights?.length || 0,
     });
 
     try {
@@ -86,11 +97,12 @@ export class RemotionRenderingService {
         });
       }
 
-      // Prepare public assets (copy videos to accessible location)
+      // Prepare public assets (copy videos and sound effects to accessible location)
       const publicAssets = await this.preparePublicAssets(
         jobId,
         input.videoPath,
-        input.brollVideos || []
+        input.brollVideos || [],
+        input.soundEffectPaths || []
       );
 
       // Create composition data with relative paths
@@ -99,6 +111,7 @@ export class RemotionRenderingService {
           ...input,
           videoPath: publicAssets.videoPath,
           brollVideos: publicAssets.brollVideos,
+          soundEffectPaths: publicAssets.soundEffectPaths,
         },
         videoMetadata,
         subtitles
@@ -370,6 +383,7 @@ export class RemotionRenderingService {
       editingPlan: input.editingPlan,
       subtitles,
       brollVideos: input.brollVideos || [],
+      soundEffectPaths: input.soundEffectPaths || [],
     };
   }
 
@@ -399,13 +413,19 @@ export class RemotionRenderingService {
   }
 
   /**
-   * Copy video files to public directory for Remotion access
+   * Copy video files and sound effects to public directory for Remotion access
    */
   private async preparePublicAssets(
     jobId: string,
     videoPath: string,
-    brollVideos: BrollVideoMapping[]
-  ): Promise<{ publicDir: string; videoPath: string; brollVideos: BrollVideoMapping[] }> {
+    brollVideos: BrollVideoMapping[],
+    soundEffectPaths: SoundEffectPathMapping[]
+  ): Promise<{ 
+    publicDir: string; 
+    videoPath: string; 
+    brollVideos: BrollVideoMapping[];
+    soundEffectPaths: SoundEffectPathMapping[];
+  }> {
     const publicDir = path.join(this.tempDir, `public-${jobId}`);
     await fs.mkdir(publicDir, { recursive: true });
 
@@ -427,10 +447,34 @@ export class RemotionRenderingService {
       });
     }
 
+    // Copy sound effects
+    const publicSoundEffects: SoundEffectPathMapping[] = [];
+    for (const sfx of soundEffectPaths) {
+      const sfxName = path.basename(sfx.localPath);
+      const publicSfxPath = path.join(publicDir, sfxName);
+      
+      try {
+        await fs.copyFile(sfx.localPath, publicSfxPath);
+        
+        publicSoundEffects.push({
+          ...sfx,
+          localPath: sfxName, // Use relative path
+        });
+      } catch (error) {
+        logger.warn('Failed to copy sound effect, skipping', {
+          jobId,
+          sfxPath: sfx.localPath,
+          error: error instanceof Error ? error.message : String(error),
+        });
+        // Continue without this sound effect
+      }
+    }
+
     return {
       publicDir,
       videoPath: mainVideoName, // Use relative path
       brollVideos: publicBrollVideos,
+      soundEffectPaths: publicSoundEffects,
     };
   }
 }
@@ -456,6 +500,7 @@ interface CompositionData {
   editingPlan: EditingPlan;
   subtitles: SubtitleSegment[];
   brollVideos: BrollVideoMapping[];
+  soundEffectPaths: SoundEffectPathMapping[];
 }
 
 export default new RemotionRenderingService();
