@@ -81,14 +81,6 @@ cp .env.local.example .env
 - ☁️ [Wasabi Storage Setup](docs/WASABI_SETUP.md) - Object storage configuration
 - 🧪 [Testing Pipeline Stages](docs/TESTING_PIPELINE_STAGES.md) - Test individual components
 
-### Detailed Setup
-
-See [docs/LOCAL_TESTING_GUIDE.md](docs/LOCAL_TESTING_GUIDE.md) for:
-- Step-by-step API key acquisition
-- Environment configuration
-- Testing individual pipeline stages
-- Troubleshooting common issues
-
 ## Development
 
 ### Start API Server
@@ -112,42 +104,13 @@ Run tests:
 npm test
 ```
 
-## 🚀 Quick Start - Chạy Pipeline Hoàn Chỉnh
 
-### Cách Nhanh Nhất (1 lệnh)
+### Hoặc Chạy Thủ Công 
 
-**Windows:**
-```bash
-start-all.bat
-```
-
-**macOS/Linux:**
-```bash
-./start-all.sh
-```
-
-Script sẽ tự động:
-1. ✅ Start Redis
-2. ✅ Build project
-3. ✅ Start API Server
-4. ✅ Start Worker
-5. ✅ Mở web interface
-
-### Hoặc Chạy Thủ Công (3 terminals)
-
-**Terminal 1 - Redis:**
-```bash
-docker run -d -p 6379:6379 redis:7-alpine
-```
-
-**Terminal 2 - API Server:**
 ```bash
 npm run dev
 ```
 
-**Terminal 3 - Worker:**
-```bash
-npm run worker
 ```
 
 ### Upload Video
@@ -158,10 +121,6 @@ Mở browser: **http://localhost:3000/upload.html**
 2. Click "Upload Video"
 3. Đợi pipeline xử lý (5-15 phút)
 4. Nhận YouTube link + download video final
-
-### Xem Hướng Dẫn Chi Tiết
-
-📖 **[Hướng Dẫn Chạy Pipeline (Tiếng Việt)](docs/HUONG_DAN_CHAY_PIPELINE.md)**
 
 Bao gồm:
 - ✅ Hướng dẫn từng bước chi tiết
@@ -192,12 +151,10 @@ The system uses a pipeline architecture with the following stages:
 5. Highlight Detection
 6. LLM Editing Plan (Gemini)
 7. Rendering (Remotion)
-8. YouTube Upload
 
 ## Requirements
 
 - Node.js 18+
-- Redis
 - Python 3 (for Auto Editor and Whisper)
 - FFmpeg
 - Docker (for containerized deployment)
@@ -216,4 +173,5 @@ Available Whisper models:
 - `small` - Better accuracy (~2GB)
 - `medium` - High accuracy (~5GB)
 - `large` - Best accuracy (~10GB)
+
 
