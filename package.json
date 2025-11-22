@@ -12,7 +12,15 @@
     "start:combined": "node dist/server-with-worker.js",
     "worker": "node dist/worker.js",
     "test": "vitest --run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "pipeline:full": "tsx scripts/runFullPipeline.ts",
+    "pipeline:auto-edit": "tsx scripts/runAutoEdit.ts",
+    "pipeline:transcribe": "tsx scripts/runTranscription.ts",
+    "pipeline:highlights": "tsx scripts/runHighlightDetection.ts",
+    "pipeline:editing-plan": "tsx scripts/runEditingPlan.ts",
+    "pipeline:render": "tsx scripts/runRendering.ts",
+    "pipeline:upload": "tsx scripts/runYoutubeUpload.ts",
+    "pipeline:resume": "tsx scripts/resumePipeline.ts"
   },
   "keywords": [
     "video",
