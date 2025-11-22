@@ -265,6 +265,7 @@ Second line`;
         editingPlan: input.editingPlan,
         subtitles,
         brollVideos: [],
+        soundEffectPaths: [],
       });
     });
 

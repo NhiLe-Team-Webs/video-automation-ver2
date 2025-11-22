@@ -4,7 +4,6 @@ import { config } from './config';
 import { createLogger } from './utils/logger';
 import { uploadRouter, errorHandler } from './api/uploadRoutes';
 import { previewRouter, previewErrorHandler } from './api/previewRoutes';
-import oauthRouter from './api/oauthRoutes';
 
 const logger = createLogger('Server');
 
@@ -18,12 +17,18 @@ async function startServer() {
     const app = express();
 
     // Middleware
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.json({ limit: '50mb' }));
+    app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+    // Increase timeout for long-running requests (30 minutes)
+    app.use((req, res, next) => {
+      req.setTimeout(30 * 60 * 1000);
+      res.setTimeout(30 * 60 * 1000);
+      next();
+    });
 
     // Routes - Define specific routes BEFORE static file serving
     // IMPORTANT: More specific routes must come BEFORE general routes
-    app.use('/oauth', oauthRouter);
     app.use('/api/preview', previewRouter, previewErrorHandler);
     app.use('/api', uploadRouter, errorHandler);
 

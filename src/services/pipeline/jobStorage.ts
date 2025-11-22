@@ -189,20 +189,20 @@ export async function setJobError(
 }
 
 /**
- * Set final YouTube URL
+ * Set final video URL (from Wasabi storage)
  */
-export async function setYoutubeUrl(jobId: string, url: string): Promise<void> {
+export async function setVideoUrl(jobId: string, url: string): Promise<void> {
   const job = await getJob(jobId);
   if (!job) {
     throw new Error(`Job ${jobId} not found`);
   }
 
-  job.finalYoutubeUrl = url;
+  job.finalYoutubeUrl = url; // Keep same field name for backward compatibility
   job.updatedAt = new Date();
 
   await redis.set(JOB_KEY_PREFIX + jobId, serializeJob(job));
 
-  logger.info('YouTube URL set', {
+  logger.info('Video URL set', {
     jobId,
     url,
   });

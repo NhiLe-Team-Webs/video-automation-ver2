@@ -15,7 +15,7 @@ import {
   StageResult,
 } from '../../models/job';
 import * as jobStorage from '../pipeline/jobStorage';
-import { addVideoJob } from '../pipeline/queue';
+import { processVideo } from '../pipeline/pipelineOrchestrator';
 
 const logger = createLogger('VideoUploadHandler');
 
@@ -51,8 +51,28 @@ export class VideoUploadHandler {
         );
       }
 
-      // Move file to permanent storage
+      // Move file to permanent storage (local temp)
       const videoPath = await this.storeVideo(file, jobId);
+
+      // Upload to Wasabi storage for backup and tracking
+      let wasabiKey: string | undefined;
+      try {
+        const wasabiStorageService = (await import('../storage/wasabiStorageService')).default;
+        const uploadResult = await wasabiStorageService.uploadVideo(videoPath, jobId, 'raw');
+        wasabiKey = uploadResult.key;
+        
+        logger.info('Video uploaded to Wasabi storage', {
+          jobId,
+          wasabiKey,
+          size: uploadResult.size,
+        });
+      } catch (wasabiError) {
+        logger.warn('Failed to upload video to Wasabi (non-critical)', {
+          jobId,
+          error: wasabiError instanceof Error ? wasabiError.message : String(wasabiError),
+        });
+        // Continue even if Wasabi upload fails - local processing still works
+      }
 
       // Create job record in storage
       const job = await jobStorage.createJob(jobId, userId, validationResult.metadata!);
@@ -60,16 +80,19 @@ export class VideoUploadHandler {
       // Mark uploaded stage as completed
       await jobStorage.updateStage(jobId, 'uploaded', 'completed', videoPath);
 
-      // Add job to processing queue
-      await addVideoJob({
-        jobId,
-        userId,
-        videoPath,
+      // Process video immediately (synchronous)
+      // Start processing in background without waiting
+      processVideo(jobId).catch(error => {
+        logger.error('Background processing failed', {
+          jobId,
+          error: error instanceof Error ? error.message : String(error),
+        });
       });
 
       logger.info('Video uploaded successfully and queued for processing', {
         jobId,
         videoPath,
+        wasabiKey,
         metadata: validationResult.metadata,
       });
 

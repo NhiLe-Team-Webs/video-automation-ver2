@@ -708,6 +708,154 @@ type PipelineStage =
   | 'failed';
 ```
 
+### 17. API Key Management Service
+
+**Responsibility**: Generate, validate, and manage API keys for programmatic access
+
+**Interface**:
+```typescript
+interface ApiKeyService {
+  generateApiKey(userId: string, name: string): Promise<ApiKeyResult>;
+  validateApiKey(key: string): Promise<ValidationResult>;
+  revokeApiKey(keyId: string): Promise<void>;
+  listApiKeys(userId: string): Promise<ApiKey[]>;
+  updateUsage(hashedKey: string): Promise<void>;
+}
+
+interface ApiKeyResult {
+  key: string; // va_{64_hex_chars} - only returned once
+  keyId: string;
+  name: string;
+  createdAt: Date;
+}
+
+interface ValidationResult {
+  valid: boolean;
+  userId?: string;
+  keyId?: string;
+  usageCount?: number;
+  lastUsed?: Date;
+}
+
+interface ApiKey {
+  keyId: string;
+  name: string;
+  hashedKey: string; // SHA-256 hash
+  userId: string;
+  createdAt: Date;
+  lastUsed: Date | null;
+  usageCount: number;
+  status: 'active' | 'revoked';
+}
+```
+
+**Implementation Notes**:
+- Keys stored as SHA-256 hashes in Google Sheets
+- Format: `va_{randomBytes(32).toString('hex')}` (64 hex chars)
+- Plain key only shown once at generation
+- Usage tracking updates on each API call
+- Revoked keys immediately invalid
+
+### 18. Webhook Service
+
+**Responsibility**: Manage webhook registrations and deliver notifications
+
+**Interface**:
+```typescript
+interface WebhookService {
+  registerWebhook(userId: string, url: string): Promise<Webhook>;
+  sendWebhook(webhookId: string, payload: WebhookPayload): Promise<void>;
+  retryFailedWebhook(webhookId: string, payload: WebhookPayload): Promise<void>;
+  listWebhooks(userId: string): Promise<Webhook[]>;
+  deleteWebhook(webhookId: string): Promise<void>;
+}
+
+interface Webhook {
+  id: string;
+  userId: string;
+  url: string;
+  secret: string; // For HMAC signature verification
+  status: 'active' | 'inactive' | 'failed';
+  createdAt: Date;
+  lastTriggered: Date | null;
+  failureCount: number;
+}
+
+interface WebhookPayload {
+  event: 'job.completed' | 'job.failed' | 'job.started';
+  jobId: string;
+  timestamp: string;
+  data: {
+    youtubeUrl?: string;
+    error?: string;
+    stage?: PipelineStage;
+  };
+}
+```
+
+**Implementation Notes**:
+- Webhooks stored in Google Sheets
+- Retry logic: 3 attempts with exponential backoff (1s, 2s, 4s)
+- HMAC-SHA256 signature in `X-Webhook-Signature` header
+- Timeout: 10 seconds per webhook call
+- Mark as inactive after 3 consecutive failures
+
+### 19. Rate Limiting Middleware
+
+**Responsibility**: Protect API from abuse and ensure fair usage
+
+**Interface**:
+```typescript
+interface RateLimiter {
+  checkLimit(apiKey: string): Promise<RateLimitResult>;
+  incrementUsage(apiKey: string): Promise<void>;
+  resetLimit(apiKey: string): Promise<void>;
+}
+
+interface RateLimitResult {
+  allowed: boolean;
+  remaining: number;
+  resetAt: Date;
+  retryAfter?: number; // seconds
+}
+```
+
+**Implementation Notes**:
+- Uses Upstash Redis for rate limit tracking
+- Sliding window: 100 requests per hour per API key
+- Key format: `ratelimit:{apiKey}:{hour}`
+- Returns `429 Too Many Requests` when exceeded
+- Includes `Retry-After` header with seconds until reset
+
+### 20. Object Storage Service
+
+**Responsibility**: Store and retrieve videos from Cloudflare R2 or Backblaze B2
+
+**Interface**:
+```typescript
+interface ObjectStorageService {
+  uploadVideo(buffer: Buffer, key: string, metadata?: VideoMetadata): Promise<string>;
+  downloadVideo(key: string): Promise<Buffer>;
+  getSignedUrl(key: string, expiresIn: number): Promise<string>;
+  deleteVideo(key: string): Promise<void>;
+  listVideos(prefix: string): Promise<StorageObject[]>;
+}
+
+interface StorageObject {
+  key: string;
+  size: number;
+  lastModified: Date;
+  etag: string;
+}
+```
+
+**Implementation Notes**:
+- S3-compatible API (works with R2, B2, S3)
+- Supports both Cloudflare R2 and Backblaze B2
+- Automatic retry on network errors (3 attempts)
+- Multipart upload for large files (>100MB)
+- Public URLs for final videos, signed URLs for temporary access
+
 ## Data Models
 
 ### Job
@@ -934,6 +1082,84 @@ After analyzing all acceptance criteria, several properties can be consolidated 
 **Property 23: Environment variable configuration**
 *For any* external service integration (Whisper, Gemini, Google Sheets, Pexels, YouTube), the API keys and configuration should be loaded from environment variables, not hardcoded.
 **Validates: Requirements 10.4**
+
+### API Key Management Properties
+
+**Property 66: API key format**
+*For any* generated API key, the format should match the pattern `va_[64 hexadecimal characters]`.
+**Validates: Requirements 20.1**
+
+**Property 67: API key validation**
+*For any* API request with an API key, the system should validate the key and reject invalid keys with HTTP 401 status.
+**Validates: Requirements 20.2, 20.3**
+
+**Property 68: API key usage tracking**
+*For any* valid API key used in a request, the system should increment the usage count and update the last used timestamp.
+**Validates: Requirements 20.4**
+
+**Property 69: API key revocation**
+*For any* revoked API key, subsequent requests using that key should be rejected with HTTP 401 status.
+**Validates: Requirements 20.5**
+
+**Property 70: API key storage round-trip**
+*For any* API key stored in Google Sheets, retrieving it by hashed key should return the correct user ID and metadata.
+**Validates: Requirements 23.1, 23.2**
+
+### Rate Limiting Properties
+
+**Property 71: Rate limit enforcement**
+*For any* API key that exceeds 100 requests in an hour, the 101st request should be rejected with HTTP 429 status.
+**Validates: Requirements 21.1**
+
+**Property 72: Rate limit reset**
+*For any* API key that was rate limited, after the hour window expires, requests should be allowed again.
+**Validates: Requirements 21.3**
+
+**Property 73: Independent rate limits**
+*For any* two different API keys, the rate limit counter for one key should not affect the counter for the other key.
+**Validates: Requirements 21.4**
+
+### Webhook Properties
+
+**Property 74: Webhook URL validation**
+*For any* webhook registration, the URL should be validated as a proper HTTP/HTTPS URL before storage.
+**Validates: Requirements 22.1**
+
+**Property 75: Webhook delivery on completion**
+*For any* job that completes successfully, if a webhook is registered for that user, the system should send a POST request to the webhook URL with job details.
+**Validates: Requirements 22.2**
+
+**Property 76: Webhook delivery on failure**
+*For any* job that fails, if a webhook is registered for that user, the system should send a POST request to the webhook URL with error information.
+**Validates: Requirements 22.3**
+
+**Property 77: Webhook retry logic**
+*For any* webhook delivery that fails, the system should retry exactly 3 times with exponential backoff before marking as failed.
+**Validates: Requirements 22.4**
+
+**Property 78: Webhook storage round-trip**
+*For any* webhook stored in Google Sheets, retrieving it by user ID should return the correct webhook URL and status.
+**Validates: Requirements 23.3**
+
+### Object Storage Properties
+
+**Property 79: Video upload-download round-trip**
+*For any* video buffer uploaded to object storage, downloading it by the same key should return an identical buffer.
+**Validates: Requirements 9.7**
+
+**Property 80: Signed URL validity**
+*For any* signed URL generated for a video, accessing the URL within the expiration time should successfully retrieve the video.
+**Validates: Requirements 9.7**
+
+### Deployment Properties
+
+**Property 81: Serverless cold start handling**
+*For any* API request after 15 minutes of inactivity, the system should respond within 60 seconds (accounting for cold start).
+**Validates: Requirements 9.2**
+
+**Property 82: Free tier quota monitoring**
+*For any* service with free tier limits (Redis commands, storage, compute hours), the system should track usage and warn when approaching limits.
+**Validates: Requirements 9.2, 9.6**
 
 ### Development Preview Properties
 
@@ -1324,85 +1550,180 @@ Integration tests will verify component interactions:
 
 ## Deployment Architecture
 
-### Cloud Infrastructure
+### Serverless/PaaS Infrastructure (MVP-Optimized)
 
-**Recommended Stack**: AWS (can be adapted to GCP/Azure)
+**Recommended Stack**: Vercel + Railway/Render + Wasabi + Upstash Redis
+
+**Design Rationale**: This architecture prioritizes free tier optimization and minimal operational overhead for MVP deployment. Wasabi's 30-day free trial (1TB) provides ample time to validate the product before committing to paid storage. Total estimated cost: $0 for first 30 days, then $7-13/month.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                     Load Balancer (ALB)                  │
+│                  Vercel Edge Network                     │
+│              (Frontend + Static Assets)                  │
+│                   FREE: 100GB/month                      │
+└────────────────────┬────────────────────────────────────┘
+                     │ HTTPS
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│              Railway/Render Web Service                  │
+│                    (API Server)                          │
+│              FREE: 500 hours/month                       │
+│         - Video upload endpoints                         │
+│         - Job status API                                 │
+│         - API key authentication                         │
+│         - Rate limiting                                  │
 └────────────────────┬────────────────────────────────────┘
                      │
          ┌───────────┴───────────┐
          │                       │
-    ┌────▼─────┐          ┌─────▼────┐
-    │  API     │          │  API     │
-    │  Server  │          │  Server  │
-    │  (ECS)   │          │  (ECS)   │
-    └────┬─────┘          └─────┬────┘
-         │                      │
-         └──────────┬───────────┘
-                    │
-         ┌──────────▼──────────┐
-         │   Redis Queue       │
-         │   (ElastiCache)     │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │  Worker Nodes       │
-         │  (ECS Tasks)        │
-         │  - Auto Editor      │
-         │  - Transcription    │
-         │  - Rendering        │
-         └──────────┬──────────┘
-                    │
-         ┌──────────▼──────────┐
-         │   S3 Storage        │
-         │   - Raw Videos      │
-         │   - Processed       │
-         │   - Final Videos    │
-         └─────────────────────┘
+         ▼                       ▼
+┌──────────────────┐    ┌──────────────────┐
+│  Upstash Redis   │    │  Google Sheets   │
+│  (Job Queue)     │    │  (Database)      │
+│  FREE: 10k       │    │  FREE: Unlimited │
+│  commands/day    │    │  - Job metadata  │
+└────────┬─────────┘    │  - Transcripts   │
+         │              │  - API keys      │
+         │              │  - Webhooks      │
+         │              └──────────────────┘
+         ▼
+┌─────────────────────────────────────────────────────────┐
+│           Railway/Render Background Workers              │
+│              FREE: 500 hours/month                       │
+│         (Separate service from API)                      │
+│                                                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │ Auto Editor  │  │ Transcription│  │  Remotion    │ │
+│  │   Worker     │  │   Worker     │  │  Renderer    │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│                    Wasabi Storage                        │
+│                  (Object Storage)                        │
+│         FREE TRIAL: 1TB for 30 days (no CC)             │
+│         Then: $6.99/month minimum                        │
+│         - Raw uploaded videos                            │
+│         - Processed video segments                       │
+│         - Final rendered videos                          │
+│         - B-roll cache                                   │
+│         - Sound effects cache                            │
+└─────────────────────────────────────────────────────────┘
+
+External APIs (Pay-per-use):
+- OpenAI Whisper: Transcription
+- Google Gemini: Editing plan generation
+- Pexels/Pixabay: B-roll footage
+- Freesound: Sound effects
+- YouTube Data API: Video upload
 ```
+
+**Alternative Stack Options**:
+
+1. **Wasabi** instead of Cloudflare R2 (Recommended for MVP):
+   - FREE TRIAL: 1TB storage for 30 days (no credit card required)
+   - After trial: $6.99/month minimum (still cheaper than alternatives)
+   - No egress fees (unlimited downloads)
+   - S3-compatible API (easy migration)
+   - **Best for MVP**: 30 days free trial gives time to validate product
+
+2. **Backblaze B2** (Budget option after trial):
+   - FREE: 10GB storage + 1GB download/day
+   - Pay-as-you-go: $0.005/GB storage + $0.01/GB download
+   - Good for low-traffic MVP
+
+3. **Fly.io** instead of Railway/Render:
+   - FREE: 3 shared-cpu VMs (256MB RAM each)
+   - Better for compute-intensive tasks
+   - No sleep on free tier
+
+4. **Modal Labs** for video processing workers:
+   - FREE: 30 compute hours/month
+   - GPU access for AI tasks
+   - Better for heavy video processing
 
 ### Container Configuration
 
-**API Server Dockerfile**:
+**API Server Dockerfile** (Railway/Render):
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
 RUN npm ci --production
+
+# Copy application code
 COPY . .
+
+# Build TypeScript
+RUN npm run build
+
 EXPOSE 3000
 CMD ["node", "dist/server.js"]
 ```
 
-**Worker Dockerfile**:
+**Worker Dockerfile** (Railway/Render):
 ```dockerfile
 FROM node:18
-WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     ffmpeg \
-    imagemagick
+    imagemagick \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Auto Editor
 RUN pip3 install auto-editor
 
-# Install Node dependencies
+WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
 RUN npm ci --production
 
+# Copy application code
 COPY . .
+
+# Build TypeScript
+RUN npm run build
+
 CMD ["node", "dist/worker.js"]
 ```
+
+**Vercel Configuration** (vercel.json):
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "https://your-railway-api.up.railway.app/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/public/$1"
+    }
+  ]
+}
 
 ### Environment Variables
 
 ```bash
+# Application
+NODE_ENV=production
+PORT=3000
+MAX_CONCURRENT_JOBS=5
+
 # LLM Configuration
 GEMINI_API_KEY=your_gemini_api_key
 GEMINI_MODEL=gemini-pro
@@ -1411,82 +1732,204 @@ GEMINI_MODEL=gemini-pro
 WHISPER_API_KEY=your_openai_api_key
 WHISPER_MODEL=whisper-1
 
-# Google Sheets
+# Google Sheets (Database + API Keys + Webhooks)
 GOOGLE_SHEETS_SPREADSHEET_ID=your_spreadsheet_id
 GOOGLE_SHEETS_CREDENTIALS=base64_encoded_credentials
 
 # Stock Footage
 PEXELS_API_KEY=your_pexels_api_key
 
+# Sound Effects
+FREESOUND_API_KEY=your_freesound_api_key
+
 # YouTube
 YOUTUBE_CLIENT_ID=your_client_id
 YOUTUBE_CLIENT_SECRET=your_client_secret
 YOUTUBE_REDIRECT_URI=your_redirect_uri
 
-# Storage
-S3_BUCKET=your_bucket_name
-AWS_REGION=us-east-1
+# Object Storage (Wasabi - Recommended for MVP)
+WASABI_ACCESS_KEY_ID=your_wasabi_access_key
+WASABI_SECRET_ACCESS_KEY=your_wasabi_secret_key
+WASABI_BUCKET_NAME=video-automation-bucket
+WASABI_REGION=us-east-1
+WASABI_ENDPOINT=s3.us-east-1.wasabisys.com
 
-# Redis
-REDIS_URL=redis://your-redis-host:6379
+# Alternative: Backblaze B2 (after Wasabi trial):
+# B2_APPLICATION_KEY_ID=your_b2_key_id
+# B2_APPLICATION_KEY=your_b2_key
+# B2_BUCKET_NAME=video-automation-bucket
+# B2_BUCKET_ID=your_bucket_id
 
-# Application
-NODE_ENV=production
-PORT=3000
-MAX_CONCURRENT_JOBS=5
+# Redis Queue (Upstash)
+UPSTASH_REDIS_REST_URL=https://your-redis.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your_upstash_token
+
+# API Security
+JWT_SECRET=your_super_secret_jwt_key
+API_RATE_LIMIT=100
+WEBHOOK_SECRET=your_webhook_secret
+
+# Deployment Platform URLs
+API_BASE_URL=https://your-api.up.railway.app
+FRONTEND_URL=https://your-app.vercel.app
 ```
 
 ### Scaling Strategy
 
-- **API Servers**: Auto-scale based on CPU (target 70%)
-- **Worker Nodes**: Auto-scale based on queue depth
-- **Redis**: Use ElastiCache with replication for high availability
-- **S3**: Lifecycle policies to archive old videos after 30 days
+**Free Tier Optimization**:
+- **API Server**: Single instance on Railway/Render free tier (500 hours/month)
+- **Worker**: Single instance on Railway/Render free tier (500 hours/month)
+- **Queue**: Upstash Redis free tier (10,000 commands/day = ~7 commands/minute)
+- **Storage**: Wasabi 30-day free trial (1TB storage, unlimited egress)
+
+**When to Scale Up** (Beyond Free Tier):
+1. **After 30 days**: Wasabi requires credit card, $6.99/month minimum (still cheaper than alternatives)
+2. **>500 hours/month usage**: Upgrade Railway to Hobby ($5/month) or Render to Starter ($7/month)
+3. **>10k Redis commands/day**: Upgrade Upstash to Pay-as-you-go ($0.2 per 100k commands)
+4. **>1TB storage**: Wasabi charges $0.0099/GB/month (very cheap, no egress fees)
+5. **High concurrency**: Add more worker instances on Railway/Render
+
+**Graceful Degradation**:
+- When free tier limits reached, queue jobs instead of rejecting
+- Display estimated wait time to users
+- Send email notifications when jobs complete (async)
 
 ### Monitoring
 
-- **Metrics**: CloudWatch for system metrics, custom metrics for job processing
-- **Logging**: CloudWatch Logs with structured JSON logging
-- **Alerts**: SNS notifications for failed jobs, high error rates
-- **Dashboards**: Grafana for visualizing pipeline metrics
+**Free Monitoring Tools**:
+- **Railway/Render Dashboard**: Built-in metrics (CPU, memory, requests)
+- **Upstash Console**: Redis command count and latency
+- **Cloudflare R2 Dashboard**: Storage usage and bandwidth
+- **Application Logs**: Structured JSON logging to stdout (captured by platform)
+- **Google Sheets**: Job status tracking and error logs
+
+**Alerting** (Free Options):
+- **Email Alerts**: Send via Gmail API when errors occur
+- **Discord/Slack Webhooks**: Free notification channels
+- **Uptime Monitoring**: UptimeRobot free tier (50 monitors)
 
 ### Deployment Process
 
-1. **Build**: Docker images built in CI/CD pipeline
-2. **Test**: Run unit and integration tests
-3. **Push**: Push images to ECR
-4. **Deploy**: Update ECS services with new images
-5. **Verify**: Health checks and smoke tests
-6. **Rollback**: Automatic rollback on health check failures
+**Vercel (Frontend)**:
+1. Connect GitHub repository to Vercel
+2. Configure build command: `npm run build` (if needed)
+3. Set environment variables in Vercel dashboard
+4. Auto-deploy on push to main branch
+
+**Railway/Render (API + Workers)**:
+1. Connect GitHub repository to Railway/Render
+2. Create two services: `api` and `worker`
+3. Configure Dockerfiles for each service
+4. Set environment variables in platform dashboard
+5. Auto-deploy on push to main branch
+6. Health check endpoint: `GET /health`
+
+**Manual Deployment Steps**:
+```bash
+# 1. Push code to GitHub
+git push origin main
+
+# 2. Vercel auto-deploys frontend
+# 3. Railway/Render auto-deploys API + workers
+
+# 4. Verify deployment
+curl https://your-api.up.railway.app/health
+curl https://your-app.vercel.app
+
+# 5. Test video upload
+# Upload test video through UI
+# Check job status in Google Sheets
+```
 
 ### Deployment Documentation
 
 **Required Documentation** (per Requirement 9.5):
 
 1. **Infrastructure Requirements**:
-   - Minimum compute resources (CPU, memory, storage)
-   - Network requirements (bandwidth, ports)
-   - External service dependencies (AWS/GCP/Azure services)
-   - Estimated costs for different usage levels
+   - **Frontend**: Vercel account (free tier: 100GB bandwidth/month)
+   - **API + Workers**: Railway or Render account (free tier: 500 hours/month each)
+   - **Queue**: Upstash Redis account (free tier: 10,000 commands/day)
+   - **Storage**: Wasabi account (30-day free trial: 1TB, then $6.99/month)
+   - **Database**: Google Sheets (free, unlimited)
+   - **Estimated costs**:
+     - MVP first 30 days (free trial): $0/month
+     - After trial (light usage): $7-13/month (Wasabi + potential Railway upgrade)
+     - Medium usage (1000-5000 videos/month): $20-50/month
+     - Heavy usage (>5000 videos/month): $100-300/month
 
 2. **Setup Procedures**:
-   - Step-by-step cloud infrastructure provisioning
-   - Environment variable configuration guide
-   - API key acquisition and setup for all external services
-   - Database/storage initialization
-   - Queue system setup
+   
+   **Step 1: Google Sheets Setup**
+   - Create new Google Spreadsheet
+   - Create sheets: `jobs`, `transcripts`, `api_keys`, `webhooks`
+   - Enable Google Sheets API in Google Cloud Console
+   - Create service account and download credentials JSON
+   - Share spreadsheet with service account email
+   
+   **Step 2: Wasabi Storage Setup**
+   - Create Wasabi account (30-day free trial, no credit card required)
+   - Create bucket: `video-automation-bucket` in us-east-1 region
+   - Generate access keys (Access Key ID + Secret Access Key)
+   - Configure CORS policy for video uploads
+   - Note: After 30-day trial, add credit card to continue ($6.99/month minimum)
+   
+   **Step 3: Upstash Redis Setup**
+   - Create Upstash account
+   - Create Redis database (free tier)
+   - Copy REST URL and REST Token
+   
+   **Step 4: External API Keys**
+   - OpenAI: Get API key for Whisper
+   - Google Gemini: Get API key from Google AI Studio
+   - Pexels: Get free API key from pexels.com/api
+   - Freesound: Get API key from freesound.org/apiv2
+   - YouTube: Set up OAuth2 credentials in Google Cloud Console
+   
+   **Step 5: Railway Deployment**
+   - Connect GitHub repository to Railway
+   - Create two services: `api` and `worker`
+   - Set Dockerfile path for each service
+   - Add all environment variables
+   - Deploy both services
+   
+   **Step 6: Vercel Deployment**
+   - Connect GitHub repository to Vercel
+   - Configure `vercel.json` with API proxy rules
+   - Add environment variables (API_BASE_URL)
+   - Deploy frontend
 
 3. **Configuration Guide**:
-   - Complete list of environment variables with descriptions
-   - Example configuration files for different deployment scenarios
-   - Security best practices (secrets management, IAM roles)
-   - Scaling configuration parameters
+   - See "Environment Variables" section above for complete list
+   - **Security best practices**:
+     - Never commit `.env` files to git
+     - Use platform secret management (Railway/Vercel environment variables)
+     - Rotate API keys every 90 days
+     - Use HTTPS only for all endpoints
+     - Validate webhook URLs before registration
+   - **Scaling configuration**:
+     - `MAX_CONCURRENT_JOBS`: Start with 5, increase based on worker capacity
+     - `API_RATE_LIMIT`: Start with 100/hour, adjust based on abuse patterns
+     - Worker instances: Start with 1, add more when queue depth > 10
 
 4. **Operational Procedures**:
-   - Monitoring setup and dashboard configuration
-   - Log aggregation and analysis
-   - Backup and disaster recovery procedures
-   - Troubleshooting common deployment issues
-   - Performance tuning guidelines
+   - **Monitoring**:
+     - Check Railway/Render dashboard for CPU/memory usage
+     - Monitor Upstash Redis command count
+     - Track Cloudflare R2 storage usage
+     - Review Google Sheets for job status and errors
+   - **Troubleshooting**:
+     - Cold starts: First request after inactivity may take 30-60s
+     - Rate limits: Check Upstash dashboard for Redis command usage
+     - Storage full: Clean up old videos from R2 bucket
+     - Worker crashes: Check Railway/Render logs for errors
+   - **Backup**:
+     - Google Sheets: Automatic backup by Google
+     - R2 videos: Set lifecycle policy to archive after 30 days
+     - Configuration: Keep `.env.example` updated in git
+   - **Cost optimization**:
+     - Delete processed videos after YouTube upload
+     - Cache B-roll and sound effects to reduce API calls
+     - Use Cloudflare R2 (free egress) instead of S3 (paid egress)
+     - Monitor free tier usage and upgrade only when needed
 
-**Design Rationale**: Comprehensive deployment documentation ensures the system can be reliably deployed and maintained by different teams, reducing operational risk and enabling consistent deployments across environments.
+**Design Rationale**: This serverless/PaaS architecture minimizes operational overhead and costs for MVP deployment while maintaining scalability. The free tier optimization allows testing and initial user acquisition without financial risk, and the architecture can scale incrementally as usage grows.

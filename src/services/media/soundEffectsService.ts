@@ -126,10 +126,10 @@ class SoundEffectsService {
   }
 
   /**
-   * Download sound effect and cache it
+   * Download sound effect and cache it (with Wasabi storage integration)
    */
   async downloadSoundEffect(effect: SoundEffect): Promise<SoundEffectDownloadResult> {
-    // Check if already cached
+    // Check if already cached locally
     const cachedPath = await this.getCachedSoundPath(effect.url);
     if (cachedPath) {
       logger.info(`Using cached sound effect: ${cachedPath}`);
@@ -164,6 +164,16 @@ class SoundEffectsService {
       }
 
       logger.info(`Sound effect downloaded: ${localPath} (${stats.size} bytes)`);
+
+      // Upload to Wasabi storage for deduplication tracking
+      try {
+        const wasabiStorageService = (await import('../storage/wasabiStorageService')).default;
+        await wasabiStorageService.uploadSoundEffect(localPath, effect.category);
+        logger.info(`Sound effect uploaded to Wasabi storage for tracking`);
+      } catch (uploadError) {
+        logger.warn(`Failed to upload sound effect to Wasabi (non-critical): ${uploadError}`);
+        // Continue even if upload fails - local cache still works
+      }
 
       return { localPath, effect };
     } catch (error) {

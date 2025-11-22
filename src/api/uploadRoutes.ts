@@ -37,6 +37,9 @@ const upload = multer({
   },
 });
 
+// Increase timeout for long-running video processing
+const PROCESSING_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+
 const videoUploadHandler = new VideoUploadHandler();
 
 export const uploadRouter = express.Router();
@@ -65,10 +68,11 @@ uploadRouter.post(
 
       const result = await videoUploadHandler.uploadVideo(req.file, userId);
 
+      // Return response immediately (processing happens in background)
       res.status(200).json({
         success: true,
         data: result,
-        message: 'Video uploaded successfully and queued for processing',
+        message: 'Video uploaded successfully. Processing started in background.',
       });
       
       logger.info('Upload response sent', {
@@ -103,6 +107,10 @@ uploadRouter.get(
       // Get detailed status from pipeline orchestrator
       const status = await getStatus(jobId);
 
+      // Get video URL from uploading stage if completed
+      const uploadingStage = job.processingStages.find(s => s.stage === 'uploading');
+      const videoUrl = uploadingStage?.outputPath;
+
       res.status(200).json({
         success: true,
         data: {
@@ -112,7 +120,7 @@ uploadRouter.get(
           progress: status.progress,
           createdAt: job.createdAt,
           updatedAt: job.updatedAt,
-          youtubeUrl: job.finalYoutubeUrl,
+          videoUrl: videoUrl,
           error: job.error,
         },
       });
@@ -154,6 +162,10 @@ uploadRouter.get(
         : 0;
       const estimatedTimeRemaining = Math.max(0, estimatedTotalTime - elapsedTime);
 
+      // Get video URL from uploading stage if completed
+      const uploadingStage = job.processingStages.find(s => s.stage === 'uploading');
+      const videoUrl = uploadingStage?.outputPath;
+
       res.status(200).json({
         success: true,
         data: {
@@ -165,7 +177,7 @@ uploadRouter.get(
           estimatedTimeRemainingMs: estimatedTimeRemaining,
           createdAt: job.createdAt,
           updatedAt: job.updatedAt,
-          youtubeUrl: job.finalYoutubeUrl,
+          videoUrl: videoUrl,
           error: job.error,
         },
       });
@@ -177,9 +189,8 @@ uploadRouter.get(
 
 /**
  * GET /api/jobs/:jobId/download
- * Download the final processed video file
- * Streams the final video file to the user
- * Sets proper content-type and headers
+ * Get download URL for the final processed video
+ * Returns a signed URL from Wasabi storage (valid for 7 days)
  */
 uploadRouter.get(
   '/jobs/:jobId/download',
@@ -204,71 +215,33 @@ uploadRouter.get(
         });
       }
 
-      // Find the rendering stage output (final video)
-      const renderingStage = job.processingStages.find(s => s.stage === 'rendering');
+      // Find the uploading stage output (Wasabi URL)
+      const uploadingStage = job.processingStages.find(s => s.stage === 'uploading');
       
-      if (!renderingStage || !renderingStage.outputPath) {
+      if (!uploadingStage || !uploadingStage.outputPath) {
         return res.status(404).json({
           success: false,
-          error: 'Final video file not found',
+          error: 'Video URL not found. Video may not have been uploaded to storage.',
         });
       }
 
-      const videoPath = renderingStage.outputPath;
+      const videoUrl = uploadingStage.outputPath;
 
-      // Check if file exists
-      if (!fs.existsSync(videoPath)) {
-        logger.error('Video file not found on disk', {
-          jobId,
-          videoPath,
-        });
-        return res.status(404).json({
-          success: false,
-          error: 'Video file not found on disk',
-        });
-      }
-
-      // Get file stats
-      const stats = fs.statSync(videoPath);
-      const filename = `${jobId}_final.mp4`;
-
-      // Set response headers for video download
-      res.setHeader('Content-Type', 'video/mp4');
-      res.setHeader('Content-Length', stats.size);
-      res.setHeader(
-        'Content-Disposition',
-        `attachment; filename="${filename}"`
-      );
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-
-      logger.info('Starting video download', {
+      logger.info('Returning video download URL', {
         jobId,
-        videoPath,
-        fileSize: stats.size,
-        filename,
+        videoUrl,
       });
 
-      // Stream the file
-      const fileStream = fs.createReadStream(videoPath);
-
-      fileStream.on('error', (error) => {
-        logger.error('Error streaming video file', {
+      // Return the signed URL
+      res.status(200).json({
+        success: true,
+        data: {
           jobId,
-          videoPath,
-          error: error.message,
-        });
-        
-        if (!res.headersSent) {
-          res.status(500).json({
-            success: false,
-            error: 'Error streaming video file',
-          });
-        }
+          downloadUrl: videoUrl,
+          expiresIn: '7 days',
+          message: 'Download URL is valid for 7 days',
+        },
       });
-
-      fileStream.pipe(res);
     } catch (error) {
       next(error);
     }

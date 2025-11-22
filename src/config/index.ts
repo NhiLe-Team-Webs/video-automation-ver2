@@ -29,13 +29,6 @@ export interface SystemConfig {
     apiProvider: 'pixabay' | 'freesound';
     cacheEnabled: boolean;
   };
-  youtube: {
-    clientId: string;
-    clientSecret: string;
-    redirectUri: string;
-    accessToken?: string;
-    refreshToken?: string;
-  };
   notifications: {
     method: 'email' | 'webhook' | 'sms' | 'telegram';
     endpoint: string;
@@ -49,10 +42,12 @@ export interface SystemConfig {
     tempDir: string;
     cacheDir: string;
     sfxCacheDir: string;
-  };
-  redis: {
-    host: string;
-    port: number;
+    wasabi: {
+      bucket: string;
+      region: string;
+      accessKeyId: string;
+      secretAccessKey: string;
+    };
   };
   server: {
     port: number;
@@ -94,13 +89,6 @@ export const config: SystemConfig = {
     apiProvider: (process.env.SOUND_EFFECTS_PROVIDER || 'pixabay') as 'pixabay' | 'freesound',
     cacheEnabled: process.env.SOUND_EFFECTS_CACHE_ENABLED !== 'false',
   },
-  youtube: {
-    clientId: getEnvVar('YOUTUBE_CLIENT_ID'),
-    clientSecret: getEnvVar('YOUTUBE_CLIENT_SECRET'),
-    redirectUri: getEnvVar('YOUTUBE_REDIRECT_URI'),
-    accessToken: process.env.YOUTUBE_ACCESS_TOKEN,
-    refreshToken: process.env.YOUTUBE_REFRESH_TOKEN,
-  },
   notifications: {
     method: (process.env.NOTIFICATION_METHOD || 'webhook') as 'email' | 'webhook' | 'sms' | 'telegram',
     endpoint: process.env.NOTIFICATION_ENDPOINT || '',
@@ -116,10 +104,12 @@ export const config: SystemConfig = {
     tempDir: path.resolve(getEnvVar('TEMP_DIR', './temp')),
     cacheDir: path.resolve(getEnvVar('CACHE_DIR', './cache')),
     sfxCacheDir: path.resolve(getEnvVar('SFX_CACHE_DIR', './cache/sfx')),
-  },
-  redis: {
-    host: getEnvVar('REDIS_HOST', 'localhost'),
-    port: parseInt(getEnvVar('REDIS_PORT', '6379'), 10),
+    wasabi: {
+      bucket: getEnvVar('WASABI_BUCKET'),
+      region: getEnvVar('WASABI_REGION', 'us-east-1'),
+      accessKeyId: getEnvVar('WASABI_ACCESS_KEY_ID'),
+      secretAccessKey: getEnvVar('WASABI_SECRET_ACCESS_KEY'),
+    },
   },
   server: {
     port: parseInt(getEnvVar('PORT', '3000'), 10),

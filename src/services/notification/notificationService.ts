@@ -8,7 +8,7 @@ const logger = createLogger('NotificationService');
 export interface NotificationMessage {
   type: 'completion' | 'error' | 'status';
   jobId: string;
-  youtubeUrl?: string;
+  videoUrl?: string;
   message: string;
 }
 
@@ -155,8 +155,8 @@ export class NotificationService {
     text += `📋 Job ID: \`${message.jobId}\`\n`;
     text += `💬 ${message.message}\n`;
 
-    if (message.youtubeUrl) {
-      text += `\n🎬 [Xem video trên YouTube](${message.youtubeUrl})`;
+    if (message.videoUrl) {
+      text += `\n🎬 [Tải video tại đây](${message.videoUrl})`;
     }
 
     return text;

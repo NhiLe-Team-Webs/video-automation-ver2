@@ -135,15 +135,17 @@ This document specifies requirements for an automated YouTube video editing syst
 
 ### Requirement 9
 
-**User Story:** As a system administrator, I want to deploy the system to cloud infrastructure, so that it can handle multiple video processing jobs reliably and scale as needed.
+**User Story:** As a system administrator, I want to deploy the system to serverless/PaaS infrastructure with minimal cost, so that I can run an MVP without expensive cloud bills.
 
 #### Acceptance Criteria
 
-1. THE System SHALL be deployable to cloud infrastructure with documented deployment procedures
-2. THE System SHALL include configuration files for environment variables including LLM API keys
-3. THE System SHALL run stably under normal operating conditions without manual intervention
-4. WHEN multiple videos are uploaded concurrently THEN the System SHALL queue and process them without conflicts
-5. THE System SHALL include deployment documentation specifying infrastructure requirements and setup steps
+1. THE System SHALL be deployable to serverless or PaaS platforms (Vercel, Railway, Fly.io, Render) with documented procedures
+2. THE System SHALL optimize for free tier constraints including cold starts, compute limits, and storage quotas
+3. THE System SHALL separate frontend, API, and worker components for independent scaling
+4. WHEN multiple videos are uploaded concurrently THEN the System SHALL queue and process them without conflicts using serverless-compatible queue systems
+5. THE System SHALL include deployment documentation for Vercel (frontend), Railway/Render (API + workers), Cloudflare R2/Backblaze B2 (storage), and Upstash Redis (queue)
+6. THE System SHALL support graceful degradation when free tier limits are reached
+7. THE System SHALL use object storage (R2, B2, S3) instead of local filesystem for video files
 
 ### Requirement 10
 
@@ -264,3 +266,51 @@ This document specifies requirements for an automated YouTube video editing syst
 3. WHEN applying filters THEN the System SHALL enhance contrast and saturation within professional limits to avoid oversaturation
 4. WHEN the video resolution is below 1080p THEN the System SHALL apply sharpening filters to improve perceived quality
 5. WHEN rendering the final video THEN the System SHALL apply a subtle vignette effect to focus viewer attention on the center content
+
+### Requirement 20
+
+**User Story:** As an API consumer, I want to authenticate using API keys, so that I can programmatically access the video automation service.
+
+#### Acceptance Criteria
+
+1. WHEN a user requests an API key THEN the System SHALL generate a unique key with format `va_{random_64_hex_chars}`
+2. WHEN an API request is made THEN the System SHALL validate the API key from the `X-API-Key` header
+3. WHEN an invalid API key is provided THEN the System SHALL reject the request with HTTP 401 status
+4. WHEN a valid API key is used THEN the System SHALL track usage count and last used timestamp
+5. WHEN a user revokes an API key THEN the System SHALL immediately invalidate it for future requests
+
+### Requirement 21
+
+**User Story:** As an API consumer, I want rate limiting protection, so that the service remains available and prevents abuse.
+
+#### Acceptance Criteria
+
+1. WHEN API requests exceed 100 per hour per API key THEN the System SHALL reject additional requests with HTTP 429 status
+2. WHEN rate limit is reached THEN the System SHALL include `Retry-After` header indicating when requests can resume
+3. WHEN rate limit resets THEN the System SHALL allow requests to proceed normally
+4. THE System SHALL apply rate limits per API key independently
+5. THE System SHALL exclude health check endpoints from rate limiting
+
+### Requirement 22
+
+**User Story:** As an API consumer, I want webhook notifications for job completion, so that I can integrate video processing into my workflow without polling.
+
+#### Acceptance Criteria
+
+1. WHEN a user registers a webhook URL THEN the System SHALL validate the URL format and store it
+2. WHEN a job completes successfully THEN the System SHALL send a POST request to the registered webhook with job details and YouTube URL
+3. WHEN a job fails THEN the System SHALL send a POST request to the webhook with error information
+4. WHEN webhook delivery fails THEN the System SHALL retry up to 3 times with exponential backoff
+5. WHEN webhook delivery fails after all retries THEN the System SHALL log the failure and mark the webhook as inactive
+
+### Requirement 23
+
+**User Story:** As a system administrator, I want API keys and webhooks stored in Google Sheets, so that I can leverage existing free storage infrastructure.
+
+#### Acceptance Criteria
+
+1. WHEN an API key is generated THEN the System SHALL store the hashed key, user ID, name, and metadata in Google Sheets
+2. WHEN validating an API key THEN the System SHALL query Google Sheets by hashed key value
+3. WHEN a webhook is registered THEN the System SHALL store the webhook URL, user ID, and status in Google Sheets
+4. WHEN API key usage is tracked THEN the System SHALL update the usage count and last used timestamp in Google Sheets
+5. THE System SHALL use a separate sheet tab for API keys and another for webhooks within the same spreadsheet

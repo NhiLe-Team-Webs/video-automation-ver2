@@ -348,95 +348,206 @@
 
   - Ensure all tests pass, ask the user if questions arise.
 
-## Phase 5: AWS Deployment Setup
+## Phase 5: Serverless/PaaS Deployment Setup
 
-- [-] 22. Create AWS deployment guide (detailed step-by-step)
+- [ ] 22. Set up object storage (Wasabi - recommended for MVP)
 
+  - Create Wasabi account (30-day free trial, 1TB storage, no credit card)
+  - Create bucket: `video-automation-bucket` in us-east-1 region
+  - Generate access keys (Access Key ID + Secret Access Key)
+  - Configure CORS policy for video uploads
+  - Implement ObjectStorageService with S3-compatible API (Wasabi uses S3 API)
+  - Test upload/download/signed URL generation
+  - Note: After 30-day trial, add credit card for $6.99/month minimum
+  - _Requirements: 9.1, 9.7_
 
+- [ ]* 22.1 Write property test for video upload-download round-trip
+  - **Property 79: Video upload-download round-trip**
+  - **Validates: Requirements 9.7**
 
+- [ ]* 22.2 Write property test for signed URL validity
+  - **Property 80: Signed URL validity**
+  - **Validates: Requirements 9.7**
 
-  - Document AWS account setup requirements
-  - Create IAM role configuration for EC2/ECS
-  - Document S3 bucket setup for video storage
-  - Document RDS setup for job database (optional, can use local SQLite first)
-  - Document ElastiCache Redis setup for job queue
-  - Create CloudWatch logging configuration
-  - _Requirements: 9.1, 9.2, 9.5_
+- [ ] 23. Set up Upstash Redis for job queue
 
+  - Create Upstash account and Redis database (free tier)
+  - Copy REST URL and REST Token
+  - Update queue service to use Upstash Redis REST API
+  - Test job queue operations (enqueue, dequeue, status)
+  - _Requirements: 9.1, 9.4_
 
-- [ ] 22.1 Create AWS infrastructure as code (CloudFormation or Terraform)
+- [ ] 24. Implement API key management service
 
+  - Create ApiKeyService with generate, validate, revoke methods
+  - Implement SHA-256 hashing for key storage
+  - Add API key storage in Google Sheets (new sheet tab)
+  - Implement usage tracking (count, last used timestamp)
+  - Create API endpoints: POST /api/v1/auth/keys, GET /api/v1/auth/keys, DELETE /api/v1/auth/keys/:id
+  - _Requirements: 20.1, 20.2, 20.3, 20.4, 20.5, 23.1, 23.2_
 
-  - Define S3 buckets for raw and processed videos
-  - Define IAM roles and policies
-  - Define security groups for EC2/ECS
-  - Define RDS database (if using)
-  - Define ElastiCache Redis cluster
-  - _Requirements: 9.1, 9.2_
+- [ ]* 24.1 Write property test for API key format
+  - **Property 66: API key format**
+  - **Validates: Requirements 20.1**
 
-- [ ] 23. Create Docker configuration for AWS deployment
+- [ ]* 24.2 Write property test for API key validation
+  - **Property 67: API key validation**
+  - **Validates: Requirements 20.2, 20.3**
 
-  - Write Dockerfile for API server (Node.js)
-  - Write Dockerfile for worker nodes (Node.js + Python + FFmpeg)
-  - Create docker-compose.yml for local Docker testing
-  - Create ECR (Elastic Container Registry) push scripts
-  - _Requirements: 9.1, 9.2_
+- [ ]* 24.3 Write property test for API key usage tracking
+  - **Property 68: API key usage tracking**
+  - **Validates: Requirements 20.4**
 
-- [ ] 24. Create ECS deployment configuration
+- [ ]* 24.4 Write property test for API key revocation
+  - **Property 69: API key revocation**
+  - **Validates: Requirements 20.5**
 
-  - Create ECS task definition for API server
-  - Create ECS task definition for worker nodes
-  - Configure auto-scaling policies
-  - Set up CloudWatch alarms for monitoring
-  - Create deployment scripts for pushing to ECS
-  - _Requirements: 9.1, 9.2, 9.5_
+- [ ]* 24.5 Write property test for API key storage round-trip
+  - **Property 70: API key storage round-trip**
+  - **Validates: Requirements 23.1, 23.2**
 
-- [ ] 25. Set up AWS environment variables and secrets
+- [ ] 25. Implement rate limiting middleware
 
-  - Create AWS Secrets Manager entries for API keys
-  - Configure environment variables for ECS tasks
-  - Set up S3 bucket policies for video access
-  - Configure CloudFront CDN for video delivery (optional)
-  - _Requirements: 9.2, 10.4_
+  - Create RateLimiter using Upstash Redis
+  - Implement sliding window rate limiting (100 requests/hour per API key)
+  - Add rate limit middleware to API routes
+  - Return HTTP 429 with Retry-After header when exceeded
+  - Exclude health check endpoints from rate limiting
+  - _Requirements: 21.1, 21.2, 21.3, 21.4, 21.5_
 
-- [ ] 26. Create AWS deployment documentation
+- [ ]* 25.1 Write property test for rate limit enforcement
+  - **Property 71: Rate limit enforcement**
+  - **Validates: Requirements 21.1**
 
-  - Step-by-step guide for deploying to AWS
-  - Document how to monitor jobs in CloudWatch
-  - Document how to scale up/down worker nodes
-  - Document how to troubleshoot common issues
-  - Document cost estimation and optimization tips
-  - _Requirements: 9.5_
+- [ ]* 25.2 Write property test for rate limit reset
+  - **Property 72: Rate limit reset**
+  - **Validates: Requirements 21.3**
 
-- [ ] 27. Checkpoint - AWS deployment ready
+- [ ]* 25.3 Write property test for independent rate limits
+  - **Property 73: Independent rate limits**
+  - **Validates: Requirements 21.4**
 
-  - Ensure all AWS infrastructure is set up
-  - Test deploying to AWS staging environment
+- [ ] 26. Implement webhook service
+
+  - Create WebhookService with register, send, retry methods
+  - Add webhook storage in Google Sheets (new sheet tab)
+  - Implement HMAC-SHA256 signature for webhook security
+  - Add retry logic with exponential backoff (3 attempts)
+  - Create webhook endpoints: POST /api/v1/webhooks, GET /api/v1/webhooks, DELETE /api/v1/webhooks/:id
+  - Integrate webhook notifications into pipeline orchestrator
+  - _Requirements: 22.1, 22.2, 22.3, 22.4, 22.5, 23.3_
+
+- [ ]* 26.1 Write property test for webhook URL validation
+  - **Property 74: Webhook URL validation**
+  - **Validates: Requirements 22.1**
+
+- [ ]* 26.2 Write property test for webhook delivery on completion
+  - **Property 75: Webhook delivery on completion**
+  - **Validates: Requirements 22.2**
+
+- [ ]* 26.3 Write property test for webhook delivery on failure
+  - **Property 76: Webhook delivery on failure**
+  - **Validates: Requirements 22.3**
+
+- [ ]* 26.4 Write property test for webhook retry logic
+  - **Property 77: Webhook retry logic**
+  - **Validates: Requirements 22.4**
+
+- [ ]* 26.5 Write property test for webhook storage round-trip
+  - **Property 78: Webhook storage round-trip**
+  - **Validates: Requirements 23.3**
+
+- [ ] 27. Update video upload/download to use object storage
+
+  - Modify upload handler to store videos in Wasabi instead of local filesystem
+  - Update all pipeline stages to read/write from Wasabi object storage
+  - Implement cleanup: delete raw videos after processing to save storage costs
+  - Generate signed URLs for final video download
+  - Configure lifecycle policies to auto-delete old videos after 30 days
+  - _Requirements: 9.7_
+
+- [ ] 28. Create Railway/Render deployment configuration
+
+  - Create Dockerfile for API server (optimized for Railway/Render)
+  - Create Dockerfile for worker service (with Python + FFmpeg)
+  - Create railway.json or render.yaml configuration files
+  - Document environment variable setup
+  - Create deployment guide with step-by-step instructions
+  - _Requirements: 9.1, 9.5_
+
+- [ ] 29. Create Vercel frontend deployment
+
+  - Create vercel.json with API proxy configuration
+  - Configure build settings for static frontend
+  - Set up environment variables (API_BASE_URL)
+  - Test frontend deployment and API proxy
+  - _Requirements: 9.1, 9.3_
+
+- [ ] 30. Checkpoint - Deployment infrastructure ready
+
+  - Test object storage upload/download
+  - Test Redis queue operations
+  - Test API key generation and validation
+  - Test rate limiting
+  - Test webhook delivery
   - Ask the user if questions arise.
 
 ## Phase 6: Production Deployment & Monitoring
 
-- [ ] 28. Deploy to AWS production
+- [ ] 31. Deploy to Railway/Render
 
-  - Push Docker images to ECR
-  - Deploy API server to ECS
-  - Deploy worker nodes to ECS
-  - Configure load balancer (ALB)
-  - Set up domain name and SSL certificate
+  - Connect GitHub repository to Railway/Render
+  - Create API service with Dockerfile
+  - Create worker service with Dockerfile
+  - Configure environment variables in platform dashboard
+  - Deploy both services and verify health checks
   - _Requirements: 9.1, 9.2_
 
-- [ ] 29. Set up monitoring and alerting
+- [ ] 32. Deploy frontend to Vercel
 
-  - Configure CloudWatch dashboards
-  - Set up SNS alerts for errors
-  - Configure log aggregation
-  - Set up performance monitoring
-  - _Requirements: 9.1, 9.5_
+  - Connect GitHub repository to Vercel
+  - Configure vercel.json with production API URL
+  - Deploy frontend and test video upload flow
+  - _Requirements: 9.1, 9.3_
 
-- [ ] 30. Final checkpoint - Production ready
+- [ ] 33. Set up monitoring and alerting
 
-  - Test complete pipeline in production
-  - Verify all monitoring is working
+  - Configure Railway/Render dashboard monitoring
+  - Set up Upstash Redis monitoring
+  - Configure email/Discord/Slack alerts for errors
+  - Set up UptimeRobot for uptime monitoring (free tier)
+  - Create Google Sheets dashboard for job tracking
+  - _Requirements: 9.5_
+
+- [ ]* 33.1 Write property test for free tier quota monitoring
+  - **Property 82: Free tier quota monitoring**
+  - **Validates: Requirements 9.2, 9.6**
+
+- [ ] 34. Test complete pipeline in production
+
+  - Upload test video through production UI
+  - Verify all pipeline stages execute successfully
+  - Verify YouTube link is generated and accessible
+  - Test API key authentication
+  - Test rate limiting
+  - Test webhook notifications
+  - Verify graceful degradation when approaching free tier limits
+  - _Requirements: 9.2, 9.6_
+
+- [ ] 35. Create production documentation
+
+  - Document production URLs (frontend, API)
+  - Document how to monitor jobs and errors
+  - Document how to scale up when needed
+  - Document cost optimization strategies
+  - Document troubleshooting guide for common issues
+  - _Requirements: 9.5_
+
+- [ ] 36. Final checkpoint - Production ready
+
+  - Verify all services are running
+  - Verify monitoring is working
+  - Verify documentation is complete
   - Ask the user if questions arise.
 
 ## Phase 7: Professional Editing Orchestration
@@ -557,7 +668,8 @@
   - **Property 50: Consistent transition types**
   - **Validates: Requirements 16.4**
 
-- [-] 36. Update Remotion rendering pipeline
+- [ ] 36. Update Remotion rendering pipeline
+
 
 
 

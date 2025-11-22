@@ -147,6 +147,8 @@ export class RemotionRenderingService {
         codec: 'h264',
         outputLocation: input.outputPath,
         inputProps: compositionData as unknown as Record<string, unknown>,
+        // Limit concurrency to prevent "too many open files" error on Windows
+        concurrency: 2, // Reduce from default (50% of CPU cores) to 2
         onProgress: ({ progress, renderedFrames, encodedFrames }) => {
           if (renderedFrames % 100 === 0 || renderedFrames === 0) {
             logger.info('Remotion render progress', {

@@ -1,6 +1,6 @@
-# YouTube Video Automation System
+# Video Automation System
 
-Automated YouTube video editing system that transforms raw video uploads into professionally edited videos.
+Automated video editing system that transforms raw video uploads into professionally edited videos with cloud storage delivery.
 
 ## Project Structure
 
@@ -70,13 +70,15 @@ cp .env.local.example .env
 **5 Required Services:**
 - ✅ Gemini API (AI editing plan)
 - ✅ Pexels API (B-roll footage)
+- ✅ Pixabay API (sound effects)
 - ✅ Google Sheets API (transcript storage)
-- ✅ YouTube API (video upload)
-- ✅ Whisper (local transcription)
+- ✅ Wasabi Storage (video storage & delivery)
+- ✅ Whisper (local transcription - no API key needed)
 
 **Documentation:**
 - 📖 [Local Testing Guide](docs/LOCAL_TESTING_GUIDE.md) - Complete setup and testing instructions
 - 🔧 [Setup Instructions](docs/SETUP_INSTRUCTION.md) - Detailed API configuration
+- ☁️ [Wasabi Storage Setup](docs/WASABI_SETUP.md) - Object storage configuration
 - 🧪 [Testing Pipeline Stages](docs/TESTING_PIPELINE_STAGES.md) - Test individual components
 
 ### Detailed Setup

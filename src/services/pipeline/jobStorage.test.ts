@@ -70,15 +70,15 @@ describe('Job Storage Service', () => {
     expect(job?.error?.message).toBe('Transcription failed');
   });
 
-  it('should set YouTube URL', () => {
+  it('should set video URL', () => {
     jobStorage.createJob('job-6', 'user-6', mockMetadata);
     
-    const youtubeUrl = 'https://www.youtube.com/watch?v=abc123';
-    jobStorage.setYoutubeUrl('job-6', youtubeUrl);
+    const videoUrl = 'https://s3.us-east-1.wasabisys.com/bucket/video.mp4';
+    jobStorage.setVideoUrl('job-6', videoUrl);
     
     const job = jobStorage.getJob('job-6');
     
-    expect(job?.finalYoutubeUrl).toBe(youtubeUrl);
+    expect(job?.finalYoutubeUrl).toBe(videoUrl);
   });
 
   it('should get jobs by user ID', () => {

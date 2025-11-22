@@ -31,8 +31,8 @@ export * from './preview';
 // Rendering
 export * from './rendering';
 
-// YouTube
-export * from './youtube';
+// Storage
+export * from './storage/wasabiStorageService';
 
 // Notification
 export * from './notification';

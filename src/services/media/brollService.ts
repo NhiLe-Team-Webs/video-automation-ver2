@@ -116,10 +116,10 @@ class BrollService {
   }
 
   /**
-   * Download B-roll video and cache it
+   * Download B-roll video and cache it (with Wasabi storage integration)
    */
-  async downloadVideo(video: BrollVideo): Promise<BrollDownloadResult> {
-    // Check if already cached
+  async downloadVideo(video: BrollVideo, searchTerm: string = ''): Promise<BrollDownloadResult> {
+    // Check if already cached locally
     const cachedPath = await this.getCachedVideoPath(video.url);
     if (cachedPath) {
       logger.info(`Using cached B-roll: ${cachedPath}`);
@@ -154,6 +154,16 @@ class BrollService {
       }
 
       logger.info(`B-roll downloaded: ${localPath} (${stats.size} bytes)`);
+
+      // Upload to Wasabi storage for deduplication tracking
+      try {
+        const wasabiStorageService = (await import('../storage/wasabiStorageService')).default;
+        await wasabiStorageService.uploadBroll(localPath, searchTerm || video.id);
+        logger.info(`B-roll uploaded to Wasabi storage for tracking`);
+      } catch (uploadError) {
+        logger.warn(`Failed to upload B-roll to Wasabi (non-critical): ${uploadError}`);
+        // Continue even if upload fails - local cache still works
+      }
 
       return { localPath, video };
     } catch (error) {
@@ -211,13 +221,15 @@ class BrollService {
     );
 
     // Download videos until we have enough duration
-    for (const video of uniqueVideos) {
+    for (let i = 0; i < uniqueVideos.length; i++) {
+      const video = uniqueVideos[i];
       if (totalDuration >= targetDuration) {
         break;
       }
 
       try {
-        const result = await this.downloadVideo(video);
+        const searchTerm = searchTerms[i % searchTerms.length] || '';
+        const result = await this.downloadVideo(video, searchTerm);
         downloadedVideos.push(result);
 
         const clipDuration = Math.min(maxClipDuration, video.duration);

@@ -9,7 +9,7 @@ import { HighlightDetectionService } from '../content-analysis/highlightDetectio
 import { EditingPlanService } from '../content-analysis/editingPlanService';
 import brollService from '../media/brollService';
 import remotionRenderingService from '../rendering/remotionRenderingService';
-import { YouTubeUploadService } from '../youtube/youtubeUploadService';
+import wasabiStorageService from '../storage/wasabiStorageService';
 import { notificationService } from '../notification';
 import path from 'path';
 
@@ -17,7 +17,7 @@ const logger = createLogger('PipelineOrchestrator');
 
 export interface ProcessingResult {
   jobId: string;
-  youtubeUrl?: string;
+  videoUrl?: string;
   status: 'completed' | 'failed';
   error?: string;
 }
@@ -180,6 +180,20 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       
       const autoEditorResult = await autoEditorService.processVideo(uploadedStage.outputPath);
       autoEditedVideoPath = autoEditorResult.outputPath;
+      
+      // Upload edited video to Wasabi
+      try {
+        const uploadResult = await wasabiStorageService.uploadVideo(autoEditedVideoPath, jobId, 'edited');
+        logger.info('Auto-edited video uploaded to Wasabi', {
+          jobId,
+          wasabiKey: uploadResult.key,
+        });
+      } catch (wasabiError) {
+        logger.warn('Failed to upload auto-edited video to Wasabi (non-critical)', {
+          jobId,
+          error: wasabiError instanceof Error ? wasabiError.message : String(wasabiError),
+        });
+      }
       
       await jobStorage.updateStage(
         jobId,
@@ -471,55 +485,41 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       return await handleStageError(jobId, 'rendering', error, job.userId);
     }
 
-    // Stage 8: YouTube Upload - Upload final video
-    logger.info('📺 Starting YouTube Upload stage', { jobId });
+    // Stage 8: Wasabi Storage Upload - Upload final video to storage
+    logger.info('☁️ Starting Wasabi Storage Upload stage', { jobId });
     await jobStorage.updateStage(jobId, 'uploading', 'in-progress');
     
-    let youtubeUrl: string;
+    let videoUrl: string;
     try {
-      const youtubeService = new YouTubeUploadService();
-      
-      // TODO: Get OAuth credentials from config or user
-      // For now, this will fail if credentials are not set
-      // In production, credentials should be managed separately
-      
-      logger.info('⬆️ Uploading video to YouTube...', {
+      logger.info('⬆️ Uploading video to Wasabi storage...', {
         jobId,
         videoPath: finalVideoPath
       });
       
-      const uploadResult = await youtubeService.upload(
+      // Upload final video to Wasabi
+      const uploadResult = await wasabiStorageService.uploadVideo(
         finalVideoPath,
-        {
-          title: `Automated Video - ${jobId}`,
-          description: 'Automatically edited and uploaded video',
-          privacyStatus: 'private',
-        },
-        (progress) => {
-          if (progress.percentage % 10 === 0 || progress.percentage === 100) {
-            logger.info('📤 Upload progress', {
-              jobId,
-              percentage: `${progress.percentage}%`,
-              bytesUploaded: progress.bytesUploaded,
-              totalBytes: progress.totalBytes
-            });
-          }
-        }
+        jobId,
+        'final'
       );
       
-      youtubeUrl = uploadResult.url;
+      // Generate signed URL for download (valid for 7 days)
+      videoUrl = await wasabiStorageService.getSignedUrl(uploadResult.key, {
+        expiresIn: 7 * 24 * 60 * 60, // 7 days
+      });
       
       await jobStorage.updateStage(
         jobId,
         'uploading',
         'completed',
-        youtubeUrl
+        videoUrl
       );
 
-      logger.info('✅ YouTube Upload stage completed', {
+      logger.info('✅ Wasabi Storage Upload stage completed', {
         jobId,
-        youtubeUrl,
-        videoId: uploadResult.videoId
+        videoUrl,
+        key: uploadResult.key,
+        size: `${(uploadResult.size / (1024 * 1024)).toFixed(2)} MB`
       });
     } catch (error) {
       return await handleStageError(jobId, 'uploading', error, job.userId);
@@ -531,14 +531,14 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
 
     logger.info('🎉 Video processing pipeline completed successfully!', {
       jobId,
-      youtubeUrl,
+      videoUrl,
       totalStages: 8,
       finalVideoPath
     });
     
     logger.info('═══════════════════════════════════════════════════════');
     logger.info('✅ PIPELINE COMPLETE!');
-    logger.info(`📺 YouTube URL: ${youtubeUrl}`);
+    logger.info(`☁️ Video URL: ${videoUrl}`);
     logger.info(`🎬 Job ID: ${jobId}`);
     logger.info('═══════════════════════════════════════════════════════');
 
@@ -547,8 +547,8 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
       await notificationService.notifyUser(job.userId, {
         type: 'completion',
         jobId,
-        youtubeUrl,
-        message: `Your video has been successfully processed and uploaded to YouTube!`,
+        videoUrl,
+        message: `Your video has been successfully processed and uploaded to storage!`,
       });
     } catch (notifError) {
       logger.error('Failed to send completion notification', {
@@ -560,7 +560,7 @@ export async function processVideo(jobId: string): Promise<ProcessingResult> {
 
     return {
       jobId,
-      youtubeUrl,
+      videoUrl,
       status: 'completed',
     };
   } catch (error) {
