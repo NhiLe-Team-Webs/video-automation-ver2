@@ -383,7 +383,9 @@
   - Configure lifecycle policies to auto-delete old videos after 30 days
   - _Requirements: 9.7_
 
-- [ ] 25. Create Railway/Render deployment configuration
+- [ ] 25. Create Railway deployment configuration
+
+
 
   - Create Dockerfile for API server (optimized for Railway/Render)
   - Create Dockerfile for worker service (with Python + FFmpeg)
@@ -625,5 +627,74 @@
 
   - Upload test video with brand kit and verify all features
   - Verify final video is professionally edited with consistent style
+  - Ask the user if questions arise.
+
+## Phase 8: Export & Integration APIs
+
+- [ ] 43. Implement export and integration API endpoints
+
+  - Create exportRoutes.ts for external integrations
+  - Implement Google Sheets export service for SRT subtitles
+  - Create shareable link generation for videos and SRT files
+  - Implement webhook registration system for external apps
+  - Add API documentation for integration endpoints
+  - _Requirements: 1.4, 3.3, 8.2, 9.7_
+
+- [ ] 43.1 Create Google Sheets export endpoint
+
+  - Implement POST /api/export/sheets endpoint
+  - Parse SRT file from job storage
+  - Format subtitles for Google Sheets (timestamp, text, duration columns)
+  - Use Google Sheets API to create/update spreadsheet
+  - Return shareable Google Sheets URL
+  - _Requirements: 3.3_
+
+- [ ] 43.2 Create shareable links endpoint
+
+  - Implement GET /api/jobs/:jobId/share endpoint
+  - Generate signed URLs for video download (7-day expiry)
+  - Generate signed URLs for SRT file download (7-day expiry)
+  - Return JSON with all shareable links and metadata
+  - _Requirements: 1.4, 9.7_
+
+- [ ] 43.3 Create SRT download endpoint
+
+  - Implement GET /api/jobs/:jobId/srt endpoint
+  - Support both raw SRT format and JSON format (query param: ?format=json)
+  - Return proper content-type headers
+  - _Requirements: 3.2_
+
+- [ ] 43.4 Implement webhook system
+
+  - Create webhook registration endpoint: POST /api/webhooks/register
+  - Store webhook URLs with job IDs and event types
+  - Implement webhook trigger on job completion/failure
+  - Add retry logic for failed webhook deliveries (3 attempts)
+  - Support events: "completed", "failed", "stage_completed"
+  - _Requirements: 1.5, 8.3_
+
+- [ ]* 43.5 Write property test for webhook delivery
+  - **Property 83: Webhook delivery on completion**
+  - **Validates: Requirements 8.3**
+
+- [ ]* 43.6 Write property test for SRT export format
+  - **Property 84: SRT export format validity**
+  - **Validates: Requirements 3.2, 3.3**
+
+- [ ] 44. Create integration documentation
+
+  - Document all export API endpoints with examples
+  - Create Zapier/Make.com integration guide
+  - Document webhook payload formats
+  - Add example code for common integrations (Notion, Slack, Discord)
+  - Create Postman collection for API testing
+  - _Requirements: 10.2_
+
+- [ ] 45. Checkpoint - Integration APIs complete
+
+  - Test Google Sheets export with sample job
+  - Test shareable link generation and access
+  - Test webhook delivery to test endpoint
+  - Verify API documentation is complete
   - Ask the user if questions arise.
 

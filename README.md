@@ -129,7 +129,36 @@ Bao gồm:
 - ✅ Tùy chỉnh pipeline
 - ✅ Tips & tricks
 
-## Docker Deployment
+## Deployment
+
+### Railway (Recommended - 5 Minutes)
+
+Deploy to production with Railway:
+
+```bash
+# 1. Push to GitHub
+git push origin main
+
+# 2. Connect to Railway
+# Visit: https://railway.app
+# Click "New Project" → "Deploy from GitHub"
+
+# 3. Set environment variables
+# Copy from .env.railway.example to Railway dashboard
+
+# 4. Deploy automatically! ✅
+```
+
+📖 **Quick Start**: [docs/RAILWAY_QUICKSTART.md](docs/RAILWAY_QUICKSTART.md)
+📖 **Full Guide**: [docs/RAILWAY_DEPLOYMENT.md](docs/RAILWAY_DEPLOYMENT.md)
+
+**Why Railway?**
+- ✅ Free tier ($5/month credit)
+- ✅ Auto-deploy from GitHub
+- ✅ Built-in monitoring
+- ✅ Easy scaling
+
+### Docker (Local Development)
 
 Start all services:
 ```bash
