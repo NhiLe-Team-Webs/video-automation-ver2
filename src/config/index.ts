@@ -28,6 +28,8 @@ export interface SystemConfig {
     clientId: string;
     clientSecret: string;
     redirectUri: string;
+    accessToken?: string;
+    refreshToken?: string;
   };
   notifications: {
     method: 'email' | 'webhook' | 'sms' | 'telegram';
@@ -85,6 +87,8 @@ export const config: SystemConfig = {
     clientId: getEnvVar('YOUTUBE_CLIENT_ID'),
     clientSecret: getEnvVar('YOUTUBE_CLIENT_SECRET'),
     redirectUri: getEnvVar('YOUTUBE_REDIRECT_URI'),
+    accessToken: process.env.YOUTUBE_ACCESS_TOKEN,
+    refreshToken: process.env.YOUTUBE_REFRESH_TOKEN,
   },
   notifications: {
     method: (process.env.NOTIFICATION_METHOD || 'webhook') as 'email' | 'webhook' | 'sms' | 'telegram',

@@ -40,6 +40,24 @@ export class YouTubeUploadService {
       config.youtube.redirectUri
     );
 
+    // Load credentials from environment if available
+    if (config.youtube.accessToken) {
+      const credentials: any = {
+        access_token: config.youtube.accessToken,
+      };
+      
+      if (config.youtube.refreshToken) {
+        credentials.refresh_token = config.youtube.refreshToken;
+      }
+      
+      this.oauth2Client.setCredentials(credentials);
+      
+      logger.info('Loaded YouTube credentials from environment', {
+        hasAccessToken: !!credentials.access_token,
+        hasRefreshToken: !!credentials.refresh_token,
+      });
+    }
+
     // Initialize YouTube API client
     this.youtube = google.youtube({
       version: 'v3',

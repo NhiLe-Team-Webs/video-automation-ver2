@@ -4,6 +4,7 @@ import { config } from './config';
 import { createLogger } from './utils/logger';
 import { uploadRouter, errorHandler } from './api/uploadRoutes';
 import { previewRouter, previewErrorHandler } from './api/previewRoutes';
+import oauthRouter from './api/oauthRoutes';
 
 const logger = createLogger('Server');
 
@@ -22,6 +23,7 @@ async function startServer() {
 
     // Routes - Define specific routes BEFORE static file serving
     // IMPORTANT: More specific routes must come BEFORE general routes
+    app.use('/oauth', oauthRouter);
     app.use('/api/preview', previewRouter, previewErrorHandler);
     app.use('/api', uploadRouter, errorHandler);
 

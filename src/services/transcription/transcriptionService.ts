@@ -244,8 +244,8 @@ export class TranscriptionService {
 
     const srtPath = this.generateSRTPath(audioPath);
 
-    // Run Whisper CLI
-    // whisper audio.mp3 --model base --output_format srt --output_dir ./
+    // Run Whisper CLI with optimized parameters
+    // whisper audio.mp3 --model base --output_format srt --output_dir ./ --language en --verbose False
     const outputDir = path.dirname(srtPath);
     const args = [
       '-m', 'whisper',
@@ -253,6 +253,9 @@ export class TranscriptionService {
       '--model', config.whisper.model,
       '--output_format', 'srt',
       '--output_dir', outputDir,
+      '--language', 'en',  // Specify language to avoid detection overhead
+      '--verbose', 'False', // Reduce verbose output
+      '--word_timestamps', 'False', // Disable word timestamps for faster processing
     ];
 
     logger.info('Running Whisper command', {
@@ -260,8 +263,19 @@ export class TranscriptionService {
       args,
     });
 
+    // Set a timeout for the transcription process (30 minutes)
+    const timeoutMs = 30 * 60 * 1000;
+
     await new Promise<void>((resolve, reject) => {
       const process = spawn('python', args);
+      let timeoutId: NodeJS.Timeout;
+
+      // Set up timeout
+      timeoutId = setTimeout(() => {
+        logger.warn('Whisper process timeout, killing process', { jobId });
+        process.kill('SIGTERM');
+        reject(new Error('Whisper transcription timed out after 30 minutes'));
+      }, timeoutMs);
 
       let stdout = '';
       let stderr = '';
@@ -269,22 +283,34 @@ export class TranscriptionService {
       process.stdout.on('data', (data) => {
         const output = data.toString();
         stdout += output;
-        logger.debug('Whisper stdout', { output });
+        // Log progress information
+        if (output.includes('%') || output.includes('segments')) {
+          logger.info('Whisper progress', { jobId, output: output.trim() });
+        } else {
+          logger.debug('Whisper stdout', { output: output.trim() });
+        }
       });
 
       process.stderr.on('data', (data) => {
         const output = data.toString();
         stderr += output;
-        logger.debug('Whisper stderr', { output });
+        // Log warnings but not debug info
+        if (output.includes('Warning') || output.includes('Error')) {
+          logger.warn('Whisper stderr', { jobId, output: output.trim() });
+        } else {
+          logger.debug('Whisper stderr', { output: output.trim() });
+        }
       });
 
       process.on('close', (code) => {
+        clearTimeout(timeoutId);
         if (code === 0) {
-          logger.info('Whisper completed successfully');
+          logger.info('Whisper completed successfully', { jobId });
           resolve();
         } else {
           const errorMsg = `Whisper exited with code ${code}. stderr: ${stderr}`;
           logger.error('Whisper failed', {
+            jobId,
             exitCode: code,
             stdout,
             stderr,
@@ -294,7 +320,9 @@ export class TranscriptionService {
       });
 
       process.on('error', (error) => {
+        clearTimeout(timeoutId);
         logger.error('Failed to spawn Whisper process', {
+          jobId,
           error: error.message,
         });
         reject(new Error(`Failed to spawn Whisper: ${error.message}`));
@@ -352,11 +380,11 @@ export class TranscriptionService {
     const content = await fs.readFile(srtPath, 'utf-8');
     const segments: TranscriptSegment[] = [];
     
-    // Split by double newline to get each subtitle block
-    const blocks = content.trim().split(/\n\s*\n/);
+    // Split by double newline to get each subtitle block (handle both \n and \r\n)
+    const blocks = content.trim().split(/\r?\n\s*\r?\n/);
     
     for (const block of blocks) {
-      const lines = block.trim().split('\n');
+      const lines = block.trim().split(/\r?\n/);
       
       if (lines.length < 3) {
         continue; // Skip invalid blocks
@@ -366,13 +394,13 @@ export class TranscriptionService {
       // Line 1: timestamp
       // Line 2+: text
       
-      const timestampLine = lines[1];
+      const timestampLine = lines[1].trim(); // Remove any whitespace/carriage returns
       const timestampMatch = timestampLine.match(
-        /(\d{2}):(\d{2}):(\d{2}),(\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2}),(\d{3})/
+        /(\d{2}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2})[,.](\d{3})/
       );
       
       if (!timestampMatch) {
-        logger.warn('Invalid timestamp format', { timestampLine });
+        logger.warn('Invalid timestamp format', { timestampLine, block: block.substring(0, 100) });
         continue;
       }
       

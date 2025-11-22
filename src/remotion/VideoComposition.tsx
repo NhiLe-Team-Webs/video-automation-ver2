@@ -7,6 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
   interpolate,
+  staticFile,
 } from 'remotion';
 import { TemplateLoader } from './templateLoader';
 import { EditingPlan } from '../services/content-analysis/editingPlanService';
@@ -54,7 +55,7 @@ export const VideoComposition: React.FC<VideoCompositionProps> = ({
     <AbsoluteFill style={{ backgroundColor: 'black' }}>
       {/* Main video */}
       <Video
-        src={videoPath}
+        src={staticFile(videoPath)}
         style={{
           width: '100%',
           height: '100%',
@@ -211,7 +212,7 @@ const BrollOverlay: React.FC<{
   return (
     <AbsoluteFill style={{ opacity }}>
       <Video
-        src={videoPath}
+        src={staticFile(videoPath)}
         style={{
           width: '100%',
           height: '100%',

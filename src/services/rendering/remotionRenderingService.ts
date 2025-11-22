@@ -86,16 +86,27 @@ export class RemotionRenderingService {
         });
       }
 
-      // Create composition data
+      // Prepare public assets (copy videos to accessible location)
+      const publicAssets = await this.preparePublicAssets(
+        jobId,
+        input.videoPath,
+        input.brollVideos || []
+      );
+
+      // Create composition data with relative paths
       const compositionData = this.createCompositionData(
-        input,
+        {
+          ...input,
+          videoPath: publicAssets.videoPath,
+          brollVideos: publicAssets.brollVideos,
+        },
         videoMetadata,
         subtitles
       );
 
       // Bundle Remotion project
       logger.info('Bundling Remotion project', { jobId });
-      const bundleLocation = await this.bundleRemotionProject();
+      const bundleLocation = await this.bundleRemotionProject(jobId, publicAssets.publicDir);
 
       // Get composition
       logger.info('Selecting composition', { jobId });
@@ -110,7 +121,7 @@ export class RemotionRenderingService {
       await fs.mkdir(outputDir, { recursive: true });
 
       // Render video
-      logger.info('Rendering video', {
+      logger.info('Starting Remotion render', {
         jobId,
         composition: composition.id,
         durationInFrames: composition.durationInFrames,
@@ -124,15 +135,20 @@ export class RemotionRenderingService {
         outputLocation: input.outputPath,
         inputProps: compositionData as unknown as Record<string, unknown>,
         onProgress: ({ progress, renderedFrames, encodedFrames }) => {
-          if (renderedFrames % 30 === 0) {
-            logger.debug('Rendering progress', {
+          if (renderedFrames % 100 === 0 || renderedFrames === 0) {
+            logger.info('Remotion render progress', {
               jobId,
-              progress: `${(progress * 100).toFixed(1)}%`,
-              renderedFrames,
-              encodedFrames,
+              frame: renderedFrames,
+              totalFrames: composition.durationInFrames,
+              percentage: `${(progress * 100).toFixed(1)}%`,
             });
           }
         },
+      });
+
+      logger.info('Remotion render completed successfully', {
+        jobId,
+        outputPath: input.outputPath,
       });
 
       // Get output file stats
@@ -360,19 +376,61 @@ export class RemotionRenderingService {
   /**
    * Bundle Remotion project
    */
-  private async bundleRemotionProject(): Promise<string> {
+  private async bundleRemotionProject(jobId: string, publicDir: string): Promise<string> {
     const remotionRoot = path.join(__dirname, '../../remotion');
-    const bundleDir = path.join(this.tempDir, 'remotion-bundle');
+    const bundleDir = path.join(this.tempDir, `remotion-bundle-${jobId}`);
 
     await fs.mkdir(bundleDir, { recursive: true });
 
     const bundleLocation = await bundle({
       entryPoint: path.join(remotionRoot, 'index.ts'),
       outDir: bundleDir,
+      publicDir,
       webpackOverride: (config) => config,
     });
 
+    logger.info('Remotion project bundled successfully', {
+      jobId,
+      bundleLocation,
+    });
+
     return bundleLocation;
+  }
+
+  /**
+   * Copy video files to public directory for Remotion access
+   */
+  private async preparePublicAssets(
+    jobId: string,
+    videoPath: string,
+    brollVideos: BrollVideoMapping[]
+  ): Promise<{ publicDir: string; videoPath: string; brollVideos: BrollVideoMapping[] }> {
+    const publicDir = path.join(this.tempDir, `public-${jobId}`);
+    await fs.mkdir(publicDir, { recursive: true });
+
+    // Copy main video
+    const mainVideoName = path.basename(videoPath);
+    const publicVideoPath = path.join(publicDir, mainVideoName);
+    await fs.copyFile(videoPath, publicVideoPath);
+
+    // Copy B-roll videos
+    const publicBrollVideos: BrollVideoMapping[] = [];
+    for (const broll of brollVideos) {
+      const brollName = path.basename(broll.videoPath);
+      const publicBrollPath = path.join(publicDir, brollName);
+      await fs.copyFile(broll.videoPath, publicBrollPath);
+      
+      publicBrollVideos.push({
+        ...broll,
+        videoPath: brollName, // Use relative path
+      });
+    }
+
+    return {
+      publicDir,
+      videoPath: mainVideoName, // Use relative path
+      brollVideos: publicBrollVideos,
+    };
   }
 }
 

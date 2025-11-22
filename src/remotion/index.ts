@@ -20,6 +20,12 @@ export * from './transitions';
 // Composition
 export * from './VideoComposition';
 
+// Register the root component for Remotion
+import { registerRoot } from 'remotion';
+import { RemotionRoot } from './Root';
+
+registerRoot(RemotionRoot);
+
 // Helper function to generate complete resource list for LLM
 import { TemplateLoader } from './templateLoader';
 import { generateCSSAnimationListForLLM } from './animations/css-animations';
