@@ -62,7 +62,7 @@ describe('EditingPlanService', () => {
           {
             time: 10.0,
             type: 'fade',
-            duration: 0.5,
+            duration: 400,
           },
         ],
         brollPlacements: [
@@ -70,8 +70,56 @@ describe('EditingPlanService', () => {
             startTime: 15.0,
             duration: 3.0,
             searchTerm: 'nature',
+            fadeInDuration: 300,
+            fadeOutDuration: 300,
           },
         ],
+        zoomEffects: [
+          {
+            id: 'zoom-1',
+            startTime: 1.0,
+            endTime: 3.0,
+            targetScale: 1.2,
+            easingFunction: 'ease-in-out',
+            zoomDuration: 400,
+          },
+        ],
+        soundEffects: [
+          {
+            timestamp: 1.0,
+            effectType: 'zoom',
+            soundEffectId: 'zoom',
+            volume: 0.25,
+          },
+        ],
+        textHighlights: [
+          {
+            text: 'Important point',
+            startTime: 5.0,
+            duration: 2.0,
+            style: {
+              fontFamily: 'Inter',
+              fontSize: 48,
+              fontWeight: 700,
+              color: '#ffffff',
+              animation: 'fade-in',
+            },
+          },
+        ],
+        cutFilters: {
+          colorGrading: {
+            temperature: 0,
+            tint: 0,
+            contrast: 1.1,
+            saturation: 1.1,
+            highlights: 0,
+            shadows: 0,
+          },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       // Should not throw
@@ -91,6 +139,16 @@ describe('EditingPlanService', () => {
         animations: [],
         transitions: [],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -111,6 +169,16 @@ describe('EditingPlanService', () => {
         animations: [],
         transitions: [],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -131,6 +199,16 @@ describe('EditingPlanService', () => {
         ],
         transitions: [],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -151,6 +229,16 @@ describe('EditingPlanService', () => {
         ],
         transitions: [],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -166,10 +254,20 @@ describe('EditingPlanService', () => {
           {
             time: 10.0,
             type: 'invalid-type' as any,
-            duration: 0.5,
+            duration: 400,
           },
         ],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -187,8 +285,20 @@ describe('EditingPlanService', () => {
             startTime: 5.0,
             duration: 3.0,
             searchTerm: '', // empty search term
+            fadeInDuration: 300,
+            fadeOutDuration: 300,
           },
         ],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       };
 
       expect(() => (service as any).validatePlan(plan, 30.0)).toThrow(
@@ -204,6 +314,16 @@ describe('EditingPlanService', () => {
         animations: [],
         transitions: [],
         brollPlacements: [],
+        zoomEffects: [],
+        soundEffects: [],
+        textHighlights: [],
+        cutFilters: {
+          colorGrading: { temperature: 0, tint: 0, contrast: 1.1, saturation: 1.1, highlights: 0, shadows: 0 },
+          applySharpening: false,
+          sharpeningIntensity: 0.2,
+          applyVignette: true,
+          vignetteIntensity: 0.12,
+        },
       });
 
       const plan = (service as any).parseResponse(jsonResponse);
@@ -212,6 +332,10 @@ describe('EditingPlanService', () => {
       expect(plan).toHaveProperty('animations');
       expect(plan).toHaveProperty('transitions');
       expect(plan).toHaveProperty('brollPlacements');
+      expect(plan).toHaveProperty('zoomEffects');
+      expect(plan).toHaveProperty('soundEffects');
+      expect(plan).toHaveProperty('textHighlights');
+      expect(plan).toHaveProperty('cutFilters');
       expect(plan.highlights).toHaveLength(1);
     });
 
@@ -221,7 +345,17 @@ describe('EditingPlanService', () => {
   "highlights": [],
   "animations": [],
   "transitions": [],
-  "brollPlacements": []
+  "brollPlacements": [],
+  "zoomEffects": [],
+  "soundEffects": [],
+  "textHighlights": [],
+  "cutFilters": {
+    "colorGrading": { "temperature": 0, "tint": 0, "contrast": 1.1, "saturation": 1.1, "highlights": 0, "shadows": 0 },
+    "applySharpening": false,
+    "sharpeningIntensity": 0.2,
+    "applyVignette": true,
+    "vignetteIntensity": 0.12
+  }
 }
 \`\`\``;
 
@@ -234,7 +368,7 @@ describe('EditingPlanService', () => {
     it('should handle missing fields with defaults', () => {
       const jsonResponse = JSON.stringify({
         highlights: [{ startTime: 1, endTime: 2, effectType: 'zoom', parameters: {} }],
-        // missing animations, transitions, brollPlacements
+        // missing animations, transitions, brollPlacements, etc.
       });
 
       const plan = (service as any).parseResponse(jsonResponse);
@@ -242,6 +376,10 @@ describe('EditingPlanService', () => {
       expect(plan.animations).toEqual([]);
       expect(plan.transitions).toEqual([]);
       expect(plan.brollPlacements).toEqual([]);
+      expect(plan.zoomEffects).toEqual([]);
+      expect(plan.soundEffects).toEqual([]);
+      expect(plan.textHighlights).toEqual([]);
+      expect(plan.cutFilters).toBeDefined();
     });
 
     it('should throw error for invalid JSON', () => {

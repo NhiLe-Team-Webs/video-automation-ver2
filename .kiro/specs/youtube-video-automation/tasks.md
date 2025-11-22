@@ -481,7 +481,8 @@
   - **Property 51: Style guide compliance**
   - **Validates: Requirements 16.5**
 
-- [x] 33. Implement zoom effects for Remotion
+- [ ] 33. Implement zoom effects for Remotion
+
 
 
 
@@ -514,7 +515,12 @@
   - **Property 63: Saturation limits**
   - **Validates: Requirements 19.3**
 
-- [ ] 35. Update LLM prompt for professional editing orchestration
+- [x] 35. Update LLM prompt for professional editing orchestration
+
+
+
+
+
 
   - Load brand kit and available templates/transitions into prompt
   - Add instructions for consistent style selection (one transition type, one animation family)

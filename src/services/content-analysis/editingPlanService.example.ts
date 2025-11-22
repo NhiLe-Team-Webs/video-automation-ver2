@@ -53,6 +53,51 @@ async function main() {
       },
     ],
     videoDuration: 43,
+    videoMetadata: {
+      duration: 43,
+      resolution: { width: 1920, height: 1080 },
+      format: 'mp4',
+      aspectRatio: '16:9',
+    },
+    brandKit: {
+      name: 'Professional Tech',
+      colors: {
+        primary: '#2563eb',
+        secondary: '#7c3aed',
+        accent: '#f59e0b',
+        textColor: '#ffffff',
+        backgroundColor: '#1f2937',
+      },
+      typography: {
+        fontFamily: 'Inter, sans-serif',
+        fontSize: { small: 24, medium: 48, large: 72 },
+        fontWeight: 700,
+      },
+      animationPreferences: {
+        styleFamily: 'professional',
+        preferredTemplates: ['animated-text', 'slide-text', 'pulsing-text'],
+        timing: {
+          textAppearDuration: 300,
+          textDisappearDuration: 200,
+          transitionDuration: 400,
+          zoomDuration: 400,
+        },
+      },
+      transitionPreferences: {
+        type: 'fade',
+        duration: 400,
+        easing: 'ease-in-out',
+      },
+      effectPreferences: {
+        intensity: {
+          colorGrading: 0.3,
+          contrast: 1.1,
+          saturation: 1.1,
+          sharpness: 0.2,
+          vignette: 0.12,
+        },
+      },
+    },
   };
 
   console.log('Input:');
@@ -96,9 +141,40 @@ async function main() {
     console.log(`B-roll Placements: ${plan.brollPlacements.length}`);
     plan.brollPlacements.forEach((b, i) => {
       console.log(
-        `  ${i + 1}. "${b.searchTerm}" at ${b.startTime}s (${b.duration}s)`
+        `  ${i + 1}. "${b.searchTerm}" at ${b.startTime}s (${b.duration}s) - fade in: ${b.fadeInDuration}ms, fade out: ${b.fadeOutDuration}ms`
       );
     });
+    console.log();
+
+    console.log(`Zoom Effects: ${plan.zoomEffects.length}`);
+    plan.zoomEffects.forEach((z, i) => {
+      console.log(
+        `  ${i + 1}. ${z.id} at ${z.startTime}s - ${z.endTime}s (scale: ${z.targetScale}, duration: ${z.zoomDuration}ms)`
+      );
+    });
+    console.log();
+
+    console.log(`Sound Effects: ${plan.soundEffects.length}`);
+    plan.soundEffects.forEach((s, i) => {
+      console.log(
+        `  ${i + 1}. ${s.effectType} at ${s.timestamp}s (volume: ${s.volume})`
+      );
+    });
+    console.log();
+
+    console.log(`Text Highlights: ${plan.textHighlights.length}`);
+    plan.textHighlights.forEach((t, i) => {
+      console.log(
+        `  ${i + 1}. "${t.text}" at ${t.startTime}s (${t.duration}s) - ${t.style.animation}`
+      );
+    });
+    console.log();
+
+    console.log('Cut Filters:');
+    console.log(`  - Saturation: ${plan.cutFilters.colorGrading.saturation}x`);
+    console.log(`  - Contrast: ${plan.cutFilters.colorGrading.contrast}x`);
+    console.log(`  - Sharpening: ${plan.cutFilters.applySharpening ? 'enabled' : 'disabled'}`);
+    console.log(`  - Vignette: ${plan.cutFilters.vignetteIntensity}`);
     console.log();
 
     // Show full plan as JSON
