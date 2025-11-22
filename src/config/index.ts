@@ -63,6 +63,10 @@ function getEnvVar(key: string, defaultValue?: string): string {
   return value;
 }
 
+function getOptionalEnvVar(key: string, defaultValue: string = ''): string {
+  return process.env[key] || defaultValue;
+}
+
 export const config: SystemConfig = {
   autoEditor: {
     margin: '0.2sec',
@@ -71,21 +75,21 @@ export const config: SystemConfig = {
     skipThreshold: 300, // Skip auto editing for files longer than 5 minutes
   },
   whisper: {
-    model: getEnvVar('WHISPER_MODEL', 'base'),
+    model: getOptionalEnvVar('WHISPER_MODEL', 'base'),
   },
   gemini: {
-    apiKey: getEnvVar('GEMINI_API_KEY'),
-    model: getEnvVar('GEMINI_MODEL', 'gemini-pro'),
+    apiKey: getOptionalEnvVar('GEMINI_API_KEY'),
+    model: getOptionalEnvVar('GEMINI_MODEL', 'gemini-pro'),
   },
   googleSheets: {
-    spreadsheetId: getEnvVar('GOOGLE_SHEETS_SPREADSHEET_ID'),
-    credentials: getEnvVar('GOOGLE_SHEETS_CREDENTIALS'),
+    spreadsheetId: getOptionalEnvVar('GOOGLE_SHEETS_SPREADSHEET_ID'),
+    credentials: getOptionalEnvVar('GOOGLE_SHEETS_CREDENTIALS'),
   },
   pexels: {
-    apiKey: getEnvVar('PEXELS_API_KEY'),
+    apiKey: getOptionalEnvVar('PEXELS_API_KEY'),
   },
   soundEffects: {
-    apiKey: getEnvVar('PIXABAY_API_KEY'),
+    apiKey: getOptionalEnvVar('PIXABAY_API_KEY'),
     apiProvider: (process.env.SOUND_EFFECTS_PROVIDER || 'pixabay') as 'pixabay' | 'freesound',
     cacheEnabled: process.env.SOUND_EFFECTS_CACHE_ENABLED !== 'false',
   },
@@ -96,23 +100,23 @@ export const config: SystemConfig = {
     telegram: process.env.TELEGRAM_BOT_TOKEN
       ? {
           botToken: process.env.TELEGRAM_BOT_TOKEN,
-          chatId: getEnvVar('TELEGRAM_CHAT_ID'),
+          chatId: getOptionalEnvVar('TELEGRAM_CHAT_ID'),
         }
       : undefined,
   },
   storage: {
-    tempDir: path.resolve(getEnvVar('TEMP_DIR', './temp')),
-    cacheDir: path.resolve(getEnvVar('CACHE_DIR', './cache')),
-    sfxCacheDir: path.resolve(getEnvVar('SFX_CACHE_DIR', './cache/sfx')),
+    tempDir: path.resolve(getOptionalEnvVar('TEMP_DIR', './temp')),
+    cacheDir: path.resolve(getOptionalEnvVar('CACHE_DIR', './cache')),
+    sfxCacheDir: path.resolve(getOptionalEnvVar('SFX_CACHE_DIR', './cache/sfx')),
     wasabi: {
-      bucket: getEnvVar('WASABI_BUCKET'),
-      region: getEnvVar('WASABI_REGION', 'us-east-1'),
-      accessKeyId: getEnvVar('WASABI_ACCESS_KEY_ID'),
-      secretAccessKey: getEnvVar('WASABI_SECRET_ACCESS_KEY'),
+      bucket: getOptionalEnvVar('WASABI_BUCKET'),
+      region: getOptionalEnvVar('WASABI_REGION', 'us-east-1'),
+      accessKeyId: getOptionalEnvVar('WASABI_ACCESS_KEY_ID'),
+      secretAccessKey: getOptionalEnvVar('WASABI_SECRET_ACCESS_KEY'),
     },
   },
   server: {
-    port: parseInt(getEnvVar('PORT', '3000'), 10),
-    env: getEnvVar('NODE_ENV', 'development'),
+    port: parseInt(getOptionalEnvVar('PORT', '3000'), 10),
+    env: getOptionalEnvVar('NODE_ENV', 'development'),
   },
 };
